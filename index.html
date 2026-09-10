@@ -11,22 +11,21 @@
 <title>RESURGIR</title>
 
 <style>
-:root{
-  --bg:#090909;
-  --card:#121212;
-  --card2:#171717;
-  --line:#292929;
-  --text:#f4f4f4;
-  --muted:#858585;
-  --accent:#ffffff;
-  --green:#7cff9b;
-  --red:#ff6969;
-  --gold:#e7c66b;
-}
-
 *{
   box-sizing:border-box;
   -webkit-tap-highlight-color:transparent;
+}
+
+:root{
+  --bg:#090909;
+  --card:#121212;
+  --card2:#181818;
+  --line:#292929;
+  --text:#f5f5f5;
+  --muted:#858585;
+  --green:#82ff9b;
+  --red:#ff7070;
+  --gold:#e5c86a;
 }
 
 body{
@@ -34,22 +33,20 @@ body{
   background:var(--bg);
   color:var(--text);
   font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  min-height:100vh;
 }
 
-.container{
+.app{
   width:min(680px,100%);
-  margin:0 auto;
-  padding:20px 16px 60px;
+  margin:auto;
+  min-height:100vh;
+  padding-bottom:90px;
 }
-
-/* HEADER */
 
 header{
+  padding:20px 16px 10px;
   display:flex;
   justify-content:space-between;
   align-items:flex-start;
-  margin-bottom:26px;
 }
 
 .logo{
@@ -59,10 +56,10 @@ header{
 }
 
 .tagline{
-  margin-top:5px;
+  margin-top:4px;
   color:var(--muted);
-  font-size:10px;
-  letter-spacing:1.5px;
+  font-size:9px;
+  letter-spacing:1.2px;
 }
 
 .streak{
@@ -70,14 +67,37 @@ header{
 }
 
 .streak-number{
-  font-size:25px;
+  font-size:23px;
   font-weight:900;
 }
 
 .streak-label{
   color:var(--muted);
   font-size:9px;
-  letter-spacing:1.5px;
+  letter-spacing:1px;
+}
+
+/* SCREEN */
+
+.screen{
+  display:none;
+  padding:10px 16px;
+}
+
+.screen.active{
+  display:block;
+}
+
+.page-title{
+  font-size:25px;
+  font-weight:900;
+  margin:12px 0 5px;
+}
+
+.page-subtitle{
+  color:var(--muted);
+  font-size:11px;
+  margin-bottom:22px;
 }
 
 /* HERO */
@@ -85,21 +105,21 @@ header{
 .hero{
   border:1px solid var(--line);
   border-radius:18px;
-  padding:22px;
-  background:linear-gradient(145deg,#151515,#0d0d0d);
-  margin-bottom:16px;
+  padding:21px;
+  background:linear-gradient(145deg,#171717,#0d0d0d);
+  margin-bottom:12px;
 }
 
 .quote{
   font-size:20px;
   line-height:1.35;
   font-weight:800;
-  margin-bottom:18px;
 }
 
 .date{
   color:var(--muted);
-  font-size:12px;
+  font-size:11px;
+  margin-top:13px;
 }
 
 .score-row{
@@ -115,9 +135,8 @@ header{
 }
 
 .score small{
-  font-size:13px;
+  font-size:11px;
   color:var(--muted);
-  font-weight:500;
 }
 
 .level{
@@ -125,84 +144,105 @@ header{
 }
 
 .level-name{
+  font-weight:900;
   font-size:13px;
-  font-weight:800;
 }
 
-.level-xp{
+.total-xp{
   color:var(--muted);
-  font-size:11px;
+  font-size:10px;
   margin-top:4px;
 }
 
 .progress{
-  width:100%;
-  height:7px;
+  height:6px;
   background:#252525;
   border-radius:20px;
-  overflow:hidden;
   margin-top:12px;
+  overflow:hidden;
 }
 
 .progress-bar{
   height:100%;
+  background:white;
   width:0%;
-  background:#fff;
-  border-radius:20px;
-  transition:.4s ease;
+  transition:.4s;
 }
 
-/* SECTIONS */
+/* SECTION */
 
 .section{
-  margin-top:25px;
-}
-
-.section-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:10px;
+  margin-top:23px;
 }
 
 .section-title{
-  font-size:12px;
+  font-size:11px;
   letter-spacing:2px;
   font-weight:900;
+  margin-bottom:9px;
 }
 
-.section-sub{
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:15px;
+  padding:15px;
+  margin-bottom:8px;
+}
+
+/* HOME BUTTONS */
+
+.home-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+}
+
+.home-card{
+  min-height:105px;
+  padding:15px;
+  border:1px solid var(--line);
+  border-radius:15px;
+  background:var(--card);
+  cursor:pointer;
+}
+
+.home-card:active{
+  transform:scale(.98);
+}
+
+.home-icon{
+  font-size:20px;
+  margin-bottom:13px;
+}
+
+.home-name{
+  font-weight:900;
+  font-size:13px;
+}
+
+.home-desc{
   color:var(--muted);
   font-size:10px;
+  margin-top:4px;
 }
 
-/* MISSIONS */
+/* MISSION */
 
 .mission{
   display:flex;
   align-items:center;
-  gap:13px;
+  gap:12px;
   padding:15px;
-  margin-bottom:8px;
+  background:var(--card);
   border:1px solid var(--line);
   border-radius:14px;
-  background:var(--card);
+  margin-bottom:8px;
   cursor:pointer;
-  transition:.15s;
 }
 
 .mission:active{
   transform:scale(.98);
-}
-
-.mission.done{
-  border-color:#3b3b3b;
-  background:#151515;
-}
-
-.mission.done .check{
-  background:#fff;
-  color:#000;
 }
 
 .check{
@@ -214,8 +254,11 @@ header{
   justify-content:center;
   align-items:center;
   flex-shrink:0;
-  font-size:14px;
-  font-weight:900;
+}
+
+.mission.done .check{
+  background:white;
+  color:black;
 }
 
 .mission-info{
@@ -223,105 +266,98 @@ header{
 }
 
 .mission-name{
-  font-weight:800;
-  font-size:14px;
+  font-size:13px;
+  font-weight:900;
 }
 
 .mission-desc{
   color:var(--muted);
-  font-size:11px;
-  margin-top:3px;
+  font-size:10px;
+  margin-top:4px;
 }
 
 .xp{
-  font-size:11px;
-  font-weight:800;
   color:var(--muted);
+  font-size:10px;
+  font-weight:800;
 }
 
 /* NUTRITION */
 
-.nutrition-card{
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:15px;
-  padding:16px;
-}
-
 .input-grid{
   display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
 }
 
 .input-box{
   background:#0d0d0d;
-  border:1px solid #272727;
-  border-radius:12px;
+  border:1px solid var(--line);
+  border-radius:11px;
   padding:10px;
 }
 
 .input-box label{
   display:block;
   color:var(--muted);
-  font-size:10px;
+  font-size:9px;
   margin-bottom:5px;
 }
 
 .input-box input{
   width:100%;
   border:0;
-  outline:0;
+  outline:none;
   background:transparent;
   color:white;
   font-size:20px;
-  font-weight:800;
+  font-weight:900;
 }
 
 .target{
-  color:#666;
+  color:#555;
   font-size:9px;
-  margin-top:3px;
+  margin-top:4px;
 }
 
-.nutrition-score{
+.nutrition-result{
+  margin-top:14px;
+  padding-top:13px;
+  border-top:1px solid var(--line);
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-top:15px;
-  padding-top:13px;
-  border-top:1px solid var(--line);
 }
 
-.nutrition-score-number{
-  font-size:24px;
+.nutrition-score{
+  font-size:25px;
   font-weight:900;
 }
 
 .nutrition-status{
   color:var(--muted);
-  font-size:11px;
+  font-size:10px;
 }
 
 /* DON'T */
 
-.dont-item{
+.dont{
   display:flex;
   align-items:center;
-  gap:12px;
+  gap:11px;
   padding:14px;
-  background:var(--card);
   border:1px solid var(--line);
   border-radius:14px;
+  background:var(--card);
   margin-bottom:8px;
   cursor:pointer;
 }
 
-.dont-item.done{
+.dont.done{
   opacity:.5;
 }
 
-.dont-box{
+.dont-check{
   width:24px;
   height:24px;
   border:1px solid #444;
@@ -329,134 +365,185 @@ header{
   display:flex;
   align-items:center;
   justify-content:center;
-  flex-shrink:0;
 }
 
-.dont-item.done .dont-box{
-  background:#fff;
-  color:#000;
+.dont.done .dont-check{
+  background:white;
+  color:black;
 }
 
 .dont-text{
-  font-size:13px;
+  flex:1;
+  font-size:12px;
   font-weight:700;
 }
 
 /* CHARACTER */
 
-.character-card{
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:15px;
-  padding:16px;
-}
-
 .character-question{
   font-size:14px;
-  font-weight:800;
+  font-weight:900;
   line-height:1.5;
-  margin-bottom:13px;
-}
-
-.character-options{
-  display:grid;
-  gap:7px;
+  margin-bottom:12px;
 }
 
 .character-option{
   border:1px solid var(--line);
   border-radius:10px;
   padding:11px;
-  font-size:12px;
-  color:#bbb;
+  margin-bottom:7px;
+  font-size:11px;
+  color:#aaa;
   cursor:pointer;
 }
 
 .character-option.selected{
-  background:#fff;
-  color:#000;
-  border-color:#fff;
-  font-weight:800;
+  background:white;
+  color:black;
+  border-color:white;
+  font-weight:900;
+}
+
+/* JOURNAL */
+
+.journal-input{
+  width:100%;
+  min-height:90px;
+  resize:none;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:#0d0d0d;
+  color:white;
+  padding:13px;
+  outline:none;
+  font-size:14px;
+  line-height:1.5;
+}
+
+.char-count{
+  text-align:right;
+  color:#555;
+  font-size:9px;
+  margin-top:5px;
+}
+
+.button{
+  width:100%;
+  border:0;
+  border-radius:12px;
+  padding:14px;
+  background:white;
+  color:black;
+  font-weight:900;
+  margin-top:9px;
+  cursor:pointer;
+}
+
+.journal-entry{
+  border-top:1px solid var(--line);
+  padding:13px 0;
+}
+
+.journal-date{
+  color:var(--muted);
+  font-size:10px;
+  margin-bottom:5px;
+}
+
+.journal-text{
+  font-size:13px;
+  line-height:1.5;
 }
 
 /* REVIEW */
 
-.review-card{
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:15px;
-  padding:16px;
-}
-
 .review-label{
   color:var(--muted);
-  font-size:10px;
+  font-size:9px;
   letter-spacing:1px;
-  margin-bottom:7px;
+  margin-bottom:6px;
 }
 
 .review-input{
   width:100%;
-  min-height:55px;
+  min-height:65px;
   resize:none;
   background:#0d0d0d;
-  border:1px solid #292929;
+  color:white;
+  border:1px solid var(--line);
   border-radius:10px;
-  color:#fff;
   padding:11px;
-  font-size:13px;
   outline:none;
-  margin-bottom:14px;
+  font-size:12px;
+  margin-bottom:13px;
 }
 
 /* HISTORY */
 
-.history{
-  display:grid;
-  gap:7px;
-}
-
 .history-row{
   display:flex;
-  align-items:center;
   justify-content:space-between;
-  padding:12px 14px;
+  align-items:center;
+  padding:13px;
   border:1px solid var(--line);
   border-radius:11px;
   background:var(--card);
+  margin-bottom:7px;
 }
 
 .history-date{
   color:var(--muted);
-  font-size:11px;
+  font-size:10px;
 }
 
 .history-score{
   font-weight:900;
-  font-size:13px;
+  font-size:12px;
 }
 
-/* BUTTON */
+/* BACK */
 
-.save-button{
-  width:100%;
-  border:0;
-  border-radius:13px;
-  background:#fff;
-  color:#000;
-  padding:15px;
-  font-weight:900;
-  font-size:14px;
+.back{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  color:var(--muted);
+  font-size:11px;
   margin-top:5px;
   cursor:pointer;
 }
 
-.reset{
+/* NAV */
+
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:min(680px,100%);
+  background:rgba(10,10,10,.94);
+  backdrop-filter:blur(15px);
+  border-top:1px solid var(--line);
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  padding:8px 8px calc(8px + env(safe-area-inset-bottom));
+  z-index:20;
+}
+
+.nav-item{
   text-align:center;
-  color:#444;
-  font-size:10px;
-  margin-top:28px;
+  color:#666;
+  font-size:9px;
   cursor:pointer;
+}
+
+.nav-item.active{
+  color:white;
+}
+
+.nav-icon{
+  font-size:17px;
+  margin-bottom:3px;
 }
 
 /* XP POP */
@@ -464,9 +551,9 @@ header{
 .xp-pop{
   position:fixed;
   left:50%;
-  top:45%;
+  top:42%;
   transform:translate(-50%,-50%);
-  font-size:40px;
+  font-size:38px;
   font-weight:900;
   opacity:0;
   pointer-events:none;
@@ -474,35 +561,30 @@ header{
 }
 
 .xp-pop.show{
-  animation:xpPop .8s ease;
+  animation:pop .8s ease;
 }
 
-@keyframes xpPop{
-  0%{opacity:0;transform:translate(-50%,-30%) scale(.7)}
-  20%{opacity:1;transform:translate(-50%,-50%) scale(1.1)}
-  100%{opacity:0;transform:translate(-50%,-100%) scale(1)}
-}
-
-@media(max-width:420px){
-  .container{
-    padding-left:13px;
-    padding-right:13px;
+@keyframes pop{
+  0%{
+    opacity:0;
+    transform:translate(-50%,-30%) scale(.7);
   }
-
-  .hero{
-    padding:18px;
+  20%{
+    opacity:1;
+    transform:translate(-50%,-50%) scale(1.1);
   }
-
-  .quote{
-    font-size:18px;
+  100%{
+    opacity:0;
+    transform:translate(-50%,-100%) scale(1);
   }
 }
 </style>
 </head>
 
+
 <body>
 
-<div class="container">
+<div class="app">
 
 <header>
   <div>
@@ -517,64 +599,210 @@ header{
 </header>
 
 
-<!-- HERO -->
+<!-- ================= HOME ================= -->
 
-<div class="hero">
+<section id="home" class="screen active">
 
-  <div class="quote">
-    You don't need motivation.<br>
-    You need proof.
-  </div>
+  <div class="hero">
 
-  <div class="date" id="todayDate"></div>
+    <div class="quote">
+      You don't need motivation.<br>
+      You need proof.
+    </div>
 
-  <div class="score-row">
+    <div class="date" id="todayDate"></div>
 
-    <div>
-      <div class="score">
-        <span id="todayScore">0</span>
-        <small>XP TODAY</small>
+    <div class="score-row">
+
+      <div>
+        <div class="score">
+          <span id="todayScore">0</span>
+          <small>XP TODAY</small>
+        </div>
       </div>
+
+      <div class="level">
+        <div class="level-name" id="levelName">LEVEL 1</div>
+        <div class="total-xp" id="totalXp">0 TOTAL XP</div>
+      </div>
+
     </div>
 
-    <div class="level">
-      <div class="level-name" id="levelName">LEVEL 1</div>
-      <div class="level-xp" id="totalXp">0 TOTAL XP</div>
+    <div class="progress">
+      <div class="progress-bar" id="progressBar"></div>
     </div>
 
   </div>
 
-  <div class="progress">
-    <div class="progress-bar" id="progressBar"></div>
+
+  <div class="section">
+
+    <div class="section-title">
+      BUILD
+    </div>
+
+    <div class="home-grid">
+
+      <div class="home-card" onclick="showPage('body')">
+        <div class="home-icon">◉</div>
+        <div class="home-name">BODY</div>
+        <div class="home-desc">鍛える</div>
+      </div>
+
+      <div class="home-card" onclick="showPage('wealth')">
+        <div class="home-icon">◆</div>
+        <div class="home-name">WEALTH</div>
+        <div class="home-desc">未来を作る</div>
+      </div>
+
+      <div class="home-card" onclick="showPage('mind')">
+        <div class="home-icon">◇</div>
+        <div class="home-name">MIND</div>
+        <div class="home-desc">頭を鍛える</div>
+      </div>
+
+      <div class="home-card" onclick="showPage('love')">
+        <div class="home-icon">♡</div>
+        <div class="home-name">LOVE</div>
+        <div class="home-desc">大切にする</div>
+      </div>
+
+      <div class="home-card" onclick="showPage('discipline')">
+        <div class="home-icon">◆</div>
+        <div class="home-name">DISCIPLINE</div>
+        <div class="home-desc">自分を律する</div>
+      </div>
+
+    </div>
+
   </div>
 
-</div>
 
+  <div class="section">
 
-<!-- BUILD -->
+    <div class="section-title">
+      CONTROL
+    </div>
 
-<div class="section">
+    <div class="home-grid">
 
-  <div class="section-header">
-    <div class="section-title">BUILD</div>
-    <div class="section-sub">BECOME STRONGER</div>
+      <div class="home-card" onclick="showPage('nutrition')">
+        <div class="home-icon">＋</div>
+        <div class="home-name">NUTRITION</div>
+        <div class="home-desc">食事を管理する</div>
+      </div>
+
+      <div class="home-card" onclick="showPage('dont')">
+        <div class="home-icon">×</div>
+        <div class="home-name">DON'T</div>
+        <div class="home-desc">やらないこと</div>
+      </div>
+
+      <div class="home-card" onclick="showPage('character')">
+        <div class="home-icon">◆</div>
+        <div class="home-name">CHARACTER</div>
+        <div class="home-desc">どんな男か</div>
+      </div>
+
+      <div class="home-card" onclick="showPage('journal')">
+        <div class="home-icon">—</div>
+        <div class="home-name">JOURNAL</div>
+        <div class="home-desc">今日の一言</div>
+      </div>
+
+    </div>
+
   </div>
 
-  <div id="missions"></div>
 
-</div>
+  <div class="section">
 
+    <div class="section-title">
+      NIGHT
+    </div>
 
-<!-- NUTRITION -->
+    <div class="home-card" onclick="showPage('review')" style="min-height:auto;">
+      <div class="home-name">NIGHT REVIEW →</div>
+      <div class="home-desc">今日の勝ちと明日の一手</div>
+    </div>
 
-<div class="section">
-
-  <div class="section-header">
-    <div class="section-title">NUTRITION</div>
-    <div class="section-sub">CONTROL THE BODY</div>
   </div>
 
-  <div class="nutrition-card">
+</section>
+
+
+<!-- ================= BUILD PAGES ================= -->
+
+<section id="body" class="screen">
+
+  <div class="back" onclick="showPage('home')">← HOME</div>
+
+  <div class="page-title">BODY</div>
+  <div class="page-subtitle">BUILD THE BODY.</div>
+
+  <div id="bodyMission"></div>
+
+</section>
+
+
+<section id="wealth" class="screen">
+
+  <div class="back" onclick="showPage('home')">← HOME</div>
+
+  <div class="page-title">WEALTH</div>
+  <div class="page-subtitle">BUILD YOUR FUTURE.</div>
+
+  <div id="wealthMission"></div>
+
+</section>
+
+
+<section id="mind" class="screen">
+
+  <div class="back" onclick="showPage('home')">← HOME</div>
+
+  <div class="page-title">MIND</div>
+  <div class="page-subtitle">BUILD YOUR MIND.</div>
+
+  <div id="mindMission"></div>
+
+</section>
+
+
+<section id="love" class="screen">
+
+  <div class="back" onclick="showPage('home')">← HOME</div>
+
+  <div class="page-title">LOVE</div>
+  <div class="page-subtitle">PROTECT WHAT MATTERS.</div>
+
+  <div id="loveMission"></div>
+
+</section>
+
+
+<section id="discipline" class="screen">
+
+  <div class="back" onclick="showPage('home')">← HOME</div>
+
+  <div class="page-title">DISCIPLINE</div>
+  <div class="page-subtitle">KEEP YOUR WORD.</div>
+
+  <div id="disciplineMission"></div>
+
+</section>
+
+
+<!-- ================= NUTRITION ================= -->
+
+<section id="nutrition" class="screen">
+
+  <div class="back" onclick="showPage('home')">← HOME</div>
+
+  <div class="page-title">NUTRITION</div>
+  <div class="page-subtitle">CONTROL THE BODY.</div>
+
+  <div class="card">
 
     <div class="input-grid">
 
@@ -604,12 +832,10 @@ header{
 
     </div>
 
-    <div class="nutrition-score">
+    <div class="nutrition-result">
 
-      <div>
-        <div class="nutrition-score-number">
-          <span id="nutritionScore">0</span> XP
-        </div>
+      <div class="nutrition-score">
+        <span id="nutritionScore">0</span> XP
       </div>
 
       <div class="nutrition-status" id="nutritionStatus">
@@ -620,55 +846,96 @@ header{
 
   </div>
 
-</div>
+</section>
 
 
-<!-- DON'T -->
+<!-- ================= DON'T ================= -->
 
-<div class="section">
+<section id="dont" class="screen">
 
-  <div class="section-header">
-    <div class="section-title">DON'T</div>
-    <div class="section-sub">WHAT I REFUSE TO DO</div>
-  </div>
+  <div class="back" onclick="showPage('home')">← HOME</div>
+
+  <div class="page-title">DON'T</div>
+  <div class="page-subtitle">WHAT I REFUSE TO DO.</div>
 
   <div id="dontList"></div>
 
-</div>
+</section>
 
 
-<!-- CHARACTER -->
+<!-- ================= CHARACTER ================= -->
 
-<div class="section">
+<section id="character" class="screen">
 
-  <div class="section-header">
-    <div class="section-title">CHARACTER</div>
-    <div class="section-sub">WHO YOU ARE WHEN NOBODY WATCHES</div>
-  </div>
+  <div class="back" onclick="showPage('home')">← HOME</div>
 
-  <div class="character-card">
+  <div class="page-title">CHARACTER</div>
+  <div class="page-subtitle">WHO YOU ARE WHEN NOBODY WATCHES.</div>
+
+  <div class="card">
 
     <div class="character-question">
       今日、どんな男として行動した？
     </div>
 
-    <div class="character-options" id="characterOptions"></div>
+    <div id="characterOptions"></div>
 
   </div>
 
-</div>
+</section>
 
 
-<!-- NIGHT REVIEW -->
+<!-- ================= JOURNAL ================= -->
 
-<div class="section">
+<section id="journal" class="screen">
 
-  <div class="section-header">
-    <div class="section-title">NIGHT REVIEW</div>
-    <div class="section-sub">1 MINUTE</div>
+  <div class="back" onclick="showPage('home')">← HOME</div>
+
+  <div class="page-title">JOURNAL</div>
+  <div class="page-subtitle">ONE LINE. ONE DAY. ONE PROOF.</div>
+
+  <div class="card">
+
+    <textarea
+      id="journalInput"
+      class="journal-input"
+      maxlength="100"
+      placeholder="今日を一言で残す。"></textarea>
+
+    <div class="char-count">
+      <span id="charCount">0</span> / 100
+    </div>
+
+    <button class="button" onclick="saveJournal()">
+      SAVE JOURNAL
+    </button>
+
   </div>
 
-  <div class="review-card">
+
+  <div class="section">
+
+    <div class="section-title">
+      PAST JOURNALS
+    </div>
+
+    <div id="journalHistory"></div>
+
+  </div>
+
+</section>
+
+
+<!-- ================= REVIEW ================= -->
+
+<section id="review" class="screen">
+
+  <div class="back" onclick="showPage('home')">← HOME</div>
+
+  <div class="page-title">NIGHT REVIEW</div>
+  <div class="page-subtitle">1 MINUTE. NO EXCUSES.</div>
+
+  <div class="card">
 
     <div class="review-label">
       TODAY I WON
@@ -677,8 +944,7 @@ header{
     <textarea
       id="winInput"
       class="review-input"
-      placeholder="今日、自分に勝ったこと。">
-    </textarea>
+      placeholder="今日、自分に勝ったこと。"></textarea>
 
     <div class="review-label">
       TOMORROW I WILL
@@ -687,284 +953,372 @@ header{
     <textarea
       id="tomorrowInput"
       class="review-input"
-      placeholder="明日、必ずやること。">
-    </textarea>
+      placeholder="明日、必ずやること。"></textarea>
 
-    <button class="save-button" onclick="saveDay()">
-      SAVE TODAY
+    <button class="button" onclick="saveDay()">
+      COMPLETE TODAY
     </button>
 
   </div>
 
+</section>
+
+
+<!-- ================= HISTORY ================= -->
+
+<section id="history" class="screen">
+
+  <div class="back" onclick="showPage('home')">← HOME</div>
+
+  <div class="page-title">HISTORY</div>
+  <div class="page-subtitle">YOUR PROOF.</div>
+
+  <div id="historyList"></div>
+
+</section>
+
+
 </div>
 
 
-<!-- HISTORY -->
+<!-- BOTTOM NAV -->
 
-<div class="section">
+<nav class="bottom-nav">
 
-  <div class="section-header">
-    <div class="section-title">RECENT DAYS</div>
-    <div class="section-sub">PROOF</div>
+  <div class="nav-item active" data-page="home" onclick="showPage('home')">
+    <div class="nav-icon">⌂</div>
+    HOME
   </div>
 
-  <div class="history" id="history"></div>
+  <div class="nav-item" data-page="body" onclick="showPage('body')">
+    <div class="nav-icon">◉</div>
+    BUILD
+  </div>
 
-</div>
+  <div class="nav-item" data-page="nutrition" onclick="showPage('nutrition')">
+    <div class="nav-icon">＋</div>
+    FOOD
+  </div>
+
+  <div class="nav-item" data-page="dont" onclick="showPage('dont')">
+    <div class="nav-icon">×</div>
+    DON'T
+  </div>
+
+  <div class="nav-item" data-page="journal" onclick="showPage('journal')">
+    <div class="nav-icon">—</div>
+    JOURNAL
+  </div>
+
+</nav>
 
 
-<div class="reset" onclick="resetAll()">
-  RESET DATA
-</div>
-
-</div>
-
-
-<div class="xp-pop" id="xpPop">+XP</div>
+<div class="xp-pop" id="xpPop"></div>
 
 
 <script>
 
-/* =========================
-   CONFIG
-========================= */
+/* =====================================
+   DATA
+===================================== */
 
-const STORAGE_KEY = "resurgir_v2";
+const KEY = "resurgir_v3";
 
-const BUILD_MISSIONS = [
-  {
-    id:"body",
+const MISSIONS = {
+
+  body:{
     category:"BODY",
     title:"身体を鍛える",
     desc:"トレーニング or 8,000歩",
     xp:100
   },
-  {
-    id:"wealth",
+
+  wealth:{
     category:"WEALTH",
     title:"未来を作る",
     desc:"副業・仕事・勉強を60分",
     xp:100
   },
-  {
-    id:"mind",
+
+  mind:{
     category:"MIND",
     title:"頭を鍛える",
     desc:"読書20分",
     xp:80
   },
-  {
-    id:"love",
+
+  love:{
     category:"LOVE",
     title:"大切な人を大切にする",
     desc:"大切な人との時間を作る",
     xp:80
   },
-  {
-    id:"discipline",
+
+  discipline:{
     category:"DISCIPLINE",
     title:"自分との約束を守る",
     desc:"今日決めたルールを1つ守る",
     xp:120
   }
-];
+
+};
+
 
 const DONT_ITEMS = [
+
   {
     id:"alcohol",
     text:"逃げるために酒を飲まない",
     xp:40
   },
+
   {
     id:"smoking",
     text:"タバコに戻らない",
     xp:40
   },
+
   {
     id:"scroll",
     text:"目的のないSNS・動画をダラダラ見ない",
     xp:40
   },
+
   {
     id:"late",
-    text:"自分から無駄な夜更かしをしない",
+    text:"無駄な夜更かしをしない",
     xp:40
   },
+
   {
     id:"eating",
     text:"感情で食べない",
     xp:40
   },
+
   {
     id:"shopping",
     text:"衝動買いをしない",
     xp:40
   }
+
 ];
+
 
 const CHARACTER_OPTIONS = [
+
   "面倒なことから逃げなかった",
+
   "感情で反応せず、一度止まって考えた",
+
   "約束を守った",
+
   "自分の非を認めた",
+
   "感謝・敬意を行動にした",
+
   "大切な人を安心させる行動をした",
+
   "誰にも見られていない場所でも正しく行動した"
+
 ];
 
 
-/* =========================
+/* =====================================
    DATE
-========================= */
+===================================== */
 
-function getToday(){
+function todayKey(){
 
-  const now = new Date();
+  const d = new Date();
 
-  const y = now.getFullYear();
-  const m = String(now.getMonth()+1).padStart(2,"0");
-  const d = String(now.getDate()).padStart(2,"0");
+  const y = d.getFullYear();
 
-  return `${y}-${m}-${d}`;
+  const m =
+    String(d.getMonth()+1).padStart(2,"0");
+
+  const day =
+    String(d.getDate()).padStart(2,"0");
+
+  return `${y}-${m}-${day}`;
+
 }
 
 
-function formatDate(date){
+function formatDate(key){
 
-  const d = new Date(date + "T00:00:00");
+  return new Date(
+    key + "T00:00:00"
+  ).toLocaleDateString(
+    "ja-JP",
+    {
+      month:"numeric",
+      day:"numeric",
+      weekday:"short"
+    }
+  );
 
-  return d.toLocaleDateString("ja-JP",{
-    month:"numeric",
-    day:"numeric",
-    weekday:"short"
-  });
 }
 
 
-/* =========================
-   DEFAULT DATA
-========================= */
+/* =====================================
+   DEFAULT
+===================================== */
 
 function defaultData(){
 
   return {
+
     totalXp:0,
+
     history:{},
+
+    journals:{},
+
+    todayDate:todayKey(),
+
     today:{
+
       missions:{},
+
       dont:{},
+
       character:null,
+
       nutrition:{
         calories:"",
         protein:"",
         fat:"",
         carbs:""
       },
+
       win:"",
       tomorrow:""
+
     }
+
   };
+
 }
 
 
-/* =========================
-   LOAD
-========================= */
+let data;
 
-function loadData(){
+const saved =
+  localStorage.getItem(KEY);
 
-  const saved = localStorage.getItem(STORAGE_KEY);
 
-  if(!saved){
-    return defaultData();
-  }
+if(saved){
 
   try{
-    return JSON.parse(saved);
+    data = JSON.parse(saved);
   }catch{
-    return defaultData();
+    data = defaultData();
   }
 
-}
+}else{
 
-
-/* =========================
-   SAVE
-========================= */
-
-function saveData(){
-
-  localStorage.setItem(
-    STORAGE_KEY,
-    JSON.stringify(data)
-  );
-
-}
-
-
-/* =========================
-   TODAY
-========================= */
-
-const today = getToday();
-
-let data = loadData();
-
-
-/* =========================
-   MIGRATION
-========================= */
-
-if(!data.today){
   data = defaultData();
+
 }
 
-if(data.todayDate !== today){
+
+/* =====================================
+   NEW DAY
+===================================== */
+
+if(data.todayDate !== todayKey()){
 
   data.today = {
+
     missions:{},
+
     dont:{},
+
     character:null,
+
     nutrition:{
       calories:"",
       protein:"",
       fat:"",
       carbs:""
     },
+
     win:"",
     tomorrow:""
+
   };
 
-  data.todayDate = today;
+  data.todayDate = todayKey();
 
 }
 
 
-/* =========================
-   BUILD MISSIONS
-========================= */
+function save(){
 
-function renderMissions(){
+  localStorage.setItem(
+    KEY,
+    JSON.stringify(data)
+  );
 
-  const container =
-    document.getElementById("missions");
+}
 
-  container.innerHTML="";
 
-  BUILD_MISSIONS.forEach(mission=>{
+/* =====================================
+   PAGE NAVIGATION
+===================================== */
 
-    const done =
-      data.today.missions[mission.id] === true;
+function showPage(page){
 
-    const div =
-      document.createElement("div");
+  document
+    .querySelectorAll(".screen")
+    .forEach(el=>{
+      el.classList.remove("active");
+    });
 
-    div.className =
-      "mission " + (done ? "done":"");
+  const target =
+    document.getElementById(page);
 
-    div.onclick=()=>toggleMission(mission.id);
+  if(target){
+    target.classList.add("active");
+  }
 
-    div.innerHTML=`
+  document
+    .querySelectorAll(".nav-item")
+    .forEach(el=>{
+      el.classList.toggle(
+        "active",
+        el.dataset.page === page
+      );
+    });
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+  updateUI();
+
+}
+
+
+/* =====================================
+   BUILD MISSION
+===================================== */
+
+function missionHTML(id){
+
+  const mission = MISSIONS[id];
+
+  const done =
+    data.today.missions[id] === true;
+
+  return `
+
+    <div
+      class="mission ${done ? "done":""}"
+      onclick="toggleMission('${id}')"
+    >
 
       <div class="check">
         ${done ? "✓":""}
@@ -977,7 +1331,8 @@ function renderMissions(){
         </div>
 
         <div class="mission-desc">
-          ${mission.title} — ${mission.desc}
+          ${mission.title}<br>
+          ${mission.desc}
         </div>
 
       </div>
@@ -985,42 +1340,145 @@ function renderMissions(){
       <div class="xp">
         +${mission.xp}
       </div>
-    `;
 
-    container.appendChild(div);
+    </div>
+
+  `;
+
+}
+
+
+function renderBuildPages(){
+
+  Object.keys(MISSIONS).forEach(id=>{
+
+    const container =
+      document.getElementById(
+        id + "Mission"
+      );
+
+    if(container){
+      container.innerHTML =
+        missionHTML(id);
+    }
 
   });
 
 }
 
 
-/* =========================
-   TOGGLE MISSION
-========================= */
-
 function toggleMission(id){
 
   const mission =
-    BUILD_MISSIONS.find(x=>x.id===id);
+    MISSIONS[id];
 
   const current =
     data.today.missions[id] === true;
 
-  data.today.missions[id] = !current;
+  data.today.missions[id] =
+    !current;
 
   if(!current){
-    showXp(mission.xp);
+    showXP(mission.xp);
   }
 
-  saveData();
+  save();
   updateUI();
 
 }
 
 
-/* =========================
+/* =====================================
+   NUTRITION
+===================================== */
+
+function nutritionScore(){
+
+  const n =
+    data.today.nutrition;
+
+  const calories =
+    Number(n.calories);
+
+  const protein =
+    Number(n.protein);
+
+  const fat =
+    Number(n.fat);
+
+  const carbs =
+    Number(n.carbs);
+
+  if(
+    !calories &&
+    !protein &&
+    !fat &&
+    !carbs
+  ){
+    return 0;
+  }
+
+  let score=0;
+
+
+  if(
+    calories >= 1710 &&
+    calories <= 1890
+  ){
+    score+=50;
+  }
+
+
+  if(protein >= 150){
+    score+=50;
+  }else if(protein >= 135){
+    score+=35;
+  }
+
+
+  if(
+    fat >= 35 &&
+    fat <= 45
+  ){
+    score+=25;
+  }
+
+
+  if(
+    carbs >= 185 &&
+    carbs <= 225
+  ){
+    score+=25;
+  }
+
+
+  return score;
+
+}
+
+
+function nutritionStatus(score){
+
+  if(score===0)
+    return "入力すると採点";
+
+  if(score>=150)
+    return "PERFECT CONTROL";
+
+  if(score>=100)
+    return "GOOD";
+
+  if(score>=50)
+    return "KEEP GOING";
+
+  return "ADJUST";
+
+}
+
+
+/* =====================================
    DON'T
-========================= */
+===================================== */
 
 function renderDont(){
 
@@ -1038,13 +1496,26 @@ function renderDont(){
       document.createElement("div");
 
     div.className =
-      "dont-item " + (done ? "done":"");
+      "dont " +
+      (done ? "done":"");
 
-    div.onclick=()=>toggleDont(item.id);
+    div.onclick=()=>{
+
+      data.today.dont[item.id] =
+        !data.today.dont[item.id];
+
+      if(data.today.dont[item.id]){
+        showXP(item.xp);
+      }
+
+      save();
+      updateUI();
+
+    };
 
     div.innerHTML=`
 
-      <div class="dont-box">
+      <div class="dont-check">
         ${done ? "✓":""}
       </div>
 
@@ -1055,6 +1526,7 @@ function renderDont(){
       <div class="xp">
         +${item.xp}
       </div>
+
     `;
 
     container.appendChild(div);
@@ -1064,64 +1536,158 @@ function renderDont(){
 }
 
 
-function toggleDont(id){
-
-  const item =
-    DONT_ITEMS.find(x=>x.id===id);
-
-  const current =
-    data.today.dont[id] === true;
-
-  data.today.dont[id]=!current;
-
-  if(!current){
-    showXp(item.xp);
-  }
-
-  saveData();
-  updateUI();
-
-}
-
-
-/* =========================
+/* =====================================
    CHARACTER
-========================= */
+===================================== */
 
 function renderCharacter(){
 
   const container =
-    document.getElementById("characterOptions");
+    document.getElementById(
+      "characterOptions"
+    );
 
   container.innerHTML="";
 
-  CHARACTER_OPTIONS.forEach((text,index)=>{
+  CHARACTER_OPTIONS.forEach(
+    (text,index)=>{
+
+      const div =
+        document.createElement("div");
+
+      div.className =
+        "character-option " +
+        (
+          data.today.character === index
+            ? "selected"
+            : ""
+        );
+
+      div.textContent=text;
+
+      div.onclick=()=>{
+
+        const previous =
+          data.today.character;
+
+        data.today.character =
+          previous === index
+            ? null
+            : index;
+
+        if(previous !== index){
+          showXP(50);
+        }
+
+        save();
+        updateUI();
+
+      };
+
+      container.appendChild(div);
+
+    }
+  );
+
+}
+
+
+/* =====================================
+   JOURNAL
+===================================== */
+
+function saveJournal(){
+
+  let text =
+    document
+      .getElementById("journalInput")
+      .value
+      .trim();
+
+  if(!text){
+    alert("一言を書いてから保存しよう。");
+    return;
+  }
+
+  text = text.slice(0,100);
+
+  data.journals[todayKey()] = text;
+
+  save();
+
+  showXP(10);
+
+  document.getElementById(
+    "journalInput"
+  ).value="";
+
+  renderJournal();
+
+}
+
+
+function renderJournal(){
+
+  const input =
+    document.getElementById(
+      "journalInput"
+    );
+
+  if(data.journals[todayKey()]){
+    input.value =
+      data.journals[todayKey()];
+  }
+
+  updateCharCount();
+
+
+  const container =
+    document.getElementById(
+      "journalHistory"
+    );
+
+  container.innerHTML="";
+
+  const dates =
+    Object.keys(data.journals)
+      .sort()
+      .reverse()
+      .slice(0,30);
+
+
+  if(!dates.length){
+
+    container.innerHTML=`
+      <div class="card">
+        まだジャーナルがない。
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  dates.forEach(date=>{
 
     const div =
       document.createElement("div");
 
-    div.className =
-      "character-option " +
-      (data.today.character===index ? "selected":"");
+    div.className="journal-entry";
 
-    div.textContent=text;
+    div.innerHTML=`
 
-    div.onclick=()=>{
+      <div class="journal-date">
+        ${formatDate(date)}
+      </div>
 
-      const old =
-        data.today.character;
+      <div class="journal-text">
+        ${escapeHTML(
+          data.journals[date]
+        )}
+      </div>
 
-      data.today.character =
-        old===index ? null:index;
-
-      if(old!==index){
-        showXp(50);
-      }
-
-      saveData();
-      updateUI();
-
-    };
+    `;
 
     container.appendChild(div);
 
@@ -1130,204 +1696,172 @@ function renderCharacter(){
 }
 
 
-/* =========================
-   NUTRITION
-========================= */
+function updateCharCount(){
 
-function calculateNutrition(){
+  const input =
+    document.getElementById(
+      "journalInput"
+    );
 
-  const n = data.today.nutrition;
-
-  const calories = Number(n.calories);
-  const protein = Number(n.protein);
-  const fat = Number(n.fat);
-  const carbs = Number(n.carbs);
-
-  if(
-    !calories &&
-    !protein &&
-    !fat &&
-    !carbs
-  ){
-    return 0;
-  }
-
-  let score=0;
-
-  /* calories ±5% */
-
-  if(
-    calories >= 1710 &&
-    calories <= 1890
-  ){
-    score+=50;
-  }
-
-  /* protein */
-
-  if(protein >= 150){
-    score+=50;
-  }else if(protein >= 135){
-    score+=35;
-  }
-
-  /* fat */
-
-  if(
-    fat >= 35 &&
-    fat <= 45
-  ){
-    score+=25;
-  }
-
-  /* carbs ±10% */
-
-  if(
-    carbs >= 185 &&
-    carbs <= 225
-  ){
-    score+=25;
-  }
-
-  return score;
+  document.getElementById(
+    "charCount"
+  ).textContent =
+    input.value.length;
 
 }
 
 
-function nutritionStatus(score){
+document
+  .getElementById("journalInput")
+  .addEventListener(
+    "input",
+    updateCharCount
+  );
 
-  if(score===0){
-    return "入力すると採点";
+
+/* =====================================
+   NIGHT REVIEW
+===================================== */
+
+function saveDay(){
+
+  const score =
+    calculateTodayScore();
+
+  const old =
+    data.history[todayKey()];
+
+  if(old){
+    data.totalXp -= old.score;
   }
 
-  if(score>=150){
-    return "PERFECT CONTROL";
-  }
+  data.history[todayKey()] = {
 
-  if(score>=100){
-    return "GOOD";
-  }
+    score:score,
 
-  if(score>=50){
-    return "KEEP GOING";
-  }
+    win:
+      document
+        .getElementById("winInput")
+        .value,
 
-  return "ADJUST";
+    tomorrow:
+      document
+        .getElementById("tomorrowInput")
+        .value
+
+  };
+
+  data.totalXp += score;
+
+  data.today.win =
+    document
+      .getElementById("winInput")
+      .value;
+
+  data.today.tomorrow =
+    document
+      .getElementById("tomorrowInput")
+      .value;
+
+  save();
+
+  showXP(score);
+
+  updateUI();
+
+  alert(
+    `TODAY COMPLETE\n\n${score} XP`
+  );
 
 }
 
 
-/* =========================
-   INPUT EVENTS
-========================= */
-
-["calories","protein","fat","carbs"].forEach(id=>{
-
-  document
-    .getElementById(id)
-    .addEventListener("input",e=>{
-
-      data.today.nutrition[id] =
-        e.target.value;
-
-      saveData();
-      updateUI();
-
-    });
-
-});
-
-
-document
-  .getElementById("winInput")
-  .addEventListener("input",e=>{
-
-    data.today.win=e.target.value;
-    saveData();
-
-  });
-
-
-document
-  .getElementById("tomorrowInput")
-  .addEventListener("input",e=>{
-
-    data.today.tomorrow=e.target.value;
-    saveData();
-
-  });
-
-
-/* =========================
-   TODAY SCORE
-========================= */
+/* =====================================
+   SCORE
+===================================== */
 
 function calculateTodayScore(){
 
   let score=0;
 
-  BUILD_MISSIONS.forEach(mission=>{
 
-    if(data.today.missions[mission.id]){
-      score+=mission.xp;
-    }
+  Object.keys(MISSIONS)
+    .forEach(id=>{
 
-  });
+      if(data.today.missions[id]){
+        score += MISSIONS[id].xp;
+      }
+
+    });
+
 
   DONT_ITEMS.forEach(item=>{
 
     if(data.today.dont[item.id]){
-      score+=item.xp;
+      score += item.xp;
     }
 
   });
 
-  score+=calculateNutrition();
 
-  if(data.today.character!==null){
-    score+=50;
+  score += nutritionScore();
+
+
+  if(data.today.character !== null){
+    score += 50;
   }
+
 
   return score;
 
 }
 
 
-/* =========================
+/* =====================================
    LEVEL
-========================= */
+===================================== */
 
-function getLevel(totalXp){
+function getLevel(){
 
-  return Math.floor(totalXp / 1000)+1;
-
-}
-
-
-function getLevelProgress(totalXp){
-
-  return totalXp % 1000;
+  return Math.floor(
+    data.totalXp / 1000
+  ) + 1;
 
 }
 
 
-/* =========================
+function levelProgress(){
+
+  return data.totalXp % 1000;
+
+}
+
+
+/* =====================================
    STREAK
-========================= */
+===================================== */
 
-function calculateStreak(){
+function getStreak(){
 
   let streak=0;
 
-  let date = new Date();
+  let d=new Date();
 
   while(true){
 
-    const y=date.getFullYear();
-    const m=String(date.getMonth()+1).padStart(2,"0");
-    const d=String(date.getDate()).padStart(2,"0");
+    const y=d.getFullYear();
 
-    const key=`${y}-${m}-${d}`;
+    const m=
+      String(d.getMonth()+1)
+        .padStart(2,"0");
+
+    const day=
+      String(d.getDate())
+        .padStart(2,"0");
+
+    const key=
+      `${y}-${m}-${day}`;
+
 
     if(
       data.history[key] &&
@@ -1336,8 +1870,8 @@ function calculateStreak(){
 
       streak++;
 
-      date.setDate(
-        date.getDate()-1
+      d.setDate(
+        d.getDate()-1
       );
 
     }else{
@@ -1353,14 +1887,16 @@ function calculateStreak(){
 }
 
 
-/* =========================
+/* =====================================
    HISTORY
-========================= */
+===================================== */
 
 function renderHistory(){
 
   const container =
-    document.getElementById("history");
+    document.getElementById(
+      "historyList"
+    );
 
   container.innerHTML="";
 
@@ -1368,15 +1904,14 @@ function renderHistory(){
     Object.keys(data.history)
       .sort()
       .reverse()
-      .slice(0,7);
+      .slice(0,30);
 
-  if(dates.length===0){
+
+  if(!dates.length){
 
     container.innerHTML=`
-      <div class="history-row">
-        <div class="history-date">
-          まだ記録がない
-        </div>
+      <div class="card">
+        まだ記録がない。
       </div>
     `;
 
@@ -1384,10 +1919,8 @@ function renderHistory(){
 
   }
 
-  dates.forEach(date=>{
 
-    const record =
-      data.history[date];
+  dates.forEach(date=>{
 
     const div =
       document.createElement("div");
@@ -1401,7 +1934,7 @@ function renderHistory(){
       </div>
 
       <div class="history-score">
-        ${record.score} XP
+        ${data.history[date].score} XP
       </div>
 
     `;
@@ -1413,119 +1946,71 @@ function renderHistory(){
 }
 
 
-/* =========================
-   SAVE DAY
-========================= */
-
-function saveDay(){
-
-  const score =
-    calculateTodayScore();
-
-  const previous =
-    data.history[today];
-
-  data.history[today]={
-    score:score,
-    win:data.today.win,
-    tomorrow:data.today.tomorrow
-  };
-
-  /*
-    Total XP only receives today's score
-    once. If already saved, replace the
-    previous saved score.
-  */
-
-  if(previous){
-    data.totalXp -= previous.score;
-  }
-
-  data.totalXp += score;
-
-  saveData();
-
-  showXp(score);
-
-  updateUI();
-
-}
-
-
-/* =========================
-   XP POPUP
-========================= */
-
-function showXp(xp){
-
-  const el =
-    document.getElementById("xpPop");
-
-  el.textContent=`+${xp} XP`;
-
-  el.classList.remove("show");
-
-  void el.offsetWidth;
-
-  el.classList.add("show");
-
-}
-
-
-/* =========================
-   UPDATE UI
-========================= */
+/* =====================================
+   UPDATE
+===================================== */
 
 function updateUI(){
 
   const score =
     calculateTodayScore();
 
-  const total =
-    data.totalXp;
 
-  const level =
-    getLevel(total);
+  document.getElementById(
+    "todayScore"
+  ).textContent=score;
 
-  const levelProgress =
-    getLevelProgress(total);
 
-  document.getElementById("todayScore")
-    .textContent=score;
+  document.getElementById(
+    "streak"
+  ).textContent=getStreak();
 
-  document.getElementById("totalXp")
-    .textContent=`${total} TOTAL XP`;
 
-  document.getElementById("levelName")
-    .textContent=`LEVEL ${level}`;
+  document.getElementById(
+    "levelName"
+  ).textContent=
+    `LEVEL ${getLevel()}`;
 
-  document.getElementById("progressBar")
-    .style.width=`${levelProgress/10}%`;
 
-  document.getElementById("streak")
-    .textContent=calculateStreak();
+  document.getElementById(
+    "totalXp"
+  ).textContent=
+    `${data.totalXp} TOTAL XP`;
 
-  document.getElementById("todayDate")
-    .textContent=
-      new Date().toLocaleDateString(
-        "ja-JP",
-        {
-          year:"numeric",
-          month:"long",
-          day:"numeric",
-          weekday:"long"
-        }
-      );
 
-  document.getElementById("nutritionScore")
-    .textContent=
-      calculateNutrition();
+  document.getElementById(
+    "progressBar"
+  ).style.width=
+    `${levelProgress()/10}%`;
 
-  document.getElementById("nutritionStatus")
-    .textContent=
-      nutritionStatus(
-        calculateNutrition()
-      );
+
+  document.getElementById(
+    "todayDate"
+  ).textContent=
+    new Date().toLocaleDateString(
+      "ja-JP",
+      {
+        year:"numeric",
+        month:"long",
+        day:"numeric",
+        weekday:"long"
+      }
+    );
+
+
+  document.getElementById(
+    "nutritionScore"
+  ).textContent=
+    nutritionScore();
+
+
+  document.getElementById(
+    "nutritionStatus"
+  ).textContent=
+    nutritionStatus(
+      nutritionScore()
+    );
+
 
   document.getElementById("calories").value =
     data.today.nutrition.calories;
@@ -1539,45 +2024,98 @@ function updateUI(){
   document.getElementById("carbs").value =
     data.today.nutrition.carbs;
 
+
   document.getElementById("winInput").value =
     data.today.win || "";
 
   document.getElementById("tomorrowInput").value =
     data.today.tomorrow || "";
 
-  renderMissions();
+
+  renderBuildPages();
+
   renderDont();
+
   renderCharacter();
+
+  renderJournal();
+
   renderHistory();
 
 }
 
 
-/* =========================
-   RESET
-========================= */
+/* =====================================
+   NUTRITION INPUT
+===================================== */
 
-function resetAll(){
+["calories","protein","fat","carbs"]
+.forEach(id=>{
 
-  const ok =
-    confirm(
-      "RESURGIRの記録をすべて削除しますか？"
+  document
+    .getElementById(id)
+    .addEventListener(
+      "input",
+      event=>{
+
+        data.today.nutrition[id] =
+          event.target.value;
+
+        save();
+
+        updateUI();
+
+      }
     );
 
-  if(!ok) return;
+});
 
-  localStorage.removeItem(STORAGE_KEY);
 
-  location.reload();
+/* =====================================
+   XP ANIMATION
+===================================== */
+
+function showXP(xp){
+
+  const el =
+    document.getElementById(
+      "xpPop"
+    );
+
+  el.textContent =
+    `+${xp} XP`;
+
+  el.classList.remove("show");
+
+  void el.offsetWidth;
+
+  el.classList.add("show");
 
 }
 
 
-/* =========================
-   INIT
-========================= */
+/* =====================================
+   SECURITY
+===================================== */
 
-saveData();
+function escapeHTML(text){
+
+  return text
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+/* =====================================
+   INIT
+===================================== */
+
+save();
+
 updateUI();
 
 </script>
