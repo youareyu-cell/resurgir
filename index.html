@@ -1,787 +1,1586 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#111">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#090909">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
-<link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="RESURGIR">
+
 <title>RESURGIR</title>
 
 <style>
 :root{
-  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
-  background:#0b0b0b;
-  color:#f5f5f5
+  --bg:#090909;
+  --card:#121212;
+  --card2:#171717;
+  --line:#292929;
+  --text:#f4f4f4;
+  --muted:#858585;
+  --accent:#ffffff;
+  --green:#7cff9b;
+  --red:#ff6969;
+  --gold:#e7c66b;
 }
-*{box-sizing:border-box}
+
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
 body{
   margin:0;
-  background:linear-gradient(160deg,#151515,#080808 60%);
-  min-height:100vh
+  background:var(--bg);
+  color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  min-height:100vh;
 }
-main{
-  max-width:620px;
-  margin:auto;
-  padding:28px 18px 50px
+
+.container{
+  width:min(680px,100%);
+  margin:0 auto;
+  padding:20px 16px 60px;
 }
+
+/* HEADER */
+
 header{
   display:flex;
   justify-content:space-between;
-  align-items:flex-end;
-  margin-bottom:28px
-}
-h1{
-  font-size:34px;
-  letter-spacing:5px;
-  margin:0
-}
-.sub{
-  color:#999;
-  font-size:11px;
-  letter-spacing:2px;
-  margin-top:7px
-}
-.streak{text-align:right}
-.streak b{font-size:30px}
-.streak span{
-  display:block;
-  color:#999;
-  font-size:10px;
-  letter-spacing:1px
+  align-items:flex-start;
+  margin-bottom:26px;
 }
 
-.level{
-  border:1px solid #292929;
-  border-radius:16px;
-  padding:16px;
-  margin-bottom:12px;
-  background:#101010
-}
-.level-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center
-}
-.level-title{
-  color:#888;
-  font-size:10px;
-  letter-spacing:2px
-}
-.level-number{
+.logo{
   font-size:25px;
-  font-weight:800
+  font-weight:900;
+  letter-spacing:4px;
 }
-.level-xp{
-  color:#999;
-  font-size:11px
+
+.tagline{
+  margin-top:5px;
+  color:var(--muted);
+  font-size:10px;
+  letter-spacing:1.5px;
 }
-.level-progress{
-  height:6px;
-  background:#262626;
-  border-radius:99px;
-  overflow:hidden;
-  margin-top:10px
+
+.streak{
+  text-align:right;
 }
-.level-bar{
-  height:100%;
-  width:0;
-  background:#fff;
-  transition:.3s
+
+.streak-number{
+  font-size:25px;
+  font-weight:900;
+}
+
+.streak-label{
+  color:var(--muted);
+  font-size:9px;
+  letter-spacing:1.5px;
+}
+
+/* HERO */
+
+.hero{
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:22px;
+  background:linear-gradient(145deg,#151515,#0d0d0d);
+  margin-bottom:16px;
 }
 
 .quote{
-  border:1px solid #292929;
-  border-radius:16px;
-  padding:18px;
-  margin-bottom:20px;
-  background:#101010
+  font-size:20px;
+  line-height:1.35;
+  font-weight:800;
+  margin-bottom:18px;
 }
-.quote small{
-  color:#777;
-  letter-spacing:2px
+
+.date{
+  color:var(--muted);
+  font-size:12px;
 }
-.quote p{
-  font-size:18px;
-  line-height:1.5;
-  margin:9px 0 0;
-  font-weight:600
-}
-.progress{
-  height:8px;
-  background:#262626;
-  border-radius:99px;
-  overflow:hidden;
-  margin:12px 0 6px
-}
-.bar{
-  height:100%;
-  width:0;
-  background:#fff;
-  transition:.25s
-}
-.stats{
+
+.score-row{
   display:flex;
   justify-content:space-between;
-  color:#aaa;
-  font-size:12px
+  align-items:end;
+  margin-top:22px;
 }
 
-.card{
-  border:1px solid #292929;
-  border-radius:16px;
-  margin:12px 0;
-  background:#111;
-  overflow:hidden
+.score{
+  font-size:38px;
+  font-weight:900;
 }
-.mission{
-  display:flex;
-  align-items:center;
-  gap:14px;
-  padding:16px;
-  cursor:pointer
+
+.score small{
+  font-size:13px;
+  color:var(--muted);
+  font-weight:500;
 }
-.mission:active{background:#181818}
-.check{
-  width:25px;
-  height:25px;
-  border:1px solid #666;
-  border-radius:50%;
-  display:grid;
-  place-items:center;
-  flex:none
+
+.level{
+  text-align:right;
 }
-.done .check{
-  background:#f5f5f5;
-  color:#111;
-  border-color:#f5f5f5
+
+.level-name{
+  font-size:13px;
+  font-weight:800;
 }
-.done .title{
-  text-decoration:line-through;
-  color:#777
+
+.level-xp{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:4px;
 }
-.tag{
-  font-size:10px;
-  letter-spacing:1.5px;
-  color:#888
+
+.progress{
+  width:100%;
+  height:7px;
+  background:#252525;
+  border-radius:20px;
+  overflow:hidden;
+  margin-top:12px;
 }
-.title{
-  font-size:15px;
-  margin-top:4px
+
+.progress-bar{
+  height:100%;
+  width:0%;
+  background:#fff;
+  border-radius:20px;
+  transition:.4s ease;
 }
-.xp{
-  margin-left:auto;
-  color:#777;
-  font-size:11px
-}
+
+/* SECTIONS */
 
 .section{
-  margin-top:28px
+  margin-top:25px;
 }
+
+.section-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:10px;
+}
+
 .section-title{
   font-size:12px;
   letter-spacing:2px;
-  color:#888;
-  margin-bottom:10px
+  font-weight:900;
 }
 
-.spending{
-  border:1px solid #292929;
-  border-radius:16px;
-  padding:18px;
-  background:#101010
-}
-.spending-total{
-  font-size:32px;
-  font-weight:800;
-  margin-bottom:14px
-}
-.spending-label{
-  color:#777;
+.section-sub{
+  color:var(--muted);
   font-size:10px;
-  letter-spacing:2px;
-  margin-bottom:5px
 }
 
-input,select{
-  width:100%;
-  padding:14px;
-  border:1px solid #333;
-  background:#171717;
-  color:#eee;
+/* MISSIONS */
+
+.mission{
+  display:flex;
+  align-items:center;
+  gap:13px;
+  padding:15px;
+  margin-bottom:8px;
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:var(--card);
+  cursor:pointer;
+  transition:.15s;
+}
+
+.mission:active{
+  transform:scale(.98);
+}
+
+.mission.done{
+  border-color:#3b3b3b;
+  background:#151515;
+}
+
+.mission.done .check{
+  background:#fff;
+  color:#000;
+}
+
+.check{
+  width:27px;
+  height:27px;
+  border:1px solid #444;
+  border-radius:50%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-shrink:0;
+  font-size:14px;
+  font-weight:900;
+}
+
+.mission-info{
+  flex:1;
+}
+
+.mission-name{
+  font-weight:800;
+  font-size:14px;
+}
+
+.mission-desc{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:3px;
+}
+
+.xp{
+  font-size:11px;
+  font-weight:800;
+  color:var(--muted);
+}
+
+/* NUTRITION */
+
+.nutrition-card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:15px;
+  padding:16px;
+}
+
+.input-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+.input-box{
+  background:#0d0d0d;
+  border:1px solid #272727;
   border-radius:12px;
-  font-size:16px;
-  outline:none
+  padding:10px;
 }
-select{font-size:14px}
 
-button{
+.input-box label{
+  display:block;
+  color:var(--muted);
+  font-size:10px;
+  margin-bottom:5px;
+}
+
+.input-box input{
   width:100%;
-  padding:14px;
-  border:1px solid #333;
-  background:#171717;
-  color:#eee;
-  border-radius:12px;
-  font-weight:700;
-  letter-spacing:1px;
-  margin-top:10px
+  border:0;
+  outline:0;
+  background:transparent;
+  color:white;
+  font-size:20px;
+  font-weight:800;
 }
-button:active{transform:scale(.99)}
 
-.expenses{
-  margin-top:14px
+.target{
+  color:#666;
+  font-size:9px;
+  margin-top:3px;
 }
-.expense{
+
+.nutrition-score{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  border-bottom:1px solid #202020;
-  padding:11px 2px;
-  font-size:12px
+  margin-top:15px;
+  padding-top:13px;
+  border-top:1px solid var(--line);
 }
-.expense-category{
-  color:#888;
+
+.nutrition-score-number{
+  font-size:24px;
+  font-weight:900;
+}
+
+.nutrition-status{
+  color:var(--muted);
+  font-size:11px;
+}
+
+/* DON'T */
+
+.dont-item{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:14px;
+  margin-bottom:8px;
+  cursor:pointer;
+}
+
+.dont-item.done{
+  opacity:.5;
+}
+
+.dont-box{
+  width:24px;
+  height:24px;
+  border:1px solid #444;
+  border-radius:7px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+}
+
+.dont-item.done .dont-box{
+  background:#fff;
+  color:#000;
+}
+
+.dont-text{
+  font-size:13px;
+  font-weight:700;
+}
+
+/* CHARACTER */
+
+.character-card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:15px;
+  padding:16px;
+}
+
+.character-question{
+  font-size:14px;
+  font-weight:800;
+  line-height:1.5;
+  margin-bottom:13px;
+}
+
+.character-options{
+  display:grid;
+  gap:7px;
+}
+
+.character-option{
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:11px;
+  font-size:12px;
+  color:#bbb;
+  cursor:pointer;
+}
+
+.character-option.selected{
+  background:#fff;
+  color:#000;
+  border-color:#fff;
+  font-weight:800;
+}
+
+/* REVIEW */
+
+.review-card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:15px;
+  padding:16px;
+}
+
+.review-label{
+  color:var(--muted);
   font-size:10px;
-  letter-spacing:1px
+  letter-spacing:1px;
+  margin-bottom:7px;
 }
-.expense-amount{
-  font-weight:700
+
+.review-input{
+  width:100%;
+  min-height:55px;
+  resize:none;
+  background:#0d0d0d;
+  border:1px solid #292929;
+  border-radius:10px;
+  color:#fff;
+  padding:11px;
+  font-size:13px;
+  outline:none;
+  margin-bottom:14px;
 }
-.delete{
-  width:auto;
-  padding:5px 9px;
-  margin:0 0 0 8px;
-  font-size:10px;
-  color:#777
-}
+
+/* HISTORY */
 
 .history{
-  margin-top:28px
+  display:grid;
+  gap:7px;
 }
-.history h2{
-  font-size:12px;
-  letter-spacing:2px;
-  color:#888
-}
-.day{
+
+.history-row{
   display:flex;
+  align-items:center;
   justify-content:space-between;
-  border-bottom:1px solid #202020;
-  padding:11px 2px;
-  font-size:12px
+  padding:12px 14px;
+  border:1px solid var(--line);
+  border-radius:11px;
+  background:var(--card);
 }
-.muted{color:#777}
 
-footer{
+.history-date{
+  color:var(--muted);
+  font-size:11px;
+}
+
+.history-score{
+  font-weight:900;
+  font-size:13px;
+}
+
+/* BUTTON */
+
+.save-button{
+  width:100%;
+  border:0;
+  border-radius:13px;
+  background:#fff;
+  color:#000;
+  padding:15px;
+  font-weight:900;
+  font-size:14px;
+  margin-top:5px;
+  cursor:pointer;
+}
+
+.reset{
   text-align:center;
-  color:#555;
+  color:#444;
   font-size:10px;
-  letter-spacing:2px;
-  margin-top:35px
+  margin-top:28px;
+  cursor:pointer;
 }
 
-.toast{
+/* XP POP */
+
+.xp-pop{
   position:fixed;
   left:50%;
-  bottom:25px;
-  transform:translateX(-50%) translateY(20px);
-  background:#f5f5f5;
-  color:#111;
-  padding:12px 18px;
-  border-radius:99px;
-  font-size:12px;
-  font-weight:700;
+  top:45%;
+  transform:translate(-50%,-50%);
+  font-size:40px;
+  font-weight:900;
   opacity:0;
   pointer-events:none;
-  transition:.25s
+  z-index:100;
 }
-.toast.show{
-  opacity:1;
-  transform:translateX(-50%) translateY(0)
+
+.xp-pop.show{
+  animation:xpPop .8s ease;
+}
+
+@keyframes xpPop{
+  0%{opacity:0;transform:translate(-50%,-30%) scale(.7)}
+  20%{opacity:1;transform:translate(-50%,-50%) scale(1.1)}
+  100%{opacity:0;transform:translate(-50%,-100%) scale(1)}
+}
+
+@media(max-width:420px){
+  .container{
+    padding-left:13px;
+    padding-right:13px;
+  }
+
+  .hero{
+    padding:18px;
+  }
+
+  .quote{
+    font-size:18px;
+  }
 }
 </style>
 </head>
 
 <body>
-<main>
+
+<div class="container">
 
 <header>
   <div>
-    <h1>RESURGIR</h1>
-    <div class="sub">BUILD THE MAN YOU SAID YOU'D BECOME.</div>
+    <div class="logo">RESURGIR</div>
+    <div class="tagline">BUILD THE MAN YOU SAID YOU'D BECOME.</div>
   </div>
 
   <div class="streak">
-    <b id="streak">0</b>
-    <span>DAY STREAK</span>
+    <div class="streak-number" id="streak">0</div>
+    <div class="streak-label">DAY STREAK</div>
   </div>
 </header>
 
-<section class="level">
-  <div class="level-top">
-    <div>
-      <div class="level-title">CURRENT LEVEL</div>
-      <div class="level-number">LEVEL <span id="level">1</span></div>
-    </div>
-    <div class="level-xp" id="levelXp">0 / 500 XP</div>
-  </div>
-  <div class="level-progress">
-    <div class="level-bar" id="levelBar"></div>
-  </div>
-</section>
 
-<section class="quote">
-  <small>TODAY</small>
-  <p id="quote"></p>
+<!-- HERO -->
+
+<div class="hero">
+
+  <div class="quote">
+    You don't need motivation.<br>
+    You need proof.
+  </div>
+
+  <div class="date" id="todayDate"></div>
+
+  <div class="score-row">
+
+    <div>
+      <div class="score">
+        <span id="todayScore">0</span>
+        <small>XP TODAY</small>
+      </div>
+    </div>
+
+    <div class="level">
+      <div class="level-name" id="levelName">LEVEL 1</div>
+      <div class="level-xp" id="totalXp">0 TOTAL XP</div>
+    </div>
+
+  </div>
 
   <div class="progress">
-    <div class="bar" id="bar"></div>
+    <div class="progress-bar" id="progressBar"></div>
   </div>
 
-  <div class="stats">
-    <span id="progressText">0 / 5</span>
-    <span id="xp">0 XP</span>
+</div>
+
+
+<!-- BUILD -->
+
+<div class="section">
+
+  <div class="section-header">
+    <div class="section-title">BUILD</div>
+    <div class="section-sub">BECOME STRONGER</div>
   </div>
-</section>
 
-<section id="missions"></section>
+  <div id="missions"></div>
 
-<section class="section">
-  <div class="section-title">TODAY'S SPENDING</div>
+</div>
 
-  <div class="spending">
-    <div class="spending-label">TOTAL SPENDING</div>
-    <div class="spending-total" id="spendingTotal">¥0</div>
 
-    <input
-      id="amount"
-      type="number"
-      inputmode="numeric"
-      min="0"
-      placeholder="金額を入力"
-    >
+<!-- NUTRITION -->
 
-    <select id="category">
-      <option value="FOOD">FOOD</option>
-      <option value="TRANSPORT">TRANSPORT</option>
-      <option value="FUN">FUN</option>
-      <option value="SHOPPING">SHOPPING</option>
-      <option value="OTHER">OTHER</option>
-    </select>
+<div class="section">
 
-    <button id="addExpense">＋ ADD EXPENSE</button>
-
-    <div class="expenses" id="expenses"></div>
+  <div class="section-header">
+    <div class="section-title">NUTRITION</div>
+    <div class="section-sub">CONTROL THE BODY</div>
   </div>
-</section>
 
-<button id="reset">TODAY'S PROGRESS RESET</button>
+  <div class="nutrition-card">
 
-<section class="history">
-  <h2>RECENT DAYS</h2>
-  <div id="history"></div>
-</section>
+    <div class="input-grid">
 
-<footer>
-  BODY · WEALTH · LOVE · MIND · DISCIPLINE
-</footer>
+      <div class="input-box">
+        <label>CALORIES</label>
+        <input id="calories" type="number" inputmode="decimal" placeholder="0">
+        <div class="target">TARGET 1800 kcal</div>
+      </div>
 
-</main>
+      <div class="input-box">
+        <label>PROTEIN</label>
+        <input id="protein" type="number" inputmode="decimal" placeholder="0">
+        <div class="target">TARGET 150g</div>
+      </div>
 
-<div class="toast" id="toast"></div>
+      <div class="input-box">
+        <label>FAT</label>
+        <input id="fat" type="number" inputmode="decimal" placeholder="0">
+        <div class="target">TARGET 40g</div>
+      </div>
+
+      <div class="input-box">
+        <label>CARBS</label>
+        <input id="carbs" type="number" inputmode="decimal" placeholder="0">
+        <div class="target">TARGET 205g</div>
+      </div>
+
+    </div>
+
+    <div class="nutrition-score">
+
+      <div>
+        <div class="nutrition-score-number">
+          <span id="nutritionScore">0</span> XP
+        </div>
+      </div>
+
+      <div class="nutrition-status" id="nutritionStatus">
+        入力すると採点
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- DON'T -->
+
+<div class="section">
+
+  <div class="section-header">
+    <div class="section-title">DON'T</div>
+    <div class="section-sub">WHAT I REFUSE TO DO</div>
+  </div>
+
+  <div id="dontList"></div>
+
+</div>
+
+
+<!-- CHARACTER -->
+
+<div class="section">
+
+  <div class="section-header">
+    <div class="section-title">CHARACTER</div>
+    <div class="section-sub">WHO YOU ARE WHEN NOBODY WATCHES</div>
+  </div>
+
+  <div class="character-card">
+
+    <div class="character-question">
+      今日、どんな男として行動した？
+    </div>
+
+    <div class="character-options" id="characterOptions"></div>
+
+  </div>
+
+</div>
+
+
+<!-- NIGHT REVIEW -->
+
+<div class="section">
+
+  <div class="section-header">
+    <div class="section-title">NIGHT REVIEW</div>
+    <div class="section-sub">1 MINUTE</div>
+  </div>
+
+  <div class="review-card">
+
+    <div class="review-label">
+      TODAY I WON
+    </div>
+
+    <textarea
+      id="winInput"
+      class="review-input"
+      placeholder="今日、自分に勝ったこと。">
+    </textarea>
+
+    <div class="review-label">
+      TOMORROW I WILL
+    </div>
+
+    <textarea
+      id="tomorrowInput"
+      class="review-input"
+      placeholder="明日、必ずやること。">
+    </textarea>
+
+    <button class="save-button" onclick="saveDay()">
+      SAVE TODAY
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- HISTORY -->
+
+<div class="section">
+
+  <div class="section-header">
+    <div class="section-title">RECENT DAYS</div>
+    <div class="section-sub">PROOF</div>
+  </div>
+
+  <div class="history" id="history"></div>
+
+</div>
+
+
+<div class="reset" onclick="resetAll()">
+  RESET DATA
+</div>
+
+</div>
+
+
+<div class="xp-pop" id="xpPop">+XP</div>
+
 
 <script>
 
-const missions=[
-  ["BODY","トレーニング or 8,000歩",100],
-  ["WEALTH","副業・仕事・勉強を60分",100],
-  ["MIND","読書20分",80],
-  ["LOVE","大切な人との時間をつくる",80],
-  ["DISCIPLINE","自分で決めたルールを1つ守る",120]
+/* =========================
+   CONFIG
+========================= */
+
+const STORAGE_KEY = "resurgir_v2";
+
+const BUILD_MISSIONS = [
+  {
+    id:"body",
+    category:"BODY",
+    title:"身体を鍛える",
+    desc:"トレーニング or 8,000歩",
+    xp:100
+  },
+  {
+    id:"wealth",
+    category:"WEALTH",
+    title:"未来を作る",
+    desc:"副業・仕事・勉強を60分",
+    xp:100
+  },
+  {
+    id:"mind",
+    category:"MIND",
+    title:"頭を鍛える",
+    desc:"読書20分",
+    xp:80
+  },
+  {
+    id:"love",
+    category:"LOVE",
+    title:"大切な人を大切にする",
+    desc:"大切な人との時間を作る",
+    xp:80
+  },
+  {
+    id:"discipline",
+    category:"DISCIPLINE",
+    title:"自分との約束を守る",
+    desc:"今日決めたルールを1つ守る",
+    xp:120
+  }
 ];
 
-const quotes=[
-  "欲しい未来に、今日の行動は繋がっているか？",
-  "明日は昨日の延長線上にある。",
-  "気分ではなく、約束で動け。",
-  "小さくても、積み上げた奴が最後に強い。",
-  "Become, don't wish."
+const DONT_ITEMS = [
+  {
+    id:"alcohol",
+    text:"逃げるために酒を飲まない",
+    xp:40
+  },
+  {
+    id:"smoking",
+    text:"タバコに戻らない",
+    xp:40
+  },
+  {
+    id:"scroll",
+    text:"目的のないSNS・動画をダラダラ見ない",
+    xp:40
+  },
+  {
+    id:"late",
+    text:"自分から無駄な夜更かしをしない",
+    xp:40
+  },
+  {
+    id:"eating",
+    text:"感情で食べない",
+    xp:40
+  },
+  {
+    id:"shopping",
+    text:"衝動買いをしない",
+    xp:40
+  }
 ];
 
-const key="resurgir_v2";
+const CHARACTER_OPTIONS = [
+  "面倒なことから逃げなかった",
+  "感情で反応せず、一度止まって考えた",
+  "約束を守った",
+  "自分の非を認めた",
+  "感謝・敬意を行動にした",
+  "大切な人を安心させる行動をした",
+  "誰にも見られていない場所でも正しく行動した"
+];
 
-let data=JSON.parse(localStorage.getItem(key)||"{}");
 
-function localDate(){
+/* =========================
+   DATE
+========================= */
 
-  const d=new Date();
+function getToday(){
 
-  const y=d.getFullYear();
-  const m=String(d.getMonth()+1).padStart(2,"0");
-  const day=String(d.getDate()).padStart(2,"0");
+  const now = new Date();
 
-  return `${y}-${m}-${day}`;
+  const y = now.getFullYear();
+  const m = String(now.getMonth()+1).padStart(2,"0");
+  const d = String(now.getDate()).padStart(2,"0");
+
+  return `${y}-${m}-${d}`;
 }
 
-function dateOffset(offset){
 
-  const d=new Date();
+function formatDate(date){
 
-  d.setHours(12,0,0,0);
-  d.setDate(d.getDate()+offset);
+  const d = new Date(date + "T00:00:00");
 
-  const y=d.getFullYear();
-  const m=String(d.getMonth()+1).padStart(2,"0");
-  const day=String(d.getDate()).padStart(2,"0");
-
-  return `${y}-${m}-${day}`;
-}
-
-function save(){
-  localStorage.setItem(key,JSON.stringify(data));
-}
-
-function ensureToday(){
-
-  const k=localDate();
-
-  if(!data[k]){
-    data[k]={
-      done:[],
-      expenses:[]
-    };
-  }
-
-  if(!data[k].expenses){
-    data[k].expenses=[];
-  }
-
-  save();
-}
-
-function getTotalXP(){
-
-  let total=0;
-
-  Object.values(data).forEach(day=>{
-
-    if(!day.done) return;
-
-    day.done.forEach(i=>{
-      if(missions[i]) total+=missions[i][2];
-    });
-
+  return d.toLocaleDateString("ja-JP",{
+    month:"numeric",
+    day:"numeric",
+    weekday:"short"
   });
-
-  return total;
 }
 
-function getLevel(){
 
-  const xp=getTotalXP();
+/* =========================
+   DEFAULT DATA
+========================= */
 
-  return Math.floor(xp/500)+1;
-}
+function defaultData(){
 
-function renderLevel(){
-
-  const totalXP=getTotalXP();
-  const level=getLevel();
-
-  const currentXP=totalXP%500;
-  const percent=(currentXP/500)*100;
-
-  document.getElementById("level").textContent=level;
-  document.getElementById("levelXp").textContent=
-    `${currentXP} / 500 XP`;
-
-  document.getElementById("levelBar").style.width=
-    percent+"%";
-}
-
-function render(){
-
-  ensureToday();
-
-  const k=localDate();
-  const d=data[k];
-
-  const box=document.getElementById("missions");
-
-  box.innerHTML="";
-
-  let todayXP=0;
-
-  missions.forEach((m,i)=>{
-
-    const done=d.done.includes(i);
-
-    if(done){
-      todayXP+=m[2];
+  return {
+    totalXp:0,
+    history:{},
+    today:{
+      missions:{},
+      dont:{},
+      character:null,
+      nutrition:{
+        calories:"",
+        protein:"",
+        fat:"",
+        carbs:""
+      },
+      win:"",
+      tomorrow:""
     }
+  };
+}
 
-    box.innerHTML+=`
-      <div class="card mission ${done?"done":""}"
-           onclick="toggle(${i})">
 
-        <div class="check">
-          ${done?"✓":""}
+/* =========================
+   LOAD
+========================= */
+
+function loadData(){
+
+  const saved = localStorage.getItem(STORAGE_KEY);
+
+  if(!saved){
+    return defaultData();
+  }
+
+  try{
+    return JSON.parse(saved);
+  }catch{
+    return defaultData();
+  }
+
+}
+
+
+/* =========================
+   SAVE
+========================= */
+
+function saveData(){
+
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(data)
+  );
+
+}
+
+
+/* =========================
+   TODAY
+========================= */
+
+const today = getToday();
+
+let data = loadData();
+
+
+/* =========================
+   MIGRATION
+========================= */
+
+if(!data.today){
+  data = defaultData();
+}
+
+if(data.todayDate !== today){
+
+  data.today = {
+    missions:{},
+    dont:{},
+    character:null,
+    nutrition:{
+      calories:"",
+      protein:"",
+      fat:"",
+      carbs:""
+    },
+    win:"",
+    tomorrow:""
+  };
+
+  data.todayDate = today;
+
+}
+
+
+/* =========================
+   BUILD MISSIONS
+========================= */
+
+function renderMissions(){
+
+  const container =
+    document.getElementById("missions");
+
+  container.innerHTML="";
+
+  BUILD_MISSIONS.forEach(mission=>{
+
+    const done =
+      data.today.missions[mission.id] === true;
+
+    const div =
+      document.createElement("div");
+
+    div.className =
+      "mission " + (done ? "done":"");
+
+    div.onclick=()=>toggleMission(mission.id);
+
+    div.innerHTML=`
+
+      <div class="check">
+        ${done ? "✓":""}
+      </div>
+
+      <div class="mission-info">
+
+        <div class="mission-name">
+          ${mission.category}
         </div>
 
-        <div>
-          <div class="tag">${m[0]}</div>
-          <div class="title">${m[1]}</div>
+        <div class="mission-desc">
+          ${mission.title} — ${mission.desc}
         </div>
-
-        <div class="xp">+${m[2]} XP</div>
 
       </div>
+
+      <div class="xp">
+        +${mission.xp}
+      </div>
     `;
+
+    container.appendChild(div);
+
   });
 
-  const count=d.done.length;
-
-  document.getElementById("bar").style.width=
-    (count/5*100)+"%";
-
-  document.getElementById("progressText").textContent=
-    `${count} / 5`;
-
-  document.getElementById("xp").textContent=
-    `${todayXP} XP`;
-
-  document.getElementById("streak").textContent=
-    streak();
-
-  renderLevel();
-  renderSpending();
-  renderHistory();
 }
 
-function toggle(i){
 
-  const k=localDate();
-  const d=data[k];
+/* =========================
+   TOGGLE MISSION
+========================= */
 
-  if(d.done.includes(i)){
+function toggleMission(id){
 
-    d.done=d.done.filter(x=>x!==i);
+  const mission =
+    BUILD_MISSIONS.find(x=>x.id===id);
 
-  }else{
+  const current =
+    data.today.missions[id] === true;
 
-    d.done=[...d.done,i];
+  data.today.missions[id] = !current;
 
+  if(!current){
+    showXp(mission.xp);
   }
 
-  save();
-  render();
+  saveData();
+  updateUI();
 
-  if(d.done.length===5){
-    showToast("TODAY COMPLETE. RESURGIR.");
-  }
 }
 
-function streak(){
 
-  let n=0;
+/* =========================
+   DON'T
+========================= */
+
+function renderDont(){
+
+  const container =
+    document.getElementById("dontList");
+
+  container.innerHTML="";
+
+  DONT_ITEMS.forEach(item=>{
+
+    const done =
+      data.today.dont[item.id] === true;
+
+    const div =
+      document.createElement("div");
+
+    div.className =
+      "dont-item " + (done ? "done":"");
+
+    div.onclick=()=>toggleDont(item.id);
+
+    div.innerHTML=`
+
+      <div class="dont-box">
+        ${done ? "✓":""}
+      </div>
+
+      <div class="dont-text">
+        ${item.text}
+      </div>
+
+      <div class="xp">
+        +${item.xp}
+      </div>
+    `;
+
+    container.appendChild(div);
+
+  });
+
+}
+
+
+function toggleDont(id){
+
+  const item =
+    DONT_ITEMS.find(x=>x.id===id);
+
+  const current =
+    data.today.dont[id] === true;
+
+  data.today.dont[id]=!current;
+
+  if(!current){
+    showXp(item.xp);
+  }
+
+  saveData();
+  updateUI();
+
+}
+
+
+/* =========================
+   CHARACTER
+========================= */
+
+function renderCharacter(){
+
+  const container =
+    document.getElementById("characterOptions");
+
+  container.innerHTML="";
+
+  CHARACTER_OPTIONS.forEach((text,index)=>{
+
+    const div =
+      document.createElement("div");
+
+    div.className =
+      "character-option " +
+      (data.today.character===index ? "selected":"");
+
+    div.textContent=text;
+
+    div.onclick=()=>{
+
+      const old =
+        data.today.character;
+
+      data.today.character =
+        old===index ? null:index;
+
+      if(old!==index){
+        showXp(50);
+      }
+
+      saveData();
+      updateUI();
+
+    };
+
+    container.appendChild(div);
+
+  });
+
+}
+
+
+/* =========================
+   NUTRITION
+========================= */
+
+function calculateNutrition(){
+
+  const n = data.today.nutrition;
+
+  const calories = Number(n.calories);
+  const protein = Number(n.protein);
+  const fat = Number(n.fat);
+  const carbs = Number(n.carbs);
+
+  if(
+    !calories &&
+    !protein &&
+    !fat &&
+    !carbs
+  ){
+    return 0;
+  }
+
+  let score=0;
+
+  /* calories ±5% */
+
+  if(
+    calories >= 1710 &&
+    calories <= 1890
+  ){
+    score+=50;
+  }
+
+  /* protein */
+
+  if(protein >= 150){
+    score+=50;
+  }else if(protein >= 135){
+    score+=35;
+  }
+
+  /* fat */
+
+  if(
+    fat >= 35 &&
+    fat <= 45
+  ){
+    score+=25;
+  }
+
+  /* carbs ±10% */
+
+  if(
+    carbs >= 185 &&
+    carbs <= 225
+  ){
+    score+=25;
+  }
+
+  return score;
+
+}
+
+
+function nutritionStatus(score){
+
+  if(score===0){
+    return "入力すると採点";
+  }
+
+  if(score>=150){
+    return "PERFECT CONTROL";
+  }
+
+  if(score>=100){
+    return "GOOD";
+  }
+
+  if(score>=50){
+    return "KEEP GOING";
+  }
+
+  return "ADJUST";
+
+}
+
+
+/* =========================
+   INPUT EVENTS
+========================= */
+
+["calories","protein","fat","carbs"].forEach(id=>{
+
+  document
+    .getElementById(id)
+    .addEventListener("input",e=>{
+
+      data.today.nutrition[id] =
+        e.target.value;
+
+      saveData();
+      updateUI();
+
+    });
+
+});
+
+
+document
+  .getElementById("winInput")
+  .addEventListener("input",e=>{
+
+    data.today.win=e.target.value;
+    saveData();
+
+  });
+
+
+document
+  .getElementById("tomorrowInput")
+  .addEventListener("input",e=>{
+
+    data.today.tomorrow=e.target.value;
+    saveData();
+
+  });
+
+
+/* =========================
+   TODAY SCORE
+========================= */
+
+function calculateTodayScore(){
+
+  let score=0;
+
+  BUILD_MISSIONS.forEach(mission=>{
+
+    if(data.today.missions[mission.id]){
+      score+=mission.xp;
+    }
+
+  });
+
+  DONT_ITEMS.forEach(item=>{
+
+    if(data.today.dont[item.id]){
+      score+=item.xp;
+    }
+
+  });
+
+  score+=calculateNutrition();
+
+  if(data.today.character!==null){
+    score+=50;
+  }
+
+  return score;
+
+}
+
+
+/* =========================
+   LEVEL
+========================= */
+
+function getLevel(totalXp){
+
+  return Math.floor(totalXp / 1000)+1;
+
+}
+
+
+function getLevelProgress(totalXp){
+
+  return totalXp % 1000;
+
+}
+
+
+/* =========================
+   STREAK
+========================= */
+
+function calculateStreak(){
+
+  let streak=0;
+
+  let date = new Date();
 
   while(true){
 
-    const k=dateOffset(-n);
-    const x=data[k];
+    const y=date.getFullYear();
+    const m=String(date.getMonth()+1).padStart(2,"0");
+    const d=String(date.getDate()).padStart(2,"0");
 
-    if(!x || !x.done || x.done.length<5){
+    const key=`${y}-${m}-${d}`;
+
+    if(
+      data.history[key] &&
+      data.history[key].score > 0
+    ){
+
+      streak++;
+
+      date.setDate(
+        date.getDate()-1
+      );
+
+    }else{
+
       break;
+
     }
 
-    n++;
   }
 
-  return n;
+  return streak;
+
 }
 
-function renderSpending(){
 
-  const d=data[localDate()];
-
-  const total=d.expenses.reduce(
-    (sum,e)=>sum+Number(e.amount),
-    0
-  );
-
-  document.getElementById("spendingTotal").textContent=
-    "¥"+total.toLocaleString();
-
-  const box=document.getElementById("expenses");
-
-  box.innerHTML="";
-
-  if(d.expenses.length===0){
-
-    box.innerHTML=
-      `<div class="muted">No spending recorded today.</div>`;
-
-    return;
-  }
-
-  d.expenses.slice().reverse().forEach((e,index)=>{
-
-    const originalIndex=d.expenses.length-1-index;
-
-    box.innerHTML+=`
-      <div class="expense">
-
-        <div>
-          <div class="expense-category">
-            ${e.category}
-          </div>
-          <div>¥${Number(e.amount).toLocaleString()}</div>
-        </div>
-
-        <button
-          class="delete"
-          onclick="deleteExpense(${originalIndex})">
-          DELETE
-        </button>
-
-      </div>
-    `;
-  });
-}
-
-function addExpense(){
-
-  const input=document.getElementById("amount");
-  const category=document.getElementById("category");
-
-  const amount=Number(input.value);
-
-  if(!amount || amount<=0){
-
-    showToast("金額を入力してください");
-    return;
-  }
-
-  const k=localDate();
-
-  data[k].expenses.push({
-    amount:amount,
-    category:category.value
-  });
-
-  input.value="";
-
-  save();
-  render();
-
-  showToast("EXPENSE ADDED");
-}
-
-function deleteExpense(index){
-
-  const k=localDate();
-
-  data[k].expenses.splice(index,1);
-
-  save();
-  render();
-}
+/* =========================
+   HISTORY
+========================= */
 
 function renderHistory(){
 
-  const hist=document.getElementById("history");
+  const container =
+    document.getElementById("history");
 
-  hist.innerHTML="";
+  container.innerHTML="";
 
-  Object.keys(data)
-    .sort()
-    .reverse()
-    .slice(0,7)
-    .forEach(k=>{
+  const dates =
+    Object.keys(data.history)
+      .sort()
+      .reverse()
+      .slice(0,7);
 
-      const d=data[k];
+  if(dates.length===0){
 
-      const completed=
-        d.done ? d.done.length : 0;
-
-      const spending=
-        (d.expenses||[]).reduce(
-          (sum,e)=>sum+Number(e.amount),
-          0
-        );
-
-      hist.innerHTML+=`
-        <div class="day">
-
-          <span>${k}</span>
-
-          <span>
-            ${completed}/5
-            <span class="muted">
-              · ¥${spending.toLocaleString()}
-            </span>
-          </span>
-
+    container.innerHTML=`
+      <div class="history-row">
+        <div class="history-date">
+          まだ記録がない
         </div>
-      `;
-    });
-}
+      </div>
+    `;
 
-function showToast(message){
+    return;
 
-  const toast=document.getElementById("toast");
-
-  toast.textContent=message;
-  toast.classList.add("show");
-
-  setTimeout(()=>{
-    toast.classList.remove("show");
-  },1800);
-}
-
-document.getElementById("addExpense").onclick=
-  addExpense;
-
-document.getElementById("amount").addEventListener(
-  "keydown",
-  e=>{
-    if(e.key==="Enter"){
-      addExpense();
-    }
-  }
-);
-
-document.getElementById("reset").onclick=()=>{
-
-  if(confirm("今日の進捗をリセットする？")){
-
-    const k=localDate();
-
-    data[k].done=[];
-
-    save();
-    render();
-
-    showToast("TODAY RESET");
   }
 
-};
+  dates.forEach(date=>{
 
-function init(){
+    const record =
+      data.history[date];
 
-  ensureToday();
+    const div =
+      document.createElement("div");
 
-  const day=new Date().getDate();
+    div.className="history-row";
 
-  document.getElementById("quote").textContent=
-    quotes[day%quotes.length];
+    div.innerHTML=`
 
-  render();
+      <div class="history-date">
+        ${formatDate(date)}
+      </div>
+
+      <div class="history-score">
+        ${record.score} XP
+      </div>
+
+    `;
+
+    container.appendChild(div);
+
+  });
+
 }
 
-init();
+
+/* =========================
+   SAVE DAY
+========================= */
+
+function saveDay(){
+
+  const score =
+    calculateTodayScore();
+
+  const previous =
+    data.history[today];
+
+  data.history[today]={
+    score:score,
+    win:data.today.win,
+    tomorrow:data.today.tomorrow
+  };
+
+  /*
+    Total XP only receives today's score
+    once. If already saved, replace the
+    previous saved score.
+  */
+
+  if(previous){
+    data.totalXp -= previous.score;
+  }
+
+  data.totalXp += score;
+
+  saveData();
+
+  showXp(score);
+
+  updateUI();
+
+}
+
+
+/* =========================
+   XP POPUP
+========================= */
+
+function showXp(xp){
+
+  const el =
+    document.getElementById("xpPop");
+
+  el.textContent=`+${xp} XP`;
+
+  el.classList.remove("show");
+
+  void el.offsetWidth;
+
+  el.classList.add("show");
+
+}
+
+
+/* =========================
+   UPDATE UI
+========================= */
+
+function updateUI(){
+
+  const score =
+    calculateTodayScore();
+
+  const total =
+    data.totalXp;
+
+  const level =
+    getLevel(total);
+
+  const levelProgress =
+    getLevelProgress(total);
+
+  document.getElementById("todayScore")
+    .textContent=score;
+
+  document.getElementById("totalXp")
+    .textContent=`${total} TOTAL XP`;
+
+  document.getElementById("levelName")
+    .textContent=`LEVEL ${level}`;
+
+  document.getElementById("progressBar")
+    .style.width=`${levelProgress/10}%`;
+
+  document.getElementById("streak")
+    .textContent=calculateStreak();
+
+  document.getElementById("todayDate")
+    .textContent=
+      new Date().toLocaleDateString(
+        "ja-JP",
+        {
+          year:"numeric",
+          month:"long",
+          day:"numeric",
+          weekday:"long"
+        }
+      );
+
+  document.getElementById("nutritionScore")
+    .textContent=
+      calculateNutrition();
+
+  document.getElementById("nutritionStatus")
+    .textContent=
+      nutritionStatus(
+        calculateNutrition()
+      );
+
+  document.getElementById("calories").value =
+    data.today.nutrition.calories;
+
+  document.getElementById("protein").value =
+    data.today.nutrition.protein;
+
+  document.getElementById("fat").value =
+    data.today.nutrition.fat;
+
+  document.getElementById("carbs").value =
+    data.today.nutrition.carbs;
+
+  document.getElementById("winInput").value =
+    data.today.win || "";
+
+  document.getElementById("tomorrowInput").value =
+    data.today.tomorrow || "";
+
+  renderMissions();
+  renderDont();
+  renderCharacter();
+  renderHistory();
+
+}
+
+
+/* =========================
+   RESET
+========================= */
+
+function resetAll(){
+
+  const ok =
+    confirm(
+      "RESURGIRの記録をすべて削除しますか？"
+    );
+
+  if(!ok) return;
+
+  localStorage.removeItem(STORAGE_KEY);
+
+  location.reload();
+
+}
+
+
+/* =========================
+   INIT
+========================= */
+
+saveData();
+updateUI();
 
 </script>
+
 </body>
 </html>
