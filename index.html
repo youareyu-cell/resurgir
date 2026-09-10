@@ -4,111 +4,784 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#111">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
 <link rel="manifest" href="manifest.json">
 <title>RESURGIR</title>
+
 <style>
-:root{font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;background:#0b0b0b;color:#f5f5f5}
-*{box-sizing:border-box}body{margin:0;background:linear-gradient(160deg,#151515,#080808 60%);min-height:100vh}
-main{max-width:620px;margin:auto;padding:28px 18px 50px}
-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:28px}
-h1{font-size:34px;letter-spacing:5px;margin:0}.sub{color:#999;font-size:11px;letter-spacing:2px;margin-top:7px}
-.streak{text-align:right}.streak b{font-size:30px}.streak span{display:block;color:#999;font-size:10px;letter-spacing:1px}
-.quote{border:1px solid #292929;border-radius:16px;padding:18px;margin-bottom:20px;background:#101010}
-.quote small{color:#777;letter-spacing:2px}.quote p{font-size:18px;line-height:1.5;margin:9px 0 0;font-weight:600}
-.progress{height:8px;background:#262626;border-radius:99px;overflow:hidden;margin:12px 0 6px}.bar{height:100%;width:0;background:#fff;transition:.25s}
-.stats{display:flex;justify-content:space-between;color:#aaa;font-size:12px}
-.card{border:1px solid #292929;border-radius:16px;margin:12px 0;background:#111;overflow:hidden}
-.mission{display:flex;align-items:center;gap:14px;padding:16px;cursor:pointer}.mission:active{background:#181818}
-.check{width:25px;height:25px;border:1px solid #666;border-radius:50%;display:grid;place-items:center;flex:none}.done .check{background:#f5f5f5;color:#111;border-color:#f5f5f5}
-.done .title{text-decoration:line-through;color:#777}.tag{font-size:10px;letter-spacing:1.5px;color:#888}.title{font-size:15px;margin-top:4px}
-.xp{margin-left:auto;color:#777;font-size:11px}
-button{width:100%;padding:14px;border:1px solid #333;background:#171717;color:#eee;border-radius:12px;font-weight:700;letter-spacing:1px;margin-top:10px}
-button:active{transform:scale(.99)}.history{margin-top:28px}.history h2{font-size:12px;letter-spacing:2px;color:#888}
-.day{display:flex;justify-content:space-between;border-bottom:1px solid #202020;padding:11px 2px;font-size:12px}.muted{color:#777}
-footer{text-align:center;color:#555;font-size:10px;letter-spacing:2px;margin-top:35px}
+:root{
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  background:#0b0b0b;
+  color:#f5f5f5
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:linear-gradient(160deg,#151515,#080808 60%);
+  min-height:100vh
+}
+main{
+  max-width:620px;
+  margin:auto;
+  padding:28px 18px 50px
+}
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  margin-bottom:28px
+}
+h1{
+  font-size:34px;
+  letter-spacing:5px;
+  margin:0
+}
+.sub{
+  color:#999;
+  font-size:11px;
+  letter-spacing:2px;
+  margin-top:7px
+}
+.streak{text-align:right}
+.streak b{font-size:30px}
+.streak span{
+  display:block;
+  color:#999;
+  font-size:10px;
+  letter-spacing:1px
+}
+
+.level{
+  border:1px solid #292929;
+  border-radius:16px;
+  padding:16px;
+  margin-bottom:12px;
+  background:#101010
+}
+.level-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center
+}
+.level-title{
+  color:#888;
+  font-size:10px;
+  letter-spacing:2px
+}
+.level-number{
+  font-size:25px;
+  font-weight:800
+}
+.level-xp{
+  color:#999;
+  font-size:11px
+}
+.level-progress{
+  height:6px;
+  background:#262626;
+  border-radius:99px;
+  overflow:hidden;
+  margin-top:10px
+}
+.level-bar{
+  height:100%;
+  width:0;
+  background:#fff;
+  transition:.3s
+}
+
+.quote{
+  border:1px solid #292929;
+  border-radius:16px;
+  padding:18px;
+  margin-bottom:20px;
+  background:#101010
+}
+.quote small{
+  color:#777;
+  letter-spacing:2px
+}
+.quote p{
+  font-size:18px;
+  line-height:1.5;
+  margin:9px 0 0;
+  font-weight:600
+}
+.progress{
+  height:8px;
+  background:#262626;
+  border-radius:99px;
+  overflow:hidden;
+  margin:12px 0 6px
+}
+.bar{
+  height:100%;
+  width:0;
+  background:#fff;
+  transition:.25s
+}
+.stats{
+  display:flex;
+  justify-content:space-between;
+  color:#aaa;
+  font-size:12px
+}
+
+.card{
+  border:1px solid #292929;
+  border-radius:16px;
+  margin:12px 0;
+  background:#111;
+  overflow:hidden
+}
+.mission{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:16px;
+  cursor:pointer
+}
+.mission:active{background:#181818}
+.check{
+  width:25px;
+  height:25px;
+  border:1px solid #666;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  flex:none
+}
+.done .check{
+  background:#f5f5f5;
+  color:#111;
+  border-color:#f5f5f5
+}
+.done .title{
+  text-decoration:line-through;
+  color:#777
+}
+.tag{
+  font-size:10px;
+  letter-spacing:1.5px;
+  color:#888
+}
+.title{
+  font-size:15px;
+  margin-top:4px
+}
+.xp{
+  margin-left:auto;
+  color:#777;
+  font-size:11px
+}
+
+.section{
+  margin-top:28px
+}
+.section-title{
+  font-size:12px;
+  letter-spacing:2px;
+  color:#888;
+  margin-bottom:10px
+}
+
+.spending{
+  border:1px solid #292929;
+  border-radius:16px;
+  padding:18px;
+  background:#101010
+}
+.spending-total{
+  font-size:32px;
+  font-weight:800;
+  margin-bottom:14px
+}
+.spending-label{
+  color:#777;
+  font-size:10px;
+  letter-spacing:2px;
+  margin-bottom:5px
+}
+
+input,select{
+  width:100%;
+  padding:14px;
+  border:1px solid #333;
+  background:#171717;
+  color:#eee;
+  border-radius:12px;
+  font-size:16px;
+  outline:none
+}
+select{font-size:14px}
+
+button{
+  width:100%;
+  padding:14px;
+  border:1px solid #333;
+  background:#171717;
+  color:#eee;
+  border-radius:12px;
+  font-weight:700;
+  letter-spacing:1px;
+  margin-top:10px
+}
+button:active{transform:scale(.99)}
+
+.expenses{
+  margin-top:14px
+}
+.expense{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid #202020;
+  padding:11px 2px;
+  font-size:12px
+}
+.expense-category{
+  color:#888;
+  font-size:10px;
+  letter-spacing:1px
+}
+.expense-amount{
+  font-weight:700
+}
+.delete{
+  width:auto;
+  padding:5px 9px;
+  margin:0 0 0 8px;
+  font-size:10px;
+  color:#777
+}
+
+.history{
+  margin-top:28px
+}
+.history h2{
+  font-size:12px;
+  letter-spacing:2px;
+  color:#888
+}
+.day{
+  display:flex;
+  justify-content:space-between;
+  border-bottom:1px solid #202020;
+  padding:11px 2px;
+  font-size:12px
+}
+.muted{color:#777}
+
+footer{
+  text-align:center;
+  color:#555;
+  font-size:10px;
+  letter-spacing:2px;
+  margin-top:35px
+}
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:25px;
+  transform:translateX(-50%) translateY(20px);
+  background:#f5f5f5;
+  color:#111;
+  padding:12px 18px;
+  border-radius:99px;
+  font-size:12px;
+  font-weight:700;
+  opacity:0;
+  pointer-events:none;
+  transition:.25s
+}
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0)
+}
 </style>
 </head>
+
 <body>
 <main>
+
 <header>
-<div><h1>RESURGIR</h1><div class="sub">BUILD THE MAN YOU SAID YOU'D BECOME.</div></div>
-<div class="streak"><b id="streak">0</b><span>DAY STREAK</span></div>
+  <div>
+    <h1>RESURGIR</h1>
+    <div class="sub">BUILD THE MAN YOU SAID YOU'D BECOME.</div>
+  </div>
+
+  <div class="streak">
+    <b id="streak">0</b>
+    <span>DAY STREAK</span>
+  </div>
 </header>
 
+<section class="level">
+  <div class="level-top">
+    <div>
+      <div class="level-title">CURRENT LEVEL</div>
+      <div class="level-number">LEVEL <span id="level">1</span></div>
+    </div>
+    <div class="level-xp" id="levelXp">0 / 500 XP</div>
+  </div>
+  <div class="level-progress">
+    <div class="level-bar" id="levelBar"></div>
+  </div>
+</section>
+
 <section class="quote">
-<small>TODAY</small>
-<p id="quote"></p>
-<div class="progress"><div class="bar" id="bar"></div></div>
-<div class="stats"><span id="progressText">0 / 5</span><span id="xp">0 XP</span></div>
+  <small>TODAY</small>
+  <p id="quote"></p>
+
+  <div class="progress">
+    <div class="bar" id="bar"></div>
+  </div>
+
+  <div class="stats">
+    <span id="progressText">0 / 5</span>
+    <span id="xp">0 XP</span>
+  </div>
 </section>
 
 <section id="missions"></section>
+
+<section class="section">
+  <div class="section-title">TODAY'S SPENDING</div>
+
+  <div class="spending">
+    <div class="spending-label">TOTAL SPENDING</div>
+    <div class="spending-total" id="spendingTotal">¥0</div>
+
+    <input
+      id="amount"
+      type="number"
+      inputmode="numeric"
+      min="0"
+      placeholder="金額を入力"
+    >
+
+    <select id="category">
+      <option value="FOOD">FOOD</option>
+      <option value="TRANSPORT">TRANSPORT</option>
+      <option value="FUN">FUN</option>
+      <option value="SHOPPING">SHOPPING</option>
+      <option value="OTHER">OTHER</option>
+    </select>
+
+    <button id="addExpense">＋ ADD EXPENSE</button>
+
+    <div class="expenses" id="expenses"></div>
+  </div>
+</section>
+
 <button id="reset">TODAY'S PROGRESS RESET</button>
 
 <section class="history">
-<h2>RECENT DAYS</h2>
-<div id="history"></div>
+  <h2>RECENT DAYS</h2>
+  <div id="history"></div>
 </section>
-<footer>BODY · WEALTH · LOVE · MIND · DISCIPLINE</footer>
+
+<footer>
+  BODY · WEALTH · LOVE · MIND · DISCIPLINE
+</footer>
+
 </main>
+
+<div class="toast" id="toast"></div>
+
 <script>
+
 const missions=[
-["BODY","トレーニング or 8,000歩",100],
-["WEALTH","副業・仕事・勉強を60分",100],
-["MIND","読書20分",80],
-["LOVE","大切な人との時間をつくる",80],
-["DISCIPLINE","自分で決めたルールを1つ守る",120]
+  ["BODY","トレーニング or 8,000歩",100],
+  ["WEALTH","副業・仕事・勉強を60分",100],
+  ["MIND","読書20分",80],
+  ["LOVE","大切な人との時間をつくる",80],
+  ["DISCIPLINE","自分で決めたルールを1つ守る",120]
 ];
+
 const quotes=[
-"欲しい未来に、今日の行動は繋がっているか？",
-"明日は昨日の延長線上にある。",
-"気分ではなく、約束で動け。",
-"小さくても、積み上げた奴が最後に強い。",
-"Become, don't wish."
+  "欲しい未来に、今日の行動は繋がっているか？",
+  "明日は昨日の延長線上にある。",
+  "気分ではなく、約束で動け。",
+  "小さくても、積み上げた奴が最後に強い。",
+  "Become, don't wish."
 ];
-const key="resurgir_v1";
+
+const key="resurgir_v2";
+
 let data=JSON.parse(localStorage.getItem(key)||"{}");
-const today=()=>new Date().toISOString().slice(0,10);
-function save(){localStorage.setItem(key,JSON.stringify(data))}
-function init(){
- if(!data[today()]) data[today()]={done:[]};
- document.getElementById("quote").textContent=quotes[new Date().getDate()%quotes.length];
- render(); save();
+
+function localDate(){
+
+  const d=new Date();
+
+  const y=d.getFullYear();
+  const m=String(d.getMonth()+1).padStart(2,"0");
+  const day=String(d.getDate()).padStart(2,"0");
+
+  return `${y}-${m}-${day}`;
 }
+
+function dateOffset(offset){
+
+  const d=new Date();
+
+  d.setHours(12,0,0,0);
+  d.setDate(d.getDate()+offset);
+
+  const y=d.getFullYear();
+  const m=String(d.getMonth()+1).padStart(2,"0");
+  const day=String(d.getDate()).padStart(2,"0");
+
+  return `${y}-${m}-${day}`;
+}
+
+function save(){
+  localStorage.setItem(key,JSON.stringify(data));
+}
+
+function ensureToday(){
+
+  const k=localDate();
+
+  if(!data[k]){
+    data[k]={
+      done:[],
+      expenses:[]
+    };
+  }
+
+  if(!data[k].expenses){
+    data[k].expenses=[];
+  }
+
+  save();
+}
+
+function getTotalXP(){
+
+  let total=0;
+
+  Object.values(data).forEach(day=>{
+
+    if(!day.done) return;
+
+    day.done.forEach(i=>{
+      if(missions[i]) total+=missions[i][2];
+    });
+
+  });
+
+  return total;
+}
+
+function getLevel(){
+
+  const xp=getTotalXP();
+
+  return Math.floor(xp/500)+1;
+}
+
+function renderLevel(){
+
+  const totalXP=getTotalXP();
+  const level=getLevel();
+
+  const currentXP=totalXP%500;
+  const percent=(currentXP/500)*100;
+
+  document.getElementById("level").textContent=level;
+  document.getElementById("levelXp").textContent=
+    `${currentXP} / 500 XP`;
+
+  document.getElementById("levelBar").style.width=
+    percent+"%";
+}
+
 function render(){
- const d=data[today()], box=document.getElementById("missions"); box.innerHTML="";
- let total=0;
- missions.forEach((m,i)=>{
-  const done=d.done.includes(i); if(done) total+=m[2];
-  box.innerHTML+=`<div class="card mission ${done?"done":""}" onclick="toggle(${i})"><div class="check">${done?"✓":""}</div><div><div class="tag">${m[0]}</div><div class="title">${m[1]}</div></div><div class="xp">+${m[2]} XP</div></div>`;
- });
- const count=d.done.length;
- document.getElementById("bar").style.width=(count/5*100)+"%";
- document.getElementById("progressText").textContent=`${count} / 5`;
- document.getElementById("xp").textContent=`${total} XP`;
- document.getElementById("streak").textContent=streak();
- const hist=document.getElementById("history"); hist.innerHTML="";
- Object.keys(data).sort().reverse().slice(0,7).forEach(k=>{
-  const n=data[k].done?.length||0;
-  hist.innerHTML+=`<div class="day"><span>${k}</span><span>${n}/5 completed</span></div>`;
- });
+
+  ensureToday();
+
+  const k=localDate();
+  const d=data[k];
+
+  const box=document.getElementById("missions");
+
+  box.innerHTML="";
+
+  let todayXP=0;
+
+  missions.forEach((m,i)=>{
+
+    const done=d.done.includes(i);
+
+    if(done){
+      todayXP+=m[2];
+    }
+
+    box.innerHTML+=`
+      <div class="card mission ${done?"done":""}"
+           onclick="toggle(${i})">
+
+        <div class="check">
+          ${done?"✓":""}
+        </div>
+
+        <div>
+          <div class="tag">${m[0]}</div>
+          <div class="title">${m[1]}</div>
+        </div>
+
+        <div class="xp">+${m[2]} XP</div>
+
+      </div>
+    `;
+  });
+
+  const count=d.done.length;
+
+  document.getElementById("bar").style.width=
+    (count/5*100)+"%";
+
+  document.getElementById("progressText").textContent=
+    `${count} / 5`;
+
+  document.getElementById("xp").textContent=
+    `${todayXP} XP`;
+
+  document.getElementById("streak").textContent=
+    streak();
+
+  renderLevel();
+  renderSpending();
+  renderHistory();
 }
+
 function toggle(i){
- const d=data[today()];
- d.done=d.done.includes(i)?d.done.filter(x=>x!==i):[...d.done,i];
- save();render();
+
+  const k=localDate();
+  const d=data[k];
+
+  if(d.done.includes(i)){
+
+    d.done=d.done.filter(x=>x!==i);
+
+  }else{
+
+    d.done=[...d.done,i];
+
+  }
+
+  save();
+  render();
+
+  if(d.done.length===5){
+    showToast("TODAY COMPLETE. RESURGIR.");
+  }
 }
+
 function streak(){
- let n=0,d=new Date();
- while(true){
-  const k=d.toISOString().slice(0,10), x=data[k];
-  if(!x || x.done.length<5) break;
-  n++; d.setDate(d.getDate()-1);
- }
- return n;
+
+  let n=0;
+
+  while(true){
+
+    const k=dateOffset(-n);
+    const x=data[k];
+
+    if(!x || !x.done || x.done.length<5){
+      break;
+    }
+
+    n++;
+  }
+
+  return n;
 }
-document.getElementById("reset").onclick=()=>{if(confirm("今日の進捗をリセットする？")){data[today()]={done:[]};save();render()}};
+
+function renderSpending(){
+
+  const d=data[localDate()];
+
+  const total=d.expenses.reduce(
+    (sum,e)=>sum+Number(e.amount),
+    0
+  );
+
+  document.getElementById("spendingTotal").textContent=
+    "¥"+total.toLocaleString();
+
+  const box=document.getElementById("expenses");
+
+  box.innerHTML="";
+
+  if(d.expenses.length===0){
+
+    box.innerHTML=
+      `<div class="muted">No spending recorded today.</div>`;
+
+    return;
+  }
+
+  d.expenses.slice().reverse().forEach((e,index)=>{
+
+    const originalIndex=d.expenses.length-1-index;
+
+    box.innerHTML+=`
+      <div class="expense">
+
+        <div>
+          <div class="expense-category">
+            ${e.category}
+          </div>
+          <div>¥${Number(e.amount).toLocaleString()}</div>
+        </div>
+
+        <button
+          class="delete"
+          onclick="deleteExpense(${originalIndex})">
+          DELETE
+        </button>
+
+      </div>
+    `;
+  });
+}
+
+function addExpense(){
+
+  const input=document.getElementById("amount");
+  const category=document.getElementById("category");
+
+  const amount=Number(input.value);
+
+  if(!amount || amount<=0){
+
+    showToast("金額を入力してください");
+    return;
+  }
+
+  const k=localDate();
+
+  data[k].expenses.push({
+    amount:amount,
+    category:category.value
+  });
+
+  input.value="";
+
+  save();
+  render();
+
+  showToast("EXPENSE ADDED");
+}
+
+function deleteExpense(index){
+
+  const k=localDate();
+
+  data[k].expenses.splice(index,1);
+
+  save();
+  render();
+}
+
+function renderHistory(){
+
+  const hist=document.getElementById("history");
+
+  hist.innerHTML="";
+
+  Object.keys(data)
+    .sort()
+    .reverse()
+    .slice(0,7)
+    .forEach(k=>{
+
+      const d=data[k];
+
+      const completed=
+        d.done ? d.done.length : 0;
+
+      const spending=
+        (d.expenses||[]).reduce(
+          (sum,e)=>sum+Number(e.amount),
+          0
+        );
+
+      hist.innerHTML+=`
+        <div class="day">
+
+          <span>${k}</span>
+
+          <span>
+            ${completed}/5
+            <span class="muted">
+              · ¥${spending.toLocaleString()}
+            </span>
+          </span>
+
+        </div>
+      `;
+    });
+}
+
+function showToast(message){
+
+  const toast=document.getElementById("toast");
+
+  toast.textContent=message;
+  toast.classList.add("show");
+
+  setTimeout(()=>{
+    toast.classList.remove("show");
+  },1800);
+}
+
+document.getElementById("addExpense").onclick=
+  addExpense;
+
+document.getElementById("amount").addEventListener(
+  "keydown",
+  e=>{
+    if(e.key==="Enter"){
+      addExpense();
+    }
+  }
+);
+
+document.getElementById("reset").onclick=()=>{
+
+  if(confirm("今日の進捗をリセットする？")){
+
+    const k=localDate();
+
+    data[k].done=[];
+
+    save();
+    render();
+
+    showToast("TODAY RESET");
+  }
+
+};
+
+function init(){
+
+  ensureToday();
+
+  const day=new Date().getDate();
+
+  document.getElementById("quote").textContent=
+    quotes[day%quotes.length];
+
+  render();
+}
+
 init();
+
 </script>
 </body>
 </html>
