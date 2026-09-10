@@ -1,317 +1,397 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0b0b0b">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="RESURGIR">
 <link rel="manifest" href="manifest.json">
 <title>RESURGIR</title>
 
 <style>
 *{
-  box-sizing:border-box
-}
-
-html,body{
-  margin:0;
-  background:#080808;
-  color:#f4f4f4;
-  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
 }
 
 body{
-  padding-bottom:82px
+  margin:0;
+  background:#080808;
+  color:#f5f5f5;
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+}
+
+button,input,select{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
 }
 
 .app{
-  max-width:720px;
+  max-width:600px;
   margin:auto;
-  padding:18px 16px 28px
+  min-height:100vh;
+  padding-bottom:90px;
 }
 
-.top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:18px
+header{
+  padding:24px 20px 12px;
+  position:sticky;
+  top:0;
+  z-index:10;
+  background:rgba(8,8,8,.92);
+  backdrop-filter:blur(12px);
 }
 
 .logo{
+  font-size:28px;
   font-weight:900;
-  letter-spacing:.18em;
-  font-size:21px
+  letter-spacing:4px;
 }
 
-.date{
-  font-size:12px;
-  color:#888
+.sub{
+  color:#777;
+  font-size:11px;
+  letter-spacing:2px;
+  margin-top:4px;
+}
+
+.screen{
+  display:none;
+  padding:12px 16px 24px;
+}
+
+.screen.active{
+  display:block;
 }
 
 .card{
   background:#111;
-  border:1px solid #222;
-  border-radius:18px;
-  padding:17px;
-  margin:12px 0
+  border:1px solid #242424;
+  border-radius:16px;
+  padding:18px;
+  margin-bottom:12px;
 }
 
-.hero{
-  padding:22px
+.card h2{
+  margin:0 0 12px;
+  font-size:14px;
+  letter-spacing:2px;
 }
 
-.muted{
-  color:#8f8f8f
-}
-
-.tiny{
-  font-size:11px;
-  color:#777
-}
-
-.big{
-  font-size:36px;
-  font-weight:900
+.card h3{
+  margin:0 0 8px;
+  font-size:13px;
 }
 
 .grid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
-  gap:10px
-}
-
-.grid3{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:8px
+  gap:10px;
 }
 
 .stat{
-  background:#151515;
-  border-radius:14px;
-  padding:13px
-}
-
-.stat b{
-  display:block;
-  font-size:22px;
-  margin-top:5px
-}
-
-h1,h2,h3{
-  margin:0 0 10px
-}
-
-h2{
-  font-size:19px
-}
-
-h3{
-  font-size:14px
-}
-
-.row{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  align-items:center
-}
-
-.pill{
-  font-size:11px;
-  padding:5px 8px;
-  border:1px solid #333;
-  border-radius:999px;
-  color:#bbb
-}
-
-button{
-  width:100%;
-  border:0;
+  background:#0c0c0c;
+  border:1px solid #222;
   border-radius:12px;
-  padding:13px 14px;
-  background:#f4f4f4;
-  color:#080808;
+  padding:14px;
+}
+
+.stat-label{
+  color:#777;
+  font-size:10px;
+  letter-spacing:1.5px;
+}
+
+.stat-value{
+  font-size:24px;
   font-weight:800;
-  margin-top:8px
-}
-
-button.secondary{
-  background:#1b1b1b;
-  color:#eee;
-  border:1px solid #333
-}
-
-button.danger{
-  background:#261414;
-  color:#ffb0b0;
-  border:1px solid #492020
-}
-
-input,textarea,select{
-  width:100%;
-  background:#0b0b0b;
-  color:#fff;
-  border:1px solid #333;
-  border-radius:11px;
-  padding:12px;
-  margin:6px 0 9px;
-  font-size:15px
-}
-
-textarea{
-  min-height:80px;
-  resize:vertical
+  margin-top:4px;
 }
 
 .progress{
   height:8px;
   background:#222;
   border-radius:99px;
-  overflow:hidden
+  overflow:hidden;
+  margin-top:10px;
 }
 
-.progress>i{
-  display:block;
+.progress div{
   height:100%;
-  background:#eee;
-  width:0
+  background:#f5f5f5;
+  width:0%;
 }
 
-.mission{
+input,select{
+  width:100%;
+  background:#0b0b0b;
+  color:#fff;
+  border:1px solid #303030;
+  border-radius:10px;
+  padding:12px;
+  outline:none;
+}
+
+input:focus,select:focus{
+  border-color:#777;
+}
+
+.row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+label{
+  display:block;
+  color:#777;
+  font-size:10px;
+  letter-spacing:1px;
+  margin-bottom:6px;
+}
+
+.btn{
+  width:100%;
+  border:0;
+  border-radius:11px;
+  padding:13px;
+  background:#f5f5f5;
+  color:#000;
+  font-weight:800;
+  margin-top:10px;
+}
+
+.btn.secondary{
+  background:#1b1b1b;
+  color:#fff;
+  border:1px solid #333;
+}
+
+.btn.danger{
+  background:#160b0b;
+  color:#ff8f8f;
+  border:1px solid #402020;
+}
+
+.small-btn{
+  border:1px solid #333;
+  background:#151515;
+  color:#fff;
+  padding:8px 10px;
+  border-radius:8px;
+  font-size:11px;
+}
+
+.muted{
+  color:#777;
+}
+
+.quote{
+  font-size:22px;
+  line-height:1.35;
+  font-weight:800;
+  letter-spacing:-.5px;
+}
+
+.score{
+  font-size:48px;
+  font-weight:900;
+}
+
+.rank{
+  font-size:14px;
+  letter-spacing:3px;
+  color:#aaa;
+}
+
+.list{
   display:flex;
-  align-items:center;
-  gap:12px;
-  padding:14px 0;
-  border-bottom:1px solid #222
+  flex-direction:column;
+  gap:8px;
 }
 
-.mission:last-child{
-  border-bottom:0
+.list-item{
+  background:#0c0c0c;
+  border:1px solid #222;
+  border-radius:12px;
+  padding:12px;
 }
 
 .check{
-  width:27px;
-  height:27px;
-  border:1px solid #555;
-  border-radius:50%;
-  display:grid;
-  place-items:center;
-  flex:none
+  display:flex;
+  align-items:center;
+  gap:10px;
 }
 
-.done .check{
-  background:#eee;
-  color:#000
+.check input{
+  width:20px;
+  height:20px;
 }
 
-.done .mtitle{
-  text-decoration:line-through;
-  color:#777
+.exercise{
+  border:1px solid #292929;
+  border-radius:13px;
+  padding:13px;
+  margin-bottom:10px;
+  background:#0c0c0c;
 }
 
-.mtitle{
-  font-weight:750
+.exercise-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
 }
 
-.xp{
-  margin-left:auto;
+.exercise-name{
+  font-weight:800;
+  font-size:14px;
+}
+
+.exercise-meta{
+  color:#777;
   font-size:11px;
-  color:#aaa
+  margin-top:4px;
+}
+
+.set-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:7px;
+  margin-top:10px;
+}
+
+.set-grid input{
+  padding:9px;
+  font-size:12px;
+}
+
+.routine-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:12px;
+}
+
+.routine-title{
+  font-size:20px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+.badge{
+  display:inline-block;
+  font-size:9px;
+  letter-spacing:1px;
+  padding:5px 7px;
+  border:1px solid #333;
+  border-radius:99px;
+  color:#aaa;
+}
+
+.empty{
+  text-align:center;
+  padding:24px 10px;
+  color:#666;
+  font-size:12px;
 }
 
 .nav{
   position:fixed;
-  z-index:5;
   bottom:0;
-  left:0;
-  right:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:min(600px,100%);
+  height:76px;
   background:rgba(8,8,8,.96);
   border-top:1px solid #222;
-  padding:8px max(10px,calc((100vw - 720px)/2 + 10px)) env(safe-area-inset-bottom)
-}
-
-.navin{
   display:grid;
   grid-template-columns:repeat(5,1fr);
-  gap:4px
+  z-index:50;
+  padding-bottom:env(safe-area-inset-bottom);
 }
 
 .nav button{
-  margin:0;
-  padding:9px 3px;
-  background:transparent;
-  color:#777;
-  font-size:10px
+  border:0;
+  background:none;
+  color:#666;
+  font-size:9px;
+  letter-spacing:.5px;
 }
 
 .nav button.active{
-  color:#fff
+  color:#fff;
+  font-weight:800;
 }
 
-.nav span{
+.nav-icon{
+  font-size:19px;
   display:block;
-  font-size:17px;
-  margin-bottom:2px
-}
-
-.screen{
-  display:none
-}
-
-.screen.active{
-  display:block
+  margin-bottom:4px;
 }
 
 .toast{
   position:fixed;
-  z-index:20;
   left:50%;
-  bottom:95px;
-  transform:translateX(-50%);
-  background:#eee;
-  color:#111;
-  padding:10px 15px;
-  border-radius:999px;
+  bottom:90px;
+  transform:translateX(-50%) translateY(20px);
+  background:#f5f5f5;
+  color:#000;
+  padding:11px 16px;
+  border-radius:99px;
   font-size:12px;
   font-weight:800;
-  display:none
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+  z-index:100;
 }
 
-.listitem{
-  padding:11px 0;
-  border-bottom:1px solid #222
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
 }
 
-.listitem:last-child{
-  border-bottom:0
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.75);
+  display:none;
+  align-items:flex-end;
+  z-index:80;
 }
 
-.tag{
-  font-size:10px;
-  color:#aaa
+.modal.active{
+  display:flex;
 }
 
-.kpi{
-  font-size:28px;
-  font-weight:900
+.modal-box{
+  width:100%;
+  max-width:600px;
+  margin:auto;
+  background:#111;
+  border:1px solid #292929;
+  border-radius:20px 20px 0 0;
+  padding:20px;
+  max-height:90vh;
+  overflow:auto;
 }
 
-.center{
-  text-align:center
-}
-
-.quote{
-  font-size:21px;
+.modal-title{
+  font-size:18px;
   font-weight:900;
-  line-height:1.25
+  margin-bottom:15px;
 }
 
-@media(min-width:600px){
-  .grid4{
-    grid-template-columns:repeat(4,1fr)
+@media(min-width:601px){
+  .modal{
+    align-items:center;
+  }
+
+  .modal-box{
+    border-radius:20px;
   }
 }
 </style>
@@ -321,2177 +401,1412 @@ textarea{
 
 <div class="app">
 
-<header class="top">
+<header>
   <div class="logo">RESURGIR</div>
-  <div class="date" id="todayDate"></div>
+  <div class="sub">BUILD THE MAN YOU SAID YOU'D BECOME.</div>
 </header>
 
-
 <!-- ================= HOME ================= -->
-
 <section id="home" class="screen active">
 
-  <div class="card hero">
-
-    <div class="tiny">TODAY</div>
-
-    <div class="quote">
-      BUILD THE MAN YOU SAID YOU'D BECOME.
-    </div>
-
-    <div style="margin-top:18px" class="grid3">
-
-      <div class="stat">
-        <span class="tiny">XP</span>
-        <b id="homeXP">0</b>
-      </div>
-
-      <div class="stat">
-        <span class="tiny">LEVEL</span>
-        <b id="homeLevel">1</b>
-      </div>
-
-      <div class="stat">
-        <span class="tiny">STREAK</span>
-        <b id="homeStreak">0</b>
-      </div>
-
-    </div>
-
-  </div>
-
-
   <div class="card">
-
-    <div class="row">
-      <h2>Today Score</h2>
-      <span class="pill" id="rank">AWAKEN</span>
-    </div>
-
-    <div class="kpi" id="homeScore">0</div>
+    <div class="muted" style="font-size:10px;letter-spacing:2px;">TODAY</div>
+    <div class="score" id="todayScore">0</div>
+    <div class="rank" id="rank">AWAKEN</div>
 
     <div class="progress">
-      <i id="homeProgress"></i>
+      <div id="levelProgress"></div>
     </div>
 
+    <div style="margin-top:8px;font-size:11px;color:#777;">
+      LEVEL <span id="level">1</span> ·
+      STREAK <span id="streak">0</span>
+    </div>
   </div>
 
+  <div class="card">
+    <div class="quote">
+      BUILD THE MAN<br>
+      YOU SAID YOU'D BECOME.
+    </div>
+  </div>
 
   <div class="grid">
+    <div class="stat">
+      <div class="stat-label">BODY</div>
+      <div class="stat-value" id="homeBody">0</div>
+    </div>
 
     <div class="stat">
-      <span class="tiny">WEIGHT</span>
-      <b id="homeWeight">—</b>
+      <div class="stat-label">WEALTH</div>
+      <div class="stat-value" id="homeWealth">0</div>
     </div>
 
     <div class="stat">
-      <span class="tiny">SLEEP</span>
-      <b id="homeSleep">—</b>
+      <div class="stat-label">MIND</div>
+      <div class="stat-value" id="homeMind">0</div>
     </div>
 
+    <div class="stat">
+      <div class="stat-label">LOVE</div>
+      <div class="stat-value" id="homeLove">0</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-label">DISCIPLINE</div>
+      <div class="stat-value" id="homeDiscipline">0</div>
+    </div>
+
+    <div class="stat">
+      <div class="stat-label">WORKOUTS</div>
+      <div class="stat-value" id="homeWorkouts">0</div>
+    </div>
   </div>
 
-
   <div class="card">
-
-    <h2>Today I Won</h2>
-
-    <div id="homeWon" class="muted">
-      まだ記録なし。
-    </div>
-
-    <h2 style="margin-top:18px">
-      Tomorrow I Will
-    </h2>
-
-    <div id="homeTomorrow" class="muted">
-      Night Reviewで決める。
-    </div>
-
+    <h2>QUICK ACTION</h2>
+    <button class="btn" onclick="showScreen('build')">
+      🏋️ START BUILD
+    </button>
+    <button class="btn secondary" onclick="showScreen('food')">
+      🍚 FOOD
+    </button>
+    <button class="btn secondary" onclick="showScreen('dont')">
+      🚫 DON'T
+    </button>
+    <button class="btn secondary" onclick="showScreen('journal')">
+      📓 JOURNAL
+    </button>
   </div>
 
-
   <div class="card">
+    <h2>NIGHT REVIEW</h2>
 
-    <h2>BUILD</h2>
+    <label>TODAY I WON</label>
+    <input id="wonInput" maxlength="100" placeholder="今日、自分に勝ったこと">
 
-    <div class="grid">
+    <label style="margin-top:12px;">TOMORROW I WILL</label>
+    <input id="tomorrowInput" maxlength="100" placeholder="明日、必ずやること">
 
-      <button onclick="go('build')">
-        BODY / WEALTH
-      </button>
-
-      <button onclick="go('food')">
-        FOOD
-      </button>
-
-      <button onclick="go('dont')">
-        DON'T
-      </button>
-
-      <button onclick="go('journal')">
-        JOURNAL
-      </button>
-
-    </div>
-
+    <button class="btn" onclick="saveReview()">SAVE REVIEW</button>
+    <button class="btn secondary" onclick="completeDay()">COMPLETE TODAY</button>
   </div>
 
 </section>
 
-
-
 <!-- ================= BUILD ================= -->
-
 <section id="build" class="screen">
 
   <div class="card">
-
-    <h1>BUILD</h1>
-
-    <p class="muted">
-      自分を作る。今日の行動を、明日の自分へ。
-    </p>
-
-  </div>
-
-
-  <!-- BODY -->
-
-  <div class="card">
-
     <h2>BODY</h2>
 
-    <label class="tiny">
-      体重 kg
-    </label>
+    <div class="row">
+      <div>
+        <label>TODAY WEIGHT</label>
+        <input id="weightInput" type="number" step="0.1" placeholder="kg">
+      </div>
 
-    <input
-      id="weight"
-      type="number"
-      step="0.1"
-      placeholder="84.2"
-    >
-
-    <label class="tiny">
-      目標体重 kg
-    </label>
-
-    <input
-      id="goalWeight"
-      type="number"
-      step="0.1"
-      value="75"
-    >
-
-    <button onclick="saveWeight()">
-      体重を記録
-    </button>
-
-    <div
-      id="weightStats"
-      class="muted"
-      style="margin-top:10px"
-    ></div>
-
-
-    <hr
-      style="
-      border:0;
-      border-top:1px solid #222;
-      margin:16px 0
-      "
-    >
-
-
-    <h3>
-      TRAINING LOG
-    </h3>
-
-    <input
-      id="exercise"
-      placeholder="種目（Bench Pressなど）"
-    >
-
-    <input
-      id="load"
-      type="number"
-      step="0.5"
-      placeholder="重量 kg"
-    >
-
-    <div class="grid">
-
-      <input
-        id="reps"
-        type="number"
-        placeholder="回数"
-      >
-
-      <input
-        id="sets"
-        type="number"
-        placeholder="セット"
-      >
-
+      <div>
+        <label>GOAL WEIGHT</label>
+        <input id="goalWeightInput" type="number" step="0.1" placeholder="kg">
+      </div>
     </div>
 
-    <button onclick="saveTraining()">
-      トレーニングを記録
-    </button>
+    <button class="btn" onclick="saveWeight()">SAVE WEIGHT</button>
 
-    <div id="trainingList"></div>
-
+    <div style="margin-top:14px;font-size:12px;">
+      7-DAY AVG:
+      <strong id="avgWeight">—</strong>
+    </div>
   </div>
 
+  <!-- TRAINING ROUTINE -->
+  <div class="card">
+    <div class="routine-head">
+      <div>
+        <div class="muted" style="font-size:10px;letter-spacing:2px;">TRAINING</div>
+        <div class="routine-title">ROUTINE</div>
+      </div>
+      <button class="small-btn" onclick="openRoutineEditor()">＋ ADD</button>
+    </div>
 
+    <div id="routineList"></div>
+  </div>
 
-  <!-- WEALTH -->
+  <!-- ACTIVE WORKOUT -->
+  <div class="card" id="activeWorkoutCard" style="display:none;">
+    <div class="routine-head">
+      <div>
+        <div class="muted" style="font-size:10px;letter-spacing:2px;">CURRENT SESSION</div>
+        <div class="routine-title" id="activeWorkoutTitle">WORKOUT</div>
+      </div>
+      <span class="badge">ACTIVE</span>
+    </div>
+
+    <div id="activeWorkout"></div>
+
+    <button class="btn" onclick="finishWorkout()">
+      WORKOUT COMPLETE
+    </button>
+
+    <button class="btn secondary" onclick="cancelWorkout()">
+      CANCEL
+    </button>
+  </div>
+
+  <!-- TRAINING LOG -->
+  <div class="card">
+    <h2>TRAINING LOG</h2>
+
+    <div class="row">
+      <div>
+        <label>EXERCISE</label>
+        <input id="logExercise" placeholder="Bench Press">
+      </div>
+
+      <div>
+        <label>LOAD KG</label>
+        <input id="logLoad" type="number" step="0.5">
+      </div>
+    </div>
+
+    <div class="row" style="margin-top:10px;">
+      <div>
+        <label>REPS</label>
+        <input id="logReps" type="number">
+      </div>
+
+      <div>
+        <label>SETS</label>
+        <input id="logSets" type="number">
+      </div>
+    </div>
+
+    <button class="btn" onclick="saveManualTraining()">SAVE TRAINING</button>
+
+    <div id="trainingHistory" style="margin-top:15px;"></div>
+  </div>
 
   <div class="card">
-
     <h2>WEALTH</h2>
 
-    <div class="grid3">
-
+    <div class="row">
       <div>
-        <label class="tiny">
-          仕事 min
-        </label>
-
-        <input
-          id="workMin"
-          type="number"
-          value="0"
-        >
+        <label>WORK MIN</label>
+        <input id="workMin" type="number">
       </div>
 
-
       <div>
-        <label class="tiny">
-          副業 min
-        </label>
-
-        <input
-          id="sideMin"
-          type="number"
-          value="0"
-        >
+        <label>SIDE WORK MIN</label>
+        <input id="sideMin" type="number">
       </div>
-
-
-      <div>
-        <label class="tiny">
-          勉強 min
-        </label>
-
-        <input
-          id="studyMin"
-          type="number"
-          value="0"
-        >
-      </div>
-
     </div>
 
+    <div style="margin-top:10px;">
+      <label>STUDY MIN</label>
+      <input id="studyMin" type="number">
+    </div>
 
-    <label class="tiny">
-      収入（任意）
-    </label>
-
-    <input
-      id="income"
-      type="number"
-      placeholder="0"
-    >
-
-    <button onclick="saveWealth()">
-      WEALTHを記録
-    </button>
-
+    <button class="btn" onclick="saveWealth()">SAVE WEALTH</button>
   </div>
 
-
-
-  <!-- OTHER BUILDS -->
-
   <div class="card">
+    <h2>CHARACTER</h2>
 
-    <h2>OTHER BUILDS</h2>
-
-
-    <div class="mission">
-
-      <div class="check">
-        M
-      </div>
-
-      <div>
-        <div class="mtitle">
-          MIND
-        </div>
-
-        <div class="tiny">
-          学ぶ・考える・成長する
-        </div>
-      </div>
-
-      <button
-        style="width:auto"
-        onclick="completePillar('mind')"
-      >
-        完了
-      </button>
-
-    </div>
-
-
-    <div class="mission">
-
-      <div class="check">
-        L
-      </div>
-
-      <div>
-        <div class="mtitle">
-          LOVE
-        </div>
-
-        <div class="tiny">
-          大切な人を安心させる
-        </div>
-      </div>
-
-      <button
-        style="width:auto"
-        onclick="completePillar('love')"
-      >
-        完了
-      </button>
-
-    </div>
-
-
-    <div class="mission">
-
-      <div class="check">
-        D
-      </div>
-
-      <div>
-        <div class="mtitle">
-          DISCIPLINE
-        </div>
-
-        <div class="tiny">
-          やるべきことをやる
-        </div>
-      </div>
-
-      <button
-        style="width:auto"
-        onclick="completePillar('discipline')"
-      >
-        完了
-      </button>
-
-    </div>
-
+    <div class="list" id="characterList"></div>
   </div>
 
 </section>
 
-
-
 <!-- ================= FOOD ================= -->
-
 <section id="food" class="screen">
 
   <div class="card">
+    <h2>FOOD TARGET</h2>
 
-    <h1>FOOD</h1>
-
-    <p class="muted">
-      Target: 1800 kcal / P150 / F40 / C205
-    </p>
-
-
-    <div class="grid3">
-
-      <div>
-        <label class="tiny">
-          kcal
-        </label>
-
-        <input
-          id="cal"
-          type="number"
-        >
+    <div class="grid">
+      <div class="stat">
+        <div class="stat-label">CALORIES</div>
+        <div class="stat-value">1800</div>
       </div>
 
-
-      <div>
-        <label class="tiny">
-          Protein
-        </label>
-
-        <input
-          id="protein"
-          type="number"
-        >
+      <div class="stat">
+        <div class="stat-label">PROTEIN</div>
+        <div class="stat-value">150g</div>
       </div>
 
-
-      <div>
-        <label class="tiny">
-          Fat
-        </label>
-
-        <input
-          id="fat"
-          type="number"
-        >
+      <div class="stat">
+        <div class="stat-label">FAT</div>
+        <div class="stat-value">40g</div>
       </div>
 
+      <div class="stat">
+        <div class="stat-label">CARBS</div>
+        <div class="stat-value">205g</div>
+      </div>
     </div>
-
-
-    <label class="tiny">
-      Carbs
-    </label>
-
-    <input
-      id="carbs"
-      type="number"
-    >
-
-
-    <button onclick="saveFood()">
-      今日のFOODを保存
-    </button>
-
-
-    <div
-      id="foodScore"
-      style="margin-top:12px"
-    ></div>
-
   </div>
 
-
-
   <div class="card">
+    <h2>TODAY FOOD</h2>
 
-    <h2>DON'T</h2>
+    <label>CALORIES</label>
+    <input id="foodCal" type="number">
 
-    <p class="muted">
-      やらないことも、強さ。
-    </p>
+    <label style="margin-top:10px;">PROTEIN</label>
+    <input id="foodProtein" type="number">
 
-    <div id="dontFood"></div>
+    <label style="margin-top:10px;">FAT</label>
+    <input id="foodFat" type="number">
 
+    <label style="margin-top:10px;">CARBS</label>
+    <input id="foodCarbs" type="number">
+
+    <button class="btn" onclick="saveFood()">SAVE FOOD</button>
   </div>
 
 </section>
 
-
-
 <!-- ================= DON'T ================= -->
-
 <section id="dont" class="screen">
 
   <div class="card">
+    <h2>DON'T</h2>
+    <div class="muted" style="font-size:12px;margin-bottom:14px;">
+      手放すべき行動を選ぶ。
+    </div>
 
-    <h1>DON'T</h1>
-
-    <p class="muted">
-      逃げない。衝動に支配されない。
-    </p>
-
-    <div id="dontList"></div>
-
-  </div>
-
-
-
-  <div class="card">
-
-    <h2>CHARACTER</h2>
-
-    <p class="muted">
-      誰にも見られていない場所で、自分を作る。
-    </p>
-
-    <div id="charList"></div>
-
+    <div class="list" id="dontList"></div>
   </div>
 
 </section>
 
-
-
 <!-- ================= JOURNAL ================= -->
-
 <section id="journal" class="screen">
 
   <div class="card">
+    <h2>JOURNAL</h2>
 
-    <h1>JOURNAL</h1>
+    <label>ONE LINE</label>
+    <input id="journalInput" maxlength="100" placeholder="今日の自分へ">
 
-    <p class="muted">
-      1日1行。最大100文字。
-    </p>
-
-
-    <textarea
-      id="journalText"
-      maxlength="100"
-      placeholder="今日の自分へ。"
-    ></textarea>
-
-
-    <button onclick="saveJournal()">
-      保存 +10 XP
-    </button>
-
-
-    <div
-      id="journalHistory"
-      style="margin-top:14px"
-    ></div>
-
+    <button class="btn" onclick="saveJournal()">SAVE +10 XP</button>
   </div>
 
-
-
-  <!-- NIGHT REVIEW -->
-
   <div class="card">
-
-    <h2>NIGHT REVIEW</h2>
-
-
-    <label class="tiny">
-      TODAY I WON
-    </label>
-
-    <textarea
-      id="won"
-      maxlength="100"
-    ></textarea>
-
-
-    <label class="tiny">
-      TOMORROW I WILL
-    </label>
-
-    <textarea
-      id="tomorrow"
-      maxlength="100"
-    ></textarea>
-
-
-    <button onclick="saveReview()">
-      REVIEWを保存
-    </button>
-
-
-    <button
-      class="secondary"
-      onclick="completeDay()"
-    >
-      COMPLETE TODAY
-    </button>
-
-  </div>
-
-
-
-  <!-- PROGRESS -->
-
-  <div class="card">
-
-    <h2>PROGRESS</h2>
-
-    <div id="progressBox"></div>
-
-  </div>
-
-
-
-  <div class="card">
-
-    <button
-      class="danger"
-      onclick="resetAll()"
-    >
-      全データをリセット
-    </button>
-
+    <h2>HISTORY</h2>
+    <div id="journalHistory"></div>
   </div>
 
 </section>
 
+<!-- NAV -->
+<nav class="nav">
+  <button class="active" data-screen="home" onclick="showScreen('home')">
+    <span class="nav-icon">⌂</span>HOME
+  </button>
+
+  <button data-screen="build" onclick="showScreen('build')">
+    <span class="nav-icon">⚒</span>BUILD
+  </button>
+
+  <button data-screen="food" onclick="showScreen('food')">
+    <span class="nav-icon">◉</span>FOOD
+  </button>
+
+  <button data-screen="dont" onclick="showScreen('dont')">
+    <span class="nav-icon">×</span>DON'T
+  </button>
+
+  <button data-screen="journal" onclick="showScreen('journal')">
+    <span class="nav-icon">✎</span>JOURNAL
+  </button>
+</nav>
+
 </div>
 
+<div class="toast" id="toast"></div>
 
+<!-- ROUTINE EDITOR -->
+<div class="modal" id="routineModal">
+  <div class="modal-box">
 
-<!-- ================= NAV ================= -->
+    <div class="modal-title" id="routineModalTitle">
+      NEW ROUTINE
+    </div>
 
-<div class="nav">
+    <input type="hidden" id="routineId">
 
-  <div class="navin">
+    <label>ROUTINE NAME</label>
+    <input id="routineName" placeholder="PUSH">
 
-    <button
-      data-screen="home"
-      onclick="go('home')"
-    >
-      <span>⌂</span>
-      HOME
+    <div style="height:15px;"></div>
+
+    <div id="exerciseEditor"></div>
+
+    <button class="btn secondary" onclick="addExerciseEditor()">
+      ＋ ADD EXERCISE
     </button>
 
-
-    <button
-      data-screen="build"
-      onclick="go('build')"
-    >
-      <span>◆</span>
-      BUILD
+    <button class="btn" onclick="saveRoutine()">
+      SAVE ROUTINE
     </button>
 
-
-    <button
-      data-screen="food"
-      onclick="go('food')"
-    >
-      <span>○</span>
-      FOOD
+    <button class="btn danger" id="deleteRoutineBtn" onclick="deleteRoutine()">
+      DELETE ROUTINE
     </button>
 
-
-    <button
-      data-screen="dont"
-      onclick="go('dont')"
-    >
-      <span>×</span>
-      DON'T
-    </button>
-
-
-    <button
-      data-screen="journal"
-      onclick="go('journal')"
-    >
-      <span>□</span>
-      JOURNAL
+    <button class="btn secondary" onclick="closeRoutineEditor()">
+      CANCEL
     </button>
 
   </div>
-
 </div>
-
-
-
-<div
-  class="toast"
-  id="toast"
-></div>
-
-
 
 <script>
 
-const KEY = 'resurgir_v6';
+/* =========================================================
+   RESURGIR 2.1
+   ========================================================= */
 
+const STORAGE_KEY = "resurgir_v7";
 
-
-/* ================= DATE ================= */
-
-const today = () => {
-
-  const d = new Date();
-
-  return (
-    d.getFullYear() +
-    '-' +
-    String(d.getMonth()+1).padStart(2,'0') +
-    '-' +
-    String(d.getDate()).padStart(2,'0')
-  );
-
+const defaultData = {
+  xp: 0,
+  days: {},
+  journals: [],
+  training: [],
+  routines: [
+    {
+      id: "push",
+      name: "PUSH",
+      exercises: [
+        {name:"Bench Press", weight:60, reps:6, sets:3},
+        {name:"Incline Press", weight:40, reps:8, sets:3},
+        {name:"Shoulder Press", weight:16, reps:8, sets:3},
+        {name:"Side Raise", weight:5, reps:12, sets:3}
+      ]
+    },
+    {
+      id: "pull",
+      name: "PULL",
+      exercises: [
+        {name:"Lat Pulldown", weight:61, reps:8, sets:3},
+        {name:"Row", weight:40, reps:8, sets:3},
+        {name:"Rear Delt", weight:35, reps:10, sets:3},
+        {name:"Biceps Curl", weight:10, reps:10, sets:3}
+      ]
+    },
+    {
+      id: "legs",
+      name: "LEGS",
+      exercises: [
+        {name:"Squat", weight:60, reps:5, sets:3},
+        {name:"RDL", weight:40, reps:8, sets:3},
+        {name:"Leg Extension", weight:50, reps:10, sets:3},
+        {name:"Leg Curl", weight:30, reps:10, sets:3}
+      ]
+    }
+  ]
 };
 
+let data = loadData();
+let activeWorkout = null;
 
 
-/* ================= DATABASE ================= */
+/* ================= BASIC ================= */
 
-const blank = () => ({
+function loadData(){
+  try{
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
 
-  days:{},
+    if(!saved) return structuredClone(defaultData);
 
-  weights:[],
+    return {
+      ...structuredClone(defaultData),
+      ...saved,
+      routines: saved.routines || structuredClone(defaultData.routines)
+    };
+  }catch(e){
+    return structuredClone(defaultData);
+  }
+}
 
-  training:[],
+function saveData(){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+}
 
-  journal:[],
+function keyDate(date=new Date()){
+  const y=date.getFullYear();
+  const m=String(date.getMonth()+1).padStart(2,"0");
+  const d=String(date.getDate()).padStart(2,"0");
+  return `${y}-${m}-${d}`;
+}
 
-  food:{},
+function today(){
+  const k=keyDate();
 
-  dont:{},
-
-  character:{},
-
-  review:{},
-
-  wealth:{},
-
-  pillars:{},
-
-  settings:{
-    goalWeight:75
+  if(!data.days[k]){
+    data.days[k]={
+      body:false,
+      wealth:false,
+      mind:false,
+      love:false,
+      discipline:false,
+      dont:{},
+      character:{},
+      food:null,
+      weight:null,
+      review:{won:"",tomorrow:""},
+      workout:false
+    };
   }
 
-});
+  return data.days[k];
+}
 
+function showToast(text){
+  const el=document.getElementById("toast");
+  el.textContent=text;
+  el.classList.add("show");
 
-
-let db =
-  JSON.parse(
-    localStorage.getItem(KEY) || 'null'
-  ) || blank();
-
-
-
-function save(){
-
-  localStorage.setItem(
-    KEY,
-    JSON.stringify(db)
-  );
-
+  setTimeout(()=>{
+    el.classList.remove("show");
+  },1800);
 }
 
 
+/* ================= NAV ================= */
 
-/* ================= HELPERS ================= */
+function showScreen(name){
 
-function esc(s){
+  document.querySelectorAll(".screen").forEach(el=>{
+    el.classList.remove("active");
+  });
 
-  return String(s ?? '')
-    .replace(
-      /[&<>"']/g,
-      m => ({
-        '&':'&amp;',
-        '<':'&lt;',
-        '>':'&gt;',
-        '"':'&quot;',
-        "'":'&#39;'
-      }[m])
+  document.getElementById(name).classList.add("active");
+
+  document.querySelectorAll(".nav button").forEach(btn=>{
+    btn.classList.toggle(
+      "active",
+      btn.dataset.screen===name
     );
+  });
 
+  renderAll();
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
 }
-
-
-
-function toast(t){
-
-  const x =
-    document.getElementById('toast');
-
-  x.textContent = t;
-
-  x.style.display = 'block';
-
-  clearTimeout(window.tt);
-
-  window.tt =
-    setTimeout(
-      () => x.style.display='none',
-      1500
-    );
-
-}
-
-
-
-function go(id){
-
-  document
-    .querySelectorAll('.screen')
-    .forEach(
-      x => x.classList.remove('active')
-    );
-
-
-  document
-    .getElementById(id)
-    .classList.add('active');
-
-
-  document
-    .querySelectorAll('.nav button')
-    .forEach(
-      x =>
-        x.classList.toggle(
-          'active',
-          x.dataset.screen === id
-        )
-    );
-
-
-  render();
-
-}
-
-
-
-/* ================= DATA ================= */
-
-const DONT = [
-
-  [
-    'alcohol',
-    '逃げるために酒を飲まない'
-  ],
-
-  [
-    'smoke',
-    'タバコに戻らない'
-  ],
-
-  [
-    'sns',
-    '目的のないSNS・動画をダラダラ見ない'
-  ],
-
-  [
-    'late',
-    '無駄な夜更かしをしない'
-  ],
-
-  [
-    'emotionfood',
-    '感情で食べない'
-  ],
-
-  [
-    'impulse',
-    '衝動買いをしない'
-  ]
-
-];
-
-
-
-const CHAR = [
-
-  [
-    'escape',
-    '面倒なことから逃げなかった'
-  ],
-
-  [
-    'pause',
-    '感情で反応せず、一度止まって考えた'
-  ],
-
-  [
-    'promise',
-    '約束を守った'
-  ],
-
-  [
-    'fault',
-    '自分の非を認めた'
-  ],
-
-  [
-    'respect',
-    '感謝・敬意を行動にした'
-  ],
-
-  [
-    'love',
-    '大切な人を安心させる行動をした'
-  ],
-
-  [
-    'integrity',
-    '誰にも見られていない場所でも正しく行動した'
-  ]
-
-];
-
-
-
-function day(){
-
-  return (
-    db.days[today()] ||
-    (
-      db.days[today()] = {}
-    )
-  );
-
-}
-
 
 
 /* ================= SCORE ================= */
 
-function dontPts(){
-
-  return DONT.reduce(
-    (n,[k]) =>
-      n +
-      (
-        db.dont[today()]?.[k]
-          ? 40
-          : 0
-      ),
-    0
-  );
-
-}
-
-
-
-function charPts(){
-
-  return CHAR.reduce(
-    (n,[k]) =>
-      n +
-      (
-        db.character[today()]?.[k]
-          ? 50
-          : 0
-      ),
-    0
-  );
-
-}
-
-
-
-function foodPts(){
-
-  const f =
-    db.food[today()];
-
-  if(!f){
-    return 0;
-  }
-
-
-  let n = 0;
-
-
-  /* Calories */
-
-  if(
-    f.cal >= 1710 &&
-    f.cal <= 1890
-  ){
-    n += 50;
-  }
-
-
-  /* Protein */
-
-  if(
-    f.protein >= 150
-  ){
-
-    n += 50;
-
-  }else if(
-    f.protein >= 135
-  ){
-
-    n += 35;
-
-  }
-
-
-  /* Fat */
-
-  if(
-    f.fat >= 35 &&
-    f.fat <= 45
-  ){
-
-    n += 25;
-
-  }
-
-
-  /* Carbs */
-
-  if(
-    f.carbs >= 185 &&
-    f.carbs <= 225
-  ){
-
-    n += 25;
-
-  }
-
-
-  return n;
-
-}
-
-
-
-function pillarPts(){
-
-  const p =
-    day().pillars || {};
-
-
-  return (
-
-    (p.body ? 100 : 0) +
-
-    (p.wealth ? 100 : 0) +
-
-    (p.mind ? 80 : 0) +
-
-    (p.love ? 80 : 0) +
-
-    (p.discipline ? 120 : 0)
-
-  );
-
-}
-
-
-
-function journalPts(){
-
-  return db.journal.some(
-    x => x.date === today()
-  )
-    ? 10
-    : 0;
-
-}
-
-
-
-function recoveryPts(){
-
-  const r =
-    day().recovery;
-
-
-  return (
-    r?.score >= 4
-      ? 20
-      : 0
-  );
-
-}
-
-
-
 function todayScore(){
 
-  return (
+  const d=today();
+  let score=0;
 
-    pillarPts() +
+  if(d.body) score+=100;
+  if(d.wealth) score+=100;
+  if(d.mind) score+=80;
+  if(d.love) score+=80;
+  if(d.discipline) score+=120;
 
-    foodPts() +
+  Object.values(d.dont || {}).forEach(v=>{
+    if(v) score+=40;
+  });
 
-    dontPts() +
+  Object.values(d.character || {}).forEach(v=>{
+    if(v) score+=50;
+  });
 
-    charPts() +
+  if(d.food){
+    const cal=Number(d.food.cal)||0;
+    const p=Number(d.food.protein)||0;
+    const f=Number(d.food.fat)||0;
+    const c=Number(d.food.carbs)||0;
 
-    journalPts() +
+    if(cal>=1710 && cal<=1890) score+=50;
+    if(p>=150) score+=50;
+    else if(p>=135) score+=35;
 
-    recoveryPts()
+    if(f>=35 && f<=45) score+=25;
+    if(c>=185 && c<=225) score+=25;
+  }
 
-  );
+  if(d.workout) score+=100;
 
+  if(data.journals.some(j=>j.date===keyDate())){
+    score+=10;
+  }
+
+  return score;
 }
-
-
 
 function totalXP(){
 
-  return (
+  let total=0;
 
-    Object
-      .values(db.days)
-      .reduce(
-        (a,d) =>
-          a +
-          (
-            d.completed
-              ? d.score || 0
-              : 0
-          ),
-        0
-      )
+  Object.entries(data.days).forEach(([date,d])=>{
 
-    +
+    if(d.completed){
 
-    todayScore()
+      /* 今日のCOMPLETE後は、現在値を二重計上しない */
+      if(date!==keyDate()){
+        total += Number(d.score)||0;
+      }
+    }
+  });
 
-  );
+  total += todayScore();
 
+  return total;
 }
-
-
 
 function level(){
-
-  return (
-    Math.floor(
-      totalXP() / 500
-    ) + 1
-  );
-
+  return Math.floor(totalXP()/500)+1;
 }
 
+function rank(){
 
+  const l=level();
 
-function rank(l){
+  if(l>=10) return "RESURGIR";
+  if(l>=8) return "UNBREAKABLE";
+  if(l>=6) return "FORGED";
+  if(l>=4) return "DISCIPLINED";
+  if(l>=2) return "BUILT";
 
-  if(l >= 10){
-    return 'RESURGIR';
-  }
-
-  if(l >= 8){
-    return 'UNBREAKABLE';
-  }
-
-  if(l >= 6){
-    return 'FORGED';
-  }
-
-  if(l >= 4){
-    return 'DISCIPLINED';
-  }
-
-  if(l >= 2){
-    return 'BUILT';
-  }
-
-  return 'AWAKEN';
-
+  return "AWAKEN";
 }
-
-
-
-/* ================= STREAK ================= */
 
 function streak(){
 
-  let n = 0;
-
-  let d = new Date();
-
+  let count=0;
+  const date=new Date();
 
   while(true){
 
-    const k =
-      d.getFullYear() +
-      '-' +
-      String(d.getMonth()+1).padStart(2,'0') +
-      '-' +
-      String(d.getDate()).padStart(2,'0');
+    const k=keyDate(date);
 
-
-    if(
-      !db.days[k]?.completed
-    ){
+    if(data.days[k]?.completed){
+      count++;
+      date.setDate(date.getDate()-1);
+    }else{
       break;
     }
-
-
-    n++;
-
-    d.setDate(
-      d.getDate()-1
-    );
-
   }
 
-
-  return n;
-
+  return count;
 }
-
-
-
-/* ================= HOME ================= */
-
-function renderHome(){
-
-  const s =
-    todayScore();
-
-  const l =
-    level();
-
-
-  document
-    .getElementById('homeXP')
-    .textContent =
-      totalXP();
-
-
-  document
-    .getElementById('homeLevel')
-    .textContent =
-      l;
-
-
-  document
-    .getElementById('homeStreak')
-    .textContent =
-      streak();
-
-
-  document
-    .getElementById('homeScore')
-    .textContent =
-      s;
-
-
-  document
-    .getElementById('homeProgress')
-    .style.width =
-      Math.min(
-        100,
-        s / 800 * 100
-      ) + '%';
-
-
-  document
-    .getElementById('rank')
-    .textContent =
-      rank(l);
-
-
-
-  const w =
-    db.weights
-      .filter(
-        x => x.date === today()
-      )
-      .at(-1);
-
-
-  document
-    .getElementById('homeWeight')
-    .textContent =
-      w
-        ? w.kg + ' kg'
-        : '—';
-
-
-
-  const sl =
-    day().recovery;
-
-
-  document
-    .getElementById('homeSleep')
-    .textContent =
-      sl
-        ? sl.hours + 'h'
-        : '—';
-
-
-
-  const rv =
-    db.review[today()] || {};
-
-
-  document
-    .getElementById('homeWon')
-    .textContent =
-      rv.won ||
-      'まだ記録なし。';
-
-
-  document
-    .getElementById('homeTomorrow')
-    .textContent =
-      rv.tomorrow ||
-      'Night Reviewで決める。';
-
-}
-
-
-
-/* ================= BUILD ================= */
-
-function renderBuild(){
-
-  const w =
-    db.weights.at(-1);
-
-
-  if(w){
-
-    document
-      .getElementById('weight')
-      .value =
-        w.kg;
-
-  }
-
-
-  document
-    .getElementById('goalWeight')
-    .value =
-      db.settings.goalWeight || 75;
-
-
-
-  const avg =
-    db.weights
-      .slice(-7)
-      .reduce(
-        (a,x) => a + x.kg,
-        0
-      )
-    /
-    (
-      Math.min(
-        7,
-        db.weights.length
-      ) || 1
-    );
-
-
-  document
-    .getElementById('weightStats')
-    .textContent =
-      db.weights.length
-
-        ? '7日平均: ' +
-          avg.toFixed(1) +
-          ' kg / 記録数: ' +
-          db.weights.length
-
-        : 'まだ体重データなし。';
-
-
-
-  document
-    .getElementById('workMin')
-    .value =
-      db.wealth[today()]?.work || 0;
-
-
-  document
-    .getElementById('sideMin')
-    .value =
-      db.wealth[today()]?.side || 0;
-
-
-  document
-    .getElementById('studyMin')
-    .value =
-      db.wealth[today()]?.study || 0;
-
-
-  document
-    .getElementById('income')
-    .value =
-      db.wealth[today()]?.income || '';
-
-
-
-  document
-    .getElementById('trainingList')
-    .innerHTML =
-
-      db.training
-        .slice(-8)
-        .reverse()
-        .map(
-          x =>
-            `
-            <div class="listitem">
-
-              <b>
-                ${esc(x.exercise)}
-              </b>
-
-              —
-              ${x.load}kg
-              ×
-              ${x.reps}
-              ×
-              ${x.sets}
-
-              <div class="tiny">
-                ${x.date}
-              </div>
-
-            </div>
-            `
-        )
-        .join('')
-
-      ||
-
-      '<div class="muted">まだ記録なし。</div>';
-
-}
-
-
-
-/* ================= DON'T ================= */
-
-function renderDont(){
-
-  document
-    .getElementById('dontList')
-    .innerHTML =
-
-      DONT
-        .map(
-          ([k,t]) => {
-
-            const on =
-              db.dont[today()]?.[k];
-
-
-            return `
-
-              <div
-                class="mission ${on?'done':''}"
-                onclick="toggleDont('${k}')"
-              >
-
-                <div class="check">
-                  ${on ? '✓' : ''}
-                </div>
-
-                <div class="mtitle">
-                  ${t}
-                </div>
-
-                <div class="xp">
-                  +40
-                </div>
-
-              </div>
-
-            `;
-
-          }
-        )
-        .join('');
-
-
-
-  document
-    .getElementById('charList')
-    .innerHTML =
-
-      CHAR
-        .map(
-          ([k,t]) => {
-
-            const on =
-              db.character[today()]?.[k];
-
-
-            return `
-
-              <div
-                class="mission ${on?'done':''}"
-                onclick="toggleChar('${k}')"
-              >
-
-                <div class="check">
-                  ${on ? '✓' : ''}
-                </div>
-
-                <div class="mtitle">
-                  ${t}
-                </div>
-
-                <div class="xp">
-                  +50
-                </div>
-
-              </div>
-
-            `;
-
-          }
-        )
-        .join('');
-
-}
-
-
-
-/* ================= FOOD ================= */
-
-function renderFood(){
-
-  const f =
-    db.food[today()] || {};
-
-
-  [
-    'cal',
-    'protein',
-    'fat',
-    'carbs'
-  ]
-  .forEach(
-    k =>
-      document
-        .getElementById(k)
-        .value =
-          f[k] ?? ''
-  );
-
-
-  document
-    .getElementById('foodScore')
-    .textContent =
-      '今日のFOOD score: ' +
-      foodPts() +
-      ' / 150';
-
-
-
-  document
-    .getElementById('dontFood')
-    .innerHTML =
-
-      DONT
-        .slice(0,3)
-        .map(
-          ([k,t]) =>
-            `
-            <div class="listitem">
-
-              ${
-                db.dont[today()]?.[k]
-                  ? '✓'
-                  : '○'
-              }
-
-              ${t}
-
-            </div>
-            `
-        )
-        .join('');
-
-}
-
-
-
-/* ================= JOURNAL ================= */
-
-function renderJournal(){
-
-  const j =
-    db.journal
-      .filter(
-        x => x.date === today()
-      )
-      .at(-1);
-
-
-  document
-    .getElementById('journalText')
-    .value =
-      j?.text || '';
-
-
-
-  const r =
-    db.review[today()] || {};
-
-
-  document
-    .getElementById('won')
-    .value =
-      r.won || '';
-
-
-  document
-    .getElementById('tomorrow')
-    .value =
-      r.tomorrow || '';
-
-
-
-  document
-    .getElementById('journalHistory')
-    .innerHTML =
-
-      db.journal
-        .slice(-30)
-        .reverse()
-        .map(
-          x =>
-            `
-            <div class="listitem">
-
-              <div class="tiny">
-                ${x.date}
-              </div>
-
-              ${esc(x.text)}
-
-            </div>
-            `
-        )
-        .join('')
-
-      ||
-
-      '<div class="muted">まだ記録なし。</div>';
-
-
-
-  const hist =
-    Object
-      .entries(db.days)
-      .sort(
-        (a,b) =>
-          a[0].localeCompare(b[0])
-      )
-      .slice(-30);
-
-
-  document
-    .getElementById('progressBox')
-    .innerHTML =
-
-      hist.length
-
-        ?
-
-          hist
-            .map(
-              ([d,x]) =>
-                `
-                <div class="row listitem">
-
-                  <span>
-                    ${d}
-                  </span>
-
-                  <b>
-                    ${x.score || 0} XP
-                  </b>
-
-                </div>
-                `
-            )
-            .join('')
-
-        :
-
-          '<div class="muted">COMPLETEした日がここに残る。</div>';
-
-}
-
-
-
-/* ================= ACTIONS ================= */
-
-function completePillar(p){
-
-  day().pillars =
-    day().pillars || {};
-
-
-  day().pillars[p] =
-    true;
-
-
-  save();
-
-
-  toast(
-    p.toUpperCase() +
-    ' +XP'
-  );
-
-
-  render();
-
-}
-
 
 
 /* ================= WEIGHT ================= */
 
 function saveWeight(){
 
-  const kg =
-    +document
-      .getElementById('weight')
-      .value;
-
-
-  if(!kg){
-
-    toast('体重を入力');
-
-    return;
-
-  }
-
-
-  db.weights.push({
-
-    date:today(),
-
-    kg
-
-  });
-
-
-  db.settings.goalWeight =
-    +document
-      .getElementById('goalWeight')
-      .value
-    || 75;
-
-
-  save();
-
-
-  toast('WEIGHT SAVED');
-
-
-  render();
-
-}
-
-
-
-/* ================= TRAINING ================= */
-
-function saveTraining(){
-
-  const exercise =
-    document
-      .getElementById('exercise')
-      .value
-      .trim();
-
-
-  const load =
-    +document
-      .getElementById('load')
-      .value;
-
-
-  const reps =
-    +document
-      .getElementById('reps')
-      .value;
-
-
-  const sets =
-    +document
-      .getElementById('sets')
-      .value;
-
-
-
-  if(
-    !exercise ||
-    !reps ||
-    !sets
-  ){
-
-    toast(
-      '種目・回数・セットを入力'
-    );
-
-    return;
-
-  }
-
-
-
-  db.training.push({
-
-    date:today(),
-
-    exercise,
-
-    load,
-
-    reps,
-
-    sets
-
-  });
-
-
-
-  day().pillars =
-    day().pillars || {};
-
-
-  day().pillars.body =
-    true;
-
-
-  save();
-
-
-  toast(
-    'TRAINING SAVED'
+  const value=Number(
+    document.getElementById("weightInput").value
   );
 
+  if(!value) return;
 
-  render();
+  today().weight=value;
+  today().body=true;
 
+  saveData();
+
+  showToast("WEIGHT SAVED");
+  renderAll();
 }
 
+function averageWeight(){
+
+  const values=[];
+
+  const date=new Date();
+
+  for(let i=0;i<7;i++){
+
+    const k=keyDate(date);
+    const w=data.days[k]?.weight;
+
+    if(w) values.push(Number(w));
+
+    date.setDate(date.getDate()-1);
+  }
+
+  if(!values.length) return null;
+
+  return values.reduce((a,b)=>a+b,0)/values.length;
+}
+
+
+/* ================= ROUTINES ================= */
+
+function openRoutineEditor(id=null){
+
+  document.getElementById("routineModal").classList.add("active");
+
+  document.getElementById("exerciseEditor").innerHTML="";
+
+  if(id){
+
+    const routine=data.routines.find(r=>r.id===id);
+
+    if(!routine) return;
+
+    document.getElementById("routineModalTitle").textContent="EDIT ROUTINE";
+    document.getElementById("routineId").value=routine.id;
+    document.getElementById("routineName").value=routine.name;
+
+    routine.exercises.forEach(ex=>{
+      addExerciseEditor(ex);
+    });
+
+    document.getElementById("deleteRoutineBtn").style.display="block";
+
+  }else{
+
+    document.getElementById("routineModalTitle").textContent="NEW ROUTINE";
+    document.getElementById("routineId").value="";
+    document.getElementById("routineName").value="";
+    document.getElementById("deleteRoutineBtn").style.display="none";
+
+    addExerciseEditor();
+  }
+}
+
+function closeRoutineEditor(){
+
+  document.getElementById("routineModal").classList.remove("active");
+}
+
+function addExerciseEditor(ex={}){
+
+  const container=document.getElementById("exerciseEditor");
+
+  const wrapper=document.createElement("div");
+
+  wrapper.className="exercise";
+
+  wrapper.innerHTML=`
+    <div style="display:flex;justify-content:space-between;align-items:center;">
+      <strong>EXERCISE</strong>
+      <button class="small-btn" onclick="this.closest('.exercise').remove()">REMOVE</button>
+    </div>
+
+    <div style="margin-top:10px;">
+      <label>NAME</label>
+      <input class="ex-name" value="${escapeAttr(ex.name||"")}">
+    </div>
+
+    <div class="set-grid">
+      <div>
+        <label>KG</label>
+        <input class="ex-weight" type="number" step="0.5" value="${ex.weight ?? ""}">
+      </div>
+
+      <div>
+        <label>REPS</label>
+        <input class="ex-reps" type="number" value="${ex.reps ?? ""}">
+      </div>
+
+      <div>
+        <label>SETS</label>
+        <input class="ex-sets" type="number" value="${ex.sets ?? ""}">
+      </div>
+    </div>
+  `;
+
+  container.appendChild(wrapper);
+}
+
+function saveRoutine(){
+
+  const name=document
+    .getElementById("routineName")
+    .value
+    .trim();
+
+  if(!name){
+    showToast("ROUTINE NAME REQUIRED");
+    return;
+  }
+
+  const idInput=document.getElementById("routineId").value;
+
+  const exercises=[];
+
+  document.querySelectorAll("#exerciseEditor .exercise")
+    .forEach(el=>{
+
+      const name=el.querySelector(".ex-name").value.trim();
+
+      if(!name) return;
+
+      exercises.push({
+        name,
+        weight:Number(el.querySelector(".ex-weight").value)||0,
+        reps:Number(el.querySelector(".ex-reps").value)||0,
+        sets:Number(el.querySelector(".ex-sets").value)||0
+      });
+    });
+
+  if(!exercises.length){
+    showToast("ADD AT LEAST ONE EXERCISE");
+    return;
+  }
+
+  if(idInput){
+
+    const routine=data.routines.find(r=>r.id===idInput);
+
+    if(routine){
+      routine.name=name;
+      routine.exercises=exercises;
+    }
+
+  }else{
+
+    data.routines.push({
+      id:"routine_"+Date.now(),
+      name,
+      exercises
+    });
+  }
+
+  saveData();
+  closeRoutineEditor();
+
+  showToast("ROUTINE SAVED");
+  renderAll();
+}
+
+function deleteRoutine(){
+
+  const id=document.getElementById("routineId").value;
+
+  if(!id) return;
+
+  if(!confirm("このルーティンを削除しますか？")) return;
+
+  data.routines=data.routines.filter(r=>r.id!==id);
+
+  saveData();
+
+  closeRoutineEditor();
+
+  showToast("ROUTINE DELETED");
+  renderAll();
+}
+
+function startWorkout(id){
+
+  const routine=data.routines.find(r=>r.id===id);
+
+  if(!routine) return;
+
+  activeWorkout={
+    routineId:id,
+    routineName:routine.name,
+    exercises:routine.exercises.map(ex=>({
+      ...ex,
+      completed:false,
+      actualWeight:ex.weight,
+      actualReps:ex.reps,
+      actualSets:ex.sets
+    }))
+  };
+
+  renderActiveWorkout();
+
+  document.getElementById("activeWorkoutCard").style.display="block";
+
+  document.getElementById("activeWorkoutCard")
+    .scrollIntoView({behavior:"smooth"});
+}
+
+function renderActiveWorkout(){
+
+  if(!activeWorkout) return;
+
+  document.getElementById("activeWorkoutTitle")
+    .textContent=activeWorkout.routineName;
+
+  const container=document.getElementById("activeWorkout");
+
+  container.innerHTML="";
+
+  activeWorkout.exercises.forEach((ex,i)=>{
+
+    const div=document.createElement("div");
+
+    div.className="exercise";
+
+    div.innerHTML=`
+      <div class="check">
+        <input
+          type="checkbox"
+          ${ex.completed?"checked":""}
+          onchange="toggleWorkoutExercise(${i},this.checked)"
+        >
+
+        <div>
+          <div class="exercise-name">${escapeHTML(ex.name)}</div>
+          <div class="exercise-meta">
+            前回目安: ${ex.weight || "—"}kg ×
+            ${ex.reps || "—"} ×
+            ${ex.sets || "—"}
+          </div>
+        </div>
+      </div>
+
+      <div class="set-grid">
+        <div>
+          <label>KG</label>
+          <input
+            type="number"
+            step="0.5"
+            value="${ex.actualWeight||""}"
+            onchange="updateActiveExercise(${i},'actualWeight',this.value)"
+          >
+        </div>
+
+        <div>
+          <label>REPS</label>
+          <input
+            type="number"
+            value="${ex.actualReps||""}"
+            onchange="updateActiveExercise(${i},'actualReps',this.value)"
+          >
+        </div>
+
+        <div>
+          <label>SETS</label>
+          <input
+            type="number"
+            value="${ex.actualSets||""}"
+            onchange="updateActiveExercise(${i},'actualSets',this.value)"
+          >
+        </div>
+      </div>
+    `;
+
+    container.appendChild(div);
+  });
+}
+
+function toggleWorkoutExercise(index,value){
+
+  activeWorkout.exercises[index].completed=value;
+}
+
+function updateActiveExercise(index,key,value){
+
+  activeWorkout.exercises[index][key]=Number(value)||0;
+}
+
+function finishWorkout(){
+
+  if(!activeWorkout) return;
+
+  const incomplete=activeWorkout.exercises
+    .filter(ex=>!ex.completed);
+
+  if(incomplete.length){
+
+    if(!confirm(
+      `${incomplete.length}種目が未完了です。\nそれでも終了しますか？`
+    )){
+      return;
+    }
+  }
+
+  activeWorkout.exercises.forEach(ex=>{
+
+    if(!ex.completed) return;
+
+    data.training.push({
+      date:keyDate(),
+      exercise:ex.name,
+      weight:Number(ex.actualWeight)||0,
+      reps:Number(ex.actualReps)||0,
+      sets:Number(ex.actualSets)||0,
+      routine:activeWorkout.routineName
+    });
+  });
+
+  today().workout=true;
+  today().body=true;
+
+  saveData();
+
+  activeWorkout=null;
+
+  document.getElementById("activeWorkoutCard").style.display="none";
+
+  showToast("WORKOUT COMPLETE ⚡");
+
+  renderAll();
+}
+
+function cancelWorkout(){
+
+  if(!confirm("現在のトレーニングを破棄しますか？")) return;
+
+  activeWorkout=null;
+
+  document.getElementById("activeWorkoutCard").style.display="none";
+
+  renderAll();
+}
+
+
+/* ================= MANUAL TRAINING ================= */
+
+function saveManualTraining(){
+
+  const exercise=document.getElementById("logExercise").value.trim();
+  const weight=Number(document.getElementById("logLoad").value);
+  const reps=Number(document.getElementById("logReps").value);
+  const sets=Number(document.getElementById("logSets").value);
+
+  if(!exercise) return;
+
+  data.training.push({
+    date:keyDate(),
+    exercise,
+    weight,
+    reps,
+    sets,
+    routine:"MANUAL"
+  });
+
+  today().workout=true;
+  today().body=true;
+
+  saveData();
+
+  document.getElementById("logExercise").value="";
+  document.getElementById("logLoad").value="";
+  document.getElementById("logReps").value="";
+  document.getElementById("logSets").value="";
+
+  showToast("TRAINING SAVED");
+
+  renderAll();
+}
+
+function getPR(exercise){
+
+  const logs=data.training
+    .filter(x=>x.exercise.toLowerCase()===exercise.toLowerCase());
+
+  if(!logs.length) return null;
+
+  return logs.reduce((best,x)=>{
+
+    const current=Number(x.weight)||0;
+    const bestWeight=Number(best.weight)||0;
+
+    return current>bestWeight ? x : best;
+
+  });
+}
+
+function renderTrainingHistory(){
+
+  const el=document.getElementById("trainingHistory");
+
+  const logs=[...data.training].reverse().slice(0,15);
+
+  if(!logs.length){
+
+    el.innerHTML=`<div class="empty">NO TRAINING LOG</div>`;
+    return;
+  }
+
+  el.innerHTML=logs.map(log=>{
+
+    const pr=getPR(log.exercise);
+
+    const isPR=pr===log;
+
+    return `
+      <div class="list-item">
+        <div style="display:flex;justify-content:space-between;">
+          <strong>${escapeHTML(log.exercise)}</strong>
+          ${isPR ? `<span class="badge">PR</span>` : ""}
+        </div>
+
+        <div class="muted" style="font-size:11px;margin-top:5px;">
+          ${log.date} ·
+          ${log.weight}kg ×
+          ${log.reps} ×
+          ${log.sets}
+        </div>
+      </div>
+    `;
+  }).join("");
+}
 
 
 /* ================= WEALTH ================= */
 
 function saveWealth(){
 
-  const work =
-    +document
-      .getElementById('workMin')
-      .value || 0;
+  const work=Number(document.getElementById("workMin").value)||0;
+  const side=Number(document.getElementById("sideMin").value)||0;
+  const study=Number(document.getElementById("studyMin").value)||0;
 
+  today().wealth=(work+side+study)>=60;
 
-  const side =
-    +document
-      .getElementById('sideMin')
-      .value || 0;
-
-
-  const study =
-    +document
-      .getElementById('studyMin')
-      .value || 0;
-
-
-  const income =
-    +document
-      .getElementById('income')
-      .value || 0;
-
-
-
-  db.wealth[today()] = {
-
+  today().wealthMinutes={
     work,
-
     side,
-
-    study,
-
-    income
-
+    study
   };
 
+  saveData();
 
+  showToast(today().wealth ? "WEALTH BUILT" : "KEEP BUILDING");
 
-  if(
-    work +
-    side +
-    study >= 60
-  ){
-
-    day().pillars =
-      day().pillars || {};
-
-
-    day().pillars.wealth =
-      true;
-
-  }
-
-
-
-  save();
-
-
-  toast(
-    'WEALTH SAVED'
-  );
-
-
-  render();
-
+  renderAll();
 }
-
-
-
-/* ================= FOOD SAVE ================= */
-
-function saveFood(){
-
-  db.food[today()] = {
-
-    cal:
-      +document
-        .getElementById('cal')
-        .value || 0,
-
-    protein:
-      +document
-        .getElementById('protein')
-        .value || 0,
-
-    fat:
-      +document
-        .getElementById('fat')
-        .value || 0,
-
-    carbs:
-      +document
-        .getElementById('carbs')
-        .value || 0
-
-  };
-
-
-  save();
-
-
-  toast(
-    'FOOD SAVED'
-  );
-
-
-  render();
-
-}
-
-
-
-/* ================= DON'T ================= */
-
-function toggleDont(k){
-
-  db.dont[today()] =
-    db.dont[today()] || {};
-
-
-  db.dont[today()][k] =
-    !db.dont[today()][k];
-
-
-  save();
-
-
-  render();
-
-}
-
 
 
 /* ================= CHARACTER ================= */
 
-function toggleChar(k){
+const characterItems=[
+  "面倒なことから逃げなかった",
+  "感情で反応せず、一度止まって考えた",
+  "約束を守った",
+  "自分の非を認めた",
+  "感謝・敬意を行動にした",
+  "大切な人を安心させる行動をした",
+  "誰にも見られていない場所でも正しく行動した"
+];
 
-  db.character[today()] =
-    db.character[today()] || {};
+function toggleCharacter(i,value){
 
+  today().character[i]=value;
 
-  db.character[today()][k] =
-    !db.character[today()][k];
+  saveData();
 
-
-  save();
-
-
-  render();
-
+  renderAll();
 }
 
+
+/* ================= DON'T ================= */
+
+const dontItems=[
+  "逃げるために酒を飲まない",
+  "タバコに戻らない",
+  "目的のないSNS・動画をダラダラ見ない",
+  "無駄な夜更かしをしない",
+  "感情で食べない",
+  "衝動買いをしない"
+];
+
+function toggleDont(i,value){
+
+  today().dont[i]=value;
+
+  saveData();
+
+  renderAll();
+}
+
+
+/* ================= FOOD ================= */
+
+function saveFood(){
+
+  today().food={
+    cal:Number(document.getElementById("foodCal").value)||0,
+    protein:Number(document.getElementById("foodProtein").value)||0,
+    fat:Number(document.getElementById("foodFat").value)||0,
+    carbs:Number(document.getElementById("foodCarbs").value)||0
+  };
+
+  saveData();
+
+  showToast("FOOD SAVED");
+
+  renderAll();
+}
 
 
 /* ================= JOURNAL ================= */
 
 function saveJournal(){
 
-  const text =
-    document
-      .getElementById('journalText')
-      .value
-      .trim();
+  const input=document.getElementById("journalInput");
 
+  const text=input.value.trim();
 
-  if(!text){
+  if(!text) return;
 
-    toast(
-      '内容を入力'
-    );
-
-    return;
-
-  }
-
-
-
-  db.journal =
-    db.journal.filter(
-      x => x.date !== today()
-    );
-
-
-  db.journal.push({
-
-    date:today(),
-
+  data.journals.unshift({
+    date:keyDate(),
     text
-
   });
 
+  data.journals=data.journals.slice(0,365);
 
-  save();
+  saveData();
 
+  input.value="";
 
-  toast(
-    'JOURNAL +10 XP'
-  );
+  showToast("+10 XP");
 
-
-  render();
-
+  renderAll();
 }
-
 
 
 /* ================= REVIEW ================= */
 
 function saveReview(){
 
-  db.review[today()] = {
-
-    won:
-      document
-        .getElementById('won')
-        .value
-        .trim(),
-
-    tomorrow:
-      document
-        .getElementById('tomorrow')
-        .value
-        .trim()
-
+  today().review={
+    won:document.getElementById("wonInput").value.trim(),
+    tomorrow:document.getElementById("tomorrowInput").value.trim()
   };
 
+  saveData();
 
-  save();
-
-
-  toast(
-    'REVIEW SAVED'
-  );
-
-
-  render();
-
+  showToast("REVIEW SAVED");
 }
-
-
-
-/* ================= COMPLETE ================= */
 
 function completeDay(){
 
-  const s =
-    todayScore();
+  today().completed=true;
+  today().score=todayScore();
 
+  saveData();
 
-  day().completed =
-    true;
+  showToast("TODAY COMPLETE ⚡");
 
-
-  day().score =
-    s;
-
-
-  save();
-
-
-  toast(
-    'TODAY COMPLETE — ' +
-    s +
-    ' XP'
-  );
-
-
-  render();
-
+  renderAll();
 }
 
 
+/* ================= RENDER ================= */
 
-/* ================= RESET ================= */
+function renderAll(){
 
-function resetAll(){
+  const d=today();
 
-  if(
-    confirm(
-      '全データを削除します。よろしい？'
-    )
-  ){
+  document.getElementById("todayScore").textContent=todayScore();
+  document.getElementById("level").textContent=level();
+  document.getElementById("rank").textContent=rank();
+  document.getElementById("streak").textContent=streak();
 
-    localStorage.removeItem(KEY);
+  const currentXP=totalXP()%500;
 
-    db = blank();
+  document.getElementById("levelProgress").style.width=
+    `${(currentXP/500)*100}%`;
 
-    save();
+  document.getElementById("homeBody").textContent=
+    d.body ? "✓" : "—";
 
-    render();
+  document.getElementById("homeWealth").textContent=
+    d.wealth ? "✓" : "—";
 
+  document.getElementById("homeMind").textContent=
+    d.mind ? "✓" : "—";
+
+  document.getElementById("homeLove").textContent=
+    d.love ? "✓" : "—";
+
+  document.getElementById("homeDiscipline").textContent=
+    d.discipline ? "✓" : "—";
+
+  document.getElementById("homeWorkouts").textContent=
+    data.training.length;
+
+  if(document.getElementById("weightInput")){
+    document.getElementById("weightInput").value=
+      d.weight || "";
   }
 
+  if(document.getElementById("avgWeight")){
+    const avg=averageWeight();
+
+    document.getElementById("avgWeight").textContent=
+      avg ? `${avg.toFixed(1)} kg` : "—";
+  }
+
+  if(document.getElementById("goalWeightInput")){
+    document.getElementById("goalWeightInput").value=
+      d.goalWeight || "";
+  }
+
+  if(d.review){
+
+    document.getElementById("wonInput").value=
+      d.review.won || "";
+
+    document.getElementById("tomorrowInput").value=
+      d.review.tomorrow || "";
+  }
+
+  renderRoutines();
+  renderTrainingHistory();
+  renderCharacter();
+  renderDont();
+  renderJournal();
 }
 
+function renderRoutines(){
+
+  const el=document.getElementById("routineList");
+
+  if(!data.routines.length){
+
+    el.innerHTML=`
+      <div class="empty">
+        NO ROUTINES.<br>
+        CREATE YOUR FIRST ROUTINE.
+      </div>
+    `;
+
+    return;
+  }
+
+  el.innerHTML=data.routines.map(r=>`
+
+    <div class="list-item">
+
+      <div class="routine-head">
+
+        <div>
+          <div class="routine-title">${escapeHTML(r.name)}</div>
+          <div class="muted">
+            ${r.exercises.length} exercises
+          </div>
+        </div>
+
+        <button
+          class="small-btn"
+          onclick="openRoutineEditor('${r.id}')"
+        >
+          EDIT
+        </button>
+
+      </div>
+
+      <div class="muted" style="font-size:11px;line-height:1.8;">
+        ${r.exercises.map(ex=>
+          `${escapeHTML(ex.name)} · ${ex.weight}kg × ${ex.reps} × ${ex.sets}`
+        ).join("<br>")}
+      </div>
+
+      <button
+        class="btn"
+        onclick="startWorkout('${r.id}')"
+      >
+        START ${escapeHTML(r.name)}
+      </button>
+
+    </div>
+
+  `).join("");
+}
+
+function renderCharacter(){
+
+  const el=document.getElementById("characterList");
+
+  el.innerHTML=characterItems.map((item,i)=>`
+
+    <div class="list-item">
+      <label class="check" style="margin:0;color:#fff;font-size:12px;">
+        <input
+          type="checkbox"
+          ${today().character[i]?"checked":""}
+          onchange="toggleCharacter(${i},this.checked)"
+        >
+        ${item}
+      </label>
+    </div>
+
+  `).join("");
+}
+
+function renderDont(){
+
+  const el=document.getElementById("dontList");
+
+  el.innerHTML=dontItems.map((item,i)=>`
+
+    <div class="list-item">
+      <label class="check" style="margin:0;color:#fff;font-size:12px;">
+        <input
+          type="checkbox"
+          ${today().dont[i]?"checked":""}
+          onchange="toggleDont(${i},this.checked)"
+        >
+        ${item}
+      </label>
+    </div>
+
+  `).join("");
+}
+
+function renderJournal(){
+
+  const el=document.getElementById("journalHistory");
+
+  if(!data.journals.length){
+
+    el.innerHTML=`<div class="empty">NO JOURNAL YET</div>`;
+    return;
+  }
+
+  el.innerHTML=data.journals
+    .slice(0,30)
+    .map(j=>`
+
+      <div class="list-item">
+        <div class="muted" style="font-size:10px;">
+          ${j.date}
+        </div>
+
+        <div style="margin-top:5px;font-size:13px;">
+          ${escapeHTML(j.text)}
+        </div>
+      </div>
+
+    `)
+    .join("");
+}
+
+
+/* ================= SECURITY ================= */
+
+function escapeHTML(str){
+
+  return String(str)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+function escapeAttr(str){
+  return escapeHTML(str);
+}
 
 
 /* ================= INIT ================= */
 
-function render(){
-
-  document
-    .getElementById('todayDate')
-    .textContent =
-      today();
-
-
-  renderHome();
-
-  renderBuild();
-
-  renderDont();
-
-  renderFood();
-
-  renderJournal();
-
-}
-
-
-
-/* START */
-
-render();
+renderAll();
 
 </script>
 
