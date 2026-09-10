@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#0b0b0b">
+<meta name="theme-color" content="#080808">
 <link rel="manifest" href="manifest.json">
 <title>RESURGIR</title>
 
@@ -20,7 +20,7 @@ body{
   font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
 }
 
-button,input,select{
+button,input{
   font:inherit;
 }
 
@@ -29,19 +29,19 @@ button{
 }
 
 .app{
-  max-width:600px;
-  margin:auto;
+  max-width:620px;
   min-height:100vh;
+  margin:auto;
   padding-bottom:90px;
 }
 
 header{
-  padding:24px 20px 12px;
   position:sticky;
   top:0;
-  z-index:10;
-  background:rgba(8,8,8,.92);
-  backdrop-filter:blur(12px);
+  z-index:20;
+  padding:22px 18px 14px;
+  background:rgba(8,8,8,.94);
+  backdrop-filter:blur(14px);
 }
 
 .logo{
@@ -51,15 +51,15 @@ header{
 }
 
 .sub{
-  color:#777;
-  font-size:11px;
-  letter-spacing:2px;
   margin-top:4px;
+  color:#666;
+  font-size:10px;
+  letter-spacing:1.7px;
 }
 
 .screen{
   display:none;
-  padding:12px 16px 24px;
+  padding:14px 16px 24px;
 }
 
 .screen.active{
@@ -69,141 +69,138 @@ header{
 .card{
   background:#111;
   border:1px solid #242424;
-  border-radius:16px;
-  padding:18px;
+  border-radius:17px;
+  padding:17px;
   margin-bottom:12px;
 }
 
 .card h2{
-  margin:0 0 12px;
-  font-size:14px;
+  margin:0 0 13px;
+  font-size:13px;
   letter-spacing:2px;
 }
 
-.card h3{
-  margin:0 0 8px;
-  font-size:13px;
+.muted{
+  color:#707070;
+}
+
+.quote{
+  font-size:23px;
+  line-height:1.3;
+  font-weight:900;
+}
+
+.score{
+  font-size:50px;
+  line-height:1;
+  font-weight:900;
+  margin:8px 0;
+}
+
+.rank{
+  color:#aaa;
+  font-size:12px;
+  letter-spacing:3px;
 }
 
 .grid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
-  gap:10px;
+  gap:9px;
 }
 
 .stat{
   background:#0c0c0c;
   border:1px solid #222;
   border-radius:12px;
-  padding:14px;
+  padding:13px;
 }
 
 .stat-label{
-  color:#777;
-  font-size:10px;
+  color:#666;
+  font-size:9px;
   letter-spacing:1.5px;
 }
 
 .stat-value{
-  font-size:24px;
-  font-weight:800;
+  font-size:23px;
+  font-weight:850;
   margin-top:4px;
 }
 
 .progress{
-  height:8px;
+  height:7px;
+  margin-top:12px;
   background:#222;
   border-radius:99px;
   overflow:hidden;
-  margin-top:10px;
 }
 
-.progress div{
+.progress > div{
   height:100%;
-  background:#f5f5f5;
   width:0%;
-}
-
-input,select{
-  width:100%;
-  background:#0b0b0b;
-  color:#fff;
-  border:1px solid #303030;
-  border-radius:10px;
-  padding:12px;
-  outline:none;
-}
-
-input:focus,select:focus{
-  border-color:#777;
+  background:#eee;
 }
 
 .row{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:10px;
+  gap:9px;
 }
 
 label{
   display:block;
-  color:#777;
-  font-size:10px;
-  letter-spacing:1px;
+  color:#707070;
+  font-size:9px;
+  letter-spacing:1.3px;
   margin-bottom:6px;
+}
+
+input{
+  width:100%;
+  padding:12px;
+  color:#fff;
+  background:#0a0a0a;
+  border:1px solid #303030;
+  border-radius:10px;
+  outline:none;
+}
+
+input:focus{
+  border-color:#777;
 }
 
 .btn{
   width:100%;
+  margin-top:10px;
+  padding:13px;
   border:0;
   border-radius:11px;
-  padding:13px;
-  background:#f5f5f5;
+  background:#eee;
   color:#000;
-  font-weight:800;
-  margin-top:10px;
+  font-weight:900;
 }
 
 .btn.secondary{
-  background:#1b1b1b;
   color:#fff;
+  background:#1a1a1a;
   border:1px solid #333;
 }
 
 .btn.danger{
-  background:#160b0b;
-  color:#ff8f8f;
-  border:1px solid #402020;
+  color:#ff9999;
+  background:#180c0c;
+  border:1px solid #442222;
 }
 
 .small-btn{
+  padding:8px 10px;
   border:1px solid #333;
+  border-radius:8px;
   background:#151515;
   color:#fff;
-  padding:8px 10px;
-  border-radius:8px;
-  font-size:11px;
-}
-
-.muted{
-  color:#777;
-}
-
-.quote{
-  font-size:22px;
-  line-height:1.35;
-  font-weight:800;
-  letter-spacing:-.5px;
-}
-
-.score{
-  font-size:48px;
-  font-weight:900;
-}
-
-.rank{
-  font-size:14px;
-  letter-spacing:3px;
-  color:#aaa;
+  font-size:10px;
+  font-weight:700;
 }
 
 .list{
@@ -213,47 +210,56 @@ label{
 }
 
 .list-item{
-  background:#0c0c0c;
+  padding:12px;
   border:1px solid #222;
   border-radius:12px;
-  padding:12px;
+  background:#0c0c0c;
 }
 
 .check{
   display:flex;
   align-items:center;
   gap:10px;
+  color:#fff;
+  font-size:12px;
 }
 
 .check input{
   width:20px;
   height:20px;
+  margin:0;
 }
 
-.exercise{
-  border:1px solid #292929;
-  border-radius:13px;
-  padding:13px;
-  margin-bottom:10px;
-  background:#0c0c0c;
-}
-
-.exercise-head{
+.routine-head{
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:space-between;
   gap:10px;
 }
 
-.exercise-name{
-  font-weight:800;
+.routine-name{
+  font-size:20px;
+  font-weight:900;
+  letter-spacing:1px;
+}
+
+.exercise{
+  padding:13px;
+  margin-top:9px;
+  background:#0c0c0c;
+  border:1px solid #292929;
+  border-radius:13px;
+}
+
+.exercise-title{
+  font-weight:850;
   font-size:14px;
 }
 
 .exercise-meta{
-  color:#777;
-  font-size:11px;
   margin-top:4px;
+  color:#666;
+  font-size:10px;
 }
 
 .set-grid{
@@ -268,99 +274,87 @@ label{
   font-size:12px;
 }
 
-.routine-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:12px;
-}
-
-.routine-title{
-  font-size:20px;
-  font-weight:900;
-  letter-spacing:1px;
-}
-
 .badge{
   display:inline-block;
-  font-size:9px;
-  letter-spacing:1px;
   padding:5px 7px;
-  border:1px solid #333;
+  border:1px solid #444;
   border-radius:99px;
   color:#aaa;
+  font-size:8px;
+  letter-spacing:1px;
 }
 
 .empty{
+  padding:22px 8px;
   text-align:center;
-  padding:24px 10px;
-  color:#666;
-  font-size:12px;
+  color:#555;
+  font-size:11px;
+  line-height:1.7;
 }
 
 .nav{
   position:fixed;
+  z-index:50;
   bottom:0;
   left:50%;
+  width:min(620px,100%);
+  height:75px;
   transform:translateX(-50%);
-  width:min(600px,100%);
-  height:76px;
-  background:rgba(8,8,8,.96);
-  border-top:1px solid #222;
   display:grid;
   grid-template-columns:repeat(5,1fr);
-  z-index:50;
+  background:rgba(8,8,8,.97);
+  border-top:1px solid #222;
   padding-bottom:env(safe-area-inset-bottom);
 }
 
 .nav button{
   border:0;
   background:none;
-  color:#666;
-  font-size:9px;
-  letter-spacing:.5px;
+  color:#555;
+  font-size:8px;
+  letter-spacing:1px;
 }
 
 .nav button.active{
   color:#fff;
-  font-weight:800;
+  font-weight:900;
 }
 
 .nav-icon{
-  font-size:19px;
   display:block;
   margin-bottom:4px;
+  font-size:18px;
 }
 
 .toast{
   position:fixed;
-  left:50%;
+  z-index:100;
   bottom:90px;
-  transform:translateX(-50%) translateY(20px);
-  background:#f5f5f5;
-  color:#000;
-  padding:11px 16px;
+  left:50%;
+  padding:11px 17px;
   border-radius:99px;
-  font-size:12px;
-  font-weight:800;
+  background:#eee;
+  color:#000;
+  font-size:11px;
+  font-weight:900;
+  transform:translate(-50%,20px);
   opacity:0;
   pointer-events:none;
   transition:.25s;
-  z-index:100;
 }
 
 .toast.show{
   opacity:1;
-  transform:translateX(-50%) translateY(0);
+  transform:translate(-50%,0);
 }
 
 .modal{
   position:fixed;
+  z-index:80;
   inset:0;
-  background:rgba(0,0,0,.75);
   display:none;
   align-items:flex-end;
-  z-index:80;
+  background:rgba(0,0,0,.78);
 }
 
 .modal.active{
@@ -369,23 +363,23 @@ label{
 
 .modal-box{
   width:100%;
-  max-width:600px;
+  max-width:620px;
+  max-height:90vh;
   margin:auto;
+  padding:20px;
+  overflow:auto;
   background:#111;
   border:1px solid #292929;
   border-radius:20px 20px 0 0;
-  padding:20px;
-  max-height:90vh;
-  overflow:auto;
 }
 
 .modal-title{
-  font-size:18px;
-  font-weight:900;
   margin-bottom:15px;
+  font-size:19px;
+  font-weight:900;
 }
 
-@media(min-width:601px){
+@media(min-width:700px){
   .modal{
     align-items:center;
   }
@@ -406,23 +400,31 @@ label{
   <div class="sub">BUILD THE MAN YOU SAID YOU'D BECOME.</div>
 </header>
 
+
 <!-- ================= HOME ================= -->
+
 <section id="home" class="screen active">
 
   <div class="card">
-    <div class="muted" style="font-size:10px;letter-spacing:2px;">TODAY</div>
-    <div class="score" id="todayScore">0</div>
-    <div class="rank" id="rank">AWAKEN</div>
+    <div class="muted" style="font-size:9px;letter-spacing:2px;">
+      TODAY SCORE
+    </div>
+
+    <div id="todayScore" class="score">0</div>
+
+    <div id="rank" class="rank">AWAKEN</div>
 
     <div class="progress">
       <div id="levelProgress"></div>
     </div>
 
-    <div style="margin-top:8px;font-size:11px;color:#777;">
-      LEVEL <span id="level">1</span> ·
+    <div style="margin-top:8px;color:#666;font-size:10px;">
+      LEVEL <span id="level">1</span>
+      ·
       STREAK <span id="streak">0</span>
     </div>
   </div>
+
 
   <div class="card">
     <div class="quote">
@@ -431,200 +433,358 @@ label{
     </div>
   </div>
 
+
   <div class="grid">
+
     <div class="stat">
       <div class="stat-label">BODY</div>
-      <div class="stat-value" id="homeBody">0</div>
+      <div id="homeBody" class="stat-value">—</div>
     </div>
 
     <div class="stat">
       <div class="stat-label">WEALTH</div>
-      <div class="stat-value" id="homeWealth">0</div>
+      <div id="homeWealth" class="stat-value">—</div>
     </div>
 
     <div class="stat">
       <div class="stat-label">MIND</div>
-      <div class="stat-value" id="homeMind">0</div>
+      <div id="homeMind" class="stat-value">—</div>
     </div>
 
     <div class="stat">
       <div class="stat-label">LOVE</div>
-      <div class="stat-value" id="homeLove">0</div>
+      <div id="homeLove" class="stat-value">—</div>
     </div>
 
     <div class="stat">
       <div class="stat-label">DISCIPLINE</div>
-      <div class="stat-value" id="homeDiscipline">0</div>
+      <div id="homeDiscipline" class="stat-value">—</div>
     </div>
 
     <div class="stat">
       <div class="stat-label">WORKOUTS</div>
-      <div class="stat-value" id="homeWorkouts">0</div>
+      <div id="homeWorkouts" class="stat-value">0</div>
     </div>
+
   </div>
+
 
   <div class="card">
     <h2>QUICK ACTION</h2>
+
     <button class="btn" onclick="showScreen('build')">
-      🏋️ START BUILD
+      🏋️ BUILD
     </button>
+
     <button class="btn secondary" onclick="showScreen('food')">
       🍚 FOOD
     </button>
+
     <button class="btn secondary" onclick="showScreen('dont')">
       🚫 DON'T
     </button>
+
     <button class="btn secondary" onclick="showScreen('journal')">
       📓 JOURNAL
     </button>
   </div>
 
+
   <div class="card">
+
     <h2>NIGHT REVIEW</h2>
 
     <label>TODAY I WON</label>
-    <input id="wonInput" maxlength="100" placeholder="今日、自分に勝ったこと">
+    <input
+      id="wonInput"
+      maxlength="100"
+      placeholder="今日、自分に勝ったこと"
+    >
 
-    <label style="margin-top:12px;">TOMORROW I WILL</label>
-    <input id="tomorrowInput" maxlength="100" placeholder="明日、必ずやること">
+    <label style="margin-top:12px;">
+      TOMORROW I WILL
+    </label>
 
-    <button class="btn" onclick="saveReview()">SAVE REVIEW</button>
-    <button class="btn secondary" onclick="completeDay()">COMPLETE TODAY</button>
+    <input
+      id="tomorrowInput"
+      maxlength="100"
+      placeholder="明日、必ずやること"
+    >
+
+    <button class="btn" onclick="saveReview()">
+      SAVE REVIEW
+    </button>
+
+    <button class="btn secondary" onclick="completeDay()">
+      COMPLETE TODAY
+    </button>
+
   </div>
 
 </section>
 
+
 <!-- ================= BUILD ================= -->
+
 <section id="build" class="screen">
 
   <div class="card">
+
     <h2>BODY</h2>
 
     <div class="row">
+
       <div>
         <label>TODAY WEIGHT</label>
-        <input id="weightInput" type="number" step="0.1" placeholder="kg">
+        <input
+          id="weightInput"
+          type="number"
+          step="0.1"
+          placeholder="kg"
+        >
       </div>
 
       <div>
         <label>GOAL WEIGHT</label>
-        <input id="goalWeightInput" type="number" step="0.1" placeholder="kg">
+        <input
+          id="goalWeightInput"
+          type="number"
+          step="0.1"
+          placeholder="kg"
+        >
       </div>
+
     </div>
 
-    <button class="btn" onclick="saveWeight()">SAVE WEIGHT</button>
+    <button class="btn" onclick="saveWeight()">
+      SAVE WEIGHT
+    </button>
 
-    <div style="margin-top:14px;font-size:12px;">
+    <div style="margin-top:12px;font-size:11px;color:#666;">
       7-DAY AVG:
       <strong id="avgWeight">—</strong>
     </div>
+
   </div>
 
-  <!-- TRAINING ROUTINE -->
+
+  <!-- ================= ROUTINE ================= -->
+
   <div class="card">
+
     <div class="routine-head">
+
       <div>
-        <div class="muted" style="font-size:10px;letter-spacing:2px;">TRAINING</div>
-        <div class="routine-title">ROUTINE</div>
+        <div
+          class="muted"
+          style="font-size:9px;letter-spacing:2px;"
+        >
+          TRAINING
+        </div>
+
+        <div class="routine-name">
+          ROUTINE
+        </div>
       </div>
-      <button class="small-btn" onclick="openRoutineEditor()">＋ ADD</button>
+
+      <button
+        class="small-btn"
+        onclick="openRoutineEditor()"
+      >
+        ＋ ADD
+      </button>
+
     </div>
 
     <div id="routineList"></div>
+
   </div>
 
-  <!-- ACTIVE WORKOUT -->
-  <div class="card" id="activeWorkoutCard" style="display:none;">
+
+  <!-- ================= ACTIVE WORKOUT ================= -->
+
+  <div
+    id="activeWorkoutCard"
+    class="card"
+    style="display:none;"
+  >
+
     <div class="routine-head">
+
       <div>
-        <div class="muted" style="font-size:10px;letter-spacing:2px;">CURRENT SESSION</div>
-        <div class="routine-title" id="activeWorkoutTitle">WORKOUT</div>
+        <div
+          class="muted"
+          style="font-size:9px;letter-spacing:2px;"
+        >
+          CURRENT SESSION
+        </div>
+
+        <div
+          id="activeWorkoutTitle"
+          class="routine-name"
+        >
+          WORKOUT
+        </div>
       </div>
+
       <span class="badge">ACTIVE</span>
+
     </div>
 
     <div id="activeWorkout"></div>
 
-    <button class="btn" onclick="finishWorkout()">
+    <button
+      class="btn"
+      onclick="finishWorkout()"
+    >
       WORKOUT COMPLETE
     </button>
 
-    <button class="btn secondary" onclick="cancelWorkout()">
+    <button
+      class="btn secondary"
+      onclick="cancelWorkout()"
+    >
       CANCEL
     </button>
+
   </div>
 
-  <!-- TRAINING LOG -->
+
+  <!-- ================= MANUAL LOG ================= -->
+
   <div class="card">
-    <h2>TRAINING LOG</h2>
+
+    <h2>MANUAL TRAINING LOG</h2>
 
     <div class="row">
+
       <div>
         <label>EXERCISE</label>
-        <input id="logExercise" placeholder="Bench Press">
+        <input
+          id="logExercise"
+          placeholder="Bench Press"
+        >
       </div>
 
       <div>
         <label>LOAD KG</label>
-        <input id="logLoad" type="number" step="0.5">
+        <input
+          id="logLoad"
+          type="number"
+          step="0.5"
+        >
       </div>
+
     </div>
 
-    <div class="row" style="margin-top:10px;">
+    <div class="row" style="margin-top:9px;">
+
       <div>
         <label>REPS</label>
-        <input id="logReps" type="number">
+        <input
+          id="logReps"
+          type="number"
+        >
       </div>
 
       <div>
         <label>SETS</label>
-        <input id="logSets" type="number">
+        <input
+          id="logSets"
+          type="number"
+        >
       </div>
+
     </div>
 
-    <button class="btn" onclick="saveManualTraining()">SAVE TRAINING</button>
+    <button
+      class="btn"
+      onclick="saveManualTraining()"
+    >
+      SAVE TRAINING
+    </button>
 
-    <div id="trainingHistory" style="margin-top:15px;"></div>
+    <div
+      id="trainingHistory"
+      style="margin-top:14px;"
+    ></div>
+
   </div>
 
+
+  <!-- ================= WEALTH ================= -->
+
   <div class="card">
+
     <h2>WEALTH</h2>
 
     <div class="row">
+
       <div>
         <label>WORK MIN</label>
-        <input id="workMin" type="number">
+        <input
+          id="workMin"
+          type="number"
+        >
       </div>
 
       <div>
         <label>SIDE WORK MIN</label>
-        <input id="sideMin" type="number">
+        <input
+          id="sideMin"
+          type="number"
+        >
       </div>
+
     </div>
 
-    <div style="margin-top:10px;">
+    <div style="margin-top:9px;">
+
       <label>STUDY MIN</label>
-      <input id="studyMin" type="number">
+
+      <input
+        id="studyMin"
+        type="number"
+      >
+
     </div>
 
-    <button class="btn" onclick="saveWealth()">SAVE WEALTH</button>
+    <button
+      class="btn"
+      onclick="saveWealth()"
+    >
+      SAVE WEALTH
+    </button>
+
   </div>
 
+
+  <!-- ================= CHARACTER ================= -->
+
   <div class="card">
+
     <h2>CHARACTER</h2>
 
-    <div class="list" id="characterList"></div>
+    <div
+      id="characterList"
+      class="list"
+    ></div>
+
   </div>
 
 </section>
 
+
 <!-- ================= FOOD ================= -->
+
 <section id="food" class="screen">
 
   <div class="card">
+
     <h2>FOOD TARGET</h2>
 
     <div class="grid">
+
       <div class="stat">
         <div class="stat-label">CALORIES</div>
         <div class="stat-value">1800</div>
@@ -644,124 +804,232 @@ label{
         <div class="stat-label">CARBS</div>
         <div class="stat-value">205g</div>
       </div>
+
     </div>
+
   </div>
 
+
   <div class="card">
+
     <h2>TODAY FOOD</h2>
 
     <label>CALORIES</label>
     <input id="foodCal" type="number">
 
-    <label style="margin-top:10px;">PROTEIN</label>
+    <label style="margin-top:10px;">
+      PROTEIN
+    </label>
     <input id="foodProtein" type="number">
 
-    <label style="margin-top:10px;">FAT</label>
+    <label style="margin-top:10px;">
+      FAT
+    </label>
     <input id="foodFat" type="number">
 
-    <label style="margin-top:10px;">CARBS</label>
+    <label style="margin-top:10px;">
+      CARBS
+    </label>
     <input id="foodCarbs" type="number">
 
-    <button class="btn" onclick="saveFood()">SAVE FOOD</button>
+    <button
+      class="btn"
+      onclick="saveFood()"
+    >
+      SAVE FOOD
+    </button>
+
   </div>
 
 </section>
 
+
 <!-- ================= DON'T ================= -->
+
 <section id="dont" class="screen">
 
   <div class="card">
+
     <h2>DON'T</h2>
-    <div class="muted" style="font-size:12px;margin-bottom:14px;">
+
+    <div
+      class="muted"
+      style="font-size:11px;margin-bottom:13px;"
+    >
       手放すべき行動を選ぶ。
     </div>
 
-    <div class="list" id="dontList"></div>
+    <div
+      id="dontList"
+      class="list"
+    ></div>
+
   </div>
 
 </section>
 
+
 <!-- ================= JOURNAL ================= -->
+
 <section id="journal" class="screen">
 
   <div class="card">
+
     <h2>JOURNAL</h2>
 
     <label>ONE LINE</label>
-    <input id="journalInput" maxlength="100" placeholder="今日の自分へ">
 
-    <button class="btn" onclick="saveJournal()">SAVE +10 XP</button>
+    <input
+      id="journalInput"
+      maxlength="100"
+      placeholder="今日の自分へ"
+    >
+
+    <button
+      class="btn"
+      onclick="saveJournal()"
+    >
+      SAVE +10 XP
+    </button>
+
   </div>
 
+
   <div class="card">
+
     <h2>HISTORY</h2>
+
     <div id="journalHistory"></div>
+
   </div>
 
 </section>
 
-<!-- NAV -->
+
+<!-- ================= NAV ================= -->
+
 <nav class="nav">
-  <button class="active" data-screen="home" onclick="showScreen('home')">
-    <span class="nav-icon">⌂</span>HOME
+
+  <button
+    class="active"
+    data-screen="home"
+    onclick="showScreen('home')"
+  >
+    <span class="nav-icon">⌂</span>
+    HOME
   </button>
 
-  <button data-screen="build" onclick="showScreen('build')">
-    <span class="nav-icon">⚒</span>BUILD
+  <button
+    data-screen="build"
+    onclick="showScreen('build')"
+  >
+    <span class="nav-icon">⚒</span>
+    BUILD
   </button>
 
-  <button data-screen="food" onclick="showScreen('food')">
-    <span class="nav-icon">◉</span>FOOD
+  <button
+    data-screen="food"
+    onclick="showScreen('food')"
+  >
+    <span class="nav-icon">◉</span>
+    FOOD
   </button>
 
-  <button data-screen="dont" onclick="showScreen('dont')">
-    <span class="nav-icon">×</span>DON'T
+  <button
+    data-screen="dont"
+    onclick="showScreen('dont')"
+  >
+    <span class="nav-icon">×</span>
+    DON'T
   </button>
 
-  <button data-screen="journal" onclick="showScreen('journal')">
-    <span class="nav-icon">✎</span>JOURNAL
+  <button
+    data-screen="journal"
+    onclick="showScreen('journal')"
+  >
+    <span class="nav-icon">✎</span>
+    JOURNAL
   </button>
+
 </nav>
 
 </div>
 
-<div class="toast" id="toast"></div>
 
-<!-- ROUTINE EDITOR -->
-<div class="modal" id="routineModal">
+<!-- ================= TOAST ================= -->
+
+<div
+  id="toast"
+  class="toast"
+></div>
+
+
+<!-- ================= ROUTINE EDITOR ================= -->
+
+<div
+  id="routineModal"
+  class="modal"
+>
+
   <div class="modal-box">
 
-    <div class="modal-title" id="routineModalTitle">
+    <div
+      id="routineModalTitle"
+      class="modal-title"
+    >
       NEW ROUTINE
     </div>
 
-    <input type="hidden" id="routineId">
+    <input
+      id="routineId"
+      type="hidden"
+    >
 
     <label>ROUTINE NAME</label>
-    <input id="routineName" placeholder="PUSH">
 
-    <div style="height:15px;"></div>
+    <input
+      id="routineName"
+      placeholder="PUSH"
+    >
 
-    <div id="exerciseEditor"></div>
+    <div
+      id="exerciseEditor"
+      style="margin-top:14px;"
+    ></div>
 
-    <button class="btn secondary" onclick="addExerciseEditor()">
+    <button
+      class="btn secondary"
+      onclick="addExerciseEditor()"
+    >
       ＋ ADD EXERCISE
     </button>
 
-    <button class="btn" onclick="saveRoutine()">
+    <button
+      class="btn"
+      onclick="saveRoutine()"
+    >
       SAVE ROUTINE
     </button>
 
-    <button class="btn danger" id="deleteRoutineBtn" onclick="deleteRoutine()">
+    <button
+      id="deleteRoutineBtn"
+      class="btn danger"
+      onclick="deleteRoutine()"
+    >
       DELETE ROUTINE
     </button>
 
-    <button class="btn secondary" onclick="closeRoutineEditor()">
+    <button
+      class="btn secondary"
+      onclick="closeRoutineEditor()"
+    >
       CANCEL
     </button>
 
   </div>
+
 </div>
+
 
 <script>
 
@@ -771,127 +1039,296 @@ label{
 
 const STORAGE_KEY = "resurgir_v7";
 
+
 const defaultData = {
-  xp: 0,
-  days: {},
-  journals: [],
-  training: [],
-  routines: [
+
+  days:{},
+
+  journals:[],
+
+  training:[],
+
+  routines:[
+
     {
-      id: "push",
-      name: "PUSH",
-      exercises: [
-        {name:"Bench Press", weight:60, reps:6, sets:3},
-        {name:"Incline Press", weight:40, reps:8, sets:3},
-        {name:"Shoulder Press", weight:16, reps:8, sets:3},
-        {name:"Side Raise", weight:5, reps:12, sets:3}
+      id:"push",
+      name:"PUSH",
+
+      exercises:[
+        {
+          name:"Bench Press",
+          weight:60,
+          reps:6,
+          sets:3
+        },
+        {
+          name:"Incline Press",
+          weight:40,
+          reps:8,
+          sets:3
+        },
+        {
+          name:"Shoulder Press",
+          weight:16,
+          reps:8,
+          sets:3
+        },
+        {
+          name:"Side Raise",
+          weight:5,
+          reps:12,
+          sets:3
+        }
       ]
     },
+
     {
-      id: "pull",
-      name: "PULL",
-      exercises: [
-        {name:"Lat Pulldown", weight:61, reps:8, sets:3},
-        {name:"Row", weight:40, reps:8, sets:3},
-        {name:"Rear Delt", weight:35, reps:10, sets:3},
-        {name:"Biceps Curl", weight:10, reps:10, sets:3}
+      id:"pull",
+      name:"PULL",
+
+      exercises:[
+        {
+          name:"Lat Pulldown",
+          weight:61,
+          reps:8,
+          sets:3
+        },
+        {
+          name:"Row",
+          weight:40,
+          reps:8,
+          sets:3
+        },
+        {
+          name:"Rear Delt",
+          weight:35,
+          reps:10,
+          sets:3
+        },
+        {
+          name:"Biceps Curl",
+          weight:10,
+          reps:10,
+          sets:3
+        }
       ]
     },
+
     {
-      id: "legs",
-      name: "LEGS",
-      exercises: [
-        {name:"Squat", weight:60, reps:5, sets:3},
-        {name:"RDL", weight:40, reps:8, sets:3},
-        {name:"Leg Extension", weight:50, reps:10, sets:3},
-        {name:"Leg Curl", weight:30, reps:10, sets:3}
+      id:"legs",
+      name:"LEGS",
+
+      exercises:[
+        {
+          name:"Squat",
+          weight:60,
+          reps:5,
+          sets:3
+        },
+        {
+          name:"RDL",
+          weight:40,
+          reps:8,
+          sets:3
+        },
+        {
+          name:"Leg Extension",
+          weight:50,
+          reps:10,
+          sets:3
+        },
+        {
+          name:"Leg Curl",
+          weight:30,
+          reps:10,
+          sets:3
+        }
       ]
     }
+
   ]
+
 };
 
-let data = loadData();
-let activeWorkout = null;
+
+let data=loadData();
+
+let activeWorkout=null;
 
 
-/* ================= BASIC ================= */
+/* =========================================================
+   STORAGE
+   ========================================================= */
 
 function loadData(){
-  try{
-    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
 
-    if(!saved) return structuredClone(defaultData);
+  try{
+
+    const saved=
+      JSON.parse(
+        localStorage.getItem(STORAGE_KEY)
+      );
+
+    if(!saved){
+
+      return structuredClone(defaultData);
+
+    }
 
     return {
+
       ...structuredClone(defaultData),
+
       ...saved,
-      routines: saved.routines || structuredClone(defaultData.routines)
+
+      routines:
+        saved.routines ||
+        structuredClone(defaultData.routines)
+
     };
-  }catch(e){
+
+  }catch(error){
+
     return structuredClone(defaultData);
+
   }
+
 }
+
 
 function saveData(){
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(data)
+  );
+
 }
 
-function keyDate(date=new Date()){
+
+/* =========================================================
+   DATE
+   ========================================================= */
+
+function dateKey(date=new Date()){
+
   const y=date.getFullYear();
-  const m=String(date.getMonth()+1).padStart(2,"0");
-  const d=String(date.getDate()).padStart(2,"0");
+
+  const m=
+    String(date.getMonth()+1)
+      .padStart(2,"0");
+
+  const d=
+    String(date.getDate())
+      .padStart(2,"0");
+
   return `${y}-${m}-${d}`;
+
 }
+
 
 function today(){
-  const k=keyDate();
 
-  if(!data.days[k]){
-    data.days[k]={
+  const key=dateKey();
+
+  if(!data.days[key]){
+
+    data.days[key]={
+
       body:false,
+
       wealth:false,
+
       mind:false,
+
       love:false,
+
       discipline:false,
-      dont:{},
-      character:{},
-      food:null,
+
+      workout:false,
+
       weight:null,
-      review:{won:"",tomorrow:""},
-      workout:false
+
+      goalWeight:null,
+
+      food:null,
+
+      dont:{},
+
+      character:{},
+
+      wealthMinutes:{
+        work:0,
+        side:0,
+        study:0
+      },
+
+      review:{
+        won:"",
+        tomorrow:""
+      },
+
+      completed:false,
+
+      score:0
+
     };
+
   }
 
-  return data.days[k];
+  return data.days[key];
+
 }
 
-function showToast(text){
-  const el=document.getElementById("toast");
-  el.textContent=text;
-  el.classList.add("show");
+
+/* =========================================================
+   UI
+   ========================================================= */
+
+function showToast(message){
+
+  const toast=
+    document.getElementById("toast");
+
+  toast.textContent=message;
+
+  toast.classList.add("show");
 
   setTimeout(()=>{
-    el.classList.remove("show");
+
+    toast.classList.remove("show");
+
   },1800);
+
 }
 
-
-/* ================= NAV ================= */
 
 function showScreen(name){
 
-  document.querySelectorAll(".screen").forEach(el=>{
-    el.classList.remove("active");
-  });
+  document
+    .querySelectorAll(".screen")
+    .forEach(screen=>{
 
-  document.getElementById(name).classList.add("active");
+      screen.classList.remove("active");
 
-  document.querySelectorAll(".nav button").forEach(btn=>{
-    btn.classList.toggle(
-      "active",
-      btn.dataset.screen===name
-    );
-  });
+    });
+
+  document
+    .getElementById(name)
+    .classList.add("active");
+
+
+  document
+    .querySelectorAll(".nav button")
+    .forEach(button=>{
+
+      button.classList.toggle(
+        "active",
+        button.dataset.screen===name
+      );
+
+    });
+
 
   renderAll();
 
@@ -899,129 +1336,249 @@ function showScreen(name){
     top:0,
     behavior:"smooth"
   });
+
 }
 
 
-/* ================= SCORE ================= */
+/* =========================================================
+   SCORE
+   ========================================================= */
 
 function todayScore(){
 
   const d=today();
+
   let score=0;
 
-  if(d.body) score+=100;
-  if(d.wealth) score+=100;
-  if(d.mind) score+=80;
-  if(d.love) score+=80;
-  if(d.discipline) score+=120;
 
-  Object.values(d.dont || {}).forEach(v=>{
-    if(v) score+=40;
-  });
+  if(d.body)
+    score+=100;
 
-  Object.values(d.character || {}).forEach(v=>{
-    if(v) score+=50;
-  });
+  if(d.wealth)
+    score+=100;
+
+  if(d.mind)
+    score+=80;
+
+  if(d.love)
+    score+=80;
+
+  if(d.discipline)
+    score+=120;
+
+
+  Object
+    .values(d.dont||{})
+    .forEach(value=>{
+
+      if(value)
+        score+=40;
+
+    });
+
+
+  Object
+    .values(d.character||{})
+    .forEach(value=>{
+
+      if(value)
+        score+=50;
+
+    });
+
 
   if(d.food){
-    const cal=Number(d.food.cal)||0;
-    const p=Number(d.food.protein)||0;
-    const f=Number(d.food.fat)||0;
-    const c=Number(d.food.carbs)||0;
 
-    if(cal>=1710 && cal<=1890) score+=50;
-    if(p>=150) score+=50;
-    else if(p>=135) score+=35;
+    const cal=
+      Number(d.food.cal)||0;
 
-    if(f>=35 && f<=45) score+=25;
-    if(c>=185 && c<=225) score+=25;
+    const protein=
+      Number(d.food.protein)||0;
+
+    const fat=
+      Number(d.food.fat)||0;
+
+    const carbs=
+      Number(d.food.carbs)||0;
+
+
+    if(cal>=1710 && cal<=1890)
+      score+=50;
+
+    if(protein>=150)
+      score+=50;
+
+    else if(protein>=135)
+      score+=35;
+
+    if(fat>=35 && fat<=45)
+      score+=25;
+
+    if(carbs>=185 && carbs<=225)
+      score+=25;
+
   }
 
-  if(d.workout) score+=100;
 
-  if(data.journals.some(j=>j.date===keyDate())){
+  if(d.workout)
+    score+=100;
+
+
+  if(
+    data.journals.some(
+      journal=>journal.date===dateKey()
+    )
+  ){
+
     score+=10;
+
   }
+
 
   return score;
+
 }
+
 
 function totalXP(){
 
   let total=0;
 
-  Object.entries(data.days).forEach(([date,d])=>{
+  Object
+    .entries(data.days)
+    .forEach(([date,d])=>{
 
-    if(d.completed){
+      if(
+        d.completed &&
+        date!==dateKey()
+      ){
 
-      /* 今日のCOMPLETE後は、現在値を二重計上しない */
-      if(date!==keyDate()){
-        total += Number(d.score)||0;
+        total+=Number(d.score)||0;
+
       }
-    }
-  });
 
-  total += todayScore();
+    });
+
+
+  total+=todayScore();
 
   return total;
+
 }
 
+
 function level(){
-  return Math.floor(totalXP()/500)+1;
+
+  return Math.floor(
+    totalXP()/500
+  )+1;
+
 }
+
 
 function rank(){
 
   const l=level();
 
-  if(l>=10) return "RESURGIR";
-  if(l>=8) return "UNBREAKABLE";
-  if(l>=6) return "FORGED";
-  if(l>=4) return "DISCIPLINED";
-  if(l>=2) return "BUILT";
+  if(l>=10)
+    return "RESURGIR";
+
+  if(l>=8)
+    return "UNBREAKABLE";
+
+  if(l>=6)
+    return "FORGED";
+
+  if(l>=4)
+    return "DISCIPLINED";
+
+  if(l>=2)
+    return "BUILT";
 
   return "AWAKEN";
+
 }
+
 
 function streak(){
 
   let count=0;
+
   const date=new Date();
+
 
   while(true){
 
-    const k=keyDate(date);
+    const key=dateKey(date);
 
-    if(data.days[k]?.completed){
+    if(data.days[key]?.completed){
+
       count++;
-      date.setDate(date.getDate()-1);
+
+      date.setDate(
+        date.getDate()-1
+      );
+
     }else{
+
       break;
+
     }
+
   }
 
+
   return count;
+
 }
 
 
-/* ================= WEIGHT ================= */
+/* =========================================================
+   WEIGHT
+   ========================================================= */
 
 function saveWeight(){
 
-  const value=Number(
-    document.getElementById("weightInput").value
-  );
+  const weight=
+    Number(
+      document.getElementById(
+        "weightInput"
+      ).value
+    );
 
-  if(!value) return;
 
-  today().weight=value;
-  today().body=true;
+  const goal=
+    Number(
+      document.getElementById(
+        "goalWeightInput"
+      ).value
+    );
+
+
+  if(weight){
+
+    today().weight=weight;
+
+    today().body=true;
+
+  }
+
+
+  if(goal){
+
+    today().goalWeight=goal;
+
+  }
+
 
   saveData();
 
   showToast("WEIGHT SAVED");
+
   renderAll();
+
 }
+
 
 function averageWeight(){
 
@@ -1029,441 +1586,1074 @@ function averageWeight(){
 
   const date=new Date();
 
+
   for(let i=0;i<7;i++){
 
-    const k=keyDate(date);
-    const w=data.days[k]?.weight;
+    const weight=
+      data.days[
+        dateKey(date)
+      ]?.weight;
 
-    if(w) values.push(Number(w));
 
-    date.setDate(date.getDate()-1);
+    if(weight)
+      values.push(Number(weight));
+
+
+    date.setDate(
+      date.getDate()-1
+    );
+
   }
 
-  if(!values.length) return null;
 
-  return values.reduce((a,b)=>a+b,0)/values.length;
+  if(!values.length)
+    return null;
+
+
+  return values.reduce(
+    (a,b)=>a+b,
+    0
+  )/values.length;
+
 }
 
 
-/* ================= ROUTINES ================= */
+/* =========================================================
+   ROUTINE EDITOR
+   ========================================================= */
 
 function openRoutineEditor(id=null){
 
-  document.getElementById("routineModal").classList.add("active");
+  const modal=
+    document.getElementById(
+      "routineModal"
+    );
 
-  document.getElementById("exerciseEditor").innerHTML="";
+
+  modal.classList.add("active");
+
+
+  document.getElementById(
+    "exerciseEditor"
+  ).innerHTML="";
+
 
   if(id){
 
-    const routine=data.routines.find(r=>r.id===id);
+    const routine=
+      data.routines.find(
+        r=>r.id===id
+      );
 
-    if(!routine) return;
 
-    document.getElementById("routineModalTitle").textContent="EDIT ROUTINE";
-    document.getElementById("routineId").value=routine.id;
-    document.getElementById("routineName").value=routine.name;
+    if(!routine)
+      return;
 
-    routine.exercises.forEach(ex=>{
-      addExerciseEditor(ex);
-    });
 
-    document.getElementById("deleteRoutineBtn").style.display="block";
+    document.getElementById(
+      "routineModalTitle"
+    ).textContent=
+      "EDIT ROUTINE";
+
+
+    document.getElementById(
+      "routineId"
+    ).value=
+      routine.id;
+
+
+    document.getElementById(
+      "routineName"
+    ).value=
+      routine.name;
+
+
+    routine.exercises.forEach(
+      exercise=>{
+        addExerciseEditor(
+          exercise
+        );
+      }
+    );
+
+
+    document.getElementById(
+      "deleteRoutineBtn"
+    ).style.display="block";
+
 
   }else{
 
-    document.getElementById("routineModalTitle").textContent="NEW ROUTINE";
-    document.getElementById("routineId").value="";
-    document.getElementById("routineName").value="";
-    document.getElementById("deleteRoutineBtn").style.display="none";
+    document.getElementById(
+      "routineModalTitle"
+    ).textContent=
+      "NEW ROUTINE";
+
+
+    document.getElementById(
+      "routineId"
+    ).value="";
+
+
+    document.getElementById(
+      "routineName"
+    ).value="";
+
+
+    document.getElementById(
+      "deleteRoutineBtn"
+    ).style.display="none";
+
 
     addExerciseEditor();
+
   }
+
 }
+
 
 function closeRoutineEditor(){
 
-  document.getElementById("routineModal").classList.remove("active");
+  document
+    .getElementById(
+      "routineModal"
+    )
+    .classList.remove(
+      "active"
+    );
+
 }
 
-function addExerciseEditor(ex={}){
 
-  const container=document.getElementById("exerciseEditor");
+function addExerciseEditor(exercise={}){
 
-  const wrapper=document.createElement("div");
+  const container=
+    document.getElementById(
+      "exerciseEditor"
+    );
 
-  wrapper.className="exercise";
 
-  wrapper.innerHTML=`
-    <div style="display:flex;justify-content:space-between;align-items:center;">
-      <strong>EXERCISE</strong>
-      <button class="small-btn" onclick="this.closest('.exercise').remove()">REMOVE</button>
+  const div=
+    document.createElement(
+      "div"
+    );
+
+
+  div.className="exercise";
+
+
+  div.innerHTML=`
+
+    <div
+      style="
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+      "
+    >
+
+      <strong style="font-size:12px;">
+        EXERCISE
+      </strong>
+
+      <button
+        class="small-btn"
+        onclick="
+          this.closest('.exercise').remove()
+        "
+      >
+        REMOVE
+      </button>
+
     </div>
+
 
     <div style="margin-top:10px;">
+
       <label>NAME</label>
-      <input class="ex-name" value="${escapeAttr(ex.name||"")}">
+
+      <input
+        class="ex-name"
+        value="${escapeAttr(exercise.name||"")}"
+        placeholder="Bench Press"
+      >
+
     </div>
+
 
     <div class="set-grid">
+
       <div>
+
         <label>KG</label>
-        <input class="ex-weight" type="number" step="0.5" value="${ex.weight ?? ""}">
+
+        <input
+          class="ex-weight"
+          type="number"
+          step="0.5"
+          value="${exercise.weight??""}"
+        >
+
       </div>
 
+
       <div>
+
         <label>REPS</label>
-        <input class="ex-reps" type="number" value="${ex.reps ?? ""}">
+
+        <input
+          class="ex-reps"
+          type="number"
+          value="${exercise.reps??""}"
+        >
+
       </div>
 
+
       <div>
+
         <label>SETS</label>
-        <input class="ex-sets" type="number" value="${ex.sets ?? ""}">
+
+        <input
+          class="ex-sets"
+          type="number"
+          value="${exercise.sets??""}"
+        >
+
       </div>
+
     </div>
+
   `;
 
-  container.appendChild(wrapper);
+
+  container.appendChild(div);
+
 }
+
 
 function saveRoutine(){
 
-  const name=document
-    .getElementById("routineName")
-    .value
-    .trim();
+  const name=
+    document
+      .getElementById(
+        "routineName"
+      )
+      .value
+      .trim();
+
 
   if(!name){
-    showToast("ROUTINE NAME REQUIRED");
+
+    showToast(
+      "ROUTINE NAME REQUIRED"
+    );
+
     return;
+
   }
 
-  const idInput=document.getElementById("routineId").value;
+
+  const id=
+    document.getElementById(
+      "routineId"
+    ).value;
+
 
   const exercises=[];
 
-  document.querySelectorAll("#exerciseEditor .exercise")
+
+  document
+    .querySelectorAll(
+      "#exerciseEditor .exercise"
+    )
     .forEach(el=>{
 
-      const name=el.querySelector(".ex-name").value.trim();
+      const exerciseName=
+        el.querySelector(
+          ".ex-name"
+        ).value.trim();
 
-      if(!name) return;
+
+      if(!exerciseName)
+        return;
+
 
       exercises.push({
-        name,
-        weight:Number(el.querySelector(".ex-weight").value)||0,
-        reps:Number(el.querySelector(".ex-reps").value)||0,
-        sets:Number(el.querySelector(".ex-sets").value)||0
+
+        name:exerciseName,
+
+        weight:
+          Number(
+            el.querySelector(
+              ".ex-weight"
+            ).value
+          )||0,
+
+        reps:
+          Number(
+            el.querySelector(
+              ".ex-reps"
+            ).value
+          )||0,
+
+        sets:
+          Number(
+            el.querySelector(
+              ".ex-sets"
+            ).value
+          )||0
+
       });
+
     });
 
+
   if(!exercises.length){
-    showToast("ADD AT LEAST ONE EXERCISE");
+
+    showToast(
+      "ADD AT LEAST ONE EXERCISE"
+    );
+
     return;
+
   }
 
-  if(idInput){
 
-    const routine=data.routines.find(r=>r.id===idInput);
+  if(id){
+
+    const routine=
+      data.routines.find(
+        r=>r.id===id
+      );
+
 
     if(routine){
+
       routine.name=name;
-      routine.exercises=exercises;
+
+      routine.exercises=
+        exercises;
+
     }
 
   }else{
 
     data.routines.push({
-      id:"routine_"+Date.now(),
+
+      id:
+        "routine_"+Date.now(),
+
       name,
+
       exercises
+
     });
+
   }
 
+
   saveData();
+
   closeRoutineEditor();
 
-  showToast("ROUTINE SAVED");
+  showToast(
+    "ROUTINE SAVED"
+  );
+
   renderAll();
+
 }
+
 
 function deleteRoutine(){
 
-  const id=document.getElementById("routineId").value;
+  const id=
+    document.getElementById(
+      "routineId"
+    ).value;
 
-  if(!id) return;
 
-  if(!confirm("このルーティンを削除しますか？")) return;
+  if(!id)
+    return;
 
-  data.routines=data.routines.filter(r=>r.id!==id);
+
+  if(
+    !confirm(
+      "このルーティンを削除しますか？"
+    )
+  ){
+
+    return;
+
+  }
+
+
+  data.routines=
+    data.routines.filter(
+      routine=>routine.id!==id
+    );
+
 
   saveData();
 
   closeRoutineEditor();
 
-  showToast("ROUTINE DELETED");
+  showToast(
+    "ROUTINE DELETED"
+  );
+
   renderAll();
+
 }
+
+
+/* =========================================================
+   START WORKOUT
+   ========================================================= */
 
 function startWorkout(id){
 
-  const routine=data.routines.find(r=>r.id===id);
+  const routine=
+    data.routines.find(
+      r=>r.id===id
+    );
 
-  if(!routine) return;
+
+  if(!routine)
+    return;
+
 
   activeWorkout={
-    routineId:id,
-    routineName:routine.name,
-    exercises:routine.exercises.map(ex=>({
-      ...ex,
-      completed:false,
-      actualWeight:ex.weight,
-      actualReps:ex.reps,
-      actualSets:ex.sets
-    }))
+
+    routineId:
+      routine.id,
+
+    routineName:
+      routine.name,
+
+    exercises:
+      routine.exercises.map(
+        exercise=>({
+
+          ...exercise,
+
+          completed:false,
+
+          actualWeight:
+            exercise.weight,
+
+          actualReps:
+            exercise.reps,
+
+          actualSets:
+            exercise.sets
+
+        })
+      )
+
   };
+
+
+  document.getElementById(
+    "activeWorkoutCard"
+  ).style.display="block";
+
 
   renderActiveWorkout();
 
-  document.getElementById("activeWorkoutCard").style.display="block";
 
-  document.getElementById("activeWorkoutCard")
-    .scrollIntoView({behavior:"smooth"});
+  document
+    .getElementById(
+      "activeWorkoutCard"
+    )
+    .scrollIntoView({
+      behavior:"smooth"
+    });
+
 }
+
 
 function renderActiveWorkout(){
 
-  if(!activeWorkout) return;
+  if(!activeWorkout)
+    return;
 
-  document.getElementById("activeWorkoutTitle")
-    .textContent=activeWorkout.routineName;
 
-  const container=document.getElementById("activeWorkout");
+  document.getElementById(
+    "activeWorkoutTitle"
+  ).textContent=
+    activeWorkout.routineName;
+
+
+  const container=
+    document.getElementById(
+      "activeWorkout"
+    );
+
 
   container.innerHTML="";
 
-  activeWorkout.exercises.forEach((ex,i)=>{
 
-    const div=document.createElement("div");
+  activeWorkout
+    .exercises
+    .forEach((exercise,index)=>{
 
-    div.className="exercise";
 
-    div.innerHTML=`
-      <div class="check">
-        <input
-          type="checkbox"
-          ${ex.completed?"checked":""}
-          onchange="toggleWorkoutExercise(${i},this.checked)"
+      const div=
+        document.createElement(
+          "div"
+        );
+
+
+      div.className="exercise";
+
+
+      div.innerHTML=`
+
+        <label
+          class="check"
+          style="margin:0;"
         >
 
-        <div>
-          <div class="exercise-name">${escapeHTML(ex.name)}</div>
-          <div class="exercise-meta">
-            前回目安: ${ex.weight || "—"}kg ×
-            ${ex.reps || "—"} ×
-            ${ex.sets || "—"}
+          <input
+            type="checkbox"
+            ${exercise.completed?"checked":""}
+            onchange="
+              toggleWorkoutExercise(
+                ${index},
+                this.checked
+              )
+            "
+          >
+
+          <div>
+
+            <div class="exercise-title">
+              ${escapeHTML(exercise.name)}
+            </div>
+
+            <div class="exercise-meta">
+              PREVIOUS:
+              ${exercise.weight||"—"}kg ×
+              ${exercise.reps||"—"} ×
+              ${exercise.sets||"—"}
+            </div>
+
           </div>
-        </div>
-      </div>
 
-      <div class="set-grid">
-        <div>
-          <label>KG</label>
-          <input
-            type="number"
-            step="0.5"
-            value="${ex.actualWeight||""}"
-            onchange="updateActiveExercise(${i},'actualWeight',this.value)"
-          >
+        </label>
+
+
+        <div class="set-grid">
+
+          <div>
+
+            <label>KG</label>
+
+            <input
+              type="number"
+              step="0.5"
+              value="${exercise.actualWeight||""}"
+              onchange="
+                updateActiveExercise(
+                  ${index},
+                  'actualWeight',
+                  this.value
+                )
+              "
+            >
+
+          </div>
+
+
+          <div>
+
+            <label>REPS</label>
+
+            <input
+              type="number"
+              value="${exercise.actualReps||""}"
+              onchange="
+                updateActiveExercise(
+                  ${index},
+                  'actualReps',
+                  this.value
+                )
+              "
+            >
+
+          </div>
+
+
+          <div>
+
+            <label>SETS</label>
+
+            <input
+              type="number"
+              value="${exercise.actualSets||""}"
+              onchange="
+                updateActiveExercise(
+                  ${index},
+                  'actualSets',
+                  this.value
+                )
+              "
+            >
+
+          </div>
+
         </div>
 
-        <div>
-          <label>REPS</label>
-          <input
-            type="number"
-            value="${ex.actualReps||""}"
-            onchange="updateActiveExercise(${i},'actualReps',this.value)"
-          >
-        </div>
+      `;
 
-        <div>
-          <label>SETS</label>
-          <input
-            type="number"
-            value="${ex.actualSets||""}"
-            onchange="updateActiveExercise(${i},'actualSets',this.value)"
-          >
-        </div>
-      </div>
-    `;
 
-    container.appendChild(div);
-  });
+      container.appendChild(div);
+
+    });
+
 }
 
-function toggleWorkoutExercise(index,value){
 
-  activeWorkout.exercises[index].completed=value;
+function toggleWorkoutExercise(
+  index,
+  checked
+){
+
+  if(!activeWorkout)
+    return;
+
+
+  activeWorkout
+    .exercises[index]
+    .completed=checked;
+
 }
 
-function updateActiveExercise(index,key,value){
 
-  activeWorkout.exercises[index][key]=Number(value)||0;
+function updateActiveExercise(
+  index,
+  key,
+  value
+){
+
+  if(!activeWorkout)
+    return;
+
+
+  activeWorkout
+    .exercises[index][key]=
+      Number(value)||0;
+
 }
+
+
+/* =========================================================
+   FINISH WORKOUT
+   ========================================================= */
 
 function finishWorkout(){
 
-  if(!activeWorkout) return;
+  if(!activeWorkout)
+    return;
 
-  const incomplete=activeWorkout.exercises
-    .filter(ex=>!ex.completed);
+
+  const incomplete=
+    activeWorkout
+      .exercises
+      .filter(
+        exercise=>!exercise.completed
+      );
+
 
   if(incomplete.length){
 
-    if(!confirm(
-      `${incomplete.length}種目が未完了です。\nそれでも終了しますか？`
-    )){
+    const okay=
+      confirm(
+        `${incomplete.length}種目が未完了です。\nそれでも終了しますか？`
+      );
+
+
+    if(!okay)
       return;
-    }
+
   }
 
-  activeWorkout.exercises.forEach(ex=>{
 
-    if(!ex.completed) return;
+  activeWorkout
+    .exercises
+    .forEach(exercise=>{
 
-    data.training.push({
-      date:keyDate(),
-      exercise:ex.name,
-      weight:Number(ex.actualWeight)||0,
-      reps:Number(ex.actualReps)||0,
-      sets:Number(ex.actualSets)||0,
-      routine:activeWorkout.routineName
+      if(!exercise.completed)
+        return;
+
+
+      data.training.push({
+
+        date:dateKey(),
+
+        exercise:
+          exercise.name,
+
+        weight:
+          Number(
+            exercise.actualWeight
+          )||0,
+
+        reps:
+          Number(
+            exercise.actualReps
+          )||0,
+
+        sets:
+          Number(
+            exercise.actualSets
+          )||0,
+
+        routine:
+          activeWorkout.routineName
+
+      });
+
     });
-  });
+
 
   today().workout=true;
+
   today().body=true;
+
 
   saveData();
 
+
   activeWorkout=null;
 
-  document.getElementById("activeWorkoutCard").style.display="none";
 
-  showToast("WORKOUT COMPLETE ⚡");
+  document.getElementById(
+    "activeWorkoutCard"
+  ).style.display="none";
+
+
+  showToast(
+    "WORKOUT COMPLETE ⚡"
+  );
+
 
   renderAll();
+
 }
+
+
+/* =========================================================
+   CANCEL
+   ========================================================= */
 
 function cancelWorkout(){
 
-  if(!confirm("現在のトレーニングを破棄しますか？")) return;
+  if(
+    !confirm(
+      "現在のトレーニングを破棄しますか？"
+    )
+  ){
+
+    return;
+
+  }
+
 
   activeWorkout=null;
 
-  document.getElementById("activeWorkoutCard").style.display="none";
+
+  document.getElementById(
+    "activeWorkoutCard"
+  ).style.display="none";
+
 
   renderAll();
+
 }
 
 
-/* ================= MANUAL TRAINING ================= */
+/* =========================================================
+   MANUAL TRAINING
+   ========================================================= */
 
 function saveManualTraining(){
 
-  const exercise=document.getElementById("logExercise").value.trim();
-  const weight=Number(document.getElementById("logLoad").value);
-  const reps=Number(document.getElementById("logReps").value);
-  const sets=Number(document.getElementById("logSets").value);
+  const exercise=
+    document
+      .getElementById(
+        "logExercise"
+      )
+      .value
+      .trim();
 
-  if(!exercise) return;
+
+  const weight=
+    Number(
+      document.getElementById(
+        "logLoad"
+      ).value
+    )||0;
+
+
+  const reps=
+    Number(
+      document.getElementById(
+        "logReps"
+      ).value
+    )||0;
+
+
+  const sets=
+    Number(
+      document.getElementById(
+        "logSets"
+      ).value
+    )||0;
+
+
+  if(!exercise){
+
+    showToast(
+      "EXERCISE REQUIRED"
+    );
+
+    return;
+
+  }
+
 
   data.training.push({
-    date:keyDate(),
+
+    date:dateKey(),
+
     exercise,
+
     weight,
+
     reps,
+
     sets,
+
     routine:"MANUAL"
+
   });
 
+
   today().workout=true;
+
   today().body=true;
+
 
   saveData();
 
-  document.getElementById("logExercise").value="";
-  document.getElementById("logLoad").value="";
-  document.getElementById("logReps").value="";
-  document.getElementById("logSets").value="";
 
-  showToast("TRAINING SAVED");
+  document.getElementById(
+    "logExercise"
+  ).value="";
+
+
+  document.getElementById(
+    "logLoad"
+  ).value="";
+
+
+  document.getElementById(
+    "logReps"
+  ).value="";
+
+
+  document.getElementById(
+    "logSets"
+  ).value="";
+
+
+  showToast(
+    "TRAINING SAVED"
+  );
+
 
   renderAll();
+
 }
+
+
+/* =========================================================
+   PR
+   ========================================================= */
 
 function getPR(exercise){
 
-  const logs=data.training
-    .filter(x=>x.exercise.toLowerCase()===exercise.toLowerCase());
+  const logs=
+    data.training.filter(
+      log=>
+        log.exercise.toLowerCase()
+        ===exercise.toLowerCase()
+    );
 
-  if(!logs.length) return null;
 
-  return logs.reduce((best,x)=>{
+  if(!logs.length)
+    return null;
 
-    const current=Number(x.weight)||0;
-    const bestWeight=Number(best.weight)||0;
 
-    return current>bestWeight ? x : best;
+  return logs.reduce(
+    (best,current)=>{
 
-  });
+      if(
+        Number(current.weight)
+        >
+        Number(best.weight)
+      ){
+
+        return current;
+
+      }
+
+
+      if(
+        Number(current.weight)
+        ===
+        Number(best.weight)
+        &&
+        Number(current.reps)
+        >
+        Number(best.reps)
+      ){
+
+        return current;
+
+      }
+
+
+      return best;
+
+    }
+  );
+
 }
+
+
+/* =========================================================
+   TRAINING HISTORY
+   ========================================================= */
 
 function renderTrainingHistory(){
 
-  const el=document.getElementById("trainingHistory");
+  const container=
+    document.getElementById(
+      "trainingHistory"
+    );
 
-  const logs=[...data.training].reverse().slice(0,15);
+
+  const logs=
+    [...data.training]
+      .reverse()
+      .slice(0,20);
+
 
   if(!logs.length){
 
-    el.innerHTML=`<div class="empty">NO TRAINING LOG</div>`;
+    container.innerHTML=
+      `<div class="empty">
+        NO TRAINING LOG
+      </div>`;
+
     return;
+
   }
 
-  el.innerHTML=logs.map(log=>{
 
-    const pr=getPR(log.exercise);
+  container.innerHTML=
+    logs.map(log=>{
 
-    const isPR=pr===log;
+      const pr=
+        getPR(log.exercise);
 
-    return `
-      <div class="list-item">
-        <div style="display:flex;justify-content:space-between;">
-          <strong>${escapeHTML(log.exercise)}</strong>
-          ${isPR ? `<span class="badge">PR</span>` : ""}
+
+      const isPR=
+        pr===log;
+
+
+      return `
+
+        <div class="list-item">
+
+          <div
+            style="
+              display:flex;
+              justify-content:space-between;
+              align-items:center;
+            "
+          >
+
+            <strong>
+              ${escapeHTML(log.exercise)}
+            </strong>
+
+            ${
+              isPR
+              ?
+              `<span class="badge">PR</span>`
+              :
+              ""
+            }
+
+          </div>
+
+          <div
+            class="muted"
+            style="
+              font-size:10px;
+              margin-top:5px;
+            "
+          >
+            ${log.date}
+            ·
+            ${log.weight}kg ×
+            ${log.reps} ×
+            ${log.sets}
+          </div>
+
         </div>
 
-        <div class="muted" style="font-size:11px;margin-top:5px;">
-          ${log.date} ·
-          ${log.weight}kg ×
-          ${log.reps} ×
-          ${log.sets}
-        </div>
-      </div>
-    `;
-  }).join("");
+      `;
+
+    }).join("");
+
 }
 
 
-/* ================= WEALTH ================= */
+/* =========================================================
+   WEALTH
+   ========================================================= */
 
 function saveWealth(){
 
-  const work=Number(document.getElementById("workMin").value)||0;
-  const side=Number(document.getElementById("sideMin").value)||0;
-  const study=Number(document.getElementById("studyMin").value)||0;
+  const work=
+    Number(
+      document.getElementById(
+        "workMin"
+      ).value
+    )||0;
 
-  today().wealth=(work+side+study)>=60;
+
+  const side=
+    Number(
+      document.getElementById(
+        "sideMin"
+      ).value
+    )||0;
+
+
+  const study=
+    Number(
+      document.getElementById(
+        "studyMin"
+      ).value
+    )||0;
+
 
   today().wealthMinutes={
     work,
@@ -1471,340 +2661,739 @@ function saveWealth(){
     study
   };
 
+
+  today().wealth=
+    work+side+study>=60;
+
+
   saveData();
 
-  showToast(today().wealth ? "WEALTH BUILT" : "KEEP BUILDING");
+
+  showToast(
+    today().wealth
+    ?
+    "WEALTH BUILT"
+    :
+    "KEEP BUILDING"
+  );
+
 
   renderAll();
+
 }
 
 
-/* ================= CHARACTER ================= */
+/* =========================================================
+   CHARACTER
+   ========================================================= */
 
 const characterItems=[
+
   "面倒なことから逃げなかった",
+
   "感情で反応せず、一度止まって考えた",
+
   "約束を守った",
+
   "自分の非を認めた",
+
   "感謝・敬意を行動にした",
+
   "大切な人を安心させる行動をした",
+
   "誰にも見られていない場所でも正しく行動した"
+
 ];
 
-function toggleCharacter(i,value){
 
-  today().character[i]=value;
+function toggleCharacter(
+  index,
+  checked
+){
+
+  today().character[index]=checked;
 
   saveData();
 
   renderAll();
+
 }
 
 
-/* ================= DON'T ================= */
+/* =========================================================
+   DON'T
+   ========================================================= */
 
 const dontItems=[
+
   "逃げるために酒を飲まない",
+
   "タバコに戻らない",
+
   "目的のないSNS・動画をダラダラ見ない",
+
   "無駄な夜更かしをしない",
+
   "感情で食べない",
+
   "衝動買いをしない"
+
 ];
 
-function toggleDont(i,value){
 
-  today().dont[i]=value;
+function toggleDont(
+  index,
+  checked
+){
+
+  today().dont[index]=checked;
 
   saveData();
 
   renderAll();
+
 }
 
 
-/* ================= FOOD ================= */
+/* =========================================================
+   FOOD
+   ========================================================= */
 
 function saveFood(){
 
   today().food={
-    cal:Number(document.getElementById("foodCal").value)||0,
-    protein:Number(document.getElementById("foodProtein").value)||0,
-    fat:Number(document.getElementById("foodFat").value)||0,
-    carbs:Number(document.getElementById("foodCarbs").value)||0
+
+    cal:
+      Number(
+        document.getElementById(
+          "foodCal"
+        ).value
+      )||0,
+
+    protein:
+      Number(
+        document.getElementById(
+          "foodProtein"
+        ).value
+      )||0,
+
+    fat:
+      Number(
+        document.getElementById(
+          "foodFat"
+        ).value
+      )||0,
+
+    carbs:
+      Number(
+        document.getElementById(
+          "foodCarbs"
+        ).value
+      )||0
+
   };
+
 
   saveData();
 
-  showToast("FOOD SAVED");
+  showToast(
+    "FOOD SAVED"
+  );
 
   renderAll();
+
 }
 
 
-/* ================= JOURNAL ================= */
+/* =========================================================
+   JOURNAL
+   ========================================================= */
 
 function saveJournal(){
 
-  const input=document.getElementById("journalInput");
+  const input=
+    document.getElementById(
+      "journalInput"
+    );
 
-  const text=input.value.trim();
 
-  if(!text) return;
+  const text=
+    input.value.trim();
+
+
+  if(!text)
+    return;
+
 
   data.journals.unshift({
-    date:keyDate(),
+
+    date:dateKey(),
+
     text
+
   });
 
-  data.journals=data.journals.slice(0,365);
+
+  data.journals=
+    data.journals.slice(0,365);
+
 
   saveData();
 
+
   input.value="";
 
-  showToast("+10 XP");
+
+  showToast(
+    "+10 XP"
+  );
+
 
   renderAll();
+
 }
 
 
-/* ================= REVIEW ================= */
+/* =========================================================
+   REVIEW
+   ========================================================= */
 
 function saveReview(){
 
   today().review={
-    won:document.getElementById("wonInput").value.trim(),
-    tomorrow:document.getElementById("tomorrowInput").value.trim()
+
+    won:
+      document.getElementById(
+        "wonInput"
+      ).value.trim(),
+
+    tomorrow:
+      document.getElementById(
+        "tomorrowInput"
+      ).value.trim()
+
   };
+
 
   saveData();
 
-  showToast("REVIEW SAVED");
+  showToast(
+    "REVIEW SAVED"
+  );
+
 }
+
 
 function completeDay(){
 
   today().completed=true;
+
   today().score=todayScore();
+
 
   saveData();
 
-  showToast("TODAY COMPLETE ⚡");
+
+  showToast(
+    "TODAY COMPLETE ⚡"
+  );
+
 
   renderAll();
+
 }
 
 
-/* ================= RENDER ================= */
+/* =========================================================
+   RENDER
+   ========================================================= */
 
 function renderAll(){
 
   const d=today();
 
-  document.getElementById("todayScore").textContent=todayScore();
-  document.getElementById("level").textContent=level();
-  document.getElementById("rank").textContent=rank();
-  document.getElementById("streak").textContent=streak();
 
-  const currentXP=totalXP()%500;
+  document.getElementById(
+    "todayScore"
+  ).textContent=
+    todayScore();
 
-  document.getElementById("levelProgress").style.width=
-    `${(currentXP/500)*100}%`;
 
-  document.getElementById("homeBody").textContent=
-    d.body ? "✓" : "—";
+  document.getElementById(
+    "level"
+  ).textContent=
+    level();
 
-  document.getElementById("homeWealth").textContent=
-    d.wealth ? "✓" : "—";
 
-  document.getElementById("homeMind").textContent=
-    d.mind ? "✓" : "—";
+  document.getElementById(
+    "rank"
+  ).textContent=
+    rank();
 
-  document.getElementById("homeLove").textContent=
-    d.love ? "✓" : "—";
 
-  document.getElementById("homeDiscipline").textContent=
-    d.discipline ? "✓" : "—";
+  document.getElementById(
+    "streak"
+  ).textContent=
+    streak();
 
-  document.getElementById("homeWorkouts").textContent=
+
+  const levelXP=
+    totalXP()%500;
+
+
+  document.getElementById(
+    "levelProgress"
+  ).style.width=
+    `${levelXP/500*100}%`;
+
+
+  document.getElementById(
+    "homeBody"
+  ).textContent=
+    d.body?"✓":"—";
+
+
+  document.getElementById(
+    "homeWealth"
+  ).textContent=
+    d.wealth?"✓":"—";
+
+
+  document.getElementById(
+    "homeMind"
+  ).textContent=
+    d.mind?"✓":"—";
+
+
+  document.getElementById(
+    "homeLove"
+  ).textContent=
+    d.love?"✓":"—";
+
+
+  document.getElementById(
+    "homeDiscipline"
+  ).textContent=
+    d.discipline?"✓":"—";
+
+
+  document.getElementById(
+    "homeWorkouts"
+  ).textContent=
     data.training.length;
 
-  if(document.getElementById("weightInput")){
-    document.getElementById("weightInput").value=
-      d.weight || "";
+
+  document.getElementById(
+    "weightInput"
+  ).value=
+    d.weight||"";
+
+
+  document.getElementById(
+    "goalWeightInput"
+  ).value=
+    d.goalWeight||"";
+
+
+  const avg=
+    averageWeight();
+
+
+  document.getElementById(
+    "avgWeight"
+  ).textContent=
+    avg
+    ?
+    `${avg.toFixed(1)} kg`
+    :
+    "—";
+
+
+  document.getElementById(
+    "wonInput"
+  ).value=
+    d.review?.won||"";
+
+
+  document.getElementById(
+    "tomorrowInput"
+  ).value=
+    d.review?.tomorrow||"";
+
+
+  if(d.food){
+
+    document.getElementById(
+      "foodCal"
+    ).value=
+      d.food.cal||"";
+
+    document.getElementById(
+      "foodProtein"
+    ).value=
+      d.food.protein||"";
+
+    document.getElementById(
+      "foodFat"
+    ).value=
+      d.food.fat||"";
+
+    document.getElementById(
+      "foodCarbs"
+    ).value=
+      d.food.carbs||"";
+
   }
 
-  if(document.getElementById("avgWeight")){
-    const avg=averageWeight();
 
-    document.getElementById("avgWeight").textContent=
-      avg ? `${avg.toFixed(1)} kg` : "—";
+  if(d.wealthMinutes){
+
+    document.getElementById(
+      "workMin"
+    ).value=
+      d.wealthMinutes.work||"";
+
+    document.getElementById(
+      "sideMin"
+    ).value=
+      d.wealthMinutes.side||"";
+
+    document.getElementById(
+      "studyMin"
+    ).value=
+      d.wealthMinutes.study||"";
+
   }
 
-  if(document.getElementById("goalWeightInput")){
-    document.getElementById("goalWeightInput").value=
-      d.goalWeight || "";
-  }
-
-  if(d.review){
-
-    document.getElementById("wonInput").value=
-      d.review.won || "";
-
-    document.getElementById("tomorrowInput").value=
-      d.review.tomorrow || "";
-  }
 
   renderRoutines();
+
   renderTrainingHistory();
+
   renderCharacter();
+
   renderDont();
+
   renderJournal();
+
 }
+
+
+/* =========================================================
+   ROUTINES
+   ========================================================= */
 
 function renderRoutines(){
 
-  const el=document.getElementById("routineList");
+  const container=
+    document.getElementById(
+      "routineList"
+    );
+
 
   if(!data.routines.length){
 
-    el.innerHTML=`
-      <div class="empty">
+    container.innerHTML=
+      `<div class="empty">
         NO ROUTINES.<br>
         CREATE YOUR FIRST ROUTINE.
-      </div>
-    `;
+      </div>`;
 
     return;
+
   }
 
-  el.innerHTML=data.routines.map(r=>`
 
-    <div class="list-item">
+  container.innerHTML=
+    data.routines.map(
+      routine=>`
 
-      <div class="routine-head">
+      <div
+        class="list-item"
+        style="margin-top:10px;"
+      >
 
-        <div>
-          <div class="routine-title">${escapeHTML(r.name)}</div>
-          <div class="muted">
-            ${r.exercises.length} exercises
+        <div class="routine-head">
+
+          <div>
+
+            <div class="routine-name">
+              ${escapeHTML(routine.name)}
+            </div>
+
+            <div
+              class="muted"
+              style="
+                font-size:10px;
+                margin-top:3px;
+              "
+            >
+              ${routine.exercises.length}
+              EXERCISES
+            </div>
+
           </div>
+
+
+          <button
+            class="small-btn"
+            onclick="
+              openRoutineEditor(
+                '${routine.id}'
+              )
+            "
+          >
+            EDIT
+          </button>
+
         </div>
 
-        <button
-          class="small-btn"
-          onclick="openRoutineEditor('${r.id}')"
+
+        <div
+          class="muted"
+          style="
+            margin-top:10px;
+            font-size:10px;
+            line-height:1.8;
+          "
         >
-          EDIT
+
+          ${routine.exercises.map(
+            exercise=>
+              `${escapeHTML(exercise.name)}
+              ·
+              ${exercise.weight||0}kg ×
+              ${exercise.reps||0} ×
+              ${exercise.sets||0}`
+          ).join("<br>")}
+
+        </div>
+
+
+        <button
+          class="btn"
+          onclick="
+            startWorkout(
+              '${routine.id}'
+            )
+          "
+        >
+          START ${escapeHTML(routine.name)}
         </button>
 
       </div>
 
-      <div class="muted" style="font-size:11px;line-height:1.8;">
-        ${r.exercises.map(ex=>
-          `${escapeHTML(ex.name)} · ${ex.weight}kg × ${ex.reps} × ${ex.sets}`
-        ).join("<br>")}
-      </div>
+    `
+    ).join("");
 
-      <button
-        class="btn"
-        onclick="startWorkout('${r.id}')"
-      >
-        START ${escapeHTML(r.name)}
-      </button>
-
-    </div>
-
-  `).join("");
 }
+
+
+/* =========================================================
+   CHARACTER RENDER
+   ========================================================= */
 
 function renderCharacter(){
 
-  const el=document.getElementById("characterList");
+  const container=
+    document.getElementById(
+      "characterList"
+    );
 
-  el.innerHTML=characterItems.map((item,i)=>`
 
-    <div class="list-item">
-      <label class="check" style="margin:0;color:#fff;font-size:12px;">
-        <input
-          type="checkbox"
-          ${today().character[i]?"checked":""}
-          onchange="toggleCharacter(${i},this.checked)"
+  container.innerHTML=
+    characterItems.map(
+      (item,index)=>`
+
+      <div class="list-item">
+
+        <label
+          class="check"
+          style="
+            margin:0;
+            color:#fff;
+          "
         >
-        ${item}
-      </label>
-    </div>
 
-  `).join("");
+          <input
+            type="checkbox"
+            ${today().character[index]?"checked":""}
+            onchange="
+              toggleCharacter(
+                ${index},
+                this.checked
+              )
+            "
+          >
+
+          ${item}
+
+        </label>
+
+      </div>
+
+    `
+    ).join("");
+
 }
+
+
+/* =========================================================
+   DON'T RENDER
+   ========================================================= */
 
 function renderDont(){
 
-  const el=document.getElementById("dontList");
+  const container=
+    document.getElementById(
+      "dontList"
+    );
 
-  el.innerHTML=dontItems.map((item,i)=>`
 
-    <div class="list-item">
-      <label class="check" style="margin:0;color:#fff;font-size:12px;">
-        <input
-          type="checkbox"
-          ${today().dont[i]?"checked":""}
-          onchange="toggleDont(${i},this.checked)"
+  container.innerHTML=
+    dontItems.map(
+      (item,index)=>`
+
+      <div class="list-item">
+
+        <label
+          class="check"
+          style="
+            margin:0;
+            color:#fff;
+          "
         >
-        ${item}
-      </label>
-    </div>
 
-  `).join("");
+          <input
+            type="checkbox"
+            ${today().dont[index]?"checked":""}
+            onchange="
+              toggleDont(
+                ${index},
+                this.checked
+              )
+            "
+          >
+
+          ${item}
+
+        </label>
+
+      </div>
+
+    `
+    ).join("");
+
 }
+
+
+/* =========================================================
+   JOURNAL RENDER
+   ========================================================= */
 
 function renderJournal(){
 
-  const el=document.getElementById("journalHistory");
+  const container=
+    document.getElementById(
+      "journalHistory"
+    );
+
 
   if(!data.journals.length){
 
-    el.innerHTML=`<div class="empty">NO JOURNAL YET</div>`;
+    container.innerHTML=
+      `<div class="empty">
+        NO JOURNAL YET
+      </div>`;
+
     return;
+
   }
 
-  el.innerHTML=data.journals
-    .slice(0,30)
-    .map(j=>`
 
-      <div class="list-item">
-        <div class="muted" style="font-size:10px;">
-          ${j.date}
+  container.innerHTML=
+    data.journals
+      .slice(0,30)
+      .map(
+        journal=>`
+
+        <div
+          class="list-item"
+          style="margin-bottom:8px;"
+        >
+
+          <div
+            class="muted"
+            style="font-size:9px;"
+          >
+            ${journal.date}
+          </div>
+
+          <div
+            style="
+              margin-top:5px;
+              font-size:12px;
+              line-height:1.5;
+            "
+          >
+            ${escapeHTML(journal.text)}
+          </div>
+
         </div>
 
-        <div style="margin-top:5px;font-size:13px;">
-          ${escapeHTML(j.text)}
-        </div>
-      </div>
+      `
+      )
+      .join("");
 
-    `)
-    .join("");
 }
 
 
-/* ================= SECURITY ================= */
+/* =========================================================
+   ESCAPE
+   ========================================================= */
 
-function escapeHTML(str){
+function escapeHTML(value){
 
-  return String(str)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+  return String(value)
+
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
+
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
+
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
+
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
+
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
+
 }
 
-function escapeAttr(str){
-  return escapeHTML(str);
+
+function escapeAttr(value){
+
+  return escapeHTML(value);
+
 }
 
 
-/* ================= INIT ================= */
+/* =========================================================
+   INIT
+   ========================================================= */
 
 renderAll();
 
