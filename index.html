@@ -2,32 +2,25 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-
 <meta name="viewport"
-      content="width=device-width, initial-scale=1, viewport-fit=cover">
-
+      content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#050505">
-
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="RESURGIR">
-
-<link rel="manifest" href="manifest.json">
 
 <title>RESURGIR</title>
 
 <style>
 :root{
-  --bg-main:#050505;
-  --bg-card:#111111;
-  --bg-elevated:#1a1a1a;
-  --border-color:rgba(255,255,255,.08);
-  --text-main:#f5f5f5;
-  --text-muted:#888;
-  --accent:#fff;
+  --bg:#050505;
+  --card:#111;
+  --card2:#171717;
+  --line:rgba(255,255,255,.08);
+  --text:#f4f4f4;
+  --muted:#858585;
+  --soft:#aaa;
   --danger:#ff5555;
-  --radius-card:20px;
-  --radius-btn:12px;
+  --radius:20px;
 }
 
 *{
@@ -35,668 +28,523 @@
   -webkit-tap-highlight-color:transparent;
 }
 
-html{
-  background:#050505;
-  color-scheme:dark;
-}
-
-body{
+html,body{
   margin:0;
-  background:var(--bg-main);
-  color:var(--text-main);
+  background:var(--bg);
+  color:var(--text);
   font-family:
     -apple-system,
     BlinkMacSystemFont,
     "Helvetica Neue",
     "Noto Sans JP",
-    Arial,
     sans-serif;
+}
+
+body{
   overscroll-behavior:none;
 }
 
 button,
 input,
-textarea,
-select{
+textarea{
   font:inherit;
 }
 
 button{
   cursor:pointer;
-  -webkit-user-select:none;
-  user-select:none;
 }
 
 .app{
   width:100%;
   max-width:620px;
-  min-height:100vh;
   margin:auto;
-  padding-bottom:calc(95px + env(safe-area-inset-bottom));
+  min-height:100vh;
+  padding:0 16px calc(100px + env(safe-area-inset-bottom));
 }
 
 /* HEADER */
 
-header{
+.header{
   position:sticky;
   top:0;
   z-index:20;
-
-  padding:18px 18px 14px;
-
-  background:rgba(5,5,5,.82);
-
-  backdrop-filter:blur(20px);
-  -webkit-backdrop-filter:blur(20px);
-
-  border-bottom:1px solid rgba(255,255,255,.04);
+  margin:0 -16px;
+  padding:
+    calc(12px + env(safe-area-inset-top))
+    20px
+    12px;
+  background:rgba(5,5,5,.88);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(255,255,255,.05);
 }
 
 .header-row{
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:space-between;
 }
 
 .logo{
   font-size:27px;
   font-weight:900;
-  letter-spacing:.12em;
-
+  letter-spacing:.13em;
   background:linear-gradient(90deg,#fff,#777);
   -webkit-background-clip:text;
   background-clip:text;
   color:transparent;
 }
 
-.header-day{
-  color:var(--text-muted);
-  font-size:11px;
-  letter-spacing:.12em;
-  text-transform:uppercase;
+.header-meta{
+  text-align:right;
+  color:#777;
+  font-size:9px;
+  letter-spacing:.1em;
 }
 
-/* MAIN */
-
-main{
-  padding:18px;
-}
+/* SCREENS */
 
 .screen{
   display:none;
-  animation:screenIn .2s ease;
+  padding-top:18px;
+  animation:fade .2s ease;
 }
 
 .screen.active{
   display:block;
 }
 
-@keyframes screenIn{
+@keyframes fade{
   from{
     opacity:0;
     transform:translateY(5px);
   }
-
   to{
     opacity:1;
-    transform:translateY(0);
+    transform:none;
   }
 }
 
-/* CARDS */
-
-.card{
-  background:var(--bg-card);
-  border:1px solid var(--border-color);
-  border-radius:var(--radius-card);
-  padding:18px;
-  margin-bottom:14px;
-  box-shadow:0 10px 35px rgba(0,0,0,.16);
-}
-
-.card.compact{
-  padding:15px;
-}
-
-.hero{
-  padding:25px 20px;
-  min-height:180px;
-
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-}
+/* TEXT */
 
 .eyebrow{
-  font-size:10px;
-  letter-spacing:.18em;
-  color:var(--text-muted);
+  color:#777;
+  font-size:9px;
+  letter-spacing:.16em;
   text-transform:uppercase;
 }
 
-.hero-title{
-  font-size:30px;
-  line-height:1.05;
+.title{
+  font-size:26px;
   font-weight:900;
-  letter-spacing:-.03em;
-  margin-top:8px;
+  letter-spacing:-.04em;
 }
 
-.hero-sub{
-  margin-top:9px;
-  color:#aaa;
-  font-size:13px;
-  line-height:1.6;
+.jp{
+  color:#777;
+  font-size:10px;
+  margin-top:4px;
+}
+
+.muted{
+  color:var(--muted);
+}
+
+.tiny{
+  color:#666;
+  font-size:9px;
+  line-height:1.65;
+}
+
+.section-head{
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  margin:22px 2px 10px;
+}
+
+.section-head h2{
+  margin:0;
+  font-size:15px;
+}
+
+.section-head small{
+  color:#666;
+  font-size:9px;
+}
+
+/* CARD */
+
+.card{
+  background:linear-gradient(145deg,#121212,#0d0d0d);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:18px;
+  margin-bottom:12px;
+  box-shadow:0 10px 28px rgba(0,0,0,.2);
+}
+
+.hero{
+  padding:22px 20px;
+  overflow:hidden;
+  position:relative;
+}
+
+.hero:after{
+  content:"";
+  position:absolute;
+  width:180px;
+  height:180px;
+  right:-90px;
+  top:-90px;
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:50%;
 }
 
 /* SCORE */
 
 .score-row{
   display:flex;
-  align-items:flex-end;
+  align-items:end;
   justify-content:space-between;
-  margin-bottom:12px;
+  margin-top:22px;
 }
 
 .score{
   font-size:58px;
   line-height:.9;
   font-weight:900;
-  letter-spacing:-.06em;
+  letter-spacing:-.07em;
 }
 
-.score-label{
+.score-den{
+  color:#666;
+  font-size:12px;
+  margin-left:5px;
+}
+
+.rank{
+  color:#aaa;
   font-size:10px;
-  letter-spacing:.18em;
-  color:var(--text-muted);
-  margin-bottom:6px;
+  line-height:1.6;
+  text-align:right;
+  letter-spacing:.1em;
 }
 
 .progress{
   height:6px;
-  background:#222;
+  margin-top:15px;
+  background:#252525;
   border-radius:99px;
   overflow:hidden;
 }
 
-.progress > div{
+.progress i{
+  display:block;
   height:100%;
-  width:0;
-  background:#fff;
+  background:#eee;
   border-radius:99px;
-  transition:width .3s ease;
+  transition:.25s;
 }
 
-/* STATS */
+/* GRID */
 
-.stat-grid{
+.grid2{
   display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
 }
 
 .stat{
-  background:#0d0d0d;
+  padding:14px;
+  background:#0b0b0b;
   border:1px solid rgba(255,255,255,.06);
   border-radius:15px;
-  padding:14px;
 }
 
-.stat-label{
-  color:var(--text-muted);
-  font-size:10px;
-  letter-spacing:.13em;
-  text-transform:uppercase;
+.stat span{
+  display:block;
+  color:#666;
+  font-size:9px;
 }
 
-.stat-value{
-  margin-top:7px;
-  font-size:24px;
-  font-weight:850;
+.stat b{
+  display:block;
+  margin-top:5px;
+  font-size:21px;
 }
 
-.stat-small{
-  margin-top:4px;
-  color:#777;
-  font-size:11px;
-}
-
-/* COMMON */
-
-.section-title{
-  margin:25px 2px 10px;
-  font-size:11px;
-  color:#777;
-  letter-spacing:.18em;
-  text-transform:uppercase;
-}
-
-.row{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-}
-
-.stack{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-
-.mini{
-  color:var(--text-muted);
-  font-size:12px;
-  line-height:1.6;
-}
-
-.big-copy{
-  font-size:20px;
-  font-weight:800;
-  line-height:1.3;
-}
-
-.muted{
-  color:var(--text-muted);
-}
-
-.danger{
-  color:var(--danger);
-}
-
-.quote{
-  font-size:18px;
-  font-weight:800;
-  line-height:1.45;
-}
-
-/* BUTTONS */
+/* BUTTON */
 
 .btn{
   width:100%;
+  min-height:46px;
+  padding:12px 14px;
+  border-radius:12px;
   border:0;
-  border-radius:var(--radius-btn);
-  padding:13px 15px;
   font-weight:800;
-  transition:transform .12s ease;
+  transition:.1s;
 }
 
 .btn:active{
   transform:scale(.98);
 }
 
-.btn-primary{
-  background:#fff;
-  color:#050505;
+.primary{
+  background:#eee;
+  color:#080808;
 }
 
-.btn-secondary{
-  background:#1b1b1b;
-  color:#fff;
+.secondary{
+  background:#1d1d1d;
+  color:#eee;
   border:1px solid rgba(255,255,255,.08);
 }
 
-.btn-danger{
-  background:rgba(255,85,85,.12);
-  color:#ff7777;
-  border:1px solid rgba(255,85,85,.2);
+.ghost{
+  background:transparent;
+  color:#aaa;
+  border:1px solid rgba(255,255,255,.08);
 }
 
-.btn-small{
-  width:auto;
-  padding:9px 12px;
-  font-size:12px;
+.danger{
+  background:#241010;
+  color:#ff8888;
+  border:1px solid rgba(255,85,85,.15);
 }
 
-/* =========================================
-   SAFE CHECK TOGGLE
-   ========================================= */
+.small{
+  min-height:37px;
+  padding:8px 10px;
+  font-size:10px;
+}
 
-.check{
-  width:100%;
-  min-height:58px;
+.actions{
+  display:flex;
+  gap:8px;
+  margin-top:12px;
+}
 
+.actions>*{
+  flex:1;
+}
+
+/* MISSION */
+
+.mission{
+  border-left:2px solid #eee;
+  padding-left:14px;
+}
+
+.mission-title{
+  margin:6px 0;
+  font-size:18px;
+  font-weight:850;
+}
+
+.mission-desc{
+  color:#aaa;
+  font-size:11px;
+  line-height:1.6;
+}
+
+.done .mission-title{
+  color:#666;
+  text-decoration:line-through;
+}
+
+/* QUICK */
+
+.quick{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:7px;
+}
+
+.quick button{
+  min-height:68px;
+  padding:8px 4px;
+  color:#aaa;
+  background:#101010;
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:15px;
+  font-size:9px;
+}
+
+.quick strong{
+  display:block;
+  color:#eee;
+  font-size:18px;
+  margin-bottom:4px;
+}
+
+/* CHECK */
+
+.check-list{
+  display:grid;
+  gap:7px;
+}
+
+.check-row{
   display:flex;
   align-items:center;
-
-  gap:12px;
-
-  padding:11px 0;
-
-  border-bottom:1px solid rgba(255,255,255,.06);
-
-  /* IMPORTANT:
-     No label wrapping.
-     No nested clickable elements.
-  */
-  user-select:none;
-  -webkit-user-select:none;
+  gap:10px;
+  min-height:52px;
+  padding:10px;
+  background:#0b0b0b;
+  border:1px solid rgba(255,255,255,.055);
+  border-radius:14px;
+  cursor:pointer;
 }
-
-.check:last-child{
-  border-bottom:0;
-}
-
-/* The actual tappable checkbox */
 
 .check-toggle{
   appearance:none;
   -webkit-appearance:none;
-
   flex:0 0 24px;
-
   width:24px;
   height:24px;
-
-  padding:0;
   margin:0;
-
-  border-radius:7px;
-
+  background:#090909;
   border:1px solid #444;
-
-  background:#0b0b0b;
-
+  border-radius:7px;
   position:relative;
-
-  cursor:pointer;
-
-  touch-action:manipulation;
-
-  transition:
-    background .12s ease,
-    border-color .12s ease,
-    transform .08s ease;
-}
-
-.check-toggle:active{
-  transform:scale(.92);
 }
 
 .check-toggle:checked{
-  background:#fff;
-  border-color:#fff;
+  background:#eee;
+  border-color:#eee;
 }
 
-.check-toggle:checked::after{
+.check-toggle:checked:after{
   content:"✓";
-
   position:absolute;
-
   left:4px;
   top:0;
-
-  color:#000;
-
+  color:#080808;
   font-size:16px;
-  line-height:22px;
   font-weight:900;
 }
 
 .check-content{
-  min-width:0;
-  flex:1;
-
-  cursor:pointer;
-}
-
-.check-content strong{
-  font-size:13px;
-  line-height:1.35;
+  font-size:11px;
+  line-height:1.4;
 }
 
 .check-content small{
   display:block;
-
-  margin-top:3px;
-
-  color:#777;
-
-  font-size:10px;
-  line-height:1.4;
-}
-
-/* CODE */
-
-.code-list{
-  display:grid;
-  gap:2px;
-}
-
-.code-item{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-
-  padding:13px 0;
-
-  border-bottom:1px solid rgba(255,255,255,.06);
-}
-
-.code-item:last-child{
-  border-bottom:0;
-}
-
-.code-item strong{
-  font-size:13px;
-}
-
-.code-item small{
-  display:block;
-  color:#777;
-  margin-top:3px;
-  font-size:10px;
-}
-
-.status{
-  padding:5px 8px;
-
-  border-radius:99px;
-
+  color:#666;
   font-size:9px;
-  font-weight:800;
+  margin-top:2px;
+}
+
+/* TAG */
+
+.tag{
+  display:inline-flex;
+  padding:5px 8px;
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:99px;
+  color:#aaa;
+  font-size:8px;
   letter-spacing:.08em;
+}
 
-  background:#1c1c1c;
+/* RULE */
+
+.rule{
+  margin-top:11px;
+  padding:10px 12px;
+  background:#090909;
+  border:1px solid rgba(255,255,255,.05);
+  border-radius:12px;
+}
+
+.rule summary{
   color:#777;
-
-  white-space:nowrap;
+  cursor:pointer;
+  font-size:9px;
+  letter-spacing:.1em;
 }
 
-.status.done{
-  background:#fff;
-  color:#000;
+.rule-body{
+  margin-top:9px;
+  color:#777;
+  font-size:9px;
+  line-height:1.7;
 }
 
-/* QUEST */
+/* INPUT */
 
-.quest{
-  position:relative;
-  overflow:hidden;
+.field{
+  margin-bottom:12px;
 }
 
-.quest::before{
-  content:"";
-
-  position:absolute;
-
-  top:0;
-  bottom:0;
-  left:0;
-
-  width:2px;
-
-  background:#fff;
+.field label{
+  color:#777;
+  font-size:9px;
+  letter-spacing:.08em;
 }
 
-.quest-inner{
-  padding-left:13px;
+.input{
+  width:100%;
+  margin-top:6px;
+  padding:12px;
+  background:#090909;
+  border:1px solid #292929;
+  border-radius:12px;
+  color:#eee;
+  outline:none;
 }
 
-.quest-title{
-  font-size:22px;
-  font-weight:900;
+.input:focus{
+  border-color:#555;
 }
 
-.quest-desc{
-  color:#888;
-  font-size:12px;
-  line-height:1.5;
-  margin:6px 0 14px;
+textarea.input{
+  min-height:95px;
+  resize:vertical;
 }
 
-/* TRAINING */
-
-.routine{
-  padding:14px 0;
-  border-bottom:1px solid rgba(255,255,255,.06);
-}
-
-.routine:last-child{
-  border-bottom:0;
-}
+/* EXERCISE */
 
 .exercise{
-  display:grid;
-  grid-template-columns:1fr auto;
-
-  gap:8px;
-
-  padding:11px 0;
-
-  border-bottom:1px solid rgba(255,255,255,.04);
-}
-
-.exercise:last-child{
-  border-bottom:0;
+  padding:13px;
+  margin-top:8px;
+  background:#0b0b0b;
+  border:1px solid rgba(255,255,255,.055);
+  border-radius:14px;
 }
 
 .exercise-name{
-  font-size:13px;
-  font-weight:700;
-}
-
-.exercise-target{
-  color:#888;
-  font-size:11px;
-  margin-top:3px;
-}
-
-.exercise-value{
-  text-align:right;
   font-size:12px;
   font-weight:800;
+}
+
+.prescription{
+  color:#666;
+  font-size:9px;
+  margin-top:4px;
 }
 
 .exercise-inputs{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
+  grid-template-columns:1fr 1fr 1fr;
   gap:7px;
-  margin-top:8px;
+  margin-top:9px;
 }
 
-/* INPUTS */
-
-input,
-textarea,
-select{
+.exercise-inputs input{
   width:100%;
-
-  background:#0b0b0b;
-
-  color:#fff;
-
-  border:1px solid rgba(255,255,255,.1);
-
-  border-radius:12px;
-
-  padding:12px;
-
-  outline:none;
-}
-
-input:focus,
-textarea:focus,
-select:focus{
-  border-color:rgba(255,255,255,.35);
-}
-
-textarea{
-  min-height:100px;
-  resize:vertical;
-}
-
-.field{
-  margin-bottom:10px;
-}
-
-.field label{
-  display:block;
-
-  color:#777;
-
-  font-size:10px;
-  letter-spacing:.12em;
-
-  margin-bottom:6px;
-
-  text-transform:uppercase;
-}
-
-/* MANHOOD */
-
-.manhood-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:9px;
-}
-
-.manhood-item{
-  background:#0d0d0d;
-
-  border:1px solid rgba(255,255,255,.06);
-
-  border-radius:15px;
-
-  padding:13px;
-}
-
-.manhood-head{
-  display:flex;
-  justify-content:space-between;
-
-  font-size:11px;
-}
-
-.manhood-score{
-  font-size:21px;
-  font-weight:900;
-  margin-top:7px;
-}
-
-.bar{
-  height:4px;
-
-  background:#222;
-
-  border-radius:99px;
-
-  margin-top:8px;
-
-  overflow:hidden;
-}
-
-.bar div{
-  height:100%;
-  background:#fff;
+  padding:9px;
+  background:#121212;
+  border:1px solid #252525;
+  border-radius:9px;
+  color:#eee;
 }
 
 /* LOG */
 
 .log-item{
-  padding:13px 0;
-
+  padding:12px 0;
   border-bottom:1px solid rgba(255,255,255,.06);
 }
 
@@ -704,140 +552,87 @@ textarea{
   border-bottom:0;
 }
 
-.log-date{
-  color:#777;
-
-  font-size:10px;
-
-  letter-spacing:.1em;
-}
-
 .log-title{
-  margin-top:4px;
-
+  font-size:11px;
   font-weight:750;
-
-  font-size:13px;
 }
 
-.log-body{
-  margin-top:5px;
-
-  color:#999;
-
-  font-size:12px;
-
-  line-height:1.5;
-}
-
-.list-empty{
+.log-meta{
   color:#666;
-
-  font-size:12px;
-
-  padding:12px 0;
+  font-size:9px;
+  line-height:1.55;
+  margin-top:3px;
 }
 
-/* BOSS */
+/* METER */
 
-.boss{
-  border:1px solid rgba(255,255,255,.18);
+.meter{
+  height:4px;
+  margin-top:6px;
+  background:#252525;
+  border-radius:99px;
+  overflow:hidden;
 }
 
-.boss-title{
-  font-size:24px;
-  font-weight:900;
-  margin:5px 0 8px;
-}
-
-.boss-meta{
-  color:#777;
-  font-size:10px;
-  letter-spacing:.1em;
+.meter i{
+  display:block;
+  height:100%;
+  background:#eee;
 }
 
 /* NAV */
 
-.nav{
+.bottom-nav{
   position:fixed;
-
-  z-index:50;
-
-  bottom:0;
+  z-index:30;
   left:50%;
-
+  bottom:0;
   transform:translateX(-50%);
-
   width:min(620px,100%);
-
-  padding:
-    9px
-    10px
-    calc(9px + env(safe-area-inset-bottom));
-
   display:grid;
-
   grid-template-columns:repeat(5,1fr);
-
-  gap:4px;
-
-  background:rgba(8,8,8,.88);
-
+  padding:
+    8px 12px
+    calc(8px + env(safe-area-inset-bottom));
+  background:rgba(7,7,7,.9);
   backdrop-filter:blur(22px);
-  -webkit-backdrop-filter:blur(22px);
-
-  border-top:1px solid rgba(255,255,255,.08);
+  border-top:1px solid rgba(255,255,255,.07);
 }
 
-.nav button{
+.nav-btn{
+  min-height:57px;
   border:0;
-
   background:transparent;
-
-  color:#666;
-
-  padding:8px 2px;
-
-  border-radius:12px;
-
-  font-size:9px;
-
-  letter-spacing:.08em;
-
-  font-weight:800;
-
-  touch-action:manipulation;
+  color:#555;
+  font-size:8px;
 }
 
-.nav button.active{
-  color:#fff;
-  background:#171717;
-}
-
-.nav-icon{
+.nav-btn strong{
   display:block;
-  font-size:16px;
   margin-bottom:4px;
+  color:#666;
+  font-size:17px;
+}
+
+.nav-btn.active{
+  color:#eee;
+}
+
+.nav-btn.active strong{
+  color:#eee;
 }
 
 /* MODAL */
 
 .modal{
   position:fixed;
-
   inset:0;
-
-  z-index:80;
-
+  z-index:50;
   display:none;
-
-  align-items:flex-end;
+  align-items:end;
   justify-content:center;
-
   background:rgba(0,0,0,.72);
-
-  backdrop-filter:blur(7px);
-  -webkit-backdrop-filter:blur(7px);
+  backdrop-filter:blur(8px);
 }
 
 .modal.open{
@@ -846,1828 +641,310 @@ textarea{
 
 .sheet{
   width:min(620px,100%);
-
   max-height:90vh;
-
   overflow:auto;
-
+  padding:
+    18px 16px
+    calc(25px + env(safe-area-inset-bottom));
   background:#111;
-
-  border-radius:24px 24px 0 0;
-
   border:1px solid rgba(255,255,255,.08);
-
-  padding:20px;
-
-  padding-bottom:
-    calc(24px + env(safe-area-inset-bottom));
-
-  animation:sheetIn .2s ease;
+  border-bottom:0;
+  border-radius:24px 24px 0 0;
 }
 
-@keyframes sheetIn{
-  from{
-    transform:translateY(30px);
-    opacity:.5;
-  }
-
-  to{
-    transform:translateY(0);
-    opacity:1;
-  }
-}
-
-.sheet-title{
-  font-size:20px;
-  font-weight:900;
+.sheet-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
   margin-bottom:15px;
 }
 
+.sheet-head h2{
+  margin:3px 0 0;
+  font-size:18px;
+}
+
 .close{
-  float:right;
-
+  width:34px;
+  height:34px;
   border:0;
-
+  border-radius:50%;
   background:#222;
-
   color:#aaa;
-
-  border-radius:99px;
-
-  width:30px;
-  height:30px;
-}
-
-.two{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
-}
-
-.three{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:8px;
 }
 
 /* TOAST */
 
 .toast{
   position:fixed;
-
   z-index:100;
-
   left:50%;
-  bottom:105px;
-
-  transform:translateX(-50%) translateY(20px);
-
-  background:#fff;
-
-  color:#000;
-
-  padding:11px 15px;
-
-  border-radius:99px;
-
-  font-size:11px;
-
-  font-weight:800;
-
+  bottom:100px;
+  transform:translate(-50%,10px);
   opacity:0;
-
+  padding:10px 15px;
+  background:#eee;
+  color:#080808;
+  border-radius:99px;
+  font-size:10px;
+  font-weight:850;
   pointer-events:none;
-
-  transition:.25s;
+  transition:.2s;
 }
 
 .toast.show{
   opacity:1;
+  transform:translate(-50%,0);
+}
 
-  transform:
-    translateX(-50%)
-    translateY(0);
+.big-quote{
+  font-size:20px;
+  line-height:1.45;
+  font-weight:850;
+}
+
+.signature{
+  margin-top:9px;
+  color:#666;
+  font-size:9px;
+  letter-spacing:.08em;
+}
+
+.empty{
+  padding:18px;
+  text-align:center;
+  color:#666;
+  font-size:10px;
 }
 
 .divider{
   height:1px;
-
+  margin:14px 0;
   background:rgba(255,255,255,.06);
-
-  margin:16px 0;
 }
 
-footer{
-  text-align:center;
-
-  color:#444;
-
-  font-size:9px;
-
-  letter-spacing:.2em;
-
-  padding:20px 0 0;
-}
-
-@media(min-width:621px){
-
-  .nav{
-    bottom:14px;
-
-    border:1px solid rgba(255,255,255,.08);
-
-    border-radius:18px;
-
-    width:600px;
-  }
-
-  .app{
-    padding-bottom:115px;
-  }
-
+@media(min-width:700px){
   .modal{
     align-items:center;
   }
 
   .sheet{
+    border:1px solid rgba(255,255,255,.08);
     border-radius:24px;
-    max-height:85vh;
   }
 }
 </style>
 </head>
 
-
 <body>
 
 <div class="app">
 
-<header>
+<header class="header">
   <div class="header-row">
-
-    <div class="logo">
-      RESURGIR
-    </div>
-
-    <div
-      class="header-day"
-      id="headerDay">
-    </div>
-
+    <div class="logo">RESURGIR</div>
+    <div class="header-meta" id="headerMeta"></div>
   </div>
 </header>
 
-
 <main>
 
-<!-- =====================================================
-     HOME
-===================================================== -->
-
-<section
-  id="home"
-  class="screen active">
-
-  <div class="card hero">
-
-    <div>
-
-      <div class="eyebrow">
-        THE MAN YOU SAID YOU'D BECOME
-      </div>
-
-      <div class="hero-title">
-        RISE AGAIN.
-      </div>
-
-      <div class="hero-sub">
-        完璧である必要はない。<br>
-        崩れても、また戻る。
-      </div>
-
-    </div>
-
-    <div class="row">
-
-      <span
-        class="rank"
-        id="rankBadge">
-        AWAKEN
-      </span>
-
-      <span
-        class="mini"
-        id="dayText">
-        DAY 001
-      </span>
-
-    </div>
-
-  </div>
-
-
-  <div class="section-title">
-    Today
-  </div>
-
-
-  <div class="card">
-
-    <div class="score-row">
-
-      <div>
-
-        <div
-          class="score"
-          id="todayScore">
-          0
-        </div>
-
-        <div class="score-label">
-          TODAY SCORE
-        </div>
-
-      </div>
-
-      <div
-        class="mini"
-        id="scoreMessage">
-        BEGIN.
-      </div>
-
-    </div>
-
-    <div class="progress">
-      <div id="todayProgress"></div>
-    </div>
-
-  </div>
-
-
-  <div class="stat-grid">
-
-    <div class="stat">
-
-      <div class="stat-label">
-        Streak
-      </div>
-
-      <div
-        class="stat-value"
-        id="streakValue">
-        0
-      </div>
-
-      <div class="stat-small">
-        days
-      </div>
-
-    </div>
-
-
-    <div class="stat">
-
-      <div class="stat-label">
-        Level
-      </div>
-
-      <div
-        class="stat-value"
-        id="levelValue">
-        1
-      </div>
-
-      <div
-        class="stat-small"
-        id="xpValue">
-        0 XP
-      </div>
-
-    </div>
-
-
-    <div class="stat">
-
-      <div class="stat-label">
-        Body
-      </div>
-
-      <div
-        class="stat-value"
-        id="bodyStatus">
-        —
-      </div>
-
-      <div class="stat-small">
-        BUILD
-      </div>
-
-    </div>
-
-
-    <div class="stat">
-
-      <div class="stat-label">
-        Code
-      </div>
-
-      <div
-        class="stat-value"
-        id="codeStatus">
-        0/3
-      </div>
-
-      <div class="stat-small">
-        TODAY'S CODE
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <div class="section-title">
-    Today's Code
-  </div>
-
-
-  <div class="card">
-
-    <div id="homeCode"></div>
-
-  </div>
-
-
-  <div class="section-title">
-    Courage Quest
-  </div>
-
-
-  <div class="card quest">
-
-    <div
-      class="quest-inner"
-      id="homeQuest">
-    </div>
-
-  </div>
-
-
-  <div class="section-title">
-    Night Review
-  </div>
-
-
-  <div class="card">
-
-    <div class="stack">
-
-      <div class="field">
-
-        <label>
-          Today I Won
-        </label>
-
-        <input
-          id="homeWon"
-          placeholder="今日、自分に勝ったこと">
-
-      </div>
-
-
-      <div class="field">
-
-        <label>
-          I Failed
-        </label>
-
-        <input
-          id="homeFailed"
-          placeholder="今日、負けたこと">
-
-      </div>
-
-
-      <div class="field">
-
-        <label>
-          Tomorrow
-        </label>
-
-        <input
-          id="homeTomorrow"
-          placeholder="明日やること">
-
-      </div>
-
-
-      <button
-        class="btn btn-primary"
-        onclick="saveReview()">
-
-        SAVE REVIEW
-
-      </button>
-
-    </div>
-
-  </div>
-
-
-  <div class="card">
-
-    <div class="eyebrow">
-      THE CODE
-    </div>
-
-    <div
-      class="quote"
-      style="margin-top:10px;">
-
-      KEEP YOUR WORD.<br>
-      DON'T RUN.<br>
-      BUILD YOUR BODY.<br>
-      BUILD YOUR WEALTH.<br>
-      PROTECT WHAT YOU LOVE.<br>
-      RESPECT YOURSELF.
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- =====================================================
-     BUILD
-===================================================== -->
-
-<section
-  id="build"
-  class="screen">
-
-  <div class="section-title">
-    Build
-  </div>
-
-
-  <div class="card">
-
-    <div class="row">
-
-      <div>
-
-        <div class="eyebrow">
-          BODY
-        </div>
-
-        <div
-          class="big-copy"
-          id="weightDisplay">
-          — kg
-        </div>
-
-      </div>
-
-      <button
-        class="btn btn-secondary btn-small"
-        onclick="openModal('weightModal')">
-
-        UPDATE
-
-      </button>
-
-    </div>
-
-
-    <div class="divider"></div>
-
-
-    <div class="stat-grid">
-
-      <div class="stat">
-
-        <div class="stat-label">
-          Goal Weight
-        </div>
-
-        <div class="stat-value">
-          75
-        </div>
-
-        <div class="stat-small">
-          kg
-        </div>
-
-      </div>
-
-
-      <div class="stat">
-
-        <div class="stat-label">
-          Goal BF
-        </div>
-
-        <div class="stat-value">
-          12
-        </div>
-
-        <div class="stat-small">
-          %
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <div class="section-title">
-    Training
-  </div>
-
-
-  <div class="card">
-
-    <div class="row">
-
-      <div>
-
-        <div class="eyebrow">
-          TODAY'S BUILD
-        </div>
-
-        <div
-          class="big-copy"
-          id="todayWorkoutName">
-          REST
-        </div>
-
-      </div>
-
-      <button
-        class="btn btn-primary btn-small"
-        onclick="startWorkout()">
-
-        START
-
-      </button>
-
-    </div>
-
-  </div>
-
-
-  <div id="routineList"></div>
-
-
-  <button
-    class="btn btn-secondary"
-    onclick="openRoutineEditor()">
-
-    + MANAGE ROUTINES
-
-  </button>
-
-
-  <div class="section-title">
-    Wealth
-  </div>
-
-
-  <div class="card">
-
-    <div class="stat-grid">
-
-      <div class="stat">
-
-        <div class="stat-label">
-          Income
-        </div>
-
-        <div
-          class="stat-value"
-          id="incomeDisplay">
-          ¥0
-        </div>
-
-      </div>
-
-
-      <div class="stat">
-
-        <div class="stat-label">
-          Side
-        </div>
-
-        <div
-          class="stat-value"
-          id="sideDisplay">
-          ¥0
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div style="margin-top:12px;">
-
-      <button
-        class="btn btn-secondary"
-        onclick="openModal('wealthModal')">
-
-        UPDATE WEALTH
-
-      </button>
-
-    </div>
-
-  </div>
-
-
-  <div class="section-title">
-    Responsibility
-  </div>
-
-
-  <div class="card">
-
-    <div id="responsibilityList"></div>
-
-  </div>
-
-</section>
-
-
-<!-- =====================================================
-     CODE
-===================================================== -->
-
-<section
-  id="code"
-  class="screen">
-
-  <div class="card hero">
-
-    <div>
-
-      <div class="eyebrow">
-        YOUR CONSTITUTION
-      </div>
-
-      <div class="hero-title">
-        THE CODE.
-      </div>
-
-      <div class="hero-sub">
-        強さとは、自分を支配する力。
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <div class="section-title">
-    Daily Code
-  </div>
-
-
-  <div class="card">
-
-    <div id="codeScreenList"></div>
-
-  </div>
-
-
-  <div class="section-title">
-    Manhood
-  </div>
-
-
-  <div class="card">
-
-    <div
-      class="manhood-grid"
-      id="manhoodGrid">
-    </div>
-
-  </div>
-
-
-  <div class="section-title">
-    Courage Quest
-  </div>
-
-
-  <div class="card quest">
-
-    <div
-      class="quest-inner"
-      id="codeQuest">
-    </div>
-
-  </div>
-
-
-  <div class="section-title">
-    Presence
-  </div>
-
-
-  <div class="card">
-
-    <div class="mini">
-
-      毎日チェックするものではない。<br>
-      「どういう男として見えるか」を週単位で整える。
-
-    </div>
-
-    <div
-      style="margin-top:12px;"
-      id="presenceList">
-    </div>
-
-  </div>
-
-
-  <div class="section-title">
-    The Code
-  </div>
-
-
-  <div class="card">
-
-    <div
-      class="code-list"
-      id="constitution">
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- =====================================================
-     LOG
-===================================================== -->
-
-<section
-  id="log"
-  class="screen">
-
-  <div class="card hero">
-
-    <div>
-
-      <div class="eyebrow">
-        WAR LOG
-      </div>
-
-      <div class="hero-title">
-        REMEMBER.
-      </div>
-
-      <div class="hero-sub">
-        勝った日も、負けた日も、全部残す。
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <div class="section-title">
-    Weekly Boss
-  </div>
-
-
-  <div
-    class="card boss"
-    id="bossCard">
-  </div>
-
-
-  <div class="section-title">
-    Journal
-  </div>
-
-
-  <div class="card">
-
-    <div class="stack">
-
-      <div class="field">
-
-        <label>
-          Today I Won
-        </label>
-
-        <textarea
-          id="journalWon"
-          placeholder="今日、自分に勝ったこと">
-        </textarea>
-
-      </div>
-
-
-      <div class="field">
-
-        <label>
-          I Failed
-        </label>
-
-        <textarea
-          id="journalFailed"
-          placeholder="今日、負けたこと">
-        </textarea>
-
-      </div>
-
-
-      <div class="field">
-
-        <label>
-          Tomorrow
-        </label>
-
-        <textarea
-          id="journalTomorrow"
-          placeholder="明日やること">
-        </textarea>
-
-      </div>
-
-
-      <button
-        class="btn btn-primary"
-        onclick="saveReview()">
-
-        SAVE WAR LOG
-
-      </button>
-
-    </div>
-
-  </div>
-
-
-  <div class="section-title">
-    Falls
-  </div>
-
-
-  <div class="card">
-
-    <div class="row">
-
-      <div>
-
-        <div
-          class="big-copy"
-          id="fallStatus">
-          CLEAN DAY
-        </div>
-
-        <div
-          class="mini"
-          id="fallCount">
-          0 violations
-        </div>
-
-      </div>
-
-      <button
-        class="btn btn-secondary btn-small"
-        onclick="openModal('fallModal')">
-
-        LOG FALL
-
-      </button>
-
-    </div>
-
-
-    <div id="fallHistory"></div>
-
-  </div>
-
-
-  <div class="section-title">
-    Training History
-  </div>
-
-
-  <div class="card">
-
-    <div id="trainingHistory"></div>
-
-  </div>
-
-
-  <div class="section-title">
-    Progress
-  </div>
-
-
-  <div class="card">
-
-    <div class="stat-grid">
-
-      <div class="stat">
-
-        <div class="stat-label">
-          Total Days
-        </div>
-
-        <div
-          class="stat-value"
-          id="totalDays">
-          0
-        </div>
-
-      </div>
-
-
-      <div class="stat">
-
-        <div class="stat-label">
-          Builds
-        </div>
-
-        <div
-          class="stat-value"
-          id="totalBuilds">
-          0
-        </div>
-
-      </div>
-
-
-      <div class="stat">
-
-        <div class="stat-label">
-          Quests
-        </div>
-
-        <div
-          class="stat-value"
-          id="totalQuests">
-          0
-        </div>
-
-      </div>
-
-
-      <div class="stat">
-
-        <div class="stat-label">
-          Clean Days
-        </div>
-
-        <div
-          class="stat-value"
-          id="cleanDays">
-          0
-        </div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</section>
-
-
-<!-- =====================================================
-     MORE
-===================================================== -->
-
-<section
-  id="more"
-  class="screen">
-
-  <div class="card hero">
-
-    <div>
-
-      <div class="eyebrow">
-        MORE
-      </div>
-
-      <div class="hero-title">
-        BUILD QUIETLY.
-      </div>
-
-      <div class="hero-sub">
-        見せるためではない。<br>
-        自分が知っていればいい。
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <div class="section-title">
-    Food
-  </div>
-
-
-  <div class="card">
-
-    <div class="stat-grid">
-
-      <div class="stat">
-
-        <div class="stat-label">
-          Calories
-        </div>
-
-        <div class="stat-value">
-          1800
-        </div>
-
-        <div class="stat-small">
-          kcal target
-        </div>
-
-      </div>
-
-
-      <div class="stat">
-
-        <div class="stat-label">
-          Protein
-        </div>
-
-        <div class="stat-value">
-          150
-        </div>
-
-        <div class="stat-small">
-          g target
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div style="margin-top:12px;">
-
-      <button
-        class="btn btn-secondary"
-        onclick="openModal('foodModal')">
-
-        UPDATE FOOD
-
-      </button>
-
-    </div>
-
-
-    <div
-      id="foodSummary"
-      style="margin-top:12px;">
-    </div>
-
-  </div>
-
-
-  <div class="section-title">
-    Settings
-  </div>
-
-
-  <div class="card">
-
-    <div class="stack">
-
-      <button
-        class="btn btn-secondary"
-        onclick="completeDay()">
-
-        COMPLETE TODAY
-
-      </button>
-
-
-      <button
-        class="btn btn-danger"
-        onclick="resetData()">
-
-        RESET ALL DATA
-
-      </button>
-
-    </div>
-
-  </div>
-
-
-  <footer>
-    RESURGIR · RISE AGAIN
-  </footer>
-
-</section>
+<section id="today" class="screen active"></section>
+<section id="build" class="screen"></section>
+<section id="code" class="screen"></section>
+<section id="log" class="screen"></section>
+<section id="man" class="screen"></section>
 
 </main>
+</div>
 
+<nav class="bottom-nav">
 
-<!-- =====================================================
-     NAVIGATION
-===================================================== -->
+<button class="nav-btn active" data-page="today">
+  <strong>⌂</strong>
+  TODAY<br>今日
+</button>
 
-<nav class="nav">
+<button class="nav-btn" data-page="build">
+  <strong>◒</strong>
+  BUILD<br>鍛錬
+</button>
 
-  <button
-    data-screen="home"
-    class="active">
+<button class="nav-btn" data-page="code">
+  <strong>◇</strong>
+  CODE<br>掟
+</button>
 
-    <span class="nav-icon">⌂</span>
-    HOME
+<button class="nav-btn" data-page="log">
+  <strong>≡</strong>
+  LOG<br>戦記
+</button>
 
-  </button>
-
-
-  <button
-    data-screen="build">
-
-    <span class="nav-icon">⚒</span>
-    BUILD
-
-  </button>
-
-
-  <button
-    data-screen="code">
-
-    <span class="nav-icon">◇</span>
-    CODE
-
-  </button>
-
-
-  <button
-    data-screen="log">
-
-    <span class="nav-icon">▤</span>
-    LOG
-
-  </button>
-
-
-  <button
-    data-screen="more">
-
-    <span class="nav-icon">⋯</span>
-    MORE
-
-  </button>
+<button class="nav-btn" data-page="man">
+  <strong>◎</strong>
+  MAN<br>己
+</button>
 
 </nav>
 
+<div class="modal" id="modal">
+  <div class="sheet" id="sheet"></div>
 </div>
 
-
-<!-- =====================================================
-     MODALS
-===================================================== -->
-
-<div
-  class="modal"
-  id="weightModal">
-
-  <div class="sheet">
-
-    <button
-      class="close"
-      onclick="closeModal('weightModal')">
-      ×
-    </button>
-
-    <div class="sheet-title">
-      UPDATE BODY
-    </div>
-
-
-    <div class="field">
-
-      <label>
-        Weight kg
-      </label>
-
-      <input
-        id="weightInput"
-        type="number"
-        step=".1"
-        placeholder="84.0">
-
-    </div>
-
-
-    <button
-      class="btn btn-primary"
-      onclick="saveWeight()">
-
-      SAVE
-
-    </button>
-
-  </div>
-
-</div>
-
-
-<div
-  class="modal"
-  id="wealthModal">
-
-  <div class="sheet">
-
-    <button
-      class="close"
-      onclick="closeModal('wealthModal')">
-      ×
-    </button>
-
-    <div class="sheet-title">
-      UPDATE WEALTH
-    </div>
-
-
-    <div class="field">
-
-      <label>
-        Monthly Income
-      </label>
-
-      <input
-        id="incomeInput"
-        type="number"
-        placeholder="0">
-
-    </div>
-
-
-    <div class="field">
-
-      <label>
-        Side Income
-      </label>
-
-      <input
-        id="sideInput"
-        type="number"
-        placeholder="0">
-
-    </div>
-
-
-    <button
-      class="btn btn-primary"
-      onclick="saveWealth()">
-
-      SAVE
-
-    </button>
-
-  </div>
-
-</div>
-
-
-<div
-  class="modal"
-  id="foodModal">
-
-  <div class="sheet">
-
-    <button
-      class="close"
-      onclick="closeModal('foodModal')">
-      ×
-    </button>
-
-    <div class="sheet-title">
-      FOOD LOG
-    </div>
-
-
-    <div class="three">
-
-      <div class="field">
-
-        <label>
-          Kcal
-        </label>
-
-        <input
-          id="foodKcal"
-          type="number">
-
-      </div>
-
-
-      <div class="field">
-
-        <label>
-          Protein
-        </label>
-
-        <input
-          id="foodProtein"
-          type="number">
-
-      </div>
-
-
-      <div class="field">
-
-        <label>
-          Water
-        </label>
-
-        <input
-          id="foodWater"
-          type="number">
-
-      </div>
-
-    </div>
-
-
-    <button
-      class="btn btn-primary"
-      onclick="saveFood()">
-
-      SAVE
-
-    </button>
-
-  </div>
-
-</div>
-
-
-<div
-  class="modal"
-  id="fallModal">
-
-  <div class="sheet">
-
-    <button
-      class="close"
-      onclick="closeModal('fallModal')">
-      ×
-    </button>
-
-    <div class="sheet-title">
-      LOG A FALL
-    </div>
-
-
-    <div class="field">
-
-      <label>
-        What happened?
-      </label>
-
-      <select id="fallType">
-
-        <option value="doomscrolling">
-          Doomscrolling
-        </option>
-
-        <option value="alcohol">
-          Lost control
-        </option>
-
-        <option value="procrastination">
-          Procrastination
-        </option>
-
-        <option value="anger">
-          Lost emotional control
-        </option>
-
-        <option value="broken_word">
-          Broke my word
-        </option>
-
-        <option value="other">
-          Other
-        </option>
-
-      </select>
-
-    </div>
-
-
-    <div class="field">
-
-      <label>
-        Lesson
-      </label>
-
-      <textarea
-        id="fallLesson"
-        placeholder="なぜ起きた？次はどうする？">
-      </textarea>
-
-    </div>
-
-
-    <button
-      class="btn btn-danger"
-      onclick="saveFall()">
-
-      RECORD FALL
-
-    </button>
-
-  </div>
-
-</div>
-
-
-<div
-  class="modal"
-  id="routineModal">
-
-  <div class="sheet">
-
-    <button
-      class="close"
-      onclick="closeModal('routineModal')">
-      ×
-    </button>
-
-    <div class="sheet-title">
-      ROUTINES
-    </div>
-
-
-    <div id="routineEditor"></div>
-
-
-    <div class="divider"></div>
-
-
-    <button
-      class="btn btn-primary"
-      onclick="addRoutine()">
-
-      + ADD ROUTINE
-
-    </button>
-
-  </div>
-
-</div>
-
-
-<div
-  class="modal"
-  id="workoutModal">
-
-  <div class="sheet">
-
-    <button
-      class="close"
-      onclick="closeModal('workoutModal')">
-      ×
-    </button>
-
-    <div
-      class="sheet-title"
-      id="workoutTitle">
-      BUILD
-    </div>
-
-    <div id="workoutEditor"></div>
-
-  </div>
-
-</div>
-
-
-<div
-  class="toast"
-  id="toast">
-</div>
-
+<div class="toast" id="toast"></div>
 
 <script>
 
 /* =========================================================
-   RESURGIR 3.0
-========================================================= */
+   RESURGIR 3.1
+   MANHOOD OS
+   ========================================================= */
 
-const STORAGE_KEY="resurgir_v11";
+const STORAGE_KEY = "resurgir_v13";
 
+/* ---------- DATA ---------- */
 
-/* =========================================================
-   DEFAULT DATA
-========================================================= */
-
-const DEFAULT_ROUTINES=[
-
-  {
-    id:"push",
-    name:"PUSH",
-
-    exercises:[
-      {
-        name:"Bench Press",
-        weight:60,
-        reps:6,
-        sets:3
-      },
-
-      {
-        name:"Incline Press",
-        weight:40,
-        reps:8,
-        sets:3
-      },
-
-      {
-        name:"Shoulder Press",
-        weight:16,
-        reps:8,
-        sets:3
-      },
-
-      {
-        name:"Side Raise",
-        weight:5,
-        reps:12,
-        sets:3
-      }
-    ]
-  },
-
-
-  {
-    id:"pull",
-    name:"PULL",
-
-    exercises:[
-      {
-        name:"Lat Pulldown",
-        weight:61,
-        reps:8,
-        sets:3
-      },
-
-      {
-        name:"Row",
-        weight:40,
-        reps:8,
-        sets:3
-      },
-
-      {
-        name:"Rear Delt",
-        weight:35,
-        reps:10,
-        sets:3
-      },
-
-      {
-        name:"Biceps Curl",
-        weight:10,
-        reps:10,
-        sets:3
-      }
-    ]
-  },
-
-
-  {
-    id:"legs",
-    name:"LEGS",
-
-    exercises:[
-      {
-        name:"Squat",
-        weight:60,
-        reps:5,
-        sets:3
-      },
-
-      {
-        name:"RDL",
-        weight:40,
-        reps:8,
-        sets:3
-      },
-
-      {
-        name:"Leg Extension",
-        weight:50,
-        reps:10,
-        sets:3
-      },
-
-      {
-        name:"Leg Curl",
-        weight:30,
-        reps:10,
-        sets:3
-      }
-    ]
-  }
-
+const DAILY_CODES = [
+  ["KEEP YOUR WORD","自分との約束を守る","言ったことを、行動で終わらせる。"],
+  ["DON'T RUN","面倒でも逃げない","避けたいことに一歩だけ向き合う。"],
+  ["NO FALSE RECORDS","記録に嘘をつかない","できなかった日は、できなかったと書く。"],
+  ["CONTROL YOURSELF","己を律する","反応する前に、一度止まる。"],
+  ["NO BLAME","人のせいにしない","自分が変えられる部分に集中する。"],
+  ["RESPECT","人を雑に扱わない","強さは他人への態度にも出る。"],
+  ["DO IT TODAY","今日やるべきことを今日やる","先延ばしを一つ終わらせる。"],
+  ["UNSEEN WORK","見えない場所でも手を抜かない","誰も見ていない場所こそ自分との勝負。"]
 ];
 
-
-const DAILY_CODES=[
-
-  {
-    id:"word",
-    title:"KEEP YOUR WORD",
-    desc:"自分で決めたことを守る。"
-  },
-
-  {
-    id:"run",
-    title:"DON'T RUN",
-    desc:"避けていることに向き合う。"
-  },
-
-  {
-    id:"control",
-    title:"CONTROL YOURSELF",
-    desc:"衝動ではなく、自分で選ぶ。"
-  },
-
-  {
-    id:"responsibility",
-    title:"TAKE RESPONSIBILITY",
-    desc:"人のせいにしない。"
-  },
-
-  {
-    id:"respect",
-    title:"SHOW RESPECT",
-    desc:"自分にも他人にも敬意を持つ。"
-  },
-
-  {
-    id:"love",
-    title:"PROTECT WHAT YOU LOVE",
-    desc:"大切な人を行動で大切にする。"
-  },
-
-  {
-    id:"finish",
-    title:"FINISH THE DAY",
-    desc:"今日やるべきことを今日終える。"
-  },
-
-  {
-    id:"silent",
-    title:"BUILD IN SILENCE",
-    desc:"見られていなくても積み上げる。"
-  }
-
+const QUESTS = [
+  ["THE FIRST MOVE","先延ばしにしていることを5分だけ始める。"],
+  ["THE HARD MESSAGE","必要だと分かっている連絡を送る。"],
+  ["THE CLEAN ROOM","目につく場所を15分だけ整える。"],
+  ["THE NO","必要のない要求を一つ断る。"],
+  ["THE APOLOGY","自分に非があることを一つ認める。"],
+  ["THE FINISH","途中で止めていることを一つ終わらせる。"]
 ];
 
-
-const QUESTS=[
-
-  ["THE CALL","避けていた連絡をする。"],
-
-  ["THE APOLOGY","必要な謝罪をする。"],
-
-  ["THE NO","本当は嫌なのに受けていたことを断る。"],
-
-  ["THE TASK","先延ばししていた仕事を終わらせる。"],
-
-  ["THE TRUTH","言うべき本音を、敬意を持って伝える。"],
-
-  ["THE FIRST MOVE","誰かを待たず、自分から動く。"],
-
-  ["THE ROOM","後回しにしていた環境を整える。"]
-
+const BOSSES = [
+  ["THE MAN WHO DOESN'T RUN","逃げている問題を一つ片付ける。"],
+  ["THE FINISHER","先週から残っていることを一つ完了させる。"],
+  ["THE DISCIPLINED WEEK","決めたルーティンを淡々と守る。"],
+  ["THE CLEAN SLATE","生活・仕事・部屋のどれか一つを整える。"]
 ];
 
-
-const BOSSES=[
-
-  "THE MAN WHO DOESN'T RUN",
-
-  "THE MAN WHO KEEPS HIS WORD",
-
-  "THE MAN WHO CONTROLS HIMSELF",
-
-  "THE MAN WHO FINISHES",
-
-  "THE MAN WHO TAKES RESPONSIBILITY",
-
-  "THE MAN WHO BUILDS IN SILENCE"
-
+const CONSTITUTION = [
+  ["KEEP YOUR WORD","自分との約束を守る。"],
+  ["DON'T RUN","嫌なことから逃げない。"],
+  ["NO FALSE RECORDS","記録に嘘をつかない。"],
+  ["SMALL WINS COUNT","小さな勝利も前進として記録する。"],
+  ["NEVER MISS TWICE","一度崩れても、二日続けて崩さない。"],
+  ["FALL IS NOT FAILURE","崩れることではなく、戻らないことが敗北。"],
+  ["RESURGIR","何度でも戻る。"]
 ];
 
+const DEFAULT_ROUTINES = {
+  PUSH:[
+    ["Bench Press",60,6,3],
+    ["Incline Press",40,8,3],
+    ["Shoulder Press",16,8,3],
+    ["Side Raise",5,12,3]
+  ],
+  PULL:[
+    ["Lat Pulldown",61,8,3],
+    ["Row",40,8,3],
+    ["Rear Delt",35,10,3],
+    ["Biceps Curl",10,10,3]
+  ],
+  LEGS:[
+    ["Squat",60,5,3],
+    ["RDL",40,8,3],
+    ["Leg Extension",50,10,3],
+    ["Leg Curl",30,10,3]
+  ]
+};
 
-const CONSTITUTION=[
-
-  "KEEP YOUR WORD.",
-
-  "DON'T RUN.",
-
-  "CONTROL YOURSELF.",
-
-  "TAKE RESPONSIBILITY.",
-
-  "PROTECT WHAT YOU LOVE.",
-
-  "BUILD YOUR BODY.",
-
-  "BUILD YOUR WEALTH.",
-
-  "RESPECT YOURSELF.",
-
-  "RESPECT OTHERS."
-
-];
-
-
-const MANHOOD_CATEGORIES=[
-
-  "COURAGE",
+const CATEGORIES = [
+  "BODY",
   "DISCIPLINE",
+  "COURAGE",
   "RESPONSIBILITY",
   "RESPECT",
   "PRESENCE",
   "LOVE",
-  "WEALTH",
-  "BODY"
-
+  "WEALTH"
 ];
 
+/* ---------- HELPERS ---------- */
 
-const RESPONSIBILITY=[
+const $ = selector =>
+  document.querySelector(selector);
 
-  ["time","TIME","時間を守った"],
+const esc = value =>
+  String(value ?? "")
+    .replace(/[&<>"']/g, c => ({
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#39;"
+    }[c]));
 
-  ["work","WORK","仕事から逃げなかった"],
+function today(){
 
-  ["money","MONEY","金を雑に扱わなかった"],
+  const d = new Date();
 
-  ["home","HOME","自分の環境を整えた"],
+  return [
+    d.getFullYear(),
+    String(d.getMonth()+1).padStart(2,"0"),
+    String(d.getDate()).padStart(2,"0")
+  ].join("-");
+}
 
-  ["communication","COMMUNICATION","必要な連絡をした"],
+function dateLabel(date){
 
-  ["future","FUTURE","未来のために一歩進めた"]
+  return new Date(date+"T12:00:00")
+    .toLocaleDateString("ja-JP",{
+      month:"short",
+      day:"numeric",
+      weekday:"short"
+    });
+}
 
-];
+function dayNumber(){
 
+  return Math.floor(
+    new Date(today()+"T12:00:00").getTime()
+    /86400000
+  );
+}
 
-const PRESENCE=[
+function weekKey(){
 
-  ["posture","POSTURE","姿勢・歩き方"],
+  const d =
+    new Date(today()+"T12:00:00");
 
-  ["grooming","GROOMING","髪・肌・爪・清潔感"],
+  const day = d.getDay();
 
-  ["clothes","STYLE","服・靴・持ち物"],
+  const diff =
+    day === 0 ? 0 : 7-day;
 
-  ["environment","ENVIRONMENT","部屋・バッグ・車"],
+  d.setDate(d.getDate()+diff);
 
-  ["conduct","CONDUCT","言葉遣い・振る舞い"]
+  return d.toISOString().slice(0,10);
+}
 
-];
-
-
-/* =========================================================
-   STATE
-========================================================= */
-
-let state=loadState();
-
+/* ---------- STATE ---------- */
 
 function defaultState(){
 
-  return{
+  return {
+    days:{},
 
-    createdAt:today(),
-
-    xp:0,
+    mission:"",
 
     weight:null,
 
-    income:0,
-
-    sideIncome:0,
-
-    days:{},
+    income:null,
+    sideIncome:null,
 
     routines:
       JSON.parse(
@@ -2675,254 +952,344 @@ function defaultState(){
       ),
 
     trainingLogs:[],
-
+    food:[],
     falls:[],
-
-    food:{},
-
     reviews:{},
 
-    responsibility:{
+    responsibility:{},
+    presence:{},
 
-      time:false,
-      work:false,
-      money:false,
-      home:false,
-      communication:false,
-      future:false
-
-    },
-
-    presence:{
-
-      posture:false,
-      grooming:false,
-      clothes:false,
-      environment:false,
-      conduct:false
-
-    },
-
-    quest:{
-
-      date:"",
-      index:0,
-      accepted:false,
-      completed:false
-
-    },
-
-    boss:{
-
-      week:"",
-      index:0,
-      completed:false
-
-    }
-
+    quest:null,
+    boss:null
   };
-
 }
 
-
-function loadState(){
+function load(){
 
   try{
 
-    const raw=
-      localStorage.getItem(STORAGE_KEY);
+    const saved =
+      JSON.parse(
+        localStorage.getItem(STORAGE_KEY)
+      );
 
-    if(!raw){
-      return defaultState();
-    }
+    return saved
+      ? {...defaultState(),...saved}
+      : defaultState();
 
-    const saved=
-      JSON.parse(raw);
-
-    const base=
-      defaultState();
-
-    return{
-
-      ...base,
-
-      ...saved,
-
-      days:saved.days||{},
-
-      routines:
-        saved.routines||
-        base.routines,
-
-      trainingLogs:
-        saved.trainingLogs||[],
-
-      falls:
-        saved.falls||[],
-
-      food:
-        saved.food||{},
-
-      reviews:
-        saved.reviews||{},
-
-      responsibility:{
-        ...base.responsibility,
-        ...(saved.responsibility||{})
-      },
-
-      presence:{
-        ...base.presence,
-        ...(saved.presence||{})
-      },
-
-      quest:{
-        ...base.quest,
-        ...(saved.quest||{})
-      },
-
-      boss:{
-        ...base.boss,
-        ...(saved.boss||{})
-      }
-
-    };
-
-  }catch(error){
-
-    console.error(error);
+  }catch{
 
     return defaultState();
 
   }
-
 }
 
+let state = load();
 
-function saveState(){
+let currentPage = "today";
+let currentRoutine = "PUSH";
+
+/* ---------- SAVE ---------- */
+
+function save(){
 
   localStorage.setItem(
     STORAGE_KEY,
     JSON.stringify(state)
   );
-
 }
 
+/* ---------- DAY ---------- */
 
-/* =========================================================
-   DATE
-========================================================= */
+function getDay(){
 
-function today(){
+  if(!state.days[today()]){
 
-  const d=new Date();
+    state.days[today()] = {
 
-  const y=d.getFullYear();
+      code:{},
 
-  const m=
-    String(d.getMonth()+1)
-      .padStart(2,"0");
+      mission:state.mission || "",
+      missionDone:false,
 
-  const day=
-    String(d.getDate())
-      .padStart(2,"0");
+      body:false,
+      wealth:false,
 
-  return`${y}-${m}-${day}`;
+      quest:false,
+      boss:false
+    };
+  }
 
+  return state.days[today()];
 }
 
+/* ---------- DAILY ROTATION ---------- */
 
-function dateObj(date){
+function dailyCodes(){
 
-  const[
-    y,
-    m,
-    d
-  ]=
-    date
-      .split("-")
-      .map(Number);
+  const list =
+    DAILY_CODES.map(x => [...x]);
 
-  return new Date(y,m-1,d);
+  let seed = dayNumber();
 
+  for(let i=list.length-1;i>0;i--){
+
+    seed =
+      (seed*9301+49297)%233280;
+
+    const j =
+      Math.floor(
+        seed/233280*(i+1)
+      );
+
+    [list[i],list[j]] =
+      [list[j],list[i]];
+  }
+
+  return list.slice(0,3);
 }
 
+/* ---------- ROUTINE ---------- */
 
-function daysBetween(a,b){
+function routineForToday(){
 
-  return Math.round(
-    (
-      dateObj(b)-
-      dateObj(a)
-    )/
-    86400000
+  const day =
+    new Date().getDay();
+
+  if(day===0)
+    return "LEGS";
+
+  if(day===6)
+    return "REST";
+
+  if(day%2===1)
+    return "PUSH";
+
+  return "PULL";
+}
+
+/* ---------- ENSURE ---------- */
+
+function ensure(){
+
+  getDay();
+
+  if(
+    !state.quest ||
+    state.quest.date !== today()
+  ){
+
+    const q =
+      QUESTS[
+        dayNumber()%QUESTS.length
+      ];
+
+    state.quest = {
+      date:today(),
+      title:q[0],
+      desc:q[1],
+      done:false
+    };
+  }
+
+  if(
+    !state.boss ||
+    state.boss.week !== weekKey()
+  ){
+
+    const b =
+      BOSSES[
+        Math.floor(dayNumber()/7)
+        %BOSSES.length
+      ];
+
+    state.boss = {
+      week:weekKey(),
+      title:b[0],
+      desc:b[1],
+      done:false
+    };
+  }
+
+  currentRoutine =
+    routineForToday();
+
+  save();
+}
+
+/* ---------- SCORE ---------- */
+
+function todayScore(){
+
+  const d = getDay();
+
+  const codeCount =
+    dailyCodes().filter(
+      (_,i)=>d.code[i]
+    ).length;
+
+  let score =
+    Math.round(
+      codeCount/3*30
+    );
+
+  if(d.body)
+    score += 25;
+
+  if(d.wealth)
+    score += 10;
+
+  if(d.quest)
+    score += 15;
+
+  if(d.boss)
+    score += 10;
+
+  if(d.missionDone)
+    score += 10;
+
+  return Math.min(100,score);
+}
+
+/* ---------- XP ---------- */
+
+function totalXP(){
+
+  let xp = 0;
+
+  for(
+    const [date,d]
+    of Object.entries(state.days)
+  ){
+
+    if(date===today())
+      continue;
+
+    xp +=
+      Object.values(d.code||{})
+        .filter(Boolean).length*10;
+
+    if(d.body)
+      xp+=25;
+
+    if(d.wealth)
+      xp+=10;
+
+    if(d.quest)
+      xp+=15;
+
+    if(d.boss)
+      xp+=10;
+
+    if(d.missionDone)
+      xp+=10;
+  }
+
+  return xp+todayScore();
+}
+
+/* ---------- LEVEL ---------- */
+
+function level(){
+
+  const xp = totalXP();
+
+  const thresholds = [
+    0,
+    150,
+    350,
+    600,
+    900,
+    1300,
+    1800,
+    2400,
+    3100,
+    4000,
+    5000
+  ];
+
+  let lv=1;
+
+  thresholds.forEach(
+    (value,index)=>{
+      if(xp>=value)
+        lv=index+1;
+    }
   );
 
+  return lv;
 }
 
+function rank(){
 
-function getWeekKey(){
+  const lv=level();
 
-  const d=new Date();
+  if(lv>=20)
+    return "RESURGIR";
 
-  const first=
-    new Date(
-      d.getFullYear(),
-      0,
-      1
+  if(lv>=15)
+    return "UNBREAKABLE";
+
+  if(lv>=11)
+    return "RESPECTED";
+
+  if(lv>=8)
+    return "FORGED";
+
+  if(lv>=5)
+    return "DISCIPLINED";
+
+  if(lv>=3)
+    return "BUILT";
+
+  return "AWAKEN";
+}
+
+/* ---------- STREAK ---------- */
+
+function streak(){
+
+  let count=0;
+
+  const d =
+    new Date(today()+"T12:00:00");
+
+  for(let i=0;i<365;i++){
+
+    const key =
+      d.toISOString().slice(0,10);
+
+    const day =
+      state.days[key];
+
+    if(
+      !day ||
+      !(
+        day.body ||
+        day.wealth ||
+        day.quest ||
+        day.missionDone ||
+        Object.values(day.code||{})
+          .some(Boolean)
+      )
+    )
+      break;
+
+    count++;
+
+    d.setDate(
+      d.getDate()-1
     );
+  }
 
-  const week=
-    Math.ceil(
-      (
-        (
-          (d-first)/
-          86400000
-        )+
-        first.getDay()+
-        1
-      )/7
-    );
-
-  return`${d.getFullYear()}-${week}`;
-
+  return count;
 }
 
-
-/* =========================================================
-   UTILITY
-========================================================= */
-
-function escapeHTML(value){
-
-  return String(value??"")
-
-    .replace(/&/g,"&amp;")
-
-    .replace(/</g,"&lt;")
-
-    .replace(/>/g,"&gt;")
-
-    .replace(/"/g,"&quot;")
-
-    .replace(/'/g,"&#039;");
-
-}
-
-
-function yen(value){
-
-  return"¥"+
-    Number(value||0)
-      .toLocaleString("ja-JP");
-
-}
-
+/* ---------- UI ---------- */
 
 function toast(message){
 
-  const el=
-    document.getElementById("toast");
+  const el=$("#toast");
 
   el.textContent=message;
 
@@ -2930,3022 +1297,2840 @@ function toast(message){
 
   clearTimeout(window.toastTimer);
 
-  window.toastTimer=
+  window.toastTimer =
     setTimeout(
-      ()=>{
-        el.classList.remove("show");
-      },
-      1800
+      ()=>el.classList.remove("show"),
+      1600
     );
-
 }
 
+function rules(items){
 
-/* =========================================================
-   DAY
-========================================================= */
+  return `
+  <details class="rule">
+    <summary>ⓘ RULES / 使い方</summary>
 
-function ensureToday(){
+    <div class="rule-body">
 
-  const t=today();
+      ${items
+        .map(x=>"• "+x)
+        .join("<br>")}
 
-  if(!state.days[t]){
-
-    state.days[t]={
-
-      code:{},
-
-      workout:false,
-
-      body:false,
-
-      wealth:false,
-
-      quest:false,
-
-      boss:false,
-
-      completed:false
-
-    };
-
-  }
-
-
-  if(state.quest.date!==t){
-
-    state.quest={
-
-      date:t,
-
-      index:
-        Math.floor(
-          Math.random()*QUESTS.length
-        ),
-
-      accepted:false,
-
-      completed:false
-
-    };
-
-  }
-
-
-  const week=getWeekKey();
-
-  if(state.boss.week!==week){
-
-    state.boss={
-
-      week,
-
-      index:
-        Math.floor(
-          Math.random()*BOSSES.length
-        ),
-
-      completed:false
-
-    };
-
-  }
-
-
-  saveState();
-
+    </div>
+  </details>
+  `;
 }
 
+/* ---------- NAV ---------- */
 
-function getDay(){
+function navigate(page){
 
-  ensureToday();
+  currentPage=page;
 
-  return state.days[today()];
+  document
+    .querySelectorAll(".nav-btn")
+    .forEach(btn=>{
+      btn.classList.toggle(
+        "active",
+        btn.dataset.page===page
+      );
+    });
 
+  document
+    .querySelectorAll(".screen")
+    .forEach(screen=>{
+      screen.classList.toggle(
+        "active",
+        screen.id===page
+      );
+    });
+
+  render();
+
+  window.scrollTo(0,0);
 }
 
+/* ---------- TODAY ---------- */
 
-/* =========================================================
-   SCORE
-========================================================= */
-
-function todayScore(){
+function renderToday(){
 
   const d=getDay();
 
-  let score=0;
+  const codes=dailyCodes();
 
+  const score=todayScore();
 
-  const codeCount=
-    Object
-      .values(d.code||{})
-      .filter(Boolean)
-      .length;
+  $("#headerMeta").innerHTML =
+    `${dateLabel(today())}<br>DAY ${streak()}`;
 
+  $("#today").innerHTML=`
 
-  score+=
-    Math.round(
-      (codeCount/3)*30
-    );
+  <div class="card hero">
 
+    <div class="eyebrow">
+      THE MAN YOU SAID YOU'D BECOME.
+    </div>
 
-  if(d.workout)
-    score+=25;
+    <div class="jp">
+      何度でも、立ち上がる。
+    </div>
 
+    <div class="score-row">
 
-  if(d.body)
-    score+=10;
+      <div>
+        <span class="score">
+          ${score}
+        </span>
 
+        <span class="score-den">
+          /100
+        </span>
+      </div>
 
-  if(d.wealth)
-    score+=10;
+      <div class="rank">
+        LV.${level()}<br>
+        ${rank()}<br>
+        STREAK ${streak()}
+      </div>
 
+    </div>
 
-  if(d.quest)
-    score+=15;
+    <div class="progress">
+      <i style="width:${score}%"></i>
+    </div>
 
+    <div class="tiny"
+         style="margin-top:9px">
+      ${score>=85
+        ?"GOLD · COMPLETE VICTORY"
+        :score>=55
+        ?"SILVER · MOVING FORWARD"
+        :"BRONZE · MINIMUM WIN"}
+    </div>
 
-  if(d.boss)
-    score+=10;
+  </div>
 
 
-  return Math.min(
-    100,
-    score
-  );
+  <div class="section-head">
 
-}
+    <div>
+      <h2>TODAY'S MISSION</h2>
+      <small>今日の使命</small>
+    </div>
 
+    <small>
+      1 MISSION / DAY
+    </small>
 
-function totalXP(){
+  </div>
 
-  let xp=
-    state.xp||0;
 
+  <div class="card mission
+       ${d.missionDone?"done":""}">
 
-  Object.entries(
-    state.days
-  ).forEach(
-    ([date,d])=>{
+    <div class="eyebrow">
+      WIN CONDITION
+    </div>
 
-      if(date===today())
-        return;
+    <div class="mission-title">
 
-
-      let s=0;
-
-
-      s+=
-        Object
-          .values(d.code||{})
-          .filter(Boolean)
-          .length*10;
-
-
-      if(d.workout)
-        s+=25;
-
-
-      if(d.body)
-        s+=10;
-
-
-      if(d.wealth)
-        s+=10;
-
-
-      if(d.quest)
-        s+=20;
-
-
-      if(d.boss)
-        s+=30;
-
-
-      xp+=s;
-
-    }
-  );
-
-
-  xp+=todayScore();
-
-
-  return xp;
-
-}
-
-
-function level(){
-
-  return Math.floor(
-    totalXP()/250
-  )+1;
-
-}
-
-
-function rank(){
-
-  const lv=level();
-
-  if(lv>=20)
-    return"RESURGIR";
-
-  if(lv>=15)
-    return"UNBREAKABLE";
-
-  if(lv>=11)
-    return"RESPECTED";
-
-  if(lv>=8)
-    return"FORGED";
-
-  if(lv>=5)
-    return"DISCIPLINED";
-
-  if(lv>=3)
-    return"BUILT";
-
-  return"AWAKEN";
-
-}
-
-
-function streak(){
-
-  let current=today();
-
-  let count=0;
-
-
-  while(state.days[current]){
-
-    const d=
-      state.days[current];
-
-
-    if(
-
-      d.completed||
-
-      d.workout||
-
-      d.body||
-
-      Object
-        .values(d.code||{})
-        .some(Boolean)
-
-    ){
-
-      count++;
-
-
-      const prev=
-        dateObj(current);
-
-      prev.setDate(
-        prev.getDate()-1
-      );
-
-
-      const y=
-        prev.getFullYear();
-
-      const m=
-        String(
-          prev.getMonth()+1
-        ).padStart(2,"0");
-
-      const day=
-        String(
-          prev.getDate()
-        ).padStart(2,"0");
-
-
-      current=
-        `${y}-${m}-${day}`;
-
-    }else{
-
-      break;
-
-    }
-
-  }
-
-
-  return count;
-
-}
-
-
-/* =========================================================
-   DAILY CODE
-========================================================= */
-
-function getDailyCodes(){
-
-  const dayNum=
-    Math.abs(
-      daysBetween(
-        state.createdAt,
-        today()
-      )
-    );
-
-
-  const shuffled=
-    [...DAILY_CODES];
-
-
-  let seed=
-    dayNum+17;
-
-
-  shuffled.sort(()=>{
-
-    seed=
-      (
-        seed*9301+
-        49297
-      )%233280;
-
-    return(
-      seed/233280
-    )-.5;
-
-  });
-
-
-  return shuffled.slice(0,3);
-
-}
-
-
-/*
-  IMPORTANT FIX:
-
-  No <label>.
-  No checkbox wrapping.
-  Each checkbox has its own ID.
-*/
-
-function toggleCode(id){
-
-  const d=getDay();
-
-  d.code[id]=
-    !d.code[id];
-
-  saveState();
-
-  updateCodeUI();
-
-  updateHomeScoreUI();
-
-  updateManhoodUI();
-
-}
-
-
-function updateCodeUI(){
-
-  const d=getDay();
-
-  const codes=
-    getDailyCodes();
-
-
-  codes.forEach(c=>{
-
-    const input=
-      document.getElementById(
-        "codeToggle_"+c.id
-      );
-
-    const status=
-      document.getElementById(
-        "codeStatus_"+c.id
-      );
-
-
-    if(input){
-
-      input.checked=
-        !!d.code[c.id];
-
-    }
-
-
-    if(status){
-
-      status.textContent=
-        d.code[c.id]
-          ?"DONE"
-          :"OPEN";
-
-      status.classList.toggle(
-        "done",
-        !!d.code[c.id]
-      );
-
-    }
-
-  });
-
-
-  const count=
-    Object
-      .values(d.code||{})
-      .filter(Boolean)
-      .length;
-
-
-  const codeStatus=
-    document.getElementById(
-      "codeStatus"
-    );
-
-  if(codeStatus){
-
-    codeStatus.textContent=
-      `${count}/3`;
-
-  }
-
-}
-
-
-/* =========================================================
-   QUEST
-========================================================= */
-
-function questData(){
-
-  return(
-    QUESTS[state.quest.index]||
-    QUESTS[0]
-  );
-
-}
-
-
-function acceptQuest(){
-
-  state.quest.accepted=true;
-
-  saveState();
-
-  renderQuest("homeQuest");
-
-  renderQuest("codeQuest");
-
-  toast("QUEST ACCEPTED");
-
-}
-
-
-function completeQuest(){
-
-  if(!state.quest.accepted)
-    return;
-
-
-  state.quest.completed=true;
-
-  getDay().quest=true;
-
-  saveState();
-
-  renderQuest("homeQuest");
-
-  renderQuest("codeQuest");
-
-  updateHomeScoreUI();
-
-  updateManhoodUI();
-
-  toast("+ COURAGE");
-
-}
-
-
-/* =========================================================
-   BOSS
-========================================================= */
-
-function completeBoss(){
-
-  state.boss.completed=true;
-
-  getDay().boss=true;
-
-  saveState();
-
-  renderBoss();
-
-  updateHomeScoreUI();
-
-  updateManhoodUI();
-
-  toast("BOSS DEFEATED");
-
-}
-
-
-/* =========================================================
-   BODY
-========================================================= */
-
-function saveWeight(){
-
-  const value=
-    parseFloat(
-      document.getElementById(
-        "weightInput"
-      ).value
-    );
-
-
-  if(!value){
-
-    toast("ENTER WEIGHT");
-
-    return;
-
-  }
-
-
-  state.weight=value;
-
-  getDay().body=true;
-
-  saveState();
-
-  closeModal("weightModal");
-
-  render();
-
-  toast("BODY UPDATED");
-
-}
-
-
-/* =========================================================
-   WEALTH
-========================================================= */
-
-function saveWealth(){
-
-  state.income=
-    Number(
-      document.getElementById(
-        "incomeInput"
-      ).value
-    )||0;
-
-
-  state.sideIncome=
-    Number(
-      document.getElementById(
-        "sideInput"
-      ).value
-    )||0;
-
-
-  getDay().wealth=true;
-
-  saveState();
-
-  closeModal("wealthModal");
-
-  render();
-
-  toast("WEALTH UPDATED");
-
-}
-
-
-/* =========================================================
-   FOOD
-========================================================= */
-
-function saveFood(){
-
-  const t=today();
-
-  state.food[t]={
-
-    kcal:
-      Number(
-        document.getElementById(
-          "foodKcal"
-        ).value
-      )||0,
-
-    protein:
-      Number(
-        document.getElementById(
-          "foodProtein"
-        ).value
-      )||0,
-
-    water:
-      Number(
-        document.getElementById(
-          "foodWater"
-        ).value
-      )||0
-
-  };
-
-
-  saveState();
-
-  closeModal("foodModal");
-
-  render();
-
-  toast("FOOD UPDATED");
-
-}
-
-
-/* =========================================================
-   FALL
-========================================================= */
-
-function saveFall(){
-
-  const type=
-    document.getElementById(
-      "fallType"
-    ).value;
-
-
-  const lesson=
-    document.getElementById(
-      "fallLesson"
-    ).value
-      .trim();
-
-
-  state.falls.unshift({
-
-    date:today(),
-
-    type,
-
-    lesson
-
-  });
-
-
-  saveState();
-
-  closeModal("fallModal");
-
-
-  document.getElementById(
-    "fallLesson"
-  ).value="";
-
-
-  render();
-
-  toast("FALL RECORDED");
-
-}
-
-
-/* =========================================================
-   REVIEW
-========================================================= */
-
-function saveReview(){
-
-  const won=
-    document.getElementById(
-      "journalWon"
-    )?.value ||
-
-    document.getElementById(
-      "homeWon"
-    )?.value ||
-
-    "";
-
-
-  const failed=
-    document.getElementById(
-      "journalFailed"
-    )?.value ||
-
-    document.getElementById(
-      "homeFailed"
-    )?.value ||
-
-    "";
-
-
-  const tomorrow=
-    document.getElementById(
-      "journalTomorrow"
-    )?.value ||
-
-    document.getElementById(
-      "homeTomorrow"
-    )?.value ||
-
-    "";
-
-
-  state.reviews[today()]={
-
-    won,
-
-    failed,
-
-    tomorrow
-
-  };
-
-
-  saveState();
-
-  render();
-
-  toast("WAR LOG SAVED");
-
-}
-
-
-/* =========================================================
-   RESPONSIBILITY
-========================================================= */
-
-function toggleResponsibility(id){
-
-  state.responsibility[id]=
-    !state.responsibility[id];
-
-  saveState();
-
-  updateResponsibilityUI();
-
-  updateManhoodUI();
-
-}
-
-
-function updateResponsibilityUI(){
-
-  RESPONSIBILITY.forEach(
-    ([id])=>{
-
-      const input=
-        document.getElementById(
-          "responsibility_"+id
-        );
-
-
-      if(input){
-
-        input.checked=
-          !!state.responsibility[id];
-
+      ${
+        d.mission
+          ? esc(d.mission)
+          : "今日の勝利条件を決める"
       }
 
-    }
-  );
+    </div>
 
-}
+    <div class="mission-desc">
 
-
-/* =========================================================
-   PRESENCE
-========================================================= */
-
-function togglePresence(id){
-
-  state.presence[id]=
-    !state.presence[id];
-
-  saveState();
-
-  updatePresenceUI();
-
-  updateManhoodUI();
-
-}
-
-
-function updatePresenceUI(){
-
-  PRESENCE.forEach(
-    ([id])=>{
-
-      const input=
-        document.getElementById(
-          "presence_"+id
-        );
-
-
-      if(input){
-
-        input.checked=
-          !!state.presence[id];
-
+      ${
+        d.mission
+          ?"今日中に実行できる、最重要の一つ。"
+          :"今日中に終えられる具体的な行動を一つ。"
       }
 
-    }
-  );
+    </div>
 
+    <div class="actions">
+
+      <button
+        class="btn secondary"
+        onclick="openMission()">
+
+        ${d.mission
+          ?"使命を編集"
+          :"使命を決める"}
+
+      </button>
+
+      <button
+        class="btn primary"
+        onclick="toggleMission()"
+        ${!d.mission?"disabled":""}>
+
+        ${
+          d.missionDone
+            ?"完遂済み ✓"
+            :"完遂する"
+        }
+
+      </button>
+
+    </div>
+
+    ${rules([
+      "1日1つだけ。",
+      "今日中に実行できる具体的な行動にする。",
+      "大きすぎる目標は禁止。",
+      "完璧さではなく、実行を評価する。"
+    ])}
+
+  </div>
+
+
+  <div class="section-head">
+
+    <div>
+      <h2>QUICK ACTION</h2>
+      <small>すぐ記録する</small>
+    </div>
+
+  </div>
+
+
+  <div class="quick">
+
+    <button onclick="openWeight()">
+      <strong>＋</strong>
+      WEIGHT<br>体重
+    </button>
+
+    <button onclick="startWorkout()">
+      <strong>◒</strong>
+      BUILD<br>鍛錬
+    </button>
+
+    <button onclick="openFood()">
+      <strong>＋</strong>
+      FOOD<br>食事
+    </button>
+
+    <button onclick="openWarLog()">
+      <strong>✎</strong>
+      WAR LOG<br>戦記
+    </button>
+
+  </div>
+
+
+  <div class="section-head">
+
+    <div>
+      <h2>DAILY CODE</h2>
+      <small>今日の掟</small>
+    </div>
+
+    <small>
+      ${codes.filter((_,i)=>d.code[i]).length}/3
+    </small>
+
+  </div>
+
+
+  <div class="card">
+
+    <div class="check-list">
+
+      ${codes.map((code,i)=>`
+
+        <div
+          class="check-row"
+          onclick="toggleCode(${i})">
+
+          <input
+            class="check-toggle"
+            type="checkbox"
+            ${d.code[i]?"checked":""}
+            onclick="event.stopPropagation();toggleCode(${i})">
+
+          <div class="check-content">
+
+            <b>
+              ${esc(code[0])}
+            </b>
+
+            — ${esc(code[1])}
+
+            <small>
+              ${esc(code[2])}
+            </small>
+
+          </div>
+
+        </div>
+
+      `).join("")}
+
+    </div>
+
+    ${rules([
+      "毎日3つ。",
+      "実際の行動だけをチェックする。",
+      "できなかった日は未完了のままにする。",
+      "翌日に持ち越さない。"
+    ])}
+
+  </div>
+
+
+  <div class="section-head">
+
+    <div>
+      <h2>COURAGE QUEST</h2>
+      <small>逃げない一歩</small>
+    </div>
+
+    <small>+15 XP</small>
+
+  </div>
+
+
+  <div class="card ${d.quest?"done":""}">
+
+    <span class="tag">
+      ${state.quest.title}
+    </span>
+
+    <div class="mission-title">
+      ${esc(state.quest.desc)}
+    </div>
+
+    <div class="mission-desc">
+      避けていることに、一歩だけ向き合う。
+    </div>
+
+    <div class="actions">
+
+      <button
+        class="btn ${d.quest
+          ?"secondary"
+          :"primary"}"
+        onclick="toggleQuest()">
+
+        ${d.quest
+          ?"COMPLETE ✓"
+          :"完了する"}
+
+      </button>
+
+    </div>
+
+    ${rules([
+      "1日1つ。",
+      "「避けていること」を選ぶ。",
+      "小さくても実行すれば勝ち。",
+      "他人に見せる必要はない。"
+    ])}
+
+  </div>
+
+
+  <div class="section-head">
+
+    <div>
+      <h2>WEEKLY BOSS</h2>
+      <small>今週の勝負</small>
+    </div>
+
+    <small>
+      SUNDAY → SUNDAY
+    </small>
+
+  </div>
+
+
+  <div class="card">
+
+    <span class="tag">
+      ${state.boss.title}
+    </span>
+
+    <div class="mission-title">
+      ${esc(state.boss.desc)}
+    </div>
+
+    <div class="mission-desc">
+      今週中に決着をつける。
+    </div>
+
+    <div class="actions">
+
+      <button
+        class="btn ${d.boss
+          ?"secondary"
+          :"primary"}"
+        onclick="toggleBoss()">
+
+        ${d.boss
+          ?"BOSS COMPLETE ✓"
+          :"勝負を終える"}
+
+      </button>
+
+    </div>
+
+    ${rules([
+      "週1つだけ。",
+      "日曜に設定し、次の日曜までに決着させる。",
+      "逃げている問題を優先する。"
+    ])}
+
+  </div>
+
+
+  <div class="section-head">
+
+    <div>
+      <h2>WIN CONDITION</h2>
+      <small>今日の勝利判定</small>
+    </div>
+
+  </div>
+
+
+  <div class="grid2">
+
+    <div class="stat">
+      <span>BRONZE · 最低限</span>
+      <b>${score>=30?"✓":"○"}</b>
+    </div>
+
+    <div class="stat">
+      <span>SILVER · 前進</span>
+      <b>${score>=55?"✓":"○"}</b>
+    </div>
+
+    <div class="stat">
+      <span>GOLD · 完全勝利</span>
+      <b>${score>=85?"✓":"○"}</b>
+    </div>
+
+    <div class="stat">
+      <span>STREAK</span>
+      <b>${streak()}</b>
+    </div>
+
+  </div>
+
+
+  <div class="card"
+       style="margin-top:12px">
+
+    <div class="big-quote">
+
+      FALL IS NOT FAILURE.<br>
+      NOT RETURNING IS.
+
+    </div>
+
+    <div class="signature">
+      崩れることではなく、戻らないことが敗北。
+    </div>
+
+  </div>
+
+  `;
 }
 
+/* ---------- TODAY ACTIONS ---------- */
 
-/* =========================================================
-   MANHOOD
-========================================================= */
-
-function manhoodScore(category){
+function toggleCode(index){
 
   const d=getDay();
 
-  let base=50;
+  d.code[index]=!d.code[index];
 
+  save();
 
-  const codes=
-    Object
-      .values(d.code||{})
-      .filter(Boolean)
-      .length;
+  renderToday();
+  renderCode();
 
-
-  if(category==="COURAGE"){
-
-    if(state.quest.completed)
-      base+=15;
-
-    if(codes>=3)
-      base+=5;
-
-  }
-
-
-  if(category==="DISCIPLINE"){
-
-    if(d.workout)
-      base+=15;
-
-    if(codes>=3)
-      base+=10;
-
-  }
-
-
-  if(category==="RESPONSIBILITY"){
-
-    base+=
-      Object
-        .values(
-          state.responsibility
-        )
-        .filter(Boolean)
-        .length*4;
-
-  }
-
-
-  if(category==="RESPECT"){
-
-    if(d.code?.respect)
-      base+=20;
-
-  }
-
-
-  if(category==="PRESENCE"){
-
-    base+=
-      Object
-        .values(
-          state.presence
-        )
-        .filter(Boolean)
-        .length*5;
-
-  }
-
-
-  if(category==="LOVE"){
-
-    if(d.code?.love)
-      base+=20;
-
-  }
-
-
-  if(category==="WEALTH"){
-
-    if(d.wealth)
-      base+=15;
-
-  }
-
-
-  if(category==="BODY"){
-
-    if(d.body)
-      base+=10;
-
-    if(d.workout)
-      base+=15;
-
-  }
-
-
-  return Math.min(
-    100,
-    base
+  toast(
+    d.code[index]
+      ?"CODE KEPT ✓"
+      :"CODE UNCHECKED"
   );
-
 }
 
+function toggleMission(){
 
-function updateManhoodUI(){
+  const d=getDay();
 
-  const el=
-    document.getElementById(
-      "manhoodGrid"
-    );
-
-  if(!el)
+  if(!d.mission)
     return;
 
+  d.missionDone=
+    !d.missionDone;
 
-  MANHOOD_CATEGORIES.forEach(
-    cat=>{
+  save();
 
-      const value=
-        manhoodScore(cat);
-
-
-      const scoreEl=
-        document.getElementById(
-          "manhood_"+cat
-        );
-
-
-      const barEl=
-        document.getElementById(
-          "manhoodBar_"+cat
-        );
-
-
-      if(scoreEl)
-        scoreEl.textContent=value;
-
-
-      if(barEl)
-        barEl.style.width=
-          value+"%";
-
-    }
+  toast(
+    d.missionDone
+      ?"MISSION COMPLETE"
+      :"MISSION REOPENED"
   );
 
+  render();
 }
 
+function toggleQuest(){
 
-/* =========================================================
-   HOME SCORE UI
-========================================================= */
+  const d=getDay();
 
-function updateHomeScoreUI(){
+  d.quest=!d.quest;
 
-  const score=
-    todayScore();
+  state.quest.done=d.quest;
 
+  save();
 
-  const scoreEl=
-    document.getElementById(
-      "todayScore"
-    );
+  toast(
+    d.quest
+      ?"COURAGE COMPLETE"
+      :"QUEST REOPENED"
+  );
 
-
-  const progressEl=
-    document.getElementById(
-      "todayProgress"
-    );
-
-
-  const messageEl=
-    document.getElementById(
-      "scoreMessage"
-    );
-
-
-  if(scoreEl)
-    scoreEl.textContent=score;
-
-
-  if(progressEl)
-    progressEl.style.width=
-      score+"%";
-
-
-  let message="BEGIN.";
-
-
-  if(score>=90)
-    message="EXCELLENT.";
-
-  else if(score>=70)
-    message="KEEP GOING.";
-
-  else if(score>=40)
-    message="BUILD.";
-
-  else if(score>0)
-    message="MOVE.";
-
-
-  if(messageEl)
-    messageEl.textContent=
-      message;
-
+  render();
 }
 
+function toggleBoss(){
 
-/* =========================================================
-   TRAINING
-========================================================= */
+  const d=getDay();
 
-function routineForToday(){
+  d.boss=!d.boss;
 
-  const day=
-    new Date().getDay();
+  state.boss.done=d.boss;
 
+  save();
 
-  if(day===0)
-    return state.routines.find(
-      r=>r.id==="legs"
-    )||state.routines[2];
+  toast(
+    d.boss
+      ?"BOSS COMPLETE"
+      :"BOSS REOPENED"
+  );
 
-
-  if(day===1)
-    return state.routines.find(
-      r=>r.id==="push"
-    )||state.routines[0];
-
-
-  if(day===2)
-    return state.routines.find(
-      r=>r.id==="pull"
-    )||state.routines[1];
-
-
-  if(day===3)
-    return state.routines.find(
-      r=>r.id==="push"
-    )||state.routines[0];
-
-
-  if(day===4)
-    return state.routines.find(
-      r=>r.id==="pull"
-    )||state.routines[1];
-
-
-  if(day===5)
-    return state.routines.find(
-      r=>r.id==="push"
-    )||state.routines[0];
-
-
-  return null;
-
+  render();
 }
 
+/* ---------- BUILD ---------- */
 
-function startWorkout(){
+function renderBuild(){
 
-  const routine=
+  const routine =
+    state.routines[currentRoutine] || [];
+
+  const todayRoutine =
     routineForToday();
 
+  const food =
+    foodToday();
 
-  if(!routine){
+  $("#build").innerHTML=`
 
-    toast("REST DAY");
+  <div class="section-head">
 
-    return;
+    <div>
+      <h1 class="title">BUILD</h1>
+      <div class="jp">
+        鍛錬 — BODY / WEALTH / WORK
+      </div>
+    </div>
 
-  }
-
-
-  document.getElementById(
-    "workoutTitle"
-  ).textContent=
-    routine.name+
-    " BUILD";
+  </div>
 
 
-  document.getElementById(
-    "workoutEditor"
-  ).innerHTML=
+  <div class="grid2">
 
-    `
+    <div class="card">
 
-    <div
-      class="mini"
-      style="margin-bottom:12px;">
+      <span class="eyebrow">
+        BODY
+      </span>
 
-      Target. Then record what you actually did.
+      <div class="metric"
+           style="font-size:30px;font-weight:850">
+
+        ${state.weight ?? "—"}
+        <small style="font-size:11px;color:#666">
+          kg
+        </small>
+
+      </div>
+
+      <button
+        class="btn secondary small"
+        style="margin-top:10px"
+        onclick="openWeight()">
+
+        体重を記録
+
+      </button>
+
+    </div>
+
+
+    <div class="card">
+
+      <span class="eyebrow">
+        STREAK
+      </span>
+
+      <div style="
+        font-size:30px;
+        font-weight:850;
+        margin-top:5px">
+
+        ${streak()}
+
+      </div>
+
+      <div class="tiny">
+        連続行動日
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="section-head">
+
+    <div>
+      <h2>TRAINING</h2>
+      <small>鍛錬</small>
+    </div>
+
+    <small>
+      TODAY · ${todayRoutine}
+    </small>
+
+  </div>
+
+
+  <div class="card">
+
+    <div style="
+      display:flex;
+      gap:7px;
+      overflow:auto">
+
+      ${Object.keys(state.routines)
+        .map(r=>`
+
+        <button
+          class="btn small
+            ${currentRoutine===r
+              ?"primary"
+              :"secondary"}"
+          style="width:auto"
+          onclick="selectRoutine('${esc(r)}')">
+
+          ${esc(r)}
+
+        </button>
+
+      `).join("")}
+
+      <button
+        class="btn small secondary"
+        style="width:auto"
+        onclick="openRoutineEditor()">
+
+        ＋
+
+      </button>
 
     </div>
 
 
     ${
-      routine.exercises
-        .map(
-          (ex,i)=>`
+      currentRoutine==="REST"
 
-          <div class="routine">
+      ?`
 
-            <div class="row">
+        <div class="empty">
 
-              <div>
+          REST DAY<br>
 
-                <div class="exercise-name">
-                  ${escapeHTML(ex.name)}
-                </div>
-
-                <div class="exercise-target">
-                  Target
-                  ${ex.weight}kg ×
-                  ${ex.reps} ×
-                  ${ex.sets}
-                </div>
-
-              </div>
-
-            </div>
-
-
-            <div class="exercise-inputs">
-
-              <input
-                id="actualWeight${i}"
-                type="number"
-                step=".5"
-                value="${ex.weight}"
-                placeholder="kg">
-
-
-              <input
-                id="actualReps${i}"
-                type="number"
-                value="${ex.reps}"
-                placeholder="reps">
-
-
-              <input
-                id="actualSets${i}"
-                type="number"
-                value="${ex.sets}"
-                placeholder="sets">
-
-            </div>
-
-          </div>
-
-        `
-        )
-        .join("")
-    }
-
-
-    <button
-      class="btn btn-primary"
-      onclick="finishWorkout('${routine.id}')">
-
-      COMPLETE BUILD
-
-    </button>
-
-    `;
-
-
-  openModal(
-    "workoutModal"
-  );
-
-}
-
-
-function finishWorkout(routineId){
-
-  const routine=
-    state.routines.find(
-      r=>r.id===routineId
-    );
-
-
-  if(!routine)
-    return;
-
-
-  const actuals=
-    routine.exercises.map(
-      (ex,i)=>({
-
-        name:ex.name,
-
-        target:{
-
-          weight:ex.weight,
-
-          reps:ex.reps,
-
-          sets:ex.sets
-
-        },
-
-        actual:{
-
-          weight:
-            Number(
-              document.getElementById(
-                "actualWeight"+i
-              ).value
-            )||0,
-
-          reps:
-            Number(
-              document.getElementById(
-                "actualReps"+i
-              ).value
-            )||0,
-
-          sets:
-            Number(
-              document.getElementById(
-                "actualSets"+i
-              ).value
-            )||0
-
-        }
-
-      })
-    );
-
-
-  state.trainingLogs.unshift({
-
-    date:today(),
-
-    routine:routine.name,
-
-    exercises:actuals
-
-  });
-
-
-  getDay().workout=true;
-
-  getDay().body=true;
-
-
-  saveState();
-
-  closeModal(
-    "workoutModal"
-  );
-
-  render();
-
-  toast("BUILD COMPLETE");
-
-}
-
-
-/* =========================================================
-   ROUTINE EDITOR
-========================================================= */
-
-function openRoutineEditor(){
-
-  renderRoutineEditor();
-
-  openModal(
-    "routineModal"
-  );
-
-}
-
-
-function renderRoutineEditor(){
-
-  const el=
-    document.getElementById(
-      "routineEditor"
-    );
-
-
-  el.innerHTML=
-    state.routines
-      .map(
-        (r,ri)=>`
-
-        <div class="routine">
-
-          <div class="row">
-
-            <input
-              value="${escapeHTML(r.name)}"
-              onchange="
-                renameRoutine(
-                  ${ri},
-                  this.value
-                )
-              "
-              style="font-weight:800;">
-
-
-            <button
-              class="btn btn-danger btn-small"
-              onclick="deleteRoutine(${ri})">
-
-              DELETE
-
-            </button>
-
-          </div>
-
-
-          <div style="margin-top:8px;">
-
-            ${
-              r.exercises
-                .map(
-                  (ex,ei)=>`
-
-                  <div class="exercise">
-
-                    <div>
-
-                      <input
-                        value="${escapeHTML(ex.name)}"
-                        onchange="
-                          editExercise(
-                            ${ri},
-                            ${ei},
-                            'name',
-                            this.value
-                          )
-                        ">
-
-
-                      <div
-                        class="three"
-                        style="margin-top:6px;">
-
-                        <input
-                          type="number"
-                          step=".5"
-                          value="${ex.weight}"
-                          onchange="
-                            editExercise(
-                              ${ri},
-                              ${ei},
-                              'weight',
-                              this.value
-                            )
-                          ">
-
-
-                        <input
-                          type="number"
-                          value="${ex.reps}"
-                          onchange="
-                            editExercise(
-                              ${ri},
-                              ${ei},
-                              'reps',
-                              this.value
-                            )
-                          ">
-
-
-                        <input
-                          type="number"
-                          value="${ex.sets}"
-                          onchange="
-                            editExercise(
-                              ${ri},
-                              ${ei},
-                              'sets',
-                              this.value
-                            )
-                          ">
-
-                      </div>
-
-                    </div>
-
-
-                    <button
-                      class="btn btn-danger btn-small"
-                      onclick="
-                        deleteExercise(
-                          ${ri},
-                          ${ei}
-                        )
-                      ">
-
-                      ×
-
-                    </button>
-
-                  </div>
-
-                `
-                )
-                .join("")
-            }
-
-          </div>
-
-
-          <button
-            class="btn btn-secondary"
-            onclick="addExercise(${ri})"
-            style="margin-top:9px;">
-
-            + EXERCISE
-
-          </button>
-
-        </div>
-
-      `
-      )
-      .join("");
-
-}
-
-
-function renameRoutine(
-  ri,
-  value
-){
-
-  state.routines[ri].name=
-    value.trim()||
-    "ROUTINE";
-
-
-  saveState();
-
-  render();
-
-}
-
-
-function editExercise(
-  ri,
-  ei,
-  key,
-  value
-){
-
-  if(key==="name"){
-
-    state.routines[ri]
-      .exercises[ei]
-      .name=
-        value.trim()||
-        "Exercise";
-
-  }else{
-
-    state.routines[ri]
-      .exercises[ei][key]=
-        Number(value)||0;
-
-  }
-
-
-  saveState();
-
-}
-
-
-function deleteRoutine(ri){
-
-  if(
-    !confirm(
-      "Delete this routine?"
-    )
-  )
-    return;
-
-
-  state.routines.splice(
-    ri,
-    1
-  );
-
-
-  saveState();
-
-  renderRoutineEditor();
-
-  render();
-
-}
-
-
-function addRoutine(){
-
-  const name=
-    prompt(
-      "Routine name?",
-      "NEW ROUTINE"
-    );
-
-
-  if(!name)
-    return;
-
-
-  state.routines.push({
-
-    id:
-      "routine_"+
-      Date.now(),
-
-    name:
-      name.toUpperCase(),
-
-    exercises:[]
-
-  });
-
-
-  saveState();
-
-  renderRoutineEditor();
-
-  render();
-
-}
-
-
-function addExercise(ri){
-
-  state.routines[ri]
-    .exercises.push({
-
-      name:"New Exercise",
-
-      weight:0,
-
-      reps:8,
-
-      sets:3
-
-    });
-
-
-  saveState();
-
-  renderRoutineEditor();
-
-}
-
-
-function deleteExercise(
-  ri,
-  ei
-){
-
-  state.routines[ri]
-    .exercises
-    .splice(ei,1);
-
-
-  saveState();
-
-  renderRoutineEditor();
-
-}
-
-
-/* =========================================================
-   COMPLETE DAY
-========================================================= */
-
-function completeDay(){
-
-  const score=
-    todayScore();
-
-
-  if(score<50){
-
-    if(
-      !confirm(
-        "TODAY SCORE is below 50. Complete anyway?"
-      )
-    )
-      return;
-
-  }
-
-
-  getDay().completed=true;
-
-
-  saveState();
-
-  render();
-
-  toast("DAY COMPLETE");
-
-}
-
-
-/* =========================================================
-   RESET
-========================================================= */
-
-function resetData(){
-
-  if(
-    !confirm(
-      "ALL RESURGIR DATA WILL BE DELETED. Continue?"
-    )
-  )
-    return;
-
-
-  localStorage.removeItem(
-    STORAGE_KEY
-  );
-
-
-  state=
-    defaultState();
-
-
-  saveState();
-
-  render();
-
-  toast("RESET COMPLETE");
-
-}
-
-
-/* =========================================================
-   MODALS
-========================================================= */
-
-function openModal(id){
-
-  const modal=
-    document.getElementById(id);
-
-
-  if(!modal)
-    return;
-
-
-  modal.classList.add("open");
-
-
-  if(id==="weightModal"){
-
-    document.getElementById(
-      "weightInput"
-    ).value=
-      state.weight||"";
-
-  }
-
-
-  if(id==="wealthModal"){
-
-    document.getElementById(
-      "incomeInput"
-    ).value=
-      state.income||"";
-
-
-    document.getElementById(
-      "sideInput"
-    ).value=
-      state.sideIncome||"";
-
-  }
-
-
-  if(id==="foodModal"){
-
-    const f=
-      state.food[today()]||{};
-
-
-    document.getElementById(
-      "foodKcal"
-    ).value=
-      f.kcal||"";
-
-
-    document.getElementById(
-      "foodProtein"
-    ).value=
-      f.protein||"";
-
-
-    document.getElementById(
-      "foodWater"
-    ).value=
-      f.water||"";
-
-  }
-
-}
-
-
-function closeModal(id){
-
-  const modal=
-    document.getElementById(id);
-
-
-  if(modal)
-    modal.classList.remove("open");
-
-}
-
-
-/* Close when tapping backdrop */
-
-document
-  .querySelectorAll(".modal")
-  .forEach(
-    modal=>{
-
-      modal.addEventListener(
-        "click",
-        event=>{
-
-          if(
-            event.target===
-            modal
-          ){
-
-            modal.classList.remove(
-              "open"
-            );
-
-          }
-
-        }
-      );
-
-    }
-  );
-
-
-/* =========================================================
-   NAV
-========================================================= */
-
-document
-  .querySelectorAll(".nav button")
-  .forEach(
-    button=>{
-
-      button.addEventListener(
-        "click",
-        ()=>{
-
-          const screen=
-            button.dataset.screen;
-
-
-          document
-            .querySelectorAll(".screen")
-            .forEach(
-              s=>
-                s.classList.remove(
-                  "active"
-                )
-            );
-
-
-          const target=
-            document.getElementById(
-              screen
-            );
-
-
-          if(target)
-            target.classList.add(
-              "active"
-            );
-
-
-          document
-            .querySelectorAll(".nav button")
-            .forEach(
-              b=>
-                b.classList.remove(
-                  "active"
-                )
-            );
-
-
-          button.classList.add(
-            "active"
-          );
-
-
-          window.scrollTo(
-            0,
-            0
-          );
-
-        }
-      );
-
-    }
-  );
-
-
-/* =========================================================
-   RENDER
-========================================================= */
-
-function render(){
-
-  ensureToday();
-
-
-  const d=getDay();
-
-
-  const codes=
-    getDailyCodes();
-
-
-  /* HEADER */
-
-  const now=
-    new Date();
-
-
-  document.getElementById(
-    "headerDay"
-  ).textContent=
-    now
-      .toLocaleDateString(
-        "en-US",
-        {
-          month:"short",
-          day:"numeric"
-        }
-      )
-      .toUpperCase();
-
-
-  const dayNumber=
-    Math.abs(
-      daysBetween(
-        state.createdAt,
-        today()
-      )
-    )+1;
-
-
-  document.getElementById(
-    "dayText"
-  ).textContent=
-    `DAY ${
-      String(dayNumber)
-        .padStart(3,"0")
-    }`;
-
-
-  document.getElementById(
-    "rankBadge"
-  ).textContent=
-    rank();
-
-
-  /* SCORE */
-
-  updateHomeScoreUI();
-
-
-  /* STATS */
-
-  document.getElementById(
-    "streakValue"
-  ).textContent=
-    streak();
-
-
-  document.getElementById(
-    "levelValue"
-  ).textContent=
-    level();
-
-
-  document.getElementById(
-    "xpValue"
-  ).textContent=
-    totalXP()+" XP";
-
-
-  document.getElementById(
-    "bodyStatus"
-  ).textContent=
-    d.workout
-      ?"BUILT"
-      :
-      (
-        d.body
-          ?"✓"
-          :"—"
-      );
-
-
-  /* HOME CODE */
-
-  renderHomeCode(
-    codes
-  );
-
-
-  /* CODE */
-
-  renderCodeScreen(
-    codes
-  );
-
-
-  /* QUEST */
-
-  renderQuest(
-    "homeQuest"
-  );
-
-  renderQuest(
-    "codeQuest"
-  );
-
-
-  /* BUILD */
-
-  document.getElementById(
-    "weightDisplay"
-  ).textContent=
-    state.weight
-      ?
-      `${state.weight} kg`
-      :
-      "— kg";
-
-
-  const routine=
-    routineForToday();
-
-
-  document.getElementById(
-    "todayWorkoutName"
-  ).textContent=
-    routine
-      ?
-      routine.name
-      :
-      "REST";
-
-
-  renderRoutines();
-
-
-  renderResponsibility();
-
-
-  /* WEALTH */
-
-  document.getElementById(
-    "incomeDisplay"
-  ).textContent=
-    yen(state.income);
-
-
-  document.getElementById(
-    "sideDisplay"
-  ).textContent=
-    yen(state.sideIncome);
-
-
-  /* MANHOOD */
-
-  renderManhood();
-
-
-  /* PRESENCE */
-
-  renderPresence();
-
-
-  /* CONSTITUTION */
-
-  renderConstitution();
-
-
-  /* BOSS */
-
-  renderBoss();
-
-
-  /* JOURNAL */
-
-  renderReviews();
-
-
-  /* FALLS */
-
-  renderFalls();
-
-
-  /* TRAINING */
-
-  renderTrainingHistory();
-
-
-  /* PROGRESS */
-
-  document.getElementById(
-    "totalDays"
-  ).textContent=
-    Object.keys(
-      state.days
-    ).length;
-
-
-  document.getElementById(
-    "totalBuilds"
-  ).textContent=
-    state.trainingLogs.length;
-
-
-  document.getElementById(
-    "totalQuests"
-  ).textContent=
-    Object
-      .values(state.days)
-      .filter(
-        d=>d.quest
-      ).length;
-
-
-  document.getElementById(
-    "cleanDays"
-  ).textContent=
-    Object.keys(
-      state.days
-    )
-    .filter(
-      date=>
-        !state.falls.some(
-          f=>f.date===date
-        )
-    ).length;
-
-
-  /* FOOD */
-
-  renderFood();
-
-}
-
-
-/* =========================================================
-   HOME CODE
-========================================================= */
-
-function renderHomeCode(codes){
-
-  const d=getDay();
-
-
-  document.getElementById(
-    "homeCode"
-  ).innerHTML=
-
-    codes
-      .map(
-        c=>`
-
-        <div class="check">
-
-          <input
-            id="homeCodeToggle_${c.id}"
-            class="check-toggle"
-            type="checkbox"
-            ${d.code[c.id]?"checked":""}
-            onchange="
-              toggleCode('${c.id}')
-            ">
-
-
-          <div
-            class="check-content"
-            onclick="
-              document
-                .getElementById(
-                  'homeCodeToggle_${c.id}'
-                )
-                .click()
-            ">
-
-            <strong>
-              ${escapeHTML(c.title)}
-            </strong>
-
-            <small>
-              ${escapeHTML(c.desc)}
-            </small>
-
-          </div>
-
-        </div>
-
-      `
-      )
-      .join("");
-
-}
-
-
-/* =========================================================
-   CODE SCREEN
-========================================================= */
-
-function renderCodeScreen(codes){
-
-  const d=getDay();
-
-
-  document.getElementById(
-    "codeScreenList"
-  ).innerHTML=
-
-    codes
-      .map(
-        c=>`
-
-        <div class="code-item">
-
-          <div>
-
-            <strong>
-              ${escapeHTML(c.title)}
-            </strong>
-
-            <small>
-              ${escapeHTML(c.desc)}
-            </small>
-
-          </div>
-
-
-          <button
-            id="codeStatus_${c.id}"
-            class="status ${
-              d.code[c.id]
-                ?"done"
-                :""
-            }"
-            onclick="
-              toggleCode('${c.id}')
-            ">
-
-            ${
-              d.code[c.id]
-                ?"DONE"
-                :"OPEN"
-            }
-
-          </button>
-
-        </div>
-
-      `
-      )
-      .join("");
-
-}
-
-
-/* =========================================================
-   QUEST
-========================================================= */
-
-function renderQuest(targetId){
-
-  const el=
-    document.getElementById(
-      targetId
-    );
-
-
-  const[
-    title,
-    desc
-  ]=
-    questData();
-
-
-  let html=`
-
-    <div class="eyebrow">
-      COURAGE QUEST
-    </div>
-
-    <div class="quest-title">
-      ${escapeHTML(title)}
-    </div>
-
-    <div class="quest-desc">
-      ${escapeHTML(desc)}
-    </div>
-
-  `;
-
-
-  if(state.quest.completed){
-
-    html+=`
-
-      <div class="row">
-
-        <span class="status done">
-          COMPLETE
-        </span>
-
-        <span class="mini">
-          +10 COURAGE
-        </span>
-
-      </div>
-
-    `;
-
-  }
-
-  else if(state.quest.accepted){
-
-    html+=`
-
-      <button
-        class="btn btn-primary"
-        onclick="completeQuest()">
-
-        QUEST COMPLETE
-
-      </button>
-
-    `;
-
-  }
-
-  else{
-
-    html+=`
-
-      <button
-        class="btn btn-secondary"
-        onclick="acceptQuest()">
-
-        ACCEPT QUEST
-
-      </button>
-
-    `;
-
-  }
-
-
-  el.innerHTML=html;
-
-}
-
-
-/* =========================================================
-   ROUTINES
-========================================================= */
-
-function renderRoutines(){
-
-  const el=
-    document.getElementById(
-      "routineList"
-    );
-
-
-  if(!state.routines.length){
-
-    el.innerHTML="";
-
-    return;
-
-  }
-
-
-  el.innerHTML=
-
-    state.routines
-      .map(
-        r=>`
-
-        <div class="card compact">
-
-          <div class="row">
-
-            <div>
-
-              <div class="eyebrow">
-                ${escapeHTML(r.name)}
-              </div>
-
-              <div class="mini">
-                ${r.exercises.length}
-                exercises
-              </div>
-
-            </div>
-
-
-            <span class="status">
-
-              ${
-                r===routineForToday()
-                  ?"TODAY"
-                  :"ROUTINE"
-              }
-
-            </span>
-
-          </div>
-
-
-          ${
-            r.exercises
-              .map(
-                ex=>`
-
-                <div class="exercise">
-
-                  <div>
-
-                    <div class="exercise-name">
-                      ${escapeHTML(ex.name)}
-                    </div>
-
-                    <div class="exercise-target">
-                      Target
-                    </div>
-
-                  </div>
-
-
-                  <div class="exercise-value">
-
-                    ${ex.weight}kg ×
-                    ${ex.reps} ×
-                    ${ex.sets}
-
-                  </div>
-
-                </div>
-
-              `
-              )
-              .join("")
-          }
-
-        </div>
-
-      `
-      )
-      .join("");
-
-}
-
-
-/* =========================================================
-   RESPONSIBILITY
-========================================================= */
-
-function renderResponsibility(){
-
-  const el=
-    document.getElementById(
-      "responsibilityList"
-    );
-
-
-  el.innerHTML=
-
-    RESPONSIBILITY
-      .map(
-        ([id,title,desc])=>`
-
-        <div class="check">
-
-          <input
-            id="responsibility_${id}"
-            class="check-toggle"
-            type="checkbox"
-            ${
-              state.responsibility[id]
-                ?"checked"
-                :""
-            }
-            onchange="
-              toggleResponsibility('${id}')
-            ">
-
-
-          <div
-            class="check-content"
-            onclick="
-              document
-                .getElementById(
-                  'responsibility_${id}'
-                )
-                .click()
-            ">
-
-            <strong>
-              ${escapeHTML(title)}
-            </strong>
-
-            <small>
-              ${escapeHTML(desc)}
-            </small>
-
-          </div>
-
-        </div>
-
-      `
-      )
-      .join("");
-
-}
-
-
-/* =========================================================
-   MANHOOD
-========================================================= */
-
-function renderManhood(){
-
-  const el=
-    document.getElementById(
-      "manhoodGrid"
-    );
-
-
-  el.innerHTML=
-
-    MANHOOD_CATEGORIES
-      .map(
-        cat=>{
-
-          const value=
-            manhoodScore(cat);
-
-
-          return`
-
-            <div class="manhood-item">
-
-              <div class="manhood-head">
-
-                <strong>
-                  ${cat}
-                </strong>
-
-                <span
-                  id="manhood_${cat}">
-                  ${value}
-                </span>
-
-              </div>
-
-
-              <div class="bar">
-
-                <div
-                  id="manhoodBar_${cat}"
-                  style="width:${value}%">
-                </div>
-
-              </div>
-
-            </div>
-
-          `;
-
-        }
-      )
-      .join("");
-
-}
-
-
-/* =========================================================
-   PRESENCE
-========================================================= */
-
-function renderPresence(){
-
-  const el=
-    document.getElementById(
-      "presenceList"
-    );
-
-
-  el.innerHTML=
-
-    PRESENCE
-      .map(
-        ([id,title,desc])=>`
-
-        <div class="check">
-
-          <input
-            id="presence_${id}"
-            class="check-toggle"
-            type="checkbox"
-            ${
-              state.presence[id]
-                ?"checked"
-                :""
-            }
-            onchange="
-              togglePresence('${id}')
-            ">
-
-
-          <div
-            class="check-content"
-            onclick="
-              document
-                .getElementById(
-                  'presence_${id}'
-                )
-                .click()
-            ">
-
-            <strong>
-              ${escapeHTML(title)}
-            </strong>
-
-            <small>
-              ${escapeHTML(desc)}
-            </small>
-
-          </div>
-
-        </div>
-
-      `
-      )
-      .join("");
-
-}
-
-
-/* =========================================================
-   CONSTITUTION
-========================================================= */
-
-function renderConstitution(){
-
-  document.getElementById(
-    "constitution"
-  ).innerHTML=
-
-    CONSTITUTION
-      .map(
-        (item,i)=>`
-
-        <div class="code-item">
-
-          <strong>
-            ${String(i+1).padStart(2,"0")}
-          </strong>
-
-          <span
-            style="
-              flex:1;
-              text-align:right;
-            ">
-
-            ${escapeHTML(item)}
-
+          <span class="tiny">
+            休むことも鍛錬。
           </span>
 
         </div>
 
       `
-      )
-      .join("");
 
-}
+      :
 
+      routine.map((e,i)=>`
 
-/* =========================================================
-   BOSS
-========================================================= */
+        <div class="exercise">
 
-function renderBoss(){
-
-  const el=
-    document.getElementById(
-      "bossCard"
-    );
-
-
-  const title=
-    BOSSES[state.boss.index]||
-    BOSSES[0];
-
-
-  if(state.boss.completed){
-
-    el.innerHTML=`
-
-      <div class="eyebrow">
-        WEEKLY BOSS
-      </div>
-
-      <div class="boss-title">
-        ${escapeHTML(title)}
-      </div>
-
-      <div class="row">
-
-        <span class="status done">
-          DEFEATED
-        </span>
-
-        <span class="mini">
-          +30 XP
-        </span>
-
-      </div>
-
-    `;
-
-  }
-
-  else{
-
-    el.innerHTML=`
-
-      <div class="boss-meta">
-        WEEKLY BOSS
-      </div>
-
-      <div class="boss-title">
-        ${escapeHTML(title)}
-      </div>
-
-      <div
-        class="mini"
-        style="margin-bottom:14px;">
-
-        今週、一番逃げたいことを
-        一つ終わらせる。
-
-      </div>
-
-
-      <button
-        class="btn btn-primary"
-        onclick="completeBoss()">
-
-        DEFEAT BOSS
-
-      </button>
-
-    `;
-
-  }
-
-}
-
-
-/* =========================================================
-   REVIEWS
-========================================================= */
-
-function renderReviews(){
-
-  const review=
-    state.reviews[today()]||
-    {};
-
-
-  const fields={
-
-    journalWon:
-      review.won||"",
-
-    homeWon:
-      review.won||"",
-
-    journalFailed:
-      review.failed||"",
-
-    homeFailed:
-      review.failed||"",
-
-    journalTomorrow:
-      review.tomorrow||"",
-
-    homeTomorrow:
-      review.tomorrow||""
-
-  };
-
-
-  Object.entries(fields)
-    .forEach(
-      ([id,value])=>{
-
-        const el=
-          document.getElementById(
-            id
-          );
-
-
-        if(el)
-          el.value=value;
-
-      }
-    );
-
-}
-
-
-/* =========================================================
-   FALLS
-========================================================= */
-
-function renderFalls(){
-
-  const todayFalls=
-    state.falls.filter(
-      f=>f.date===today()
-    );
-
-
-  const status=
-    document.getElementById(
-      "fallStatus"
-    );
-
-
-  status.textContent=
-    todayFalls.length
-      ?"FALL LOGGED"
-      :"CLEAN DAY";
-
-
-  status.className=
-    todayFalls.length
-      ?"big-copy danger"
-      :"big-copy";
-
-
-  document.getElementById(
-    "fallCount"
-  ).textContent=
-
-    `${todayFalls.length}
-     violation${
-       todayFalls.length===1
-         ?""
-         :"s"
-     } today`;
-
-
-  document.getElementById(
-    "fallHistory"
-  ).innerHTML=
-
-    state.falls
-      .slice(0,8)
-      .map(
-        f=>`
-
-        <div class="log-item">
-
-          <div class="log-date">
-            ${f.date}
+          <div class="exercise-name">
+            ${esc(e[0])}
           </div>
 
-          <div class="log-title">
-            ${escapeHTML(f.type)}
-          </div>
-
-          <div class="log-body">
-            ${
-              escapeHTML(
-                f.lesson||
-                "No lesson recorded."
-              )
-            }
+          <div class="prescription">
+            TARGET · ${e[1]}kg × ${e[2]} × ${e[3]} sets
           </div>
 
         </div>
 
-      `
-      )
-      .join("");
-
-}
+      `).join("")
+    }
 
 
-/* =========================================================
-   TRAINING HISTORY
-========================================================= */
+    <button
+      class="btn primary"
+      style="margin-top:12px"
+      onclick="startWorkout()"
+      ${currentRoutine==="REST"?"disabled":""}>
 
-function renderTrainingHistory(){
+      ${todayRoutine===currentRoutine
+        ?"今日の鍛錬を開始"
+        :"このルーティンを開始"}
 
-  const el=
-    document.getElementById(
-      "trainingHistory"
-    );
-
-
-  if(!state.trainingLogs.length){
-
-    el.innerHTML=
-      `
-        <div class="list-empty">
-          No builds yet.
-        </div>
-      `;
-
-    return;
-
-  }
+    </button>
 
 
-  el.innerHTML=
+    ${rules([
+      "実際に行った重量・回数だけ記録する。",
+      "無理に処方重量へ合わせなくていい。",
+      "怪我より継続を優先する。",
+      "完遂するとTODAY SCOREにBODY +25。"
+    ])}
 
-    state.trainingLogs
-      .slice(0,10)
-      .map(
-        log=>`
-
-        <div class="log-item">
-
-          <div class="log-date">
-            ${log.date}
-          </div>
-
-          <div class="log-title">
-            ${escapeHTML(log.routine)}
-          </div>
-
-          <div class="log-body">
-
-            ${
-              log.exercises
-                .map(
-                  ex=>`
-
-                  ${escapeHTML(ex.name)}
-
-                  ${ex.actual.weight}kg ×
-                  ${ex.actual.reps} ×
-                  ${ex.actual.sets}
-
-                `
-                )
-                .join("<br>")
-            }
-
-          </div>
-
-        </div>
-
-      `
-      )
-      .join("");
-
-}
+  </div>
 
 
-/* =========================================================
-   FOOD
-========================================================= */
+  <div class="section-head">
 
-function renderFood(){
+    <div>
+      <h2>WEALTH</h2>
+      <small>稼ぐ力</small>
+    </div>
 
-  const food=
-    state.food[today()];
-
-
-  const el=
-    document.getElementById(
-      "foodSummary"
-    );
+  </div>
 
 
-  if(!food){
+  <div class="card">
 
-    el.innerHTML=`
-
-      <div class="mini">
-        No food log today.
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-
-  el.innerHTML=`
-
-    <div class="stat-grid">
+    <div class="grid2">
 
       <div class="stat">
 
-        <div class="stat-label">
-          Today
-        </div>
+        <span>
+          MONTHLY INCOME
+        </span>
 
-        <div class="stat-value">
-          ${food.kcal}
-        </div>
+        <b>
+          ${state.income ?? "—"}
+        </b>
 
-        <div class="stat-small">
-          kcal
-        </div>
+        <span>万円</span>
 
       </div>
 
-
       <div class="stat">
 
-        <div class="stat-label">
-          Protein
-        </div>
+        <span>
+          SIDE INCOME
+        </span>
 
-        <div class="stat-value">
-          ${food.protein}
-        </div>
+        <b>
+          ${state.sideIncome ?? "—"}
+        </b>
 
-        <div class="stat-small">
-          g
-        </div>
+        <span>万円</span>
 
       </div>
 
     </div>
 
-  `;
 
+    <button
+      class="btn secondary"
+      style="margin-top:10px"
+      onclick="openWealth()">
+
+      収入を記録
+
+    </button>
+
+
+    ${rules([
+      "金額は月次の目安として記録。",
+      "他人との比較ではなく、自分の成長を見る。"
+    ])}
+
+  </div>
+
+
+  <div class="section-head">
+
+    <div>
+      <h2>FOOD</h2>
+      <small>身体を作る</small>
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <div class="grid2">
+
+      <div class="stat">
+
+        <span>
+          TODAY KCAL
+        </span>
+
+        <b>
+          ${food.kcal}
+        </b>
+
+      </div>
+
+      <div class="stat">
+
+        <span>
+          PROTEIN
+        </span>
+
+        <b>
+          ${food.protein}g
+        </b>
+
+      </div>
+
+    </div>
+
+
+    <button
+      class="btn secondary"
+      style="margin-top:10px"
+      onclick="openFood()">
+
+      食事を記録
+
+    </button>
+
+
+    <div class="tiny"
+         style="margin-top:8px">
+
+      TARGET · 1,800 kcal / P 150g
+
+    </div>
+
+
+    ${rules([
+      "食事管理はBUILDを支える補助機能。",
+      "必要以上に細かく管理しない。",
+      "記録を続けることを優先する。"
+    ])}
+
+  </div>
+
+  `;
 }
 
+function selectRoutine(name){
 
-/* =========================================================
-   INITIALIZE
-========================================================= */
+  currentRoutine=name;
 
-ensureToday();
+  renderBuild();
+}
 
+/* ---------- CODE ---------- */
+
+function renderCode(){
+
+  const items =
+    Object.entries(
+      state.responsibility
+    );
+
+  const presence =
+    ["姿勢","清潔感","服装","振る舞い"];
+
+  $("#code").innerHTML=`
+
+  <div class="section-head">
+
+    <div>
+      <h1 class="title">CODE</h1>
+
+      <div class="jp">
+        掟 — THE MAN YOU CHOOSE TO BE
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <div class="big-quote">
+
+      KEEP YOUR WORD.<br>
+      DON'T RUN.<br>
+      CONTROL YOURSELF.
+
+    </div>
+
+    <div class="signature">
+      自分との約束を守る。逃げない。己を律する。
+    </div>
+
+  </div>
+
+
+  <div class="section-head">
+
+    <div>
+      <h2>RESPONSIBILITY</h2>
+      <small>責任</small>
+    </div>
+
+    <button
+      class="btn secondary small"
+      style="width:auto"
+      onclick="openResponsibility()">
+
+      ＋
+
+    </button>
+
+  </div>
+
+
+  <div class="card">
+
+    ${
+      items.length
+
+      ?
+
+      `<div class="check-list">
+
+        ${items.map(([key,value])=>`
+
+          <div
+            class="check-row"
+            onclick="toggleResponsibility('${esc(key)}')">
+
+            <input
+              class="check-toggle"
+              type="checkbox"
+              ${value?"checked":""}
+              onclick="event.stopPropagation();toggleResponsibility('${esc(key)}')">
+
+            <div class="check-content">
+
+              ${esc(key)}
+
+              <small>
+                今週、果たすべき責任
+              </small>
+
+            </div>
+
+          </div>
+
+        `).join("")}
+
+      </div>`
+
+      :
+
+      `<div class="empty">
+        今週の責任を一つ登録する。
+      </div>`
+    }
+
+
+    ${rules([
+      "毎週1〜3個まで。",
+      "自分が果たすべき責任を具体化する。",
+      "完了したらチェックする。"
+    ])}
+
+  </div>
+
+
+  <div class="section-head">
+
+    <div>
+      <h2>PRESENCE</h2>
+      <small>佇まい</small>
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <div style="
+      display:flex;
+      flex-wrap:wrap;
+      gap:7px">
+
+      ${presence.map(item=>`
+
+        <button
+          class="btn small secondary"
+          style="width:auto"
+          onclick="togglePresence('${item}')">
+
+          ${item}
+          ${state.presence[item]?" ✓":" ○"}
+
+        </button>
+
+      `).join("")}
+
+    </div>
+
+    <div class="tiny"
+         style="margin-top:10px">
+
+      見た目だけではない。
+      姿勢、清潔感、服装、振る舞いまで含めて「佇まい」。
+
+    </div>
+
+
+    ${rules([
+      "毎日すべてをチェックする必要はない。",
+      "週単位で自分の佇まいを整える。",
+      "他人への態度もPRESENCEに含める。"
+    ])}
+
+  </div>
+
+
+  <div class="section-head">
+
+    <div>
+      <h2>THE CODE</h2>
+      <small>男の掟</small>
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    ${CONSTITUTION.map(
+      (item,index)=>`
+
+      <div class="log-item">
+
+        <b style="font-size:11px">
+          ${index+1}. ${item[0]}
+        </b>
+
+        <div class="log-meta">
+          ${item[1]}
+        </div>
+
+      </div>
+
+    `).join("")}
+
+
+    <div class="divider"></div>
+
+
+    <div class="big-quote"
+         style="font-size:17px">
+
+      BUILD LOVE.<br>
+      BUILD BODY.<br>
+      BUILD WEALTH.<br>
+      BUILD CHARACTER.<br>
+      RESURGIR.
+
+    </div>
+
+
+    ${rules([
+      "RESURGIRは完璧な人間を作るためではない。",
+      "一度崩れても、二日続けて崩れない。",
+      "記録に嘘をつかない。",
+      "小さな勝利を積み重ねる。",
+      "崩れたらRESETして戻る。"
+    ])}
+
+  </div>
+
+  `;
+}
+
+function toggleResponsibility(key){
+
+  state.responsibility[key] =
+    !state.responsibility[key];
+
+  save();
+
+  renderCode();
+
+  toast(
+    state.responsibility[key]
+      ?"RESPONSIBILITY ✓"
+      :"未完了に戻しました"
+  );
+}
+
+function togglePresence(key){
+
+  state.presence[key]=
+    !state.presence[key];
+
+  save();
+
+  renderCode();
+}
+
+/* ---------- LOG ---------- */
+
+function renderLog(){
+
+  const logs =
+    state.trainingLogs || [];
+
+  const falls =
+    state.falls || [];
+
+  $("#log").innerHTML=`
+
+  <div class="section-head">
+
+    <div>
+      <h1 class="title">LOG</h1>
+
+      <div class="jp">
+        戦記 — 記録は自分を映す
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="grid2">
+
+    <div class="stat">
+
+      <span>
+        TRAINING LOGS
+      </span>
+
+      <b>${logs.length}</b>
+
+    </div>
+
+    <div class="stat">
+
+      <span>
+        FALLS
+      </span>
+
+      <b>${falls.length}</b>
+
+    </div>
+
+  </div>
+
+
+  <div class="section-head">
+
+    <div>
+      <h2>WAR LOG</h2>
+      <small>今日の戦記</small>
+    </div>
+
+    <button
+      class="btn primary small"
+      style="width:auto"
+      onclick="openWarLog()">
+
+      ＋記録
+
+    </button>
+
+  </div>
+
+
+  <div class="card">
+
+    ${
+      state.reviews[today()]
+
+      ?
+
+      `
+      <div class="log-item">
+        <div class="eyebrow">
+          TODAY I WON
+        </div>
+        <div class="log-title">
+          ${esc(state.reviews[today()].won)}
+        </div>
+      </div>
+
+      <div class="log-item">
+        <div class="eyebrow">
+          I FAILED
+        </div>
+        <div class="log-title">
+          ${esc(state.reviews[today()].failed)}
+        </div>
+      </div>
+
+      <div class="log-item">
+        <div class="eyebrow">
+          TOMORROW
+        </div>
+        <div class="log-title">
+          ${esc(state.reviews[today()].tomorrow)}
+        </div>
+      </div>
+      `
+
+      :
+
+      `
+      <div class="empty">
+        今日の戦記はまだない。<br>
+        <span class="tiny">
+          勝ったこと / 逃げたこと / 明日やること
+        </span>
+      </div>
+      `
+    }
+
+  </div>
+
+
+  <div class="section-head">
+
+    <div>
+      <h2>TRAINING HISTORY</h2>
+      <small>鍛錬の履歴</small>
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    ${
+      logs.length
+
+      ?
+
+      logs
+        .slice()
+        .reverse()
+        .slice(0,15)
+        .map(log=>`
+
+        <div class="log-item">
+
+          <div class="log-title">
+            ${esc(log.routine)}
+            ·
+            ${dateLabel(log.date)}
+          </div>
+
+          <div class="log-meta">
+
+            ${log.exercises
+              .map(e=>
+                `${esc(e.name)}
+                ${e.kg}kg ×
+                ${e.reps} ×
+                ${e.sets}`
+              )
+              .join(" / ")}
+
+          </div>
+
+        </div>
+
+      `).join("")
+
+      :
+
+      `<div class="empty">
+        まだ鍛錬の記録がない。
+      </div>`
+    }
+
+  </div>
+
+
+  <div class="section-head">
+
+    <div>
+      <h2>FALL LOG</h2>
+      <small>崩れた記録</small>
+    </div>
+
+    <button
+      class="btn secondary small"
+      style="width:auto"
+      onclick="openFall()">
+
+      ＋記録
+
+    </button>
+
+  </div>
+
+
+  <div class="card">
+
+    ${
+      falls.length
+
+      ?
+
+      falls
+        .slice()
+        .reverse()
+        .slice(0,10)
+        .map(fall=>`
+
+        <div class="log-item">
+
+          <div class="log-title">
+
+            ${dateLabel(fall.date)}
+            ·
+            ${esc(fall.title)}
+
+          </div>
+
+          <div class="log-meta">
+            ${esc(fall.note)}
+          </div>
+
+        </div>
+
+      `).join("")
+
+      :
+
+      `<div class="empty">
+        FALLはまだ記録されていない。
+      </div>`
+    }
+
+
+    ${rules([
+      "失敗を隠さない。",
+      "言い訳ではなく事実を書く。",
+      "最後に次の行動を残す。",
+      "FALL → RESET → BUILD → RISE。"
+    ])}
+
+  </div>
+
+
+  <div class="section-head">
+
+    <div>
+      <h2>WEEKLY REVIEW</h2>
+      <small>週の総括</small>
+    </div>
+
+    <small>
+      SUNDAY · 21:00
+    </small>
+
+  </div>
+
+
+  <div class="card">
+
+    ${weeklyStats()}
+
+    <button
+      class="btn primary"
+      style="margin-top:12px"
+      onclick="openWeeklyReview()">
+
+      今週を振り返る
+
+    </button>
+
+
+    ${rules([
+      "毎週日曜の夜、21:00を目安に行う。",
+      "所要時間は5〜10分。",
+      "勝利だけでなく失敗も記録する。",
+      "来週のBOSSは1つだけ。",
+      "完璧な週を作るためではなく、また進むために行う。"
+    ])}
+
+  </div>
+
+  `;
+}
+
+function weeklyStats(){
+
+  const start =
+    new Date(weekKey()+"T12:00:00");
+
+  const dates =
+    Object.keys(state.days)
+      .filter(date=>
+        new Date(date+"T12:00:00")
+          >=start
+      );
+
+  const average =
+    dates.length
+      ? Math.round(
+          dates.reduce(
+            (sum,date)=>
+              sum+
+              (date===today()
+                ?todayScore()
+                :historicalScore(
+                  state.days[date]
+                )),
+            0
+          )/dates.length
+        )
+      :0;
+
+  return `
+
+    <div class="grid2">
+
+      <div class="stat">
+        <span>AVG SCORE</span>
+        <b>${average}</b>
+      </div>
+
+      <div class="stat">
+        <span>ACTIVE DAYS</span>
+        <b>${dates.length}</b>
+      </div>
+
+    </div>
+
+    <div class="tiny"
+         style="margin-top:10px">
+
+      日曜夜に一週間を締め、
+      来週の自分を決める。
+
+    </div>
+  `;
+}
+
+function historicalScore(d){
+
+  let s =
+    Math.round(
+      Object.values(d.code||{})
+        .filter(Boolean).length/3*30
+    );
+
+  if(d.body)s+=25;
+  if(d.wealth)s+=10;
+  if(d.quest)s+=15;
+  if(d.boss)s+=10;
+  if(d.missionDone)s+=10;
+
+  return Math.min(100,s);
+}
+
+/* ---------- MAN ---------- */
+
+function manhoodScores(){
+
+  const d=getDay();
+
+  const codeCount =
+    dailyCodes()
+      .filter((_,i)=>d.code[i])
+      .length;
+
+  return {
+
+    BODY:
+      d.body ? 80 : 55,
+
+    DISCIPLINE:
+      Math.round(
+        codeCount/3*100
+      ),
+
+    COURAGE:
+      d.quest ? 82 : 45,
+
+    RESPONSIBILITY:
+      Object.values(
+        state.responsibility
+      ).some(Boolean)
+        ?80:55,
+
+    RESPECT:
+      state.presence["振る舞い"]
+        ?82:60,
+
+    PRESENCE:
+      Object.values(
+        state.presence
+      ).filter(Boolean).length
+        ?78:55,
+
+    LOVE:
+      state.reviews[today()]
+        ?.won
+        ?75:55,
+
+    WEALTH:
+      d.wealth ? 78 : 55
+  };
+}
+
+function renderMan(){
+
+  const scores =
+    manhoodScores();
+
+  const average =
+    Math.round(
+      Object.values(scores)
+        .reduce((a,b)=>a+b,0)
+      /CATEGORIES.length
+    );
+
+  const ranks=[
+    ["Lv.1","AWAKEN","目を覚ます"],
+    ["Lv.3","BUILT","土台を作る"],
+    ["Lv.5","DISCIPLINED","己を律する"],
+    ["Lv.8","FORGED","鍛え上げる"],
+    ["Lv.11","RESPECTED","行動で信頼を得る"],
+    ["Lv.15","UNBREAKABLE","簡単には折れない"],
+    ["Lv.20","RESURGIR","何度でも立ち上がる"]
+  ];
+
+  $("#man").innerHTML=`
+
+  <div class="section-head">
+
+    <div>
+      <h1 class="title">MAN</h1>
+
+      <div class="jp">
+        己 — MANHOOD PROFILE
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="card hero">
+
+    <div class="eyebrow">
+      MANHOOD LEVEL
+    </div>
+
+    <div class="score-row">
+
+      <div>
+
+        <span class="score"
+              style="font-size:50px">
+
+          ${average}
+
+        </span>
+
+        <span class="score-den">
+          /100
+        </span>
+
+      </div>
+
+      <div class="rank">
+
+        ${rank()}<br>
+        LEVEL ${level()}
+
+      </div>
+
+    </div>
+
+    <div class="progress">
+      <i style="width:${average}%"></i>
+    </div>
+
+    <div class="tiny"
+         style="margin-top:10px">
+
+      男としての強さは、
+      完璧さではなく行動の積み重ね。
+
+    </div>
+
+  </div>
+
+
+  <div class="section-head">
+
+    <div>
+      <h2>MANHOOD SCORE</h2>
+      <small>男としての強さ</small>
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    ${CATEGORIES.map(key=>`
+
+      <div style="margin-bottom:14px">
+
+        <div style="
+          display:flex;
+          justify-content:space-between">
+
+          <span style="font-size:10px">
+            ${key}
+          </span>
+
+          <span class="tiny">
+            ${scores[key]}
+          </span>
+
+        </div>
+
+        <div class="meter">
+
+          <i style="
+            width:${scores[key]}%">
+          </i>
+
+        </div>
+
+      </div>
+
+    `).join("")}
+
+  </div>
+
+
+  <div class="section-head">
+
+    <div>
+      <h2>WEEKLY REVIEW</h2>
+      <small>週次で自分を更新する</small>
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    ${weeklyStats()}
+
+    <button
+      class="btn secondary"
+      style="margin-top:10px"
+      onclick="openWeeklyReview()">
+
+      REVIEW NOW
+
+    </button>
+
+  </div>
+
+
+  <div class="section-head">
+
+    <div>
+      <h2>MANHOOD RANKS</h2>
+      <small>成長の段階</small>
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    ${ranks.map(r=>`
+
+      <div class="log-item">
+
+        <div style="
+          display:flex;
+          justify-content:space-between">
+
+          <b style="font-size:11px">
+            ${r[0]} · ${r[1]}
+          </b>
+
+          <span class="tiny">
+
+            ${
+              level()>=Number(
+                r[0].replace("Lv.","")
+              )
+              ?"✓"
+              :"LOCKED"
+            }
+
+          </span>
+
+        </div>
+
+        <div class="log-meta">
+          ${r[2]}
+        </div>
+
+      </div>
+
+    `).join("")}
+
+  </div>
+
+
+  <div class="section-head">
+
+    <div>
+      <h2>SYSTEM</h2>
+      <small>システム</small>
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <button
+      class="btn danger"
+      onclick="resetApp()">
+
+      RESET ALL DATA
+
+    </button>
+
+    <div class="tiny"
+         style="margin-top:9px">
+
+      全記録を削除して初期状態に戻す。
+      この操作は取り消せません。
+
+    </div>
+
+  </div>
+
+  `;
+}
+
+/* ---------- MODAL ---------- */
+
+function openModal(title,content){
+
+  $("#sheet").innerHTML=`
+
+    <div class="sheet-head">
+
+      <div>
+
+        <div class="eyebrow">
+          RESURGIR
+        </div>
+
+        <h2>
+          ${title}
+        </h2>
+
+      </div>
+
+      <button
+        class="close"
+        onclick="closeModal()">
+
+        ×
+
+      </button>
+
+    </div>
+
+    ${content}
+
+  `;
+
+  $("#modal")
+    .classList
+    .add("open");
+}
+
+function closeModal(){
+
+  $("#modal")
+    .classList
+    .remove("open");
+}
+
+$("#modal").addEventListener(
+  "click",
+  event=>{
+    if(event.target.id==="modal")
+      closeModal();
+  }
+);
+
+/* ---------- MISSION ---------- */
+
+function openMission(){
+
+  const d=getDay();
+
+  openModal(
+    "TODAY'S MISSION · 今日の使命",
+
+    `
+
+    <div class="field">
+
+      <label>
+        MISSION
+      </label>
+
+      <input
+        id="missionInput"
+        class="input"
+        maxlength="80"
+        value="${esc(d.mission)}"
+        placeholder="例：19:00からPUSHを完遂する">
+
+    </div>
+
+    <div class="tiny">
+      1日1つ。
+      今日中に実行できる具体的な行動を。
+    </div>
+
+    <button
+      class="btn primary"
+      style="margin-top:12px"
+      onclick="saveMission()">
+
+      保存する
+
+    </button>
+
+    ${rules([
+      "1日1つだけ。",
+      "今日中に実行できること。",
+      "完了条件が明確な文章にする。"
+    ])}
+
+    `
+  );
+}
+
+function saveMission(){
+
+  const value =
+    $("#missionInput")
+      .value
+      .trim();
+
+  getDay().mission=value;
+
+  save();
+
+  closeModal();
+
+  render();
+
+  toast("MISSION SAVED");
+}
+
+/* ---------- WEIGHT ---------- */
+
+function openWeight(){
+
+  openModal(
+    "WEIGHT · 体重",
+
+    `
+
+    <div class="field">
+
+      <label>
+        KG
+      </label>
+
+      <input
+        id="weightInput"
+        class="input"
+        type="number"
+        step=".1"
+        value="${state.weight ?? ""}"
+        placeholder="84.0">
+
+    </div>
+
+    <button
+      class="btn primary"
+      onclick="saveWeight()">
+
+      記録する
+
+    </button>
+
+    `
+  );
+}
+
+function saveWeight(){
+
+  state.weight =
+    parseFloat(
+      $("#weightInput").value
+    ) || null;
+
+  save();
+
+  closeModal();
+
+  render();
+
+  toast("WEIGHT SAVED");
+}
+
+/* ---------- WEALTH ---------- */
+
+function openWealth(){
+
+  openModal(
+    "WEALTH · 稼ぐ力",
+
+    `
+
+    <div class="field">
+
+      <label>
+        MONTHLY INCOME / 万円
+      </label>
+
+      <input
+        id="incomeInput"
+        class="input"
+        type="number"
+        step=".1"
+        value="${state.income ?? ""}">
+
+    </div>
+
+    <div class="field">
+
+      <label>
+        SIDE INCOME / 万円
+      </label>
+
+      <input
+        id="sideInput"
+        class="input"
+        type="number"
+        step=".1"
+        value="${state.sideIncome ?? ""}">
+
+    </div>
+
+    <button
+      class="btn primary"
+      onclick="saveWealth()">
+
+      記録する
+
+    </button>
+
+    `
+  );
+}
+
+function saveWealth(){
+
+  state.income =
+    parseFloat(
+      $("#incomeInput").value
+    ) || null;
+
+  state.sideIncome =
+    parseFloat(
+      $("#sideInput").value
+    ) || null;
+
+  getDay().wealth=true;
+
+  save();
+
+  closeModal();
+
+  render();
+
+  toast("WEALTH SAVED");
+}
+
+/* ---------- FOOD ---------- */
+
+function openFood(){
+
+  openModal(
+    "FOOD · 食事",
+
+    `
+
+    <div class="field">
+
+      <label>
+        KCAL
+      </label>
+
+      <input
+        id="foodKcal"
+        class="input"
+        type="number"
+        placeholder="600">
+
+    </div>
+
+    <div class="field">
+
+      <label>
+        PROTEIN / G
+      </label>
+
+      <input
+        id="foodProtein"
+        class="input"
+        type="number"
+        placeholder="40">
+
+    </div>
+
+    <button
+      class="btn primary"
+      onclick="saveFood()">
+
+      記録する
+
+    </button>
+
+    `
+  );
+}
+
+function saveFood(){
+
+  state.food.push({
+
+    date:today(),
+
+    kcal:
+      Number($("#foodKcal").value)||0,
+
+    protein:
+      Number($("#foodProtein").value)||0
+
+  });
+
+  save();
+
+  closeModal();
+
+  render();
+
+  toast("FOOD SAVED");
+}
+
+function foodToday(){
+
+  return state.food
+    .filter(x=>x.date===today())
+    .reduce(
+      (sum,x)=>({
+
+        kcal:
+          sum.kcal+
+          Number(x.kcal||0),
+
+        protein:
+          sum.protein+
+          Number(x.protein||0)
+
+      }),
+      {
+        kcal:0,
+        protein:0
+      }
+    );
+}
+
+/* ---------- WAR LOG ---------- */
+
+function openWarLog(){
+
+  const existing =
+    state.reviews[today()] || {};
+
+  openModal(
+    "WAR LOG · 今日の戦記",
+
+    `
+
+    <div class="field">
+
+      <label>
+        TODAY I WON / 今日勝ったこと
+      </label>
+
+      <textarea
+        id="won"
+        class="input"
+        placeholder="今日、自分を誇れること">${esc(existing.won||"")}</textarea>
+
+    </div>
+
+    <div class="field">
+
+      <label>
+        I FAILED / 逃げたこと
+      </label>
+
+      <textarea
+        id="failed"
+        class="input"
+        placeholder="今日、逃げたこと・崩れたこと">${esc(existing.failed||"")}</textarea>
+
+    </div>
+
+    <div class="field">
+
+      <label>
+        TOMORROW / 明日やること
+      </label>
+
+      <textarea
+        id="tomorrow"
+        class="input"
+        placeholder="明日の自分との約束">${esc(existing.tomorrow||"")}</textarea>
+
+    </div>
+
+    <button
+      class="btn primary"
+      onclick="saveWarLog()">
+
+      戦記を保存
+
+    </button>
+
+    ${rules([
+      "成功だけを書かない。",
+      "失敗を隠さない。",
+      "最後に明日の行動を一つ決める。"
+    ])}
+
+    `
+  );
+}
+
+function saveWarLog(){
+
+  state.reviews[today()]={
+
+    won:
+      $("#won").value.trim(),
+
+    failed:
+      $("#failed").value.trim(),
+
+    tomorrow:
+      $("#tomorrow").value.trim()
+
+  };
+
+  save();
+
+  closeModal();
+
+  render();
+
+  toast("WAR LOG SAVED");
+}
+
+/* ---------- FALL ---------- */
+
+function openFall(){
+
+  openModal(
+    "FALL LOG · 崩れた記録",
+
+    `
+
+    <div class="field">
+
+      <label>
+        WHAT HAPPENED
+      </label>
+
+      <input
+        id="fallTitle"
+        class="input"
+        maxlength="80"
+        placeholder="例：トレーニングをサボった">
+
+    </div>
+
+    <div class="field">
+
+      <label>
+        FACT / 事実
+      </label>
+
+      <textarea
+        id="fallNote"
+        class="input"
+        placeholder="言い訳ではなく事実を書く。"></textarea>
+
+    </div>
+
+    <button
+      class="btn primary"
+      onclick="saveFall()">
+
+      記録する
+
+    </button>
+
+    `
+  );
+}
+
+function saveFall(){
+
+  state.falls.push({
+
+    date:today(),
+
+    title:
+      $("#fallTitle")
+        .value
+        .trim() || "FALL",
+
+    note:
+      $("#fallNote")
+        .value
+        .trim()
+
+  });
+
+  save();
+
+  closeModal();
+
+  render();
+
+  toast("FALL RECORDED");
+}
+
+/* ---------- RESPONSIBILITY ---------- */
+
+function openResponsibility(){
+
+  openModal(
+    "RESPONSIBILITY · 責任",
+
+    `
+
+    <div class="field">
+
+      <label>
+        THIS WEEK'S RESPONSIBILITY
+      </label>
+
+      <input
+        id="responsibilityInput"
+        class="input"
+        maxlength="60"
+        placeholder="例：必要な書類を提出する">
+
+    </div>
+
+    <button
+      class="btn primary"
+      onclick="saveResponsibility()">
+
+      追加する
+
+    </button>
+
+    ${rules([
+      "毎週1〜3個。",
+      "自分が責任を持って完了できること。",
+      "曖昧な目標ではなく具体的な行動にする。"
+    ])}
+
+    `
+  );
+}
+
+function saveResponsibility(){
+
+  const value =
+    $("#responsibilityInput")
+      .value
+      .trim();
+
+  if(!value)
+    return;
+
+  state.responsibility[value]=false;
+
+  save();
+
+  closeModal();
+
+  render();
+
+  toast("RESPONSIBILITY ADDED");
+}
+
+/* ---------- WEEKLY REVIEW ---------- */
+
+function openWeeklyReview(){
+
+  const key=weekKey();
+
+  const r =
+    state.reviews[key] || {};
+
+  openModal(
+    "WEEKLY REVIEW · 週の総括",
+
+    `
+
+    <div class="tiny"
+         style="margin-bottom:12px">
+
+      EVERY SUNDAY / 21:00 · 5–10 MIN
+
+    </div>
+
+    <div class="field">
+
+      <label>
+        THIS WEEK I WON / 今週の勝利
+      </label>
+
+      <textarea
+        id="reviewWon"
+        class="input">${esc(r.won||"")}</textarea>
+
+    </div>
+
+    <div class="field">
+
+      <label>
+        I RAN FROM / 今週逃げたこと
+      </label>
+
+      <textarea
+        id="reviewFailed"
+        class="input">${esc(r.failed||"")}</textarea>
+
+    </div>
+
+    <div class="field">
+
+      <label>
+        WHAT I LEARNED / 気づき
+      </label>
+
+      <textarea
+        id="reviewLearned"
+        class="input">${esc(r.learned||"")}</textarea>
+
+    </div>
+
+    <div class="field">
+
+      <label>
+        NEXT WEEK BOSS / 来週の勝負
+      </label>
+
+      <input
+        id="reviewBoss"
+        class="input"
+        maxlength="80"
+        value="${esc(r.boss||"")}"
+        placeholder="来週、絶対に片付ける1つ">
+
+    </div>
+
+    <button
+      class="btn primary"
+      onclick="saveWeeklyReview()">
+
+      今週を締める
+
+    </button>
+
+    ${rules([
+      "毎週日曜の夜、21:00を目安に行う。",
+      "勝利・失敗・気づきを一つずつ書く。",
+      "来週のBOSSは1つだけ。",
+      "完璧な週を作るためではなく、また進むために行う。"
+    ])}
+
+    `
+  );
+}
+
+function saveWeeklyReview(){
+
+  const key=weekKey();
+
+  state.reviews[key]={
+
+    won:
+      $("#reviewWon").value.trim(),
+
+    failed:
+      $("#reviewFailed").value.trim(),
+
+    learned:
+      $("#reviewLearned").value.trim(),
+
+    boss:
+      $("#reviewBoss").value.trim()
+
+  };
+
+  save();
+
+  closeModal();
+
+  render();
+
+  toast("WEEK CLOSED");
+}
+
+/* ---------- WORKOUT ---------- */
+
+function startWorkout(){
+
+  if(currentRoutine==="REST"){
+
+    toast("REST DAY · 休むことも鍛錬");
+
+    return;
+  }
+
+  const routine =
+    state.routines[currentRoutine] || [];
+
+  openModal(
+
+    `WORKOUT · ${currentRoutine}`,
+
+    `
+
+    <div class="tiny">
+      TARGETを基準に、実際の重量・回数・セット数を記録。
+    </div>
+
+    <div id="workoutInputs">
+
+      ${routine.map((e,i)=>`
+
+        <div class="exercise">
+
+          <div class="exercise-name">
+            ${esc(e[0])}
+          </div>
+
+          <div class="prescription">
+            TARGET · ${e[1]}kg × ${e[2]} × ${e[3]}
+          </div>
+
+          <div class="exercise-inputs">
+
+            <input
+              id="kg-${i}"
+              type="number"
+              step=".5"
+              value="${e[1]}"
+              placeholder="kg">
+
+            <input
+              id="rep-${i}"
+              type="number"
+              value="${e[2]}"
+              placeholder="reps">
+
+            <input
+              id="set-${i}"
+              type="number"
+              value="${e[3]}"
+              placeholder="sets">
+
+          </div>
+
+        </div>
+
+      `).join("")}
+
+    </div>
+
+    <button
+      class="btn primary"
+      style="margin-top:12px"
+      onclick="finishWorkout()">
+
+      鍛錬を完遂する
+
+    </button>
+
+    ${rules([
+      "実際に行った数字だけ記録する。",
+      "処方重量に無理に合わせなくていい。",
+      "完遂するとBODY +25。",
+      "トレーニング自体に余分なXPは付与しない。"
+    ])}
+
+    `
+  );
+}
+
+function finishWorkout(){
+
+  const routine =
+    state.routines[currentRoutine] || [];
+
+  const exercises =
+    routine.map((e,i)=>({
+
+      name:e[0],
+
+      kg:
+        Number(
+          document.getElementById(
+            `kg-${i}`
+          ).value
+        ) || 0,
+
+      reps:
+        Number(
+          document.getElementById(
+            `rep-${i}`
+          ).value
+        ) || 0,
+
+      sets:
+        Number(
+          document.getElementById(
+            `set-${i}`
+          ).value
+        ) || 0
+
+    }));
+
+  state.trainingLogs.push({
+
+    date:today(),
+
+    routine:currentRoutine,
+
+    exercises
+
+  });
+
+  getDay().body=true;
+
+  save();
+
+  closeModal();
+
+  render();
+
+  toast("BUILD COMPLETE");
+}
+
+/* ---------- ROUTINE EDITOR ---------- */
+
+function openRoutineEditor(){
+
+  openModal(
+    "ROUTINE EDITOR · ルーティン",
+
+    `
+
+    ${Object.keys(state.routines)
+      .map(name=>`
+
+      <div class="card">
+
+        <div style="
+          display:flex;
+          justify-content:space-between;
+          align-items:center">
+
+          <b>${esc(name)}</b>
+
+          <button
+            class="btn danger small"
+            style="width:auto"
+            onclick="deleteRoutine('${esc(name)}')">
+
+            削除
+
+          </button>
+
+        </div>
+
+
+        ${state.routines[name]
+          .map((e,i)=>`
+
+          <div class="exercise">
+
+            <div class="field">
+
+              <label>
+                EXERCISE
+              </label>
+
+              <input
+                class="input"
+                value="${esc(e[0])}"
+                onchange="
+                  state.routines['${esc(name)}'][${i}][0]=this.value;
+                  save();
+                ">
+
+            </div>
+
+            <div class="exercise-inputs">
+
+              <input
+                type="number"
+                value="${e[1]}"
+                onchange="
+                  state.routines['${esc(name)}'][${i}][1]=Number(this.value)||0;
+                  save();
+                ">
+
+              <input
+                type="number"
+                value="${e[2]}"
+                onchange="
+                  state.routines['${esc(name)}'][${i}][2]=Number(this.value)||0;
+                  save();
+                ">
+
+              <input
+                type="number"
+                value="${e[3]}"
+                onchange="
+                  state.routines['${esc(name)}'][${i}][3]=Number(this.value)||0;
+                  save();
+                ">
+
+            </div>
+
+            <div class="tiny">
+              kg / reps / sets
+            </div>
+
+          </div>
+
+        `).join("")}
+
+
+        <button
+          class="btn secondary small"
+          style="margin-top:8px"
+          onclick="addExercise('${esc(name)}')">
+
+          ＋ 種目を追加
+
+        </button>
+
+      </div>
+
+    `).join("")}
+
+
+    <button
+      class="btn secondary"
+      onclick="addRoutine()">
+
+      ＋ ルーティンを追加
+
+    </button>
+
+    `
+  );
+}
+
+function addExercise(routine){
+
+  state.routines[routine]
+    .push([
+      "New Exercise",
+      0,
+      10,
+      3
+    ]);
+
+  save();
+
+  openRoutineEditor();
+}
+
+function addRoutine(){
+
+  const name =
+    prompt("Routine name");
+
+  if(!name || !name.trim())
+    return;
+
+  state.routines[name.trim()]=[];
+
+  save();
+
+  openRoutineEditor();
+}
+
+function deleteRoutine(name){
+
+  if(
+    Object.keys(state.routines).length<=1
+  ){
+
+    toast("最低1つ必要です");
+
+    return;
+  }
+
+  delete state.routines[name];
+
+  currentRoutine =
+    Object.keys(state.routines)[0];
+
+  save();
+
+  openRoutineEditor();
+}
+
+/* ---------- RESET ---------- */
+
+function resetApp(){
+
+  const yes =
+    confirm(
+      "全データを削除して初期状態に戻しますか？"
+    );
+
+  if(!yes)
+    return;
+
+  localStorage.removeItem(
+    STORAGE_KEY
+  );
+
+  state=defaultState();
+
+  ensure();
+
+  render();
+
+  toast("RESET COMPLETE");
+}
+
+/* ---------- GLOBAL RENDER ---------- */
+
+function render(){
+
+  ensure();
+
+  renderToday();
+  renderBuild();
+  renderCode();
+  renderLog();
+  renderMan();
+
+  document
+    .querySelectorAll(".screen")
+    .forEach(screen=>{
+      screen.classList.toggle(
+        "active",
+        screen.id===currentPage
+      );
+    });
+}
+
+/* ---------- NAV EVENTS ---------- */
+
+document
+  .querySelectorAll(".nav-btn")
+  .forEach(button=>{
+
+    button.addEventListener(
+      "click",
+      ()=>{
+        navigate(
+          button.dataset.page
+        );
+      }
+    );
+
+  });
+
+document.addEventListener(
+  "keydown",
+  event=>{
+    if(event.key==="Escape")
+      closeModal();
+  }
+);
+
+/* ---------- START ---------- */
+
+ensure();
 render();
 
 </script>
