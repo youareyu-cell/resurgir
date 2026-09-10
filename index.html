@@ -1,3403 +1,519 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#080808">
-<link rel="manifest" href="manifest.json">
-<title>RESURGIR</title>
-
 <style>
-*{
-  box-sizing:border-box;
-  -webkit-tap-highlight-color:transparent;
+/* =========================================================
+   UI OPTIMIZED CSS
+   ========================================================= */
+:root {
+  --bg-main: #050505;
+  --bg-card: #111111;
+  --bg-elevated: #1a1a1a;
+  --border-color: rgba(255, 255, 255, 0.08);
+  --text-main: #f5f5f5;
+  --text-muted: #888888;
+  --accent: #ffffff;
+  --danger: #ff5555;
+  --radius-card: 20px;
+  --radius-btn: 12px;
 }
 
-body{
-  margin:0;
-  background:#080808;
-  color:#f5f5f5;
-  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
-button,input{
-  font:inherit;
+body {
+  margin: 0;
+  background: var(--bg-main);
+  color: var(--text-main);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+  overscroll-behavior-y: none; /* スワイプ時の余計なスクロールを防ぐ */
 }
 
-button{
-  cursor:pointer;
+button, input {
+  font: inherit;
 }
 
-.app{
-  max-width:620px;
-  min-height:100vh;
-  margin:auto;
-  padding-bottom:90px;
+button {
+  cursor: pointer;
+  transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s, opacity 0.2s;
 }
 
-header{
-  position:sticky;
-  top:0;
-  z-index:20;
-  padding:22px 18px 14px;
-  background:rgba(8,8,8,.94);
-  backdrop-filter:blur(14px);
+button:active {
+  transform: scale(0.96); /* タップ時の沈み込み */
 }
 
-.logo{
-  font-size:28px;
-  font-weight:900;
-  letter-spacing:4px;
+/* --- Layout --- */
+.app {
+  max-width: 620px;
+  min-height: 100vh;
+  margin: auto;
+  padding-bottom: 100px;
 }
 
-.sub{
-  margin-top:4px;
-  color:#666;
-  font-size:10px;
-  letter-spacing:1.7px;
+header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  padding: 24px 20px 16px;
+  background: rgba(5, 5, 5, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid transparent;
 }
 
-.screen{
-  display:none;
-  padding:14px 16px 24px;
+.logo {
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: 4px;
+  background: linear-gradient(135deg, #fff 0%, #aaa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.screen.active{
-  display:block;
+.sub {
+  margin-top: 4px;
+  color: var(--text-muted);
+  font-size: 10px;
+  letter-spacing: 2px;
+  font-weight: 600;
 }
 
-.card{
-  background:#111;
-  border:1px solid #242424;
-  border-radius:17px;
-  padding:17px;
-  margin-bottom:12px;
+/* --- Screen Transitions --- */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.card h2{
-  margin:0 0 13px;
-  font-size:13px;
-  letter-spacing:2px;
+.screen {
+  display: none;
+  padding: 16px 20px 24px;
 }
 
-.muted{
-  color:#707070;
+.screen.active {
+  display: block;
+  animation: fadeSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-.quote{
-  font-size:23px;
-  line-height:1.3;
-  font-weight:900;
+/* --- Cards & Containers --- */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-card);
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
-.score{
-  font-size:50px;
-  line-height:1;
-  font-weight:900;
-  margin:8px 0;
+.card h2 {
+  margin: 0 0 16px;
+  font-size: 13px;
+  letter-spacing: 2.5px;
+  color: var(--text-muted);
 }
 
-.rank{
-  color:#aaa;
-  font-size:12px;
-  letter-spacing:3px;
+.muted { color: var(--text-muted); }
+
+.quote {
+  font-size: 24px;
+  line-height: 1.4;
+  font-weight: 900;
+  text-align: center;
+  padding: 10px 0;
 }
 
-.grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:9px;
+/* --- Stats & Scores --- */
+.score {
+  font-size: 56px;
+  line-height: 1;
+  font-weight: 900;
+  margin: 8px 0 4px;
+  letter-spacing: -1px;
 }
 
-.stat{
-  background:#0c0c0c;
-  border:1px solid #222;
-  border-radius:12px;
-  padding:13px;
+.rank {
+  color: var(--accent);
+  font-size: 12px;
+  letter-spacing: 3px;
+  font-weight: 700;
 }
 
-.stat-label{
-  color:#666;
-  font-size:9px;
-  letter-spacing:1.5px;
+.progress {
+  height: 6px;
+  margin-top: 16px;
+  background: var(--bg-elevated);
+  border-radius: 99px;
+  overflow: hidden;
 }
 
-.stat-value{
-  font-size:23px;
-  font-weight:850;
-  margin-top:4px;
+.progress > div {
+  height: 100%;
+  width: 0%;
+  background: var(--accent);
+  transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.progress{
-  height:7px;
-  margin-top:12px;
-  background:#222;
-  border-radius:99px;
-  overflow:hidden;
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
 }
 
-.progress > div{
-  height:100%;
-  width:0%;
-  background:#eee;
+.stat {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.row{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:9px;
+.stat-label {
+  color: var(--text-muted);
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  font-weight: 600;
 }
 
-label{
-  display:block;
-  color:#707070;
-  font-size:9px;
-  letter-spacing:1.3px;
-  margin-bottom:6px;
+.stat-value {
+  font-size: 24px;
+  font-weight: 800;
+  margin-top: 6px;
 }
 
-input{
-  width:100%;
-  padding:12px;
-  color:#fff;
-  background:#0a0a0a;
-  border:1px solid #303030;
-  border-radius:10px;
-  outline:none;
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
 }
 
-input:focus{
-  border-color:#777;
+/* --- Forms & Inputs --- */
+label {
+  display: block;
+  color: var(--text-muted);
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  margin-bottom: 8px;
+  font-weight: 600;
 }
 
-.btn{
-  width:100%;
-  margin-top:10px;
-  padding:13px;
-  border:0;
-  border-radius:11px;
-  background:#eee;
-  color:#000;
-  font-weight:900;
+input {
+  width: 100%;
+  padding: 14px 16px;
+  color: var(--text-main);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-btn);
+  outline: none;
+  font-size: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-.btn.secondary{
-  color:#fff;
-  background:#1a1a1a;
-  border:1px solid #333;
+input:focus {
+  border-color: #555;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.05);
 }
 
-.btn.danger{
-  color:#ff9999;
-  background:#180c0c;
-  border:1px solid #442222;
+input::placeholder {
+  color: #555;
 }
 
-.small-btn{
-  padding:8px 10px;
-  border:1px solid #333;
-  border-radius:8px;
-  background:#151515;
-  color:#fff;
-  font-size:10px;
-  font-weight:700;
+/* --- Custom Checkboxes --- */
+.check {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-main);
+  font-size: 13px;
+  cursor: pointer;
+  font-weight: 500;
 }
 
-.list{
-  display:flex;
-  flex-direction:column;
-  gap:8px;
+.check input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  margin: 0;
+  padding: 0;
+  border: 2px solid #444;
+  border-radius: 6px;
+  background: var(--bg-main);
+  position: relative;
+  cursor: pointer;
+  flex-shrink: 0;
 }
 
-.list-item{
-  padding:12px;
-  border:1px solid #222;
-  border-radius:12px;
-  background:#0c0c0c;
+.check input[type="checkbox"]:checked {
+  background: var(--accent);
+  border-color: var(--accent);
 }
 
-.check{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  color:#fff;
-  font-size:12px;
+.check input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  width: 5px;
+  height: 10px;
+  border: solid var(--bg-main);
+  border-width: 0 2px 2px 0;
+  transform: translate(-50%, -50%) rotate(45deg);
 }
 
-.check input{
-  width:20px;
-  height:20px;
-  margin:0;
+/* --- Buttons --- */
+.btn {
+  width: 100%;
+  margin-top: 12px;
+  padding: 16px;
+  border: 0;
+  border-radius: var(--radius-btn);
+  background: var(--accent);
+  color: var(--bg-main);
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 1px;
 }
 
-.routine-head{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
+.btn.secondary {
+  color: var(--text-main);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-color);
 }
 
-.routine-name{
-  font-size:20px;
-  font-weight:900;
-  letter-spacing:1px;
+.btn.danger {
+  color: var(--danger);
+  background: rgba(255, 85, 85, 0.1);
+  border: 1px solid rgba(255, 85, 85, 0.2);
 }
 
-.exercise{
-  padding:13px;
-  margin-top:9px;
-  background:#0c0c0c;
-  border:1px solid #292929;
-  border-radius:13px;
+.small-btn {
+  padding: 8px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-elevated);
+  color: var(--text-main);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
 }
 
-.exercise-title{
-  font-weight:850;
-  font-size:14px;
+/* --- Lists & Exercises --- */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.exercise-meta{
-  margin-top:4px;
-  color:#666;
-  font-size:10px;
+.list-item {
+  padding: 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  background: var(--bg-elevated);
 }
 
-.set-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr 1fr;
-  gap:7px;
-  margin-top:10px;
+.routine-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
 }
 
-.set-grid input{
-  padding:9px;
-  font-size:12px;
+.routine-name {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 1px;
 }
 
-.badge{
-  display:inline-block;
-  padding:5px 7px;
-  border:1px solid #444;
-  border-radius:99px;
-  color:#aaa;
-  font-size:8px;
-  letter-spacing:1px;
+.exercise {
+  padding: 16px;
+  margin-top: 12px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
 }
 
-.empty{
-  padding:22px 8px;
-  text-align:center;
-  color:#555;
-  font-size:11px;
-  line-height:1.7;
+.exercise-title {
+  font-weight: 700;
+  font-size: 15px;
 }
 
-.nav{
-  position:fixed;
-  z-index:50;
-  bottom:0;
-  left:50%;
-  width:min(620px,100%);
-  height:75px;
-  transform:translateX(-50%);
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  background:rgba(8,8,8,.97);
-  border-top:1px solid #222;
-  padding-bottom:env(safe-area-inset-bottom);
+.exercise-meta {
+  margin-top: 6px;
+  color: var(--text-muted);
+  font-size: 11px;
+  letter-spacing: 0.5px;
 }
 
-.nav button{
-  border:0;
-  background:none;
-  color:#555;
-  font-size:8px;
-  letter-spacing:1px;
+.set-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  margin-top: 12px;
 }
 
-.nav button.active{
-  color:#fff;
-  font-weight:900;
+.set-grid input {
+  padding: 10px;
+  font-size: 14px;
+  text-align: center;
 }
 
-.nav-icon{
-  display:block;
-  margin-bottom:4px;
-  font-size:18px;
+.badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border: 1px solid #444;
+  border-radius: 6px;
+  color: #ccc;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
 }
 
-.toast{
-  position:fixed;
-  z-index:100;
-  bottom:90px;
-  left:50%;
-  padding:11px 17px;
-  border-radius:99px;
-  background:#eee;
-  color:#000;
-  font-size:11px;
-  font-weight:900;
-  transform:translate(-50%,20px);
-  opacity:0;
-  pointer-events:none;
-  transition:.25s;
+.empty {
+  padding: 32px 16px;
+  text-align: center;
+  color: #666;
+  font-size: 12px;
+  line-height: 1.8;
+  font-weight: 500;
 }
 
-.toast.show{
-  opacity:1;
-  transform:translate(-50%,0);
+/* --- Navigation --- */
+.nav {
+  position: fixed;
+  z-index: 50;
+  bottom: 0;
+  left: 50%;
+  width: min(620px, 100%);
+  height: 80px;
+  transform: translateX(-50%);
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  background: rgba(10, 10, 10, 0.9);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid var(--border-color);
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
-.modal{
-  position:fixed;
-  z-index:80;
-  inset:0;
-  display:none;
-  align-items:flex-end;
-  background:rgba(0,0,0,.78);
+.nav button {
+  border: 0;
+  background: none;
+  color: #666;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
 }
 
-.modal.active{
-  display:flex;
+.nav button:active {
+  transform: none; /* ナビボタンは沈み込ませない */
+  opacity: 0.7;
 }
 
-.modal-box{
-  width:100%;
-  max-width:620px;
-  max-height:90vh;
-  margin:auto;
-  padding:20px;
-  overflow:auto;
-  background:#111;
-  border:1px solid #292929;
-  border-radius:20px 20px 0 0;
+.nav button.active {
+  color: var(--accent);
+  font-weight: 800;
 }
 
-.modal-title{
-  margin-bottom:15px;
-  font-size:19px;
-  font-weight:900;
+.nav-icon {
+  font-size: 20px;
+  transition: transform 0.2s;
 }
 
-@media(min-width:700px){
-  .modal{
-    align-items:center;
+.nav button.active .nav-icon {
+  transform: translateY(-2px);
+}
+
+/* --- Toast --- */
+.toast {
+  position: fixed;
+  z-index: 100;
+  bottom: 100px;
+  left: 50%;
+  padding: 12px 24px;
+  border-radius: 99px;
+  background: var(--text-main);
+  color: var(--bg-main);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  transform: translate(-50%, 20px) scale(0.95);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translate(-50%, 0) scale(1);
+}
+
+/* --- Modals --- */
+@keyframes slideUpModal {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.modal {
+  position: fixed;
+  z-index: 80;
+  inset: 0;
+  display: none;
+  align-items: flex-end;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.modal.active {
+  display: flex;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.modal.active .modal-box {
+  animation: slideUpModal 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.modal-box {
+  width: 100%;
+  max-width: 620px;
+  max-height: 90vh;
+  margin: auto auto 0 auto; /* 下寄せ */
+  padding: 24px;
+  overflow: auto;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-bottom: none;
+  border-radius: 24px 24px 0 0;
+  box-shadow: 0 -10px 40px rgba(0,0,0,0.5);
+}
+
+.modal-title {
+  margin-bottom: 20px;
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media(min-width: 700px) {
+  .modal {
+    align-items: center;
   }
-
-  .modal-box{
-    border-radius:20px;
+  .modal-box {
+    margin: auto;
+    border-radius: 24px;
+    border-bottom: 1px solid var(--border-color);
   }
 }
 </style>
-</head>
-
-<body>
-
-<div class="app">
-
-<header>
-  <div class="logo">RESURGIR</div>
-  <div class="sub">BUILD THE MAN YOU SAID YOU'D BECOME.</div>
-</header>
-
-
-<!-- ================= HOME ================= -->
-
-<section id="home" class="screen active">
-
-  <div class="card">
-    <div class="muted" style="font-size:9px;letter-spacing:2px;">
-      TODAY SCORE
-    </div>
-
-    <div id="todayScore" class="score">0</div>
-
-    <div id="rank" class="rank">AWAKEN</div>
-
-    <div class="progress">
-      <div id="levelProgress"></div>
-    </div>
-
-    <div style="margin-top:8px;color:#666;font-size:10px;">
-      LEVEL <span id="level">1</span>
-      ·
-      STREAK <span id="streak">0</span>
-    </div>
-  </div>
-
-
-  <div class="card">
-    <div class="quote">
-      BUILD THE MAN<br>
-      YOU SAID YOU'D BECOME.
-    </div>
-  </div>
-
-
-  <div class="grid">
-
-    <div class="stat">
-      <div class="stat-label">BODY</div>
-      <div id="homeBody" class="stat-value">—</div>
-    </div>
-
-    <div class="stat">
-      <div class="stat-label">WEALTH</div>
-      <div id="homeWealth" class="stat-value">—</div>
-    </div>
-
-    <div class="stat">
-      <div class="stat-label">MIND</div>
-      <div id="homeMind" class="stat-value">—</div>
-    </div>
-
-    <div class="stat">
-      <div class="stat-label">LOVE</div>
-      <div id="homeLove" class="stat-value">—</div>
-    </div>
-
-    <div class="stat">
-      <div class="stat-label">DISCIPLINE</div>
-      <div id="homeDiscipline" class="stat-value">—</div>
-    </div>
-
-    <div class="stat">
-      <div class="stat-label">WORKOUTS</div>
-      <div id="homeWorkouts" class="stat-value">0</div>
-    </div>
-
-  </div>
-
-
-  <div class="card">
-    <h2>QUICK ACTION</h2>
-
-    <button class="btn" onclick="showScreen('build')">
-      🏋️ BUILD
-    </button>
-
-    <button class="btn secondary" onclick="showScreen('food')">
-      🍚 FOOD
-    </button>
-
-    <button class="btn secondary" onclick="showScreen('dont')">
-      🚫 DON'T
-    </button>
-
-    <button class="btn secondary" onclick="showScreen('journal')">
-      📓 JOURNAL
-    </button>
-  </div>
-
-
-  <div class="card">
-
-    <h2>NIGHT REVIEW</h2>
-
-    <label>TODAY I WON</label>
-    <input
-      id="wonInput"
-      maxlength="100"
-      placeholder="今日、自分に勝ったこと"
-    >
-
-    <label style="margin-top:12px;">
-      TOMORROW I WILL
-    </label>
-
-    <input
-      id="tomorrowInput"
-      maxlength="100"
-      placeholder="明日、必ずやること"
-    >
-
-    <button class="btn" onclick="saveReview()">
-      SAVE REVIEW
-    </button>
-
-    <button class="btn secondary" onclick="completeDay()">
-      COMPLETE TODAY
-    </button>
-
-  </div>
-
-</section>
-
-
-<!-- ================= BUILD ================= -->
-
-<section id="build" class="screen">
-
-  <div class="card">
-
-    <h2>BODY</h2>
-
-    <div class="row">
-
-      <div>
-        <label>TODAY WEIGHT</label>
-        <input
-          id="weightInput"
-          type="number"
-          step="0.1"
-          placeholder="kg"
-        >
-      </div>
-
-      <div>
-        <label>GOAL WEIGHT</label>
-        <input
-          id="goalWeightInput"
-          type="number"
-          step="0.1"
-          placeholder="kg"
-        >
-      </div>
-
-    </div>
-
-    <button class="btn" onclick="saveWeight()">
-      SAVE WEIGHT
-    </button>
-
-    <div style="margin-top:12px;font-size:11px;color:#666;">
-      7-DAY AVG:
-      <strong id="avgWeight">—</strong>
-    </div>
-
-  </div>
-
-
-  <!-- ================= ROUTINE ================= -->
-
-  <div class="card">
-
-    <div class="routine-head">
-
-      <div>
-        <div
-          class="muted"
-          style="font-size:9px;letter-spacing:2px;"
-        >
-          TRAINING
-        </div>
-
-        <div class="routine-name">
-          ROUTINE
-        </div>
-      </div>
-
-      <button
-        class="small-btn"
-        onclick="openRoutineEditor()"
-      >
-        ＋ ADD
-      </button>
-
-    </div>
-
-    <div id="routineList"></div>
-
-  </div>
-
-
-  <!-- ================= ACTIVE WORKOUT ================= -->
-
-  <div
-    id="activeWorkoutCard"
-    class="card"
-    style="display:none;"
-  >
-
-    <div class="routine-head">
-
-      <div>
-        <div
-          class="muted"
-          style="font-size:9px;letter-spacing:2px;"
-        >
-          CURRENT SESSION
-        </div>
-
-        <div
-          id="activeWorkoutTitle"
-          class="routine-name"
-        >
-          WORKOUT
-        </div>
-      </div>
-
-      <span class="badge">ACTIVE</span>
-
-    </div>
-
-    <div id="activeWorkout"></div>
-
-    <button
-      class="btn"
-      onclick="finishWorkout()"
-    >
-      WORKOUT COMPLETE
-    </button>
-
-    <button
-      class="btn secondary"
-      onclick="cancelWorkout()"
-    >
-      CANCEL
-    </button>
-
-  </div>
-
-
-  <!-- ================= MANUAL LOG ================= -->
-
-  <div class="card">
-
-    <h2>MANUAL TRAINING LOG</h2>
-
-    <div class="row">
-
-      <div>
-        <label>EXERCISE</label>
-        <input
-          id="logExercise"
-          placeholder="Bench Press"
-        >
-      </div>
-
-      <div>
-        <label>LOAD KG</label>
-        <input
-          id="logLoad"
-          type="number"
-          step="0.5"
-        >
-      </div>
-
-    </div>
-
-    <div class="row" style="margin-top:9px;">
-
-      <div>
-        <label>REPS</label>
-        <input
-          id="logReps"
-          type="number"
-        >
-      </div>
-
-      <div>
-        <label>SETS</label>
-        <input
-          id="logSets"
-          type="number"
-        >
-      </div>
-
-    </div>
-
-    <button
-      class="btn"
-      onclick="saveManualTraining()"
-    >
-      SAVE TRAINING
-    </button>
-
-    <div
-      id="trainingHistory"
-      style="margin-top:14px;"
-    ></div>
-
-  </div>
-
-
-  <!-- ================= WEALTH ================= -->
-
-  <div class="card">
-
-    <h2>WEALTH</h2>
-
-    <div class="row">
-
-      <div>
-        <label>WORK MIN</label>
-        <input
-          id="workMin"
-          type="number"
-        >
-      </div>
-
-      <div>
-        <label>SIDE WORK MIN</label>
-        <input
-          id="sideMin"
-          type="number"
-        >
-      </div>
-
-    </div>
-
-    <div style="margin-top:9px;">
-
-      <label>STUDY MIN</label>
-
-      <input
-        id="studyMin"
-        type="number"
-      >
-
-    </div>
-
-    <button
-      class="btn"
-      onclick="saveWealth()"
-    >
-      SAVE WEALTH
-    </button>
-
-  </div>
-
-
-  <!-- ================= CHARACTER ================= -->
-
-  <div class="card">
-
-    <h2>CHARACTER</h2>
-
-    <div
-      id="characterList"
-      class="list"
-    ></div>
-
-  </div>
-
-</section>
-
-
-<!-- ================= FOOD ================= -->
-
-<section id="food" class="screen">
-
-  <div class="card">
-
-    <h2>FOOD TARGET</h2>
-
-    <div class="grid">
-
-      <div class="stat">
-        <div class="stat-label">CALORIES</div>
-        <div class="stat-value">1800</div>
-      </div>
-
-      <div class="stat">
-        <div class="stat-label">PROTEIN</div>
-        <div class="stat-value">150g</div>
-      </div>
-
-      <div class="stat">
-        <div class="stat-label">FAT</div>
-        <div class="stat-value">40g</div>
-      </div>
-
-      <div class="stat">
-        <div class="stat-label">CARBS</div>
-        <div class="stat-value">205g</div>
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <div class="card">
-
-    <h2>TODAY FOOD</h2>
-
-    <label>CALORIES</label>
-    <input id="foodCal" type="number">
-
-    <label style="margin-top:10px;">
-      PROTEIN
-    </label>
-    <input id="foodProtein" type="number">
-
-    <label style="margin-top:10px;">
-      FAT
-    </label>
-    <input id="foodFat" type="number">
-
-    <label style="margin-top:10px;">
-      CARBS
-    </label>
-    <input id="foodCarbs" type="number">
-
-    <button
-      class="btn"
-      onclick="saveFood()"
-    >
-      SAVE FOOD
-    </button>
-
-  </div>
-
-</section>
-
-
-<!-- ================= DON'T ================= -->
-
-<section id="dont" class="screen">
-
-  <div class="card">
-
-    <h2>DON'T</h2>
-
-    <div
-      class="muted"
-      style="font-size:11px;margin-bottom:13px;"
-    >
-      手放すべき行動を選ぶ。
-    </div>
-
-    <div
-      id="dontList"
-      class="list"
-    ></div>
-
-  </div>
-
-</section>
-
-
-<!-- ================= JOURNAL ================= -->
-
-<section id="journal" class="screen">
-
-  <div class="card">
-
-    <h2>JOURNAL</h2>
-
-    <label>ONE LINE</label>
-
-    <input
-      id="journalInput"
-      maxlength="100"
-      placeholder="今日の自分へ"
-    >
-
-    <button
-      class="btn"
-      onclick="saveJournal()"
-    >
-      SAVE +10 XP
-    </button>
-
-  </div>
-
-
-  <div class="card">
-
-    <h2>HISTORY</h2>
-
-    <div id="journalHistory"></div>
-
-  </div>
-
-</section>
-
-
-<!-- ================= NAV ================= -->
-
-<nav class="nav">
-
-  <button
-    class="active"
-    data-screen="home"
-    onclick="showScreen('home')"
-  >
-    <span class="nav-icon">⌂</span>
-    HOME
-  </button>
-
-  <button
-    data-screen="build"
-    onclick="showScreen('build')"
-  >
-    <span class="nav-icon">⚒</span>
-    BUILD
-  </button>
-
-  <button
-    data-screen="food"
-    onclick="showScreen('food')"
-  >
-    <span class="nav-icon">◉</span>
-    FOOD
-  </button>
-
-  <button
-    data-screen="dont"
-    onclick="showScreen('dont')"
-  >
-    <span class="nav-icon">×</span>
-    DON'T
-  </button>
-
-  <button
-    data-screen="journal"
-    onclick="showScreen('journal')"
-  >
-    <span class="nav-icon">✎</span>
-    JOURNAL
-  </button>
-
-</nav>
-
-</div>
-
-
-<!-- ================= TOAST ================= -->
-
-<div
-  id="toast"
-  class="toast"
-></div>
-
-
-<!-- ================= ROUTINE EDITOR ================= -->
-
-<div
-  id="routineModal"
-  class="modal"
->
-
-  <div class="modal-box">
-
-    <div
-      id="routineModalTitle"
-      class="modal-title"
-    >
-      NEW ROUTINE
-    </div>
-
-    <input
-      id="routineId"
-      type="hidden"
-    >
-
-    <label>ROUTINE NAME</label>
-
-    <input
-      id="routineName"
-      placeholder="PUSH"
-    >
-
-    <div
-      id="exerciseEditor"
-      style="margin-top:14px;"
-    ></div>
-
-    <button
-      class="btn secondary"
-      onclick="addExerciseEditor()"
-    >
-      ＋ ADD EXERCISE
-    </button>
-
-    <button
-      class="btn"
-      onclick="saveRoutine()"
-    >
-      SAVE ROUTINE
-    </button>
-
-    <button
-      id="deleteRoutineBtn"
-      class="btn danger"
-      onclick="deleteRoutine()"
-    >
-      DELETE ROUTINE
-    </button>
-
-    <button
-      class="btn secondary"
-      onclick="closeRoutineEditor()"
-    >
-      CANCEL
-    </button>
-
-  </div>
-
-</div>
-
-
-<script>
-
-/* =========================================================
-   RESURGIR 2.1
-   ========================================================= */
-
-const STORAGE_KEY = "resurgir_v7";
-
-
-const defaultData = {
-
-  days:{},
-
-  journals:[],
-
-  training:[],
-
-  routines:[
-
-    {
-      id:"push",
-      name:"PUSH",
-
-      exercises:[
-        {
-          name:"Bench Press",
-          weight:60,
-          reps:6,
-          sets:3
-        },
-        {
-          name:"Incline Press",
-          weight:40,
-          reps:8,
-          sets:3
-        },
-        {
-          name:"Shoulder Press",
-          weight:16,
-          reps:8,
-          sets:3
-        },
-        {
-          name:"Side Raise",
-          weight:5,
-          reps:12,
-          sets:3
-        }
-      ]
-    },
-
-    {
-      id:"pull",
-      name:"PULL",
-
-      exercises:[
-        {
-          name:"Lat Pulldown",
-          weight:61,
-          reps:8,
-          sets:3
-        },
-        {
-          name:"Row",
-          weight:40,
-          reps:8,
-          sets:3
-        },
-        {
-          name:"Rear Delt",
-          weight:35,
-          reps:10,
-          sets:3
-        },
-        {
-          name:"Biceps Curl",
-          weight:10,
-          reps:10,
-          sets:3
-        }
-      ]
-    },
-
-    {
-      id:"legs",
-      name:"LEGS",
-
-      exercises:[
-        {
-          name:"Squat",
-          weight:60,
-          reps:5,
-          sets:3
-        },
-        {
-          name:"RDL",
-          weight:40,
-          reps:8,
-          sets:3
-        },
-        {
-          name:"Leg Extension",
-          weight:50,
-          reps:10,
-          sets:3
-        },
-        {
-          name:"Leg Curl",
-          weight:30,
-          reps:10,
-          sets:3
-        }
-      ]
-    }
-
-  ]
-
-};
-
-
-let data=loadData();
-
-let activeWorkout=null;
-
-
-/* =========================================================
-   STORAGE
-   ========================================================= */
-
-function loadData(){
-
-  try{
-
-    const saved=
-      JSON.parse(
-        localStorage.getItem(STORAGE_KEY)
-      );
-
-    if(!saved){
-
-      return structuredClone(defaultData);
-
-    }
-
-    return {
-
-      ...structuredClone(defaultData),
-
-      ...saved,
-
-      routines:
-        saved.routines ||
-        structuredClone(defaultData.routines)
-
-    };
-
-  }catch(error){
-
-    return structuredClone(defaultData);
-
-  }
-
-}
-
-
-function saveData(){
-
-  localStorage.setItem(
-    STORAGE_KEY,
-    JSON.stringify(data)
-  );
-
-}
-
-
-/* =========================================================
-   DATE
-   ========================================================= */
-
-function dateKey(date=new Date()){
-
-  const y=date.getFullYear();
-
-  const m=
-    String(date.getMonth()+1)
-      .padStart(2,"0");
-
-  const d=
-    String(date.getDate())
-      .padStart(2,"0");
-
-  return `${y}-${m}-${d}`;
-
-}
-
-
-function today(){
-
-  const key=dateKey();
-
-  if(!data.days[key]){
-
-    data.days[key]={
-
-      body:false,
-
-      wealth:false,
-
-      mind:false,
-
-      love:false,
-
-      discipline:false,
-
-      workout:false,
-
-      weight:null,
-
-      goalWeight:null,
-
-      food:null,
-
-      dont:{},
-
-      character:{},
-
-      wealthMinutes:{
-        work:0,
-        side:0,
-        study:0
-      },
-
-      review:{
-        won:"",
-        tomorrow:""
-      },
-
-      completed:false,
-
-      score:0
-
-    };
-
-  }
-
-  return data.days[key];
-
-}
-
-
-/* =========================================================
-   UI
-   ========================================================= */
-
-function showToast(message){
-
-  const toast=
-    document.getElementById("toast");
-
-  toast.textContent=message;
-
-  toast.classList.add("show");
-
-  setTimeout(()=>{
-
-    toast.classList.remove("show");
-
-  },1800);
-
-}
-
-
-function showScreen(name){
-
-  document
-    .querySelectorAll(".screen")
-    .forEach(screen=>{
-
-      screen.classList.remove("active");
-
-    });
-
-  document
-    .getElementById(name)
-    .classList.add("active");
-
-
-  document
-    .querySelectorAll(".nav button")
-    .forEach(button=>{
-
-      button.classList.toggle(
-        "active",
-        button.dataset.screen===name
-      );
-
-    });
-
-
-  renderAll();
-
-  window.scrollTo({
-    top:0,
-    behavior:"smooth"
-  });
-
-}
-
-
-/* =========================================================
-   SCORE
-   ========================================================= */
-
-function todayScore(){
-
-  const d=today();
-
-  let score=0;
-
-
-  if(d.body)
-    score+=100;
-
-  if(d.wealth)
-    score+=100;
-
-  if(d.mind)
-    score+=80;
-
-  if(d.love)
-    score+=80;
-
-  if(d.discipline)
-    score+=120;
-
-
-  Object
-    .values(d.dont||{})
-    .forEach(value=>{
-
-      if(value)
-        score+=40;
-
-    });
-
-
-  Object
-    .values(d.character||{})
-    .forEach(value=>{
-
-      if(value)
-        score+=50;
-
-    });
-
-
-  if(d.food){
-
-    const cal=
-      Number(d.food.cal)||0;
-
-    const protein=
-      Number(d.food.protein)||0;
-
-    const fat=
-      Number(d.food.fat)||0;
-
-    const carbs=
-      Number(d.food.carbs)||0;
-
-
-    if(cal>=1710 && cal<=1890)
-      score+=50;
-
-    if(protein>=150)
-      score+=50;
-
-    else if(protein>=135)
-      score+=35;
-
-    if(fat>=35 && fat<=45)
-      score+=25;
-
-    if(carbs>=185 && carbs<=225)
-      score+=25;
-
-  }
-
-
-  if(d.workout)
-    score+=100;
-
-
-  if(
-    data.journals.some(
-      journal=>journal.date===dateKey()
-    )
-  ){
-
-    score+=10;
-
-  }
-
-
-  return score;
-
-}
-
-
-function totalXP(){
-
-  let total=0;
-
-  Object
-    .entries(data.days)
-    .forEach(([date,d])=>{
-
-      if(
-        d.completed &&
-        date!==dateKey()
-      ){
-
-        total+=Number(d.score)||0;
-
-      }
-
-    });
-
-
-  total+=todayScore();
-
-  return total;
-
-}
-
-
-function level(){
-
-  return Math.floor(
-    totalXP()/500
-  )+1;
-
-}
-
-
-function rank(){
-
-  const l=level();
-
-  if(l>=10)
-    return "RESURGIR";
-
-  if(l>=8)
-    return "UNBREAKABLE";
-
-  if(l>=6)
-    return "FORGED";
-
-  if(l>=4)
-    return "DISCIPLINED";
-
-  if(l>=2)
-    return "BUILT";
-
-  return "AWAKEN";
-
-}
-
-
-function streak(){
-
-  let count=0;
-
-  const date=new Date();
-
-
-  while(true){
-
-    const key=dateKey(date);
-
-    if(data.days[key]?.completed){
-
-      count++;
-
-      date.setDate(
-        date.getDate()-1
-      );
-
-    }else{
-
-      break;
-
-    }
-
-  }
-
-
-  return count;
-
-}
-
-
-/* =========================================================
-   WEIGHT
-   ========================================================= */
-
-function saveWeight(){
-
-  const weight=
-    Number(
-      document.getElementById(
-        "weightInput"
-      ).value
-    );
-
-
-  const goal=
-    Number(
-      document.getElementById(
-        "goalWeightInput"
-      ).value
-    );
-
-
-  if(weight){
-
-    today().weight=weight;
-
-    today().body=true;
-
-  }
-
-
-  if(goal){
-
-    today().goalWeight=goal;
-
-  }
-
-
-  saveData();
-
-  showToast("WEIGHT SAVED");
-
-  renderAll();
-
-}
-
-
-function averageWeight(){
-
-  const values=[];
-
-  const date=new Date();
-
-
-  for(let i=0;i<7;i++){
-
-    const weight=
-      data.days[
-        dateKey(date)
-      ]?.weight;
-
-
-    if(weight)
-      values.push(Number(weight));
-
-
-    date.setDate(
-      date.getDate()-1
-    );
-
-  }
-
-
-  if(!values.length)
-    return null;
-
-
-  return values.reduce(
-    (a,b)=>a+b,
-    0
-  )/values.length;
-
-}
-
-
-/* =========================================================
-   ROUTINE EDITOR
-   ========================================================= */
-
-function openRoutineEditor(id=null){
-
-  const modal=
-    document.getElementById(
-      "routineModal"
-    );
-
-
-  modal.classList.add("active");
-
-
-  document.getElementById(
-    "exerciseEditor"
-  ).innerHTML="";
-
-
-  if(id){
-
-    const routine=
-      data.routines.find(
-        r=>r.id===id
-      );
-
-
-    if(!routine)
-      return;
-
-
-    document.getElementById(
-      "routineModalTitle"
-    ).textContent=
-      "EDIT ROUTINE";
-
-
-    document.getElementById(
-      "routineId"
-    ).value=
-      routine.id;
-
-
-    document.getElementById(
-      "routineName"
-    ).value=
-      routine.name;
-
-
-    routine.exercises.forEach(
-      exercise=>{
-        addExerciseEditor(
-          exercise
-        );
-      }
-    );
-
-
-    document.getElementById(
-      "deleteRoutineBtn"
-    ).style.display="block";
-
-
-  }else{
-
-    document.getElementById(
-      "routineModalTitle"
-    ).textContent=
-      "NEW ROUTINE";
-
-
-    document.getElementById(
-      "routineId"
-    ).value="";
-
-
-    document.getElementById(
-      "routineName"
-    ).value="";
-
-
-    document.getElementById(
-      "deleteRoutineBtn"
-    ).style.display="none";
-
-
-    addExerciseEditor();
-
-  }
-
-}
-
-
-function closeRoutineEditor(){
-
-  document
-    .getElementById(
-      "routineModal"
-    )
-    .classList.remove(
-      "active"
-    );
-
-}
-
-
-function addExerciseEditor(exercise={}){
-
-  const container=
-    document.getElementById(
-      "exerciseEditor"
-    );
-
-
-  const div=
-    document.createElement(
-      "div"
-    );
-
-
-  div.className="exercise";
-
-
-  div.innerHTML=`
-
-    <div
-      style="
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-      "
-    >
-
-      <strong style="font-size:12px;">
-        EXERCISE
-      </strong>
-
-      <button
-        class="small-btn"
-        onclick="
-          this.closest('.exercise').remove()
-        "
-      >
-        REMOVE
-      </button>
-
-    </div>
-
-
-    <div style="margin-top:10px;">
-
-      <label>NAME</label>
-
-      <input
-        class="ex-name"
-        value="${escapeAttr(exercise.name||"")}"
-        placeholder="Bench Press"
-      >
-
-    </div>
-
-
-    <div class="set-grid">
-
-      <div>
-
-        <label>KG</label>
-
-        <input
-          class="ex-weight"
-          type="number"
-          step="0.5"
-          value="${exercise.weight??""}"
-        >
-
-      </div>
-
-
-      <div>
-
-        <label>REPS</label>
-
-        <input
-          class="ex-reps"
-          type="number"
-          value="${exercise.reps??""}"
-        >
-
-      </div>
-
-
-      <div>
-
-        <label>SETS</label>
-
-        <input
-          class="ex-sets"
-          type="number"
-          value="${exercise.sets??""}"
-        >
-
-      </div>
-
-    </div>
-
-  `;
-
-
-  container.appendChild(div);
-
-}
-
-
-function saveRoutine(){
-
-  const name=
-    document
-      .getElementById(
-        "routineName"
-      )
-      .value
-      .trim();
-
-
-  if(!name){
-
-    showToast(
-      "ROUTINE NAME REQUIRED"
-    );
-
-    return;
-
-  }
-
-
-  const id=
-    document.getElementById(
-      "routineId"
-    ).value;
-
-
-  const exercises=[];
-
-
-  document
-    .querySelectorAll(
-      "#exerciseEditor .exercise"
-    )
-    .forEach(el=>{
-
-      const exerciseName=
-        el.querySelector(
-          ".ex-name"
-        ).value.trim();
-
-
-      if(!exerciseName)
-        return;
-
-
-      exercises.push({
-
-        name:exerciseName,
-
-        weight:
-          Number(
-            el.querySelector(
-              ".ex-weight"
-            ).value
-          )||0,
-
-        reps:
-          Number(
-            el.querySelector(
-              ".ex-reps"
-            ).value
-          )||0,
-
-        sets:
-          Number(
-            el.querySelector(
-              ".ex-sets"
-            ).value
-          )||0
-
-      });
-
-    });
-
-
-  if(!exercises.length){
-
-    showToast(
-      "ADD AT LEAST ONE EXERCISE"
-    );
-
-    return;
-
-  }
-
-
-  if(id){
-
-    const routine=
-      data.routines.find(
-        r=>r.id===id
-      );
-
-
-    if(routine){
-
-      routine.name=name;
-
-      routine.exercises=
-        exercises;
-
-    }
-
-  }else{
-
-    data.routines.push({
-
-      id:
-        "routine_"+Date.now(),
-
-      name,
-
-      exercises
-
-    });
-
-  }
-
-
-  saveData();
-
-  closeRoutineEditor();
-
-  showToast(
-    "ROUTINE SAVED"
-  );
-
-  renderAll();
-
-}
-
-
-function deleteRoutine(){
-
-  const id=
-    document.getElementById(
-      "routineId"
-    ).value;
-
-
-  if(!id)
-    return;
-
-
-  if(
-    !confirm(
-      "このルーティンを削除しますか？"
-    )
-  ){
-
-    return;
-
-  }
-
-
-  data.routines=
-    data.routines.filter(
-      routine=>routine.id!==id
-    );
-
-
-  saveData();
-
-  closeRoutineEditor();
-
-  showToast(
-    "ROUTINE DELETED"
-  );
-
-  renderAll();
-
-}
-
-
-/* =========================================================
-   START WORKOUT
-   ========================================================= */
-
-function startWorkout(id){
-
-  const routine=
-    data.routines.find(
-      r=>r.id===id
-    );
-
-
-  if(!routine)
-    return;
-
-
-  activeWorkout={
-
-    routineId:
-      routine.id,
-
-    routineName:
-      routine.name,
-
-    exercises:
-      routine.exercises.map(
-        exercise=>({
-
-          ...exercise,
-
-          completed:false,
-
-          actualWeight:
-            exercise.weight,
-
-          actualReps:
-            exercise.reps,
-
-          actualSets:
-            exercise.sets
-
-        })
-      )
-
-  };
-
-
-  document.getElementById(
-    "activeWorkoutCard"
-  ).style.display="block";
-
-
-  renderActiveWorkout();
-
-
-  document
-    .getElementById(
-      "activeWorkoutCard"
-    )
-    .scrollIntoView({
-      behavior:"smooth"
-    });
-
-}
-
-
-function renderActiveWorkout(){
-
-  if(!activeWorkout)
-    return;
-
-
-  document.getElementById(
-    "activeWorkoutTitle"
-  ).textContent=
-    activeWorkout.routineName;
-
-
-  const container=
-    document.getElementById(
-      "activeWorkout"
-    );
-
-
-  container.innerHTML="";
-
-
-  activeWorkout
-    .exercises
-    .forEach((exercise,index)=>{
-
-
-      const div=
-        document.createElement(
-          "div"
-        );
-
-
-      div.className="exercise";
-
-
-      div.innerHTML=`
-
-        <label
-          class="check"
-          style="margin:0;"
-        >
-
-          <input
-            type="checkbox"
-            ${exercise.completed?"checked":""}
-            onchange="
-              toggleWorkoutExercise(
-                ${index},
-                this.checked
-              )
-            "
-          >
-
-          <div>
-
-            <div class="exercise-title">
-              ${escapeHTML(exercise.name)}
-            </div>
-
-            <div class="exercise-meta">
-              PREVIOUS:
-              ${exercise.weight||"—"}kg ×
-              ${exercise.reps||"—"} ×
-              ${exercise.sets||"—"}
-            </div>
-
-          </div>
-
-        </label>
-
-
-        <div class="set-grid">
-
-          <div>
-
-            <label>KG</label>
-
-            <input
-              type="number"
-              step="0.5"
-              value="${exercise.actualWeight||""}"
-              onchange="
-                updateActiveExercise(
-                  ${index},
-                  'actualWeight',
-                  this.value
-                )
-              "
-            >
-
-          </div>
-
-
-          <div>
-
-            <label>REPS</label>
-
-            <input
-              type="number"
-              value="${exercise.actualReps||""}"
-              onchange="
-                updateActiveExercise(
-                  ${index},
-                  'actualReps',
-                  this.value
-                )
-              "
-            >
-
-          </div>
-
-
-          <div>
-
-            <label>SETS</label>
-
-            <input
-              type="number"
-              value="${exercise.actualSets||""}"
-              onchange="
-                updateActiveExercise(
-                  ${index},
-                  'actualSets',
-                  this.value
-                )
-              "
-            >
-
-          </div>
-
-        </div>
-
-      `;
-
-
-      container.appendChild(div);
-
-    });
-
-}
-
-
-function toggleWorkoutExercise(
-  index,
-  checked
-){
-
-  if(!activeWorkout)
-    return;
-
-
-  activeWorkout
-    .exercises[index]
-    .completed=checked;
-
-}
-
-
-function updateActiveExercise(
-  index,
-  key,
-  value
-){
-
-  if(!activeWorkout)
-    return;
-
-
-  activeWorkout
-    .exercises[index][key]=
-      Number(value)||0;
-
-}
-
-
-/* =========================================================
-   FINISH WORKOUT
-   ========================================================= */
-
-function finishWorkout(){
-
-  if(!activeWorkout)
-    return;
-
-
-  const incomplete=
-    activeWorkout
-      .exercises
-      .filter(
-        exercise=>!exercise.completed
-      );
-
-
-  if(incomplete.length){
-
-    const okay=
-      confirm(
-        `${incomplete.length}種目が未完了です。\nそれでも終了しますか？`
-      );
-
-
-    if(!okay)
-      return;
-
-  }
-
-
-  activeWorkout
-    .exercises
-    .forEach(exercise=>{
-
-      if(!exercise.completed)
-        return;
-
-
-      data.training.push({
-
-        date:dateKey(),
-
-        exercise:
-          exercise.name,
-
-        weight:
-          Number(
-            exercise.actualWeight
-          )||0,
-
-        reps:
-          Number(
-            exercise.actualReps
-          )||0,
-
-        sets:
-          Number(
-            exercise.actualSets
-          )||0,
-
-        routine:
-          activeWorkout.routineName
-
-      });
-
-    });
-
-
-  today().workout=true;
-
-  today().body=true;
-
-
-  saveData();
-
-
-  activeWorkout=null;
-
-
-  document.getElementById(
-    "activeWorkoutCard"
-  ).style.display="none";
-
-
-  showToast(
-    "WORKOUT COMPLETE ⚡"
-  );
-
-
-  renderAll();
-
-}
-
-
-/* =========================================================
-   CANCEL
-   ========================================================= */
-
-function cancelWorkout(){
-
-  if(
-    !confirm(
-      "現在のトレーニングを破棄しますか？"
-    )
-  ){
-
-    return;
-
-  }
-
-
-  activeWorkout=null;
-
-
-  document.getElementById(
-    "activeWorkoutCard"
-  ).style.display="none";
-
-
-  renderAll();
-
-}
-
-
-/* =========================================================
-   MANUAL TRAINING
-   ========================================================= */
-
-function saveManualTraining(){
-
-  const exercise=
-    document
-      .getElementById(
-        "logExercise"
-      )
-      .value
-      .trim();
-
-
-  const weight=
-    Number(
-      document.getElementById(
-        "logLoad"
-      ).value
-    )||0;
-
-
-  const reps=
-    Number(
-      document.getElementById(
-        "logReps"
-      ).value
-    )||0;
-
-
-  const sets=
-    Number(
-      document.getElementById(
-        "logSets"
-      ).value
-    )||0;
-
-
-  if(!exercise){
-
-    showToast(
-      "EXERCISE REQUIRED"
-    );
-
-    return;
-
-  }
-
-
-  data.training.push({
-
-    date:dateKey(),
-
-    exercise,
-
-    weight,
-
-    reps,
-
-    sets,
-
-    routine:"MANUAL"
-
-  });
-
-
-  today().workout=true;
-
-  today().body=true;
-
-
-  saveData();
-
-
-  document.getElementById(
-    "logExercise"
-  ).value="";
-
-
-  document.getElementById(
-    "logLoad"
-  ).value="";
-
-
-  document.getElementById(
-    "logReps"
-  ).value="";
-
-
-  document.getElementById(
-    "logSets"
-  ).value="";
-
-
-  showToast(
-    "TRAINING SAVED"
-  );
-
-
-  renderAll();
-
-}
-
-
-/* =========================================================
-   PR
-   ========================================================= */
-
-function getPR(exercise){
-
-  const logs=
-    data.training.filter(
-      log=>
-        log.exercise.toLowerCase()
-        ===exercise.toLowerCase()
-    );
-
-
-  if(!logs.length)
-    return null;
-
-
-  return logs.reduce(
-    (best,current)=>{
-
-      if(
-        Number(current.weight)
-        >
-        Number(best.weight)
-      ){
-
-        return current;
-
-      }
-
-
-      if(
-        Number(current.weight)
-        ===
-        Number(best.weight)
-        &&
-        Number(current.reps)
-        >
-        Number(best.reps)
-      ){
-
-        return current;
-
-      }
-
-
-      return best;
-
-    }
-  );
-
-}
-
-
-/* =========================================================
-   TRAINING HISTORY
-   ========================================================= */
-
-function renderTrainingHistory(){
-
-  const container=
-    document.getElementById(
-      "trainingHistory"
-    );
-
-
-  const logs=
-    [...data.training]
-      .reverse()
-      .slice(0,20);
-
-
-  if(!logs.length){
-
-    container.innerHTML=
-      `<div class="empty">
-        NO TRAINING LOG
-      </div>`;
-
-    return;
-
-  }
-
-
-  container.innerHTML=
-    logs.map(log=>{
-
-      const pr=
-        getPR(log.exercise);
-
-
-      const isPR=
-        pr===log;
-
-
-      return `
-
-        <div class="list-item">
-
-          <div
-            style="
-              display:flex;
-              justify-content:space-between;
-              align-items:center;
-            "
-          >
-
-            <strong>
-              ${escapeHTML(log.exercise)}
-            </strong>
-
-            ${
-              isPR
-              ?
-              `<span class="badge">PR</span>`
-              :
-              ""
-            }
-
-          </div>
-
-          <div
-            class="muted"
-            style="
-              font-size:10px;
-              margin-top:5px;
-            "
-          >
-            ${log.date}
-            ·
-            ${log.weight}kg ×
-            ${log.reps} ×
-            ${log.sets}
-          </div>
-
-        </div>
-
-      `;
-
-    }).join("");
-
-}
-
-
-/* =========================================================
-   WEALTH
-   ========================================================= */
-
-function saveWealth(){
-
-  const work=
-    Number(
-      document.getElementById(
-        "workMin"
-      ).value
-    )||0;
-
-
-  const side=
-    Number(
-      document.getElementById(
-        "sideMin"
-      ).value
-    )||0;
-
-
-  const study=
-    Number(
-      document.getElementById(
-        "studyMin"
-      ).value
-    )||0;
-
-
-  today().wealthMinutes={
-    work,
-    side,
-    study
-  };
-
-
-  today().wealth=
-    work+side+study>=60;
-
-
-  saveData();
-
-
-  showToast(
-    today().wealth
-    ?
-    "WEALTH BUILT"
-    :
-    "KEEP BUILDING"
-  );
-
-
-  renderAll();
-
-}
-
-
-/* =========================================================
-   CHARACTER
-   ========================================================= */
-
-const characterItems=[
-
-  "面倒なことから逃げなかった",
-
-  "感情で反応せず、一度止まって考えた",
-
-  "約束を守った",
-
-  "自分の非を認めた",
-
-  "感謝・敬意を行動にした",
-
-  "大切な人を安心させる行動をした",
-
-  "誰にも見られていない場所でも正しく行動した"
-
-];
-
-
-function toggleCharacter(
-  index,
-  checked
-){
-
-  today().character[index]=checked;
-
-  saveData();
-
-  renderAll();
-
-}
-
-
-/* =========================================================
-   DON'T
-   ========================================================= */
-
-const dontItems=[
-
-  "逃げるために酒を飲まない",
-
-  "タバコに戻らない",
-
-  "目的のないSNS・動画をダラダラ見ない",
-
-  "無駄な夜更かしをしない",
-
-  "感情で食べない",
-
-  "衝動買いをしない"
-
-];
-
-
-function toggleDont(
-  index,
-  checked
-){
-
-  today().dont[index]=checked;
-
-  saveData();
-
-  renderAll();
-
-}
-
-
-/* =========================================================
-   FOOD
-   ========================================================= */
-
-function saveFood(){
-
-  today().food={
-
-    cal:
-      Number(
-        document.getElementById(
-          "foodCal"
-        ).value
-      )||0,
-
-    protein:
-      Number(
-        document.getElementById(
-          "foodProtein"
-        ).value
-      )||0,
-
-    fat:
-      Number(
-        document.getElementById(
-          "foodFat"
-        ).value
-      )||0,
-
-    carbs:
-      Number(
-        document.getElementById(
-          "foodCarbs"
-        ).value
-      )||0
-
-  };
-
-
-  saveData();
-
-  showToast(
-    "FOOD SAVED"
-  );
-
-  renderAll();
-
-}
-
-
-/* =========================================================
-   JOURNAL
-   ========================================================= */
-
-function saveJournal(){
-
-  const input=
-    document.getElementById(
-      "journalInput"
-    );
-
-
-  const text=
-    input.value.trim();
-
-
-  if(!text)
-    return;
-
-
-  data.journals.unshift({
-
-    date:dateKey(),
-
-    text
-
-  });
-
-
-  data.journals=
-    data.journals.slice(0,365);
-
-
-  saveData();
-
-
-  input.value="";
-
-
-  showToast(
-    "+10 XP"
-  );
-
-
-  renderAll();
-
-}
-
-
-/* =========================================================
-   REVIEW
-   ========================================================= */
-
-function saveReview(){
-
-  today().review={
-
-    won:
-      document.getElementById(
-        "wonInput"
-      ).value.trim(),
-
-    tomorrow:
-      document.getElementById(
-        "tomorrowInput"
-      ).value.trim()
-
-  };
-
-
-  saveData();
-
-  showToast(
-    "REVIEW SAVED"
-  );
-
-}
-
-
-function completeDay(){
-
-  today().completed=true;
-
-  today().score=todayScore();
-
-
-  saveData();
-
-
-  showToast(
-    "TODAY COMPLETE ⚡"
-  );
-
-
-  renderAll();
-
-}
-
-
-/* =========================================================
-   RENDER
-   ========================================================= */
-
-function renderAll(){
-
-  const d=today();
-
-
-  document.getElementById(
-    "todayScore"
-  ).textContent=
-    todayScore();
-
-
-  document.getElementById(
-    "level"
-  ).textContent=
-    level();
-
-
-  document.getElementById(
-    "rank"
-  ).textContent=
-    rank();
-
-
-  document.getElementById(
-    "streak"
-  ).textContent=
-    streak();
-
-
-  const levelXP=
-    totalXP()%500;
-
-
-  document.getElementById(
-    "levelProgress"
-  ).style.width=
-    `${levelXP/500*100}%`;
-
-
-  document.getElementById(
-    "homeBody"
-  ).textContent=
-    d.body?"✓":"—";
-
-
-  document.getElementById(
-    "homeWealth"
-  ).textContent=
-    d.wealth?"✓":"—";
-
-
-  document.getElementById(
-    "homeMind"
-  ).textContent=
-    d.mind?"✓":"—";
-
-
-  document.getElementById(
-    "homeLove"
-  ).textContent=
-    d.love?"✓":"—";
-
-
-  document.getElementById(
-    "homeDiscipline"
-  ).textContent=
-    d.discipline?"✓":"—";
-
-
-  document.getElementById(
-    "homeWorkouts"
-  ).textContent=
-    data.training.length;
-
-
-  document.getElementById(
-    "weightInput"
-  ).value=
-    d.weight||"";
-
-
-  document.getElementById(
-    "goalWeightInput"
-  ).value=
-    d.goalWeight||"";
-
-
-  const avg=
-    averageWeight();
-
-
-  document.getElementById(
-    "avgWeight"
-  ).textContent=
-    avg
-    ?
-    `${avg.toFixed(1)} kg`
-    :
-    "—";
-
-
-  document.getElementById(
-    "wonInput"
-  ).value=
-    d.review?.won||"";
-
-
-  document.getElementById(
-    "tomorrowInput"
-  ).value=
-    d.review?.tomorrow||"";
-
-
-  if(d.food){
-
-    document.getElementById(
-      "foodCal"
-    ).value=
-      d.food.cal||"";
-
-    document.getElementById(
-      "foodProtein"
-    ).value=
-      d.food.protein||"";
-
-    document.getElementById(
-      "foodFat"
-    ).value=
-      d.food.fat||"";
-
-    document.getElementById(
-      "foodCarbs"
-    ).value=
-      d.food.carbs||"";
-
-  }
-
-
-  if(d.wealthMinutes){
-
-    document.getElementById(
-      "workMin"
-    ).value=
-      d.wealthMinutes.work||"";
-
-    document.getElementById(
-      "sideMin"
-    ).value=
-      d.wealthMinutes.side||"";
-
-    document.getElementById(
-      "studyMin"
-    ).value=
-      d.wealthMinutes.study||"";
-
-  }
-
-
-  renderRoutines();
-
-  renderTrainingHistory();
-
-  renderCharacter();
-
-  renderDont();
-
-  renderJournal();
-
-}
-
-
-/* =========================================================
-   ROUTINES
-   ========================================================= */
-
-function renderRoutines(){
-
-  const container=
-    document.getElementById(
-      "routineList"
-    );
-
-
-  if(!data.routines.length){
-
-    container.innerHTML=
-      `<div class="empty">
-        NO ROUTINES.<br>
-        CREATE YOUR FIRST ROUTINE.
-      </div>`;
-
-    return;
-
-  }
-
-
-  container.innerHTML=
-    data.routines.map(
-      routine=>`
-
-      <div
-        class="list-item"
-        style="margin-top:10px;"
-      >
-
-        <div class="routine-head">
-
-          <div>
-
-            <div class="routine-name">
-              ${escapeHTML(routine.name)}
-            </div>
-
-            <div
-              class="muted"
-              style="
-                font-size:10px;
-                margin-top:3px;
-              "
-            >
-              ${routine.exercises.length}
-              EXERCISES
-            </div>
-
-          </div>
-
-
-          <button
-            class="small-btn"
-            onclick="
-              openRoutineEditor(
-                '${routine.id}'
-              )
-            "
-          >
-            EDIT
-          </button>
-
-        </div>
-
-
-        <div
-          class="muted"
-          style="
-            margin-top:10px;
-            font-size:10px;
-            line-height:1.8;
-          "
-        >
-
-          ${routine.exercises.map(
-            exercise=>
-              `${escapeHTML(exercise.name)}
-              ·
-              ${exercise.weight||0}kg ×
-              ${exercise.reps||0} ×
-              ${exercise.sets||0}`
-          ).join("<br>")}
-
-        </div>
-
-
-        <button
-          class="btn"
-          onclick="
-            startWorkout(
-              '${routine.id}'
-            )
-          "
-        >
-          START ${escapeHTML(routine.name)}
-        </button>
-
-      </div>
-
-    `
-    ).join("");
-
-}
-
-
-/* =========================================================
-   CHARACTER RENDER
-   ========================================================= */
-
-function renderCharacter(){
-
-  const container=
-    document.getElementById(
-      "characterList"
-    );
-
-
-  container.innerHTML=
-    characterItems.map(
-      (item,index)=>`
-
-      <div class="list-item">
-
-        <label
-          class="check"
-          style="
-            margin:0;
-            color:#fff;
-          "
-        >
-
-          <input
-            type="checkbox"
-            ${today().character[index]?"checked":""}
-            onchange="
-              toggleCharacter(
-                ${index},
-                this.checked
-              )
-            "
-          >
-
-          ${item}
-
-        </label>
-
-      </div>
-
-    `
-    ).join("");
-
-}
-
-
-/* =========================================================
-   DON'T RENDER
-   ========================================================= */
-
-function renderDont(){
-
-  const container=
-    document.getElementById(
-      "dontList"
-    );
-
-
-  container.innerHTML=
-    dontItems.map(
-      (item,index)=>`
-
-      <div class="list-item">
-
-        <label
-          class="check"
-          style="
-            margin:0;
-            color:#fff;
-          "
-        >
-
-          <input
-            type="checkbox"
-            ${today().dont[index]?"checked":""}
-            onchange="
-              toggleDont(
-                ${index},
-                this.checked
-              )
-            "
-          >
-
-          ${item}
-
-        </label>
-
-      </div>
-
-    `
-    ).join("");
-
-}
-
-
-/* =========================================================
-   JOURNAL RENDER
-   ========================================================= */
-
-function renderJournal(){
-
-  const container=
-    document.getElementById(
-      "journalHistory"
-    );
-
-
-  if(!data.journals.length){
-
-    container.innerHTML=
-      `<div class="empty">
-        NO JOURNAL YET
-      </div>`;
-
-    return;
-
-  }
-
-
-  container.innerHTML=
-    data.journals
-      .slice(0,30)
-      .map(
-        journal=>`
-
-        <div
-          class="list-item"
-          style="margin-bottom:8px;"
-        >
-
-          <div
-            class="muted"
-            style="font-size:9px;"
-          >
-            ${journal.date}
-          </div>
-
-          <div
-            style="
-              margin-top:5px;
-              font-size:12px;
-              line-height:1.5;
-            "
-          >
-            ${escapeHTML(journal.text)}
-          </div>
-
-        </div>
-
-      `
-      )
-      .join("");
-
-}
-
-
-/* =========================================================
-   ESCAPE
-   ========================================================= */
-
-function escapeHTML(value){
-
-  return String(value)
-
-    .replaceAll(
-      "&",
-      "&amp;"
-    )
-
-    .replaceAll(
-      "<",
-      "&lt;"
-    )
-
-    .replaceAll(
-      ">",
-      "&gt;"
-    )
-
-    .replaceAll(
-      '"',
-      "&quot;"
-    )
-
-    .replaceAll(
-      "'",
-      "&#039;"
-    );
-
-}
-
-
-function escapeAttr(value){
-
-  return escapeHTML(value);
-
-}
-
-
-/* =========================================================
-   INIT
-   ========================================================= */
-
-renderAll();
-
-</script>
-
-</body>
-</html>
