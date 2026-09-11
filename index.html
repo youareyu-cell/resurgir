@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111">
+<link rel="manifest" href="manifest.json">
+<title>RESURGIR</title>
+<style>
+:root{font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;background:#0b0b0b;color:#f5f5f5}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(160deg,#151515,#080808 60%);min-height:100vh}
+main{max-width:620px;margin:auto;padding:28px 18px 50px}
+header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:28px}
+h1{font-size:34px;letter-spacing:5px;margin:0}.sub{color:#999;font-size:11px;letter-spacing:2px;margin-top:7px}
+.streak{text-align:right}.streak b{font-size:30px}.streak span{display:block;color:#999;font-size:10px;letter-spacing:1px}
+.quote{border:1px solid #292929;border-radius:16px;padding:18px;margin-bottom:20px;background:#101010}
+.quote small{color:#777;letter-spacing:2px}.quote p{font-size:18px;line-height:1.5;margin:9px 0 0;font-weight:600}
+.progress{height:8px;background:#262626;border-radius:99px;overflow:hidden;margin:12px 0 6px}.bar{height:100%;width:0;background:#fff;transition:.25s}
+.stats{display:flex;justify-content:space-between;color:#aaa;font-size:12px}
+.card{border:1px solid #292929;border-radius:16px;margin:12px 0;background:#111;overflow:hidden}
+.mission{display:flex;align-items:center;gap:14px;padding:16px;cursor:pointer}.mission:active{background:#181818}
+.check{width:25px;height:25px;border:1px solid #666;border-radius:50%;display:grid;place-items:center;flex:none}.done .check{background:#f5f5f5;color:#111;border-color:#f5f5f5}
+.done .title{text-decoration:line-through;color:#777}.tag{font-size:10px;letter-spacing:1.5px;color:#888}.title{font-size:15px;margin-top:4px}
+.xp{margin-left:auto;color:#777;font-size:11px}
+button{width:100%;padding:14px;border:1px solid #333;background:#171717;color:#eee;border-radius:12px;font-weight:700;letter-spacing:1px;margin-top:10px}
+button:active{transform:scale(.99)}.history{margin-top:28px}.history h2{font-size:12px;letter-spacing:2px;color:#888}
+.day{display:flex;justify-content:space-between;border-bottom:1px solid #202020;padding:11px 2px;font-size:12px}.muted{color:#777}
+footer{text-align:center;color:#555;font-size:10px;letter-spacing:2px;margin-top:35px}
+</style>
+</head>
+<body>
+<main>
+<header>
+<div><h1>RESURGIR</h1><div class="sub">BUILD THE MAN YOU SAID YOU'D BECOME.</div></div>
+<div class="streak"><b id="streak">0</b><span>DAY STREAK</span></div>
+</header>
+
+<section class="quote">
+<small>TODAY</small>
+<p id="quote"></p>
+<div class="progress"><div class="bar" id="bar"></div></div>
+<div class="stats"><span id="progressText">0 / 5</span><span id="xp">0 XP</span></div>
+</section>
+
+<section id="missions"></section>
+<button id="reset">TODAY'S PROGRESS RESET</button>
+
+<section class="history">
+<h2>RECENT DAYS</h2>
+<div id="history"></div>
+</section>
+<footer>BODY · WEALTH · LOVE · MIND · DISCIPLINE</footer>
+</main>
+<script>
+const missions=[
+["BODY","トレーニング or 8,000歩",100],
+["WEALTH","副業・仕事・勉強を60分",100],
+["MIND","読書20分",80],
+["LOVE","大切な人との時間をつくる",80],
+["DISCIPLINE","自分で決めたルールを1つ守る",120]
+];
+const quotes=[
+"欲しい未来に、今日の行動は繋がっているか？",
+"明日は昨日の延長線上にある。",
+"気分ではなく、約束で動け。",
+"小さくても、積み上げた奴が最後に強い。",
+"Become, don't wish."
+];
+const key="resurgir_v1";
+let data=JSON.parse(localStorage.getItem(key)||"{}");
+const today=()=>new Date().toISOString().slice(0,10);
+function save(){localStorage.setItem(key,JSON.stringify(data))}
+function init(){
+ if(!data[today()]) data[today()]={done:[]};
+ document.getElementById("quote").textContent=quotes[new Date().getDate()%quotes.length];
+ render(); save();
+}
+function render(){
+ const d=data[today()], box=document.getElementById("missions"); box.innerHTML="";
+ let total=0;
+ missions.forEach((m,i)=>{
+  const done=d.done.includes(i); if(done) total+=m[2];
+  box.innerHTML+=`<div class="card mission ${done?"done":""}" onclick="toggle(${i})"><div class="check">${done?"✓":""}</div><div><div class="tag">${m[0]}</div><div class="title">${m[1]}</div></div><div class="xp">+${m[2]} XP</div></div>`;
+ });
+ const count=d.done.length;
+ document.getElementById("bar").style.width=(count/5*100)+"%";
+ document.getElementById("progressText").textContent=`${count} / 5`;
+ document.getElementById("xp").textContent=`${total} XP`;
+ document.getElementById("streak").textContent=streak();
+ const hist=document.getElementById("history"); hist.innerHTML="";
+ Object.keys(data).sort().reverse().slice(0,7).forEach(k=>{
+  const n=data[k].done?.length||0;
+  hist.innerHTML+=`<div class="day"><span>${k}</span><span>${n}/5 completed</span></div>`;
+ });
+}
+function toggle(i){
+ const d=data[today()];
+ d.done=d.done.includes(i)?d.done.filter(x=>x!==i):[...d.done,i];
+ save();render();
+}
+function streak(){
+ let n=0,d=new Date();
+ while(true){
+  const k=d.toISOString().slice(0,10), x=data[k];
+  if(!x || x.done.length<5) break;
+  n++; d.setDate(d.getDate()-1);
+ }
+ return n;
+}
+document.getElementById("reset").onclick=()=>{if(confirm("今日の進捗をリセットする？")){data[today()]={done:[]};save();render()}};
+init();
+</script>
+</body>
+</html>
