@@ -2,269 +2,367 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
 <meta name="theme-color" content="#050505">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<link rel="manifest" href="manifest.json">
 <title>RESURGIR</title>
 
 <style>
 :root{
-  --bg:#050505;
-  --card:#111;
-  --elevated:#1a1a1a;
-  --border:rgba(255,255,255,.08);
-  --text:#f5f5f5;
-  --muted:#888;
-  --dim:#555;
+  --bg-main:#050505;
+  --bg-card:#111111;
+  --bg-elevated:#1a1a1a;
+  --border-color:rgba(255,255,255,.08);
+  --text-main:#f5f5f5;
+  --text-muted:#888;
+  --accent:#fff;
   --danger:#ff5555;
-  --radius:20px;
+  --success:#bdbdbd;
+  --radius-card:20px;
+  --radius-btn:12px;
 }
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{
+
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+html{
+  background:var(--bg-main);
+  min-height:100%;
+  overflow-x:hidden;
+}
+
+body{
   margin:0;
   padding:0;
-  background:var(--bg);
-  color:var(--text);
-  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  background:var(--bg-main);
+  color:var(--text-main);
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",
+    "Hiragino Kaku Gothic ProN","Hiragino Sans",Arial,sans-serif;
+  overscroll-behavior-y:none;
+  min-height:100vh;
+  overflow-x:hidden;
 }
-body{min-height:100vh;overscroll-behavior:none}
-button,input,textarea,select{font:inherit}
-button{border:0;cursor:pointer}
+
+button,
+input,
+textarea,
+select{
+  font:inherit;
+}
+
+button{
+  border:0;
+  cursor:pointer;
+}
+
 .app{
   width:100%;
   max-width:620px;
   min-height:100vh;
-  margin:auto;
-  padding-bottom:100px;
+  margin:0 auto;
+
+  /* FIX:
+     fixed bottom nav + iPhone safe area + extra breathing room */
+  padding-bottom:calc(112px + env(safe-area-inset-bottom));
 }
+
 .header{
   position:sticky;
   top:0;
-  z-index:20;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:18px 18px 14px;
-  background:rgba(5,5,5,.84);
+  z-index:30;
+  padding:calc(14px + env(safe-area-inset-top)) 18px 14px;
+  background:rgba(5,5,5,.86);
   backdrop-filter:blur(18px);
   -webkit-backdrop-filter:blur(18px);
   border-bottom:1px solid rgba(255,255,255,.04);
 }
+
+.header-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
 .logo{
-  font-size:28px;
-  line-height:1;
+  font-size:25px;
   font-weight:900;
-  letter-spacing:.13em;
+  letter-spacing:.14em;
   background:linear-gradient(90deg,#fff,#777);
   -webkit-background-clip:text;
   color:transparent;
 }
-.rank{text-align:right}
-.rank strong{
-  display:block;
+
+.rank-mini{
+  text-align:right;
+}
+
+.rank-mini .rank{
   font-size:11px;
-  letter-spacing:.13em;
+  font-weight:800;
+  letter-spacing:.16em;
 }
-.rank span{
-  display:block;
-  margin-top:3px;
-  color:var(--muted);
-  font-size:9px;
-  letter-spacing:.1em;
+
+.rank-mini .level{
+  font-size:10px;
+  color:var(--text-muted);
+  margin-top:2px;
 }
+
 .screen{
   padding:18px;
-  animation:fade .2s ease;
+  animation:fadeIn .18s ease;
 }
-@keyframes fade{
-  from{opacity:0;transform:translateY(5px)}
-  to{opacity:1;transform:none}
+
+@keyframes fadeIn{
+  from{
+    opacity:0;
+    transform:translateY(5px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
 }
-.hero{padding:25px 0 20px}
+
+.hero{
+  padding:24px 2px 18px;
+}
+
 .eyebrow{
-  margin-bottom:12px;
-  color:var(--muted);
   font-size:10px;
-  font-weight:800;
   letter-spacing:.2em;
-}
-.hero h1{
-  margin:0;
-  max-width:540px;
-  font-size:32px;
-  line-height:1.04;
-  letter-spacing:-.045em;
-}
-.hero-jp{
-  margin-top:10px;
   color:#777;
-  font-size:12px;
-}
-.card{
+  font-weight:800;
   margin-bottom:12px;
-  padding:18px;
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:var(--radius);
-  box-shadow:0 10px 30px rgba(0,0,0,.16);
 }
-.card-head{
+
+.hero-title{
+  font-size:31px;
+  line-height:1.02;
+  font-weight:900;
+  letter-spacing:-.035em;
+}
+
+.hero-sub{
+  margin-top:10px;
+  color:#888;
+  font-size:12px;
+  line-height:1.7;
+}
+
+.card{
+  background:var(--bg-card);
+  border:1px solid var(--border-color);
+  border-radius:var(--radius-card);
+  padding:18px;
+  margin-bottom:14px;
+  box-shadow:0 10px 30px rgba(0,0,0,.12);
+}
+
+.card-title-row{
   display:flex;
   justify-content:space-between;
   align-items:flex-start;
   gap:12px;
-  margin-bottom:15px;
+  margin-bottom:14px;
 }
+
 .card-title{
-  font-size:12px;
+  font-size:13px;
   font-weight:900;
-  letter-spacing:.14em;
+  letter-spacing:.12em;
 }
-.card-sub{
+
+.card-ja{
+  display:block;
   margin-top:4px;
   color:#666;
   font-size:9px;
-  letter-spacing:.06em;
+  letter-spacing:.04em;
+  font-weight:600;
 }
+
+.rule{
+  color:#666;
+  font-size:9px;
+  line-height:1.65;
+  margin-top:12px;
+}
+
 .score-wrap{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-end;
+  text-align:center;
+  padding:8px 0 3px;
 }
+
 .score{
-  font-size:56px;
-  line-height:.9;
+  font-size:60px;
+  line-height:1;
   font-weight:900;
   letter-spacing:-.06em;
 }
+
 .score-label{
-  margin-bottom:5px;
+  margin-top:7px;
   color:#777;
   font-size:9px;
-  letter-spacing:.13em;
+  letter-spacing:.18em;
+  font-weight:800;
 }
+
 .progress{
-  height:6px;
-  margin-top:17px;
+  width:100%;
+  height:5px;
+  background:#202020;
+  border-radius:10px;
   overflow:hidden;
-  background:#222;
-  border-radius:99px;
+  margin-top:15px;
 }
-.progress div{
+
+.progress-bar{
   height:100%;
-  background:#eee;
-  border-radius:99px;
-  transition:.25s;
+  width:0%;
+  background:#ddd;
+  transition:width .3s ease;
 }
-.stat-grid{
+
+.grid-2{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:10px;
 }
+
 .stat{
-  padding:14px;
-  background:#0b0b0b;
+  background:#0c0c0c;
   border:1px solid rgba(255,255,255,.05);
-  border-radius:14px;
+  border-radius:15px;
+  padding:15px;
 }
+
+.stat-value{
+  font-size:24px;
+  font-weight:900;
+}
+
 .stat-label{
   color:#666;
   font-size:9px;
-  letter-spacing:.12em;
-}
-.stat-value{
-  margin-top:5px;
-  font-size:23px;
-  font-weight:850;
-}
-.stat-jp{
-  margin-top:3px;
-  color:#555;
-  font-size:9px;
-}
-.mission{
-  position:relative;
-  overflow:hidden;
-}
-.mission:before{
-  content:"";
-  position:absolute;
-  top:0;
-  bottom:0;
-  left:0;
-  width:3px;
-  background:#eee;
-}
-.mission-cat{
-  display:inline-block;
-  margin-bottom:11px;
-  color:#777;
-  font-size:9px;
-  font-weight:850;
-  letter-spacing:.17em;
-}
-.mission h2{
-  margin:0;
-  font-size:22px;
-  line-height:1.25;
-  letter-spacing:-.025em;
-}
-.mission-en{
-  margin-top:8px;
-  color:#666;
-  font-size:10px;
-  line-height:1.45;
-}
-.mission-meta{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin:17px 0 13px;
-}
-.xp{
-  font-size:10px;
-  font-weight:850;
+  margin-top:4px;
   letter-spacing:.1em;
 }
+
 .btn{
   width:100%;
   min-height:46px;
+  border-radius:var(--radius-btn);
   padding:12px 15px;
-  border-radius:12px;
-  font-size:11px;
   font-weight:850;
-  letter-spacing:.06em;
+  font-size:12px;
+  letter-spacing:.04em;
+  transition:.15s ease;
 }
-.btn:active{transform:scale(.98)}
-.primary{background:#f5f5f5;color:#050505}
-.secondary{
-  background:#1b1b1b;
+
+.btn:active{
+  transform:scale(.98);
+}
+
+.btn-primary{
+  background:#f3f3f3;
+  color:#080808;
+}
+
+.btn-secondary{
+  background:#1a1a1a;
   color:#eee;
   border:1px solid rgba(255,255,255,.08);
 }
-.danger{
-  background:rgba(255,85,85,.12);
+
+.btn-danger{
+  background:#261010;
   color:#ff7777;
-  border:1px solid rgba(255,85,85,.2);
+  border:1px solid rgba(255,80,80,.18);
 }
-.small-btn{
+
+.btn-small{
   width:auto;
   min-height:36px;
-  padding:9px 12px;
-  font-size:9px;
+  padding:8px 12px;
+  font-size:10px;
 }
-.btn-row{
+
+.stack{
   display:flex;
-  gap:8px;
+  flex-direction:column;
+  gap:9px;
 }
-.btn-row .btn{flex:1}
+
+.row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.muted{
+  color:var(--text-muted);
+}
+
+.tiny{
+  font-size:9px;
+  color:#666;
+  line-height:1.6;
+}
+
+.divider{
+  height:1px;
+  background:rgba(255,255,255,.06);
+  margin:15px 0;
+}
+
+input,
+textarea,
+select{
+  width:100%;
+  background:#090909;
+  color:#eee;
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:12px;
+  padding:13px;
+  outline:none;
+}
+
+textarea{
+  min-height:90px;
+  resize:vertical;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+  border-color:rgba(255,255,255,.25);
+}
+
+.field{
+  margin-bottom:10px;
+}
+
+.field-label{
+  color:#777;
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:.12em;
+  margin-bottom:6px;
+}
+
 .check-list{
   display:flex;
   flex-direction:column;
-  gap:7px;
+  gap:8px;
 }
+
 .check-item{
   display:flex;
   align-items:center;
@@ -274,350 +372,358 @@ button{border:0;cursor:pointer}
   border:1px solid rgba(255,255,255,.05);
   border-radius:13px;
 }
+
 .check-toggle{
-  width:20px;
-  height:20px;
-  flex:0 0 20px;
-  padding:0;
-  background:transparent;
+  width:21px;
+  height:21px;
+  flex:0 0 21px;
+  appearance:none;
+  -webkit-appearance:none;
   border:1px solid #555;
   border-radius:6px;
+  background:#080808;
+  position:relative;
+  margin:0;
 }
-.check-toggle.active{
+
+.check-toggle:checked{
   background:#eee;
   border-color:#eee;
 }
-.check-toggle.active:after{
+
+.check-toggle:checked::after{
   content:"✓";
-  color:#050505;
-  font-size:13px;
+  position:absolute;
+  color:#000;
+  font-size:14px;
   font-weight:900;
+  left:4px;
+  top:0px;
 }
-.check-content{flex:1;min-width:0}
+
+.check-content{
+  flex:1;
+  min-width:0;
+}
+
 .check-main{
-  font-size:12px;
+  font-size:11px;
   font-weight:750;
-  line-height:1.3;
 }
+
 .check-sub{
-  margin-top:3px;
-  color:#555;
   font-size:8px;
-}
-.check-item.done{opacity:.48}
-.check-item.done .check-main{text-decoration:line-through}
-.section-title{
-  margin:28px 0 11px;
-  font-size:11px;
-  font-weight:900;
-  letter-spacing:.17em;
-}
-.section-title span{
-  margin-left:7px;
-  color:#555;
-  font-size:8px;
-}
-.tiny{
   color:#666;
-  font-size:9px;
-  line-height:1.55;
-}
-.rule-box{
-  padding:13px;
-  background:#0b0b0b;
-  border:1px solid rgba(255,255,255,.05);
-  border-radius:14px;
-}
-.rule-row{
-  padding:11px 0;
-  border-bottom:1px solid rgba(255,255,255,.05);
-}
-.rule-row:last-child{border-bottom:0}
-.rule-en{
-  font-size:10px;
-  font-weight:850;
-  letter-spacing:.06em;
-}
-.rule-jp{
-  margin-top:4px;
-  color:#666;
-  font-size:8px;
-  line-height:1.5;
-}
-.list{
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-}
-.list-row{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  padding:13px;
-  background:#0b0b0b;
-  border:1px solid rgba(255,255,255,.05);
-  border-radius:13px;
-}
-.list-main{min-width:0}
-.list-title{
-  font-size:11px;
-  font-weight:750;
-}
-.list-sub{
   margin-top:3px;
-  color:#555;
-  font-size:8px;
 }
-.tag{
-  padding:5px 7px;
-  white-space:nowrap;
-  color:#888;
-  background:#1b1b1b;
-  border-radius:7px;
-  font-size:8px;
+
+.done{
+  opacity:.45;
 }
-input,textarea,select{
-  width:100%;
-  padding:12px;
-  color:#eee;
+
+.mission-box{
+  padding:18px;
   background:#0a0a0a;
-  border:1px solid rgba(255,255,255,.09);
-  border-radius:11px;
-  outline:none;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:16px;
 }
-textarea{min-height:100px;resize:vertical}
-input:focus,textarea:focus,select:focus{border-color:#666}
-.field{margin-bottom:11px}
-.field label{
-  display:block;
-  margin-bottom:6px;
-  color:#777;
+
+.mission-tag{
+  color:#666;
   font-size:9px;
+  font-weight:900;
+  letter-spacing:.16em;
+  margin-bottom:9px;
+}
+
+.mission-title{
+  font-size:19px;
+  line-height:1.25;
+  font-weight:900;
+}
+
+.mission-ja{
+  color:#777;
+  font-size:10px;
+  line-height:1.6;
+  margin-top:7px;
+}
+
+.mission-status{
+  margin-top:13px;
+  font-size:10px;
+  font-weight:900;
   letter-spacing:.1em;
 }
-.form-grid{
+
+.status-done{
+  color:#bbb;
+}
+
+.status-open{
+  color:#eee;
+}
+
+.nav{
+  position:fixed;
+  z-index:50;
+  left:50%;
+  bottom:0;
+  transform:translateX(-50%);
+  width:100%;
+  max-width:620px;
+
+  padding:
+    8px
+    10px
+    calc(9px + env(safe-area-inset-bottom));
+
+  background:rgba(9,9,9,.91);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-top:1px solid rgba(255,255,255,.07);
+}
+
+.nav-inner{
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:9px;
+  grid-template-columns:repeat(5,1fr);
+  gap:5px;
 }
-.exercise{
-  margin-bottom:8px;
-  padding:13px;
-  background:#0b0b0b;
-  border:1px solid rgba(255,255,255,.05);
-  border-radius:14px;
+
+.nav-btn{
+  min-height:48px;
+  background:transparent;
+  color:#555;
+  border-radius:12px;
+  font-size:8px;
+  font-weight:850;
+  letter-spacing:.07em;
 }
-.exercise-name{
-  margin-bottom:8px;
-  font-size:12px;
-  font-weight:800;
+
+.nav-btn.active{
+  background:#181818;
+  color:#eee;
 }
-.exercise-target{
-  margin-bottom:9px;
+
+.nav-ja{
+  display:block;
+  font-size:7px;
+  color:inherit;
+  opacity:.55;
+  margin-top:3px;
+}
+
+.toast{
+  position:fixed;
+  z-index:100;
+  left:50%;
+  bottom:calc(88px + env(safe-area-inset-bottom));
+  transform:translateX(-50%) translateY(15px);
+  background:#eee;
+  color:#080808;
+  padding:10px 15px;
+  border-radius:12px;
+  font-size:10px;
+  font-weight:850;
+  opacity:0;
+  pointer-events:none;
+  transition:.2s ease;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+
+.modal-backdrop{
+  position:fixed;
+  z-index:80;
+  inset:0;
+  background:rgba(0,0,0,.72);
+  display:none;
+  align-items:flex-end;
+  justify-content:center;
+}
+
+.modal-backdrop.show{
+  display:flex;
+}
+
+.modal{
+  width:100%;
+  max-width:620px;
+  max-height:88vh;
+  overflow-y:auto;
+  background:#101010;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:22px 22px 0 0;
+  padding:20px 18px calc(25px + env(safe-area-inset-bottom));
+  box-shadow:0 -20px 60px rgba(0,0,0,.5);
+}
+
+.modal-title{
+  font-size:18px;
+  font-weight:900;
+}
+
+.modal-sub{
   color:#666;
   font-size:9px;
+  margin-top:4px;
+  margin-bottom:17px;
 }
-.exercise-grid{
+
+.exercise-row{
+  padding:13px 0;
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+
+.exercise-name{
+  font-size:11px;
+  font-weight:850;
+  margin-bottom:8px;
+}
+
+.exercise-target{
+  font-size:9px;
+  color:#666;
+  margin-bottom:8px;
+}
+
+.exercise-inputs{
   display:grid;
   grid-template-columns:1fr 1fr 1fr;
   gap:7px;
 }
-.exercise-grid label{
-  display:block;
-  margin-bottom:4px;
-  color:#555;
-  font-size:8px;
-}
-.review-stats{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:7px;
-}
-.review-stat{
-  padding:10px 5px;
-  text-align:center;
-  background:#0b0b0b;
-  border-radius:11px;
-}
-.review-stat strong{
-  display:block;
-  font-size:18px;
-}
-.review-stat span{
-  display:block;
-  margin-top:3px;
-  color:#555;
-  font-size:7px;
-}
-.status{
-  display:inline-flex;
-  padding:5px 8px;
-  background:#1a1a1a;
-  border-radius:7px;
-  color:#999;
-  font-size:8px;
-  font-weight:800;
-  letter-spacing:.08em;
-}
-.status.open{color:#eee}
-.status.done{color:#aaa}
-.bar-row{margin-bottom:11px}
-.bar-label{
-  display:flex;
-  justify-content:space-between;
-  margin-bottom:5px;
-  color:#777;
-  font-size:9px;
-}
-.bar{
-  height:5px;
-  overflow:hidden;
-  background:#222;
-  border-radius:99px;
-}
-.bar div{
-  height:100%;
-  background:#ddd;
-}
-.quote{
-  padding:15px;
-  border-left:2px solid #444;
-  color:#aaa;
+
+.section-heading{
+  margin:22px 0 10px;
   font-size:11px;
+  letter-spacing:.16em;
+  font-weight:900;
+}
+
+.empty{
+  color:#555;
+  font-size:10px;
+  padding:12px 0;
+}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  padding:5px 8px;
+  border-radius:8px;
+  background:#1a1a1a;
+  color:#888;
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:.1em;
+}
+
+.level-bar{
+  height:4px;
+  background:#222;
+  border-radius:10px;
+  overflow:hidden;
+  margin-top:7px;
+}
+
+.level-fill{
+  height:100%;
+  background:#aaa;
+}
+
+.log-item{
+  padding:13px 0;
+  border-bottom:1px solid rgba(255,255,255,.05);
+}
+
+.log-item:last-child{
+  border-bottom:0;
+}
+
+.log-title{
+  font-size:11px;
+  font-weight:800;
+}
+
+.log-meta{
+  color:#666;
+  font-size:9px;
+  margin-top:4px;
   line-height:1.6;
 }
-.nav{
-  position:fixed;
-  z-index:30;
-  bottom:0;
-  left:50%;
-  width:min(620px,100%);
-  transform:translateX(-50%);
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:5px;
-  padding:9px 10px calc(9px + env(safe-area-inset-bottom));
-  background:rgba(8,8,8,.91);
-  border-top:1px solid rgba(255,255,255,.08);
-  backdrop-filter:blur(20px);
-  -webkit-backdrop-filter:blur(20px);
-}
-.nav-btn{
-  padding:8px 2px;
-  background:transparent;
-  border-radius:10px;
-  color:#555;
-}
-.nav-btn.active{
-  background:#171717;
-  color:#eee;
-}
-.nav-main{
-  display:block;
-  font-size:9px;
-  font-weight:900;
-  letter-spacing:.1em;
-}
-.nav-jp{
-  display:block;
-  margin-top:3px;
-  font-size:7px;
-}
-.modal-backdrop{
-  position:fixed;
-  inset:0;
-  z-index:50;
-  display:none;
-  align-items:flex-end;
-  justify-content:center;
-  background:rgba(0,0,0,.72);
-}
-.modal-backdrop.open{display:flex}
-.modal{
-  width:min(620px,100%);
-  max-height:90vh;
-  overflow:auto;
-  padding:20px 18px calc(24px + env(safe-area-inset-bottom));
-  background:#111;
-  border:1px solid rgba(255,255,255,.09);
-  border-radius:22px 22px 0 0;
-}
-.modal-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:18px;
-}
-.modal-title{
-  font-size:14px;
-  font-weight:900;
-  letter-spacing:.1em;
-}
-.close{
-  width:34px;
-  height:34px;
-  background:#222;
-  border-radius:50%;
-  color:#aaa;
-}
-.toast{
-  position:fixed;
-  z-index:100;
-  bottom:90px;
-  left:50%;
-  padding:11px 15px;
-  transform:translateX(-50%) translateY(10px);
-  opacity:0;
-  pointer-events:none;
-  background:#eee;
-  color:#050505;
-  border-radius:10px;
+
+.score-points{
   font-size:10px;
-  font-weight:850;
-  transition:.2s;
+  color:#888;
+  font-weight:900;
 }
-.toast.show{
-  opacity:1;
-  transform:translateX(-50%);
-}
-.empty{
-  padding:12px 0;
-  color:#555;
-  font-size:10px;
-}
-@media(min-width:621px){
-  .modal-backdrop{align-items:center}
-  .modal{border-radius:22px;max-height:85vh}
+
+/* very small screens */
+@media(max-width:360px){
+  .screen{
+    padding-left:14px;
+    padding-right:14px;
+  }
+
+  .hero-title{
+    font-size:27px;
+  }
+
+  .score{
+    font-size:54px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<div id="app"></div>
+<div class="app">
+
+  <header class="header">
+    <div class="header-row">
+      <div class="logo">RESURGIR</div>
+      <div class="rank-mini">
+        <div class="rank" id="headerRank">AWAKEN</div>
+        <div class="level" id="headerLevel">LV.1</div>
+      </div>
+    </div>
+  </header>
+
+  <main id="screen"></main>
+
+</div>
 
 <nav class="nav">
-  <button class="nav-btn active" data-screen="HOME">
-    <span class="nav-main">HOME</span>
-    <span class="nav-jp">今日</span>
-  </button>
-  <button class="nav-btn" data-screen="BUILD">
-    <span class="nav-main">BUILD</span>
-    <span class="nav-jp">鍛える</span>
-  </button>
-  <button class="nav-btn" data-screen="CODE">
-    <span class="nav-main">CODE</span>
-    <span class="nav-jp">戒律</span>
-  </button>
-  <button class="nav-btn" data-screen="LOG">
-    <span class="nav-main">LOG</span>
-    <span class="nav-jp">戦績</span>
-  </button>
-  <button class="nav-btn" data-screen="MORE">
-    <span class="nav-main">MORE</span>
-    <span class="nav-jp">その他</span>
-  </button>
+  <div class="nav-inner">
+    <button class="nav-btn active" data-tab="HOME">
+      HOME
+      <span class="nav-ja">今日</span>
+    </button>
+
+    <button class="nav-btn" data-tab="BUILD">
+      BUILD
+      <span class="nav-ja">鍛える</span>
+    </button>
+
+    <button class="nav-btn" data-tab="CODE">
+      CODE
+      <span class="nav-ja">戒律</span>
+    </button>
+
+    <button class="nav-btn" data-tab="LOG">
+      LOG
+      <span class="nav-ja">戦績</span>
+    </button>
+
+    <button class="nav-btn" data-tab="MORE">
+      MORE
+      <span class="nav-ja">その他</span>
+    </button>
+  </div>
 </nav>
 
 <div id="modalBackdrop" class="modal-backdrop">
@@ -628,2318 +734,2608 @@ input:focus,textarea:focus,select:focus{border-color:#666}
 
 <script>
 /* =========================================================
-   RESURGIR
-   v12.1
-   ========================================================= */
+   RESURGIR v13
+   - Random Missions
+   - No Weekly Boss
+   - Monthly side-income reset
+   - Wealth = wasteful spending control
+   - Housework added
+   - Fixed bottom scrolling
+========================================================= */
 
-const KEY="resurgir_v12_1";
-const OLD_KEY="resurgir_v11";
+const KEY = "resurgir_v13";
+const OLD_KEY = "resurgir_v12";
+const OLDER_KEY = "resurgir_v11";
 
-/* =========================================================
-   DAILY MISSIONS
-   毎日1つ。大量プールからランダム抽選。
-   ========================================================= */
+/* -----------------------------
+   BASIC DATA
+----------------------------- */
 
-const MISSIONS=[
-
-/* COURAGE */
-["c01","COURAGE","避けていた連絡を1件返す","Answer one message you've been avoiding."],
-["c02","COURAGE","後回しにしていることを15分だけ始める","Start the thing you've been postponing for 15 minutes."],
-["c03","COURAGE","面倒な電話を今日中にする","Make the call you've been avoiding."],
-["c04","COURAGE","言うべきことを、逃げずに伝える","Say what needs to be said."],
-["c05","COURAGE","苦手な仕事を最初に片付ける","Do the hardest task first."],
-["c06","COURAGE","今日ひとつ、自分から人に声をかける","Initiate one conversation today."],
-["c07","COURAGE","先延ばししていた決断を1つ決める","Make one decision you've been postponing."],
-["c08","COURAGE","自分のミスを1つ認める","Own one mistake without excuses."],
-["c09","COURAGE","面倒な依頼を10分以内に処理する","Handle one annoying request immediately."],
-["c10","COURAGE","NOと言うべきことにNOと言う","Say NO when NO is necessary."],
-["c11","COURAGE","誰かに助けを求める","Ask for help instead of avoiding the problem."],
-["c12","COURAGE","不安に感じていることを紙に書き出す","Write down what you're afraid of."],
-["c13","COURAGE","一番やりたくないタスクを5分だけ始める","Start the task you least want to do."],
-["c14","COURAGE","気まずいことを一度だけ正面から考える","Face one uncomfortable thought."],
-["c15","COURAGE","逃げたいと思った瞬間に5分だけ続ける","Continue for five minutes when you want to quit."],
-
-/* DISCIPLINE */
-["d01","DISCIPLINE","スマホを30分触らず過ごす","Stay off your phone for 30 minutes."],
-["d02","DISCIPLINE","今日やることを1つ、予定より早く終わらせる","Finish one task ahead of schedule."],
-["d03","DISCIPLINE","寝る前に明日の準備を終える","Prepare everything for tomorrow before bed."],
-["d04","DISCIPLINE","起きてから30分スマホを見ない","Don't use your phone for 30 minutes after waking."],
-["d05","DISCIPLINE","決めた時間に仕事を始める","Start your work exactly when planned."],
-["d06","DISCIPLINE","誘惑を1つ断る","Reject one unnecessary temptation."],
-["d07","DISCIPLINE","部屋の一箇所を完全に片付ける","Fully clean one area of your room."],
-["d08","DISCIPLINE","15分だけ無音で集中する","Work silently for 15 focused minutes."],
-["d09","DISCIPLINE","今日の予定を朝に確認する","Review your schedule before the day starts."],
-["d10","DISCIPLINE","一度決めたことを最後までやる","Finish what you decided to do."],
-["d11","DISCIPLINE","SNSを1時間開かない","Stay off social media for one hour."],
-["d12","DISCIPLINE","今日のタスクを3つだけ書いて終わらせる","Write three priorities and finish them."],
-["d13","DISCIPLINE","使った物をすべて元の場所に戻す","Return everything you use to its place."],
-["d14","DISCIPLINE","10分早く行動する","Move ten minutes earlier than necessary."],
-["d15","DISCIPLINE","5分だけでも今日の勉強をやる","Study for at least five minutes."],
-["d16","DISCIPLINE","決めた時間までSNSを開かない","Don't open social media until your chosen time."],
-["d17","DISCIPLINE","今日の最優先事項を最初に終わらせる","Finish your highest priority first."],
-
-/* BODY */
-["b01","BODY","トレーニング後に10分歩く","Walk for 10 minutes after training."],
-["b02","BODY","追加の間食をしない","Skip unnecessary snacking today."],
-["b03","BODY","10分だけストレッチする","Stretch for 10 minutes."],
-["b04","BODY","水をいつもより多く飲む","Drink more water than usual."],
-["b05","BODY","食事を一食だけ丁寧に記録する","Log one meal carefully."],
-["b06","BODY","トレーニングで最後の1セットまで集中する","Stay focused through your final set."],
-["b07","BODY","エレベーターを使わず階段を使う","Take the stairs."],
-["b08","BODY","姿勢を意識して30分過ごす","Maintain deliberate posture for 30 minutes."],
-["b09","BODY","食後に10分歩く","Take a 10-minute walk after a meal."],
-["b10","BODY","今日のトレーニング重量を1つ記録する","Record one training weight today."],
-["b11","BODY","寝る前に軽く身体をほぐす","Do a short mobility session before bed."],
-["b12","BODY","食べる前に一度立ち止まる","Pause once before an unnecessary bite."],
-["b13","BODY","10分だけ軽く身体を動かす","Move your body for 10 minutes."],
-["b14","BODY","今日の身体の状態を記録する","Record how your body feels today."],
-["b15","BODY","トレーニングを始める前にフォームを確認する","Check your form before training."],
-
-/* WEALTH */
-["w01","WEALTH","今日の無駄な出費を1つ削る","Cut one unnecessary expense."],
-["w02","WEALTH","衝動買いを24時間保留する","Delay one impulse purchase for 24 hours."],
-["w03","WEALTH","不要な物を1つ売却候補にする","Find one item you could sell."],
-["w04","WEALTH","今月の支出を5分だけ確認する","Review your spending for five minutes."],
-["w05","WEALTH","コンビニで予定外の買い物をしない","Avoid an unplanned convenience-store purchase."],
-["w06","WEALTH","欲しい物を買わず理由をメモする","Don't buy one want; write down why."],
-["w07","WEALTH","使っていないサブスクを1つ確認する","Review one unused subscription."],
-["w08","WEALTH","副業・スキル作業を15分する","Spend 15 minutes building a side skill."],
-["w09","WEALTH","収入を増やすアイデアを3つ書く","Write three ways to increase your income."],
-["w10","WEALTH","不要な出費につながる場所を1つ避ける","Avoid one place that triggers unnecessary spending."],
-["w11","WEALTH","今日の買い物をすべて予定内に収める","Keep today's purchases within your plan."],
-["w12","WEALTH","財布の中身を整理する","Clean out your wallet."],
-["w13","WEALTH","副業につながる作業を20分する","Spend 20 minutes on income-producing work."],
-
-/* LOVE */
-["l01","LOVE","大切な人に感謝を1つ伝える","Tell someone important that you appreciate them."],
-["l02","LOVE","大切な人への返信を後回しにしない","Don't postpone an important reply."],
-["l03","LOVE","誰かのために小さな行動をする","Do one small thing for someone else."],
-["l04","LOVE","相手の話を最後まで遮らず聞く","Listen without interrupting."],
-["l05","LOVE","大切な人に自分から連絡する","Reach out to someone you love."],
-["l06","LOVE","今日ひとつ、人の仕事を楽にする","Make someone else's work easier."],
-["l07","LOVE","ありがとうを言葉にする","Say thank you deliberately."],
-["l08","LOVE","誰かの努力を認める","Acknowledge someone's effort."],
-["l09","LOVE","身近な人に優しくする","Choose kindness with someone close."],
-
-/* RESPECT */
-["r01","RESPECT","人の悪口を言わない","Don't speak badly about someone."],
-["r02","RESPECT","店員・スタッフに必ず礼儀正しく接する","Treat every staff member with respect."],
-["r03","RESPECT","約束を1つ確実に守る","Keep one promise completely."],
-["r04","RESPECT","誰かの努力を言葉にして認める","Acknowledge someone's effort."],
-["r05","RESPECT","相手の時間を無駄にしない","Respect someone else's time."],
-["r06","RESPECT","人の話を遮らない","Don't interrupt someone."],
-["r07","RESPECT","感情で返信せず一度読み返す","Read your message once before reacting."],
-
-/* CHARACTER */
-["ch01","CHARACTER","誰も見ていない場所で正しいことをする","Do the right thing when nobody is watching."],
-["ch02","CHARACTER","言い訳を1つしない","Give zero excuses today."],
-["ch03","CHARACTER","人のせいにしたくなったら自分の責任を1つ探す","Find your responsibility before blaming others."],
-["ch04","CHARACTER","感情的になる前に10秒止まる","Pause for ten seconds before reacting."],
-["ch05","CHARACTER","自分の言葉と行動を一致させる","Make your actions match your words."],
-["ch06","CHARACTER","誰かに見られていなくても手を抜かない","Don't lower your standard when unseen."],
-["ch07","CHARACTER","今日やるべきことを今日やる","Do today's work today."],
-["ch08","CHARACTER","自分の弱さを1つ正直に認める","Admit one weakness honestly."],
-["ch09","CHARACTER","結果ではなく行動に集中する","Focus on the action, not the outcome."],
-["ch10","CHARACTER","自分で決めたルールを1つ守る","Keep one rule you created for yourself."],
-["ch11","CHARACTER","怒る前に一度深呼吸する","Take one breath before reacting."],
-["ch12","CHARACTER","今日の失敗を1つ認めて記録する","Own and record one failure."],
-["ch13","CHARACTER","自分が悪かった部分を1つ認める","Admit one part where you were wrong."],
-
-/* ENVIRONMENT */
-["e01","ENVIRONMENT","机の上を完全にリセットする","Reset your desk completely."],
-["e02","ENVIRONMENT","不要な写真・ファイルを10個削除する","Delete ten unnecessary files or photos."],
-["e03","ENVIRONMENT","服を3着整理する","Organize three pieces of clothing."],
-["e04","ENVIRONMENT","明日の服を決めておく","Choose tomorrow's outfit tonight."],
-["e05","ENVIRONMENT","不要な通知を3つOFFにする","Turn off three unnecessary notifications."],
-["e06","ENVIRONMENT","ホーム画面から不要なアプリを1つ消す","Remove one unnecessary app."],
-["e07","ENVIRONMENT","ベッド周りを整える","Reset your sleeping area."],
-["e08","ENVIRONMENT","バッグの中を整理する","Clean out your bag."],
-["e09","ENVIRONMENT","不要な紙を5枚捨てる","Throw away five unnecessary papers."],
-
-/* GROWTH */
-["g01","GROWTH","本を10ページ読む","Read ten pages."],
-["g02","GROWTH","知らないことを1つ調べる","Learn one thing you don't know."],
-["g03","GROWTH","英語を15分やる","Study English for 15 minutes."],
-["g04","GROWTH","新しいスキルを15分練習する","Practice a new skill for 15 minutes."],
-["g05","GROWTH","今日学んだことを3行で記録する","Write three lines about what you learned."],
-["g06","GROWTH","未来の自分に役立つ作業を20分する","Spend 20 minutes building your future."],
-["g07","GROWTH","興味のある分野の記事を1本読む","Read one article in a field you care about."],
-["g08","GROWTH","今日の失敗から1つ学びを書く","Write one lesson from today's failure."],
-["g09","GROWTH","15分だけPCでスキルを磨く","Spend 15 minutes sharpening a digital skill."],
-["g10","GROWTH","自分の仕事に役立つ情報を1つ学ぶ","Learn one thing useful for your work."],
-["g11","GROWTH","将来やりたいことを10分調べる","Research something you want to do in the future."],
-["g12","GROWTH","昨日より1つ賢くなるための行動をする","Do one thing that makes you smarter than yesterday."]
-].map(x=>({
-  id:x[0],
-  cat:x[1],
-  jp:x[2],
-  en:x[3]
-}));
-
-/* =========================================================
-   DAILY CODE
-   ========================================================= */
-
-const DAILY_CODES=[
- {id:"word",jp:"約束を守った",en:"KEEP YOUR WORD"},
- {id:"run",jp:"面倒でも逃げなかった",en:"DON'T RUN"},
- {id:"truth",jp:"嘘をつかなかった",en:"TELL THE TRUTH"},
- {id:"blame",jp:"人のせいにしなかった",en:"OWN YOUR PART"},
- {id:"pause",jp:"感情的になる前に一度止まった",en:"CONTROL YOURSELF"},
- {id:"love",jp:"大切な人への返信を後回しにしなかった",en:"PROTECT WHAT YOU LOVE"},
- {id:"unseen",jp:"誰も見ていないところでも手を抜かなかった",en:"DO IT WHEN UNSEEN"},
- {id:"today",jp:"今日やるべきことを今日やった",en:"DO IT TODAY"}
-];
-
-/* =========================================================
-   TRAINING
-   ========================================================= */
-
-const DEFAULT_ROUTINES=[
- {
-  name:"PUSH",
-  exercises:[
-   {name:"Bench Press",weight:60,reps:6,sets:3},
-   {name:"Incline Press",weight:40,reps:8,sets:3},
-   {name:"Shoulder Press",weight:16,reps:8,sets:3},
-   {name:"Side Raise",weight:5,reps:12,sets:3}
+const ROUTINES = {
+  PUSH:[
+    {name:"Bench Press",weight:60,reps:6,sets:3},
+    {name:"Incline Press",weight:40,reps:8,sets:3},
+    {name:"Shoulder Press",weight:16,reps:8,sets:3},
+    {name:"Side Raise",weight:5,reps:12,sets:3}
+  ],
+  PULL:[
+    {name:"Lat Pulldown",weight:61,reps:8,sets:3},
+    {name:"Row",weight:40,reps:8,sets:3},
+    {name:"Rear Delt",weight:35,reps:10,sets:3},
+    {name:"Biceps Curl",weight:10,reps:10,sets:3}
+  ],
+  LEGS:[
+    {name:"Squat",weight:60,reps:5,sets:3},
+    {name:"RDL",weight:40,reps:8,sets:3},
+    {name:"Leg Extension",weight:50,reps:10,sets:3},
+    {name:"Leg Curl",weight:30,reps:10,sets:3}
   ]
- },
- {
-  name:"PULL",
-  exercises:[
-   {name:"Lat Pulldown",weight:61,reps:8,sets:3},
-   {name:"Row",weight:40,reps:8,sets:3},
-   {name:"Rear Delt",weight:35,reps:10,sets:3},
-   {name:"Biceps Curl",weight:10,reps:10,sets:3}
-  ]
- },
- {
-  name:"LEGS",
-  exercises:[
-   {name:"Squat",weight:60,reps:5,sets:3},
-   {name:"RDL",weight:40,reps:8,sets:3},
-   {name:"Leg Extension",weight:50,reps:10,sets:3},
-   {name:"Leg Curl",weight:30,reps:10,sets:3}
-  ]
- }
-];
-
-const SCHEDULE={
- 0:"LEGS",
- 1:"PUSH",
- 2:"PULL",
- 3:"PUSH",
- 4:"PULL",
- 5:"PUSH",
- 6:"REST"
 };
 
-/* =========================================================
+const SCHEDULE = {
+  0:"LEGS",
+  1:"PUSH",
+  2:"PULL",
+  3:"PUSH",
+  4:"PULL",
+  5:"PUSH",
+  6:"REST"
+};
+
+const PRINCIPLES = [
+  ["KEEP YOUR WORD","自分との約束を守る"],
+  ["DON'T RUN","逃げない"],
+  ["CONTROL YOURSELF","自分を制御する"],
+  ["BUILD YOUR BODY","身体を作る"],
+  ["BUILD YOUR WEALTH","富を作る"],
+  ["PROTECT WHAT YOU LOVE","大切なものを守る"],
+  ["RESPECT","敬意を持つ"],
+  ["RESURGIR","何度でも立ち上がる"]
+];
+
+/* Daily missions.
+   The mission is selected randomly/deterministically per day
+   so refreshing the app does NOT change it. */
+const MISSIONS = [
+
+  ["THE FIRST MOVE","先延ばししていることを5分だけ始める"],
+  ["NO EXCUSES","今日の面倒なことを1つ終わらせる"],
+  ["CLEAN THE ROOM","目につく場所を10分だけ片付ける"],
+  ["PHONE DOWN","30分スマホを触らず1つの作業に集中する"],
+  ["SILENCE","音楽・動画なしで10分過ごす"],
+  ["EARLY WIN","午前中に今日の重要タスクを1つ終える"],
+  ["FINISH IT","途中で放置していることを1つ完了させる"],
+  ["SEND IT","後回しにしている連絡を1件送る"],
+  ["NO COMPLAINT","今日は不満を口にする前に行動する"],
+  ["DISCIPLINE","やりたくないことを1つ先にやる"],
+  ["DEEP WORK","25分間、1つのことだけに集中する"],
+  ["NO DOPAMINE","意味のないSNS・動画を1時間断つ"],
+  ["WAKE UP","起きたらベッドをすぐ整える"],
+  ["RESET","自分のいる場所を10分間リセットする"],
+  ["ONE LESS","不要な物を1つ捨てる"],
+  ["MONEY CHECK","今日使う予定のない出費を1つ止める"],
+  ["NO IMPULSE","欲しいと思った物をその場で買わない"],
+  ["BODY FIRST","身体を動かす時間を先に確保する"],
+  ["WALK","目的なくても20分歩く"],
+  ["SWEAT","少しでも汗をかく"],
+  ["STRETCH","10分間身体を整える"],
+  ["WATER","水分を意識して取る"],
+  ["PROTEIN","今日のタンパク質を最後まで守る"],
+  ["SLEEP PREP","寝る30分前から画面を見ない"],
+  ["NO ALIBI","言い訳を1つやめる"],
+  ["COURAGE","避けていることに一歩近づく"],
+  ["SPEAK UP","言うべきことを丁寧に伝える"],
+  ["LISTEN","今日は一度、相手の話を最後まで聞く"],
+  ["RESPECT","誰も見ていないところで丁寧に行動する"],
+  ["KEEP PROMISE","今日決めた小さな約束を絶対に守る"],
+  ["HOUSEWORK","家事を1つ、誰かに言われる前にやる"],
+  ["DISHES","食器を溜めずに片付ける"],
+  ["LAUNDRY","洗濯を回して最後まで片付ける"],
+  ["FLOOR","床を10分掃除する"],
+  ["BATHROOM","水回りを1か所掃除する"],
+  ["KITCHEN","キッチンをリセットする"],
+  ["DESK","机・仕事場を完全にリセットする"],
+  ["BAG RESET","バッグの中を整理する"],
+  ["CLOTHES","服を1つ整理・処分する"],
+  ["FINANCIAL DISCIPLINE","今日の無駄遣いゼロを作る"],
+  ["SIDE HUSTLE","副業を15分だけ進める"],
+  ["BUILD THE FUTURE","未来の自分のための作業を20分する"],
+  ["LEARN","新しいことを20分学ぶ"],
+  ["READ","本・記事を10分読む"],
+  ["WRITE","頭の中を5分間書き出す"],
+  ["REFLECT","今日の自分を3行で振り返る"],
+  ["THANK","大切な人に感謝を伝える"],
+  ["PROTECT","大切な人のために1つ行動する"],
+  ["NO ESCAPE","面倒だから逃げていることを認める"],
+  ["RETURN","崩れても今日中に1つ戻す"],
+  ["ONE PERCENT","昨日より1%だけ改善する"],
+  ["IRON MIND","気分ではなく決めたことを優先する"],
+  ["QUIET POWER","誰かに認められるためではなく行動する"],
+  ["OLD MONEY","物ではなく自分の価値を高める"],
+  ["GENTLEMAN","強さと礼儀を両立する"],
+  ["LOYALTY","自分が大切にすると決めたものを裏切らない"],
+  ["RESURGIR","今日もう一度立ち上がる"]
+];
+
+const DAILY_CODES = [
+  ["promise","約束を守った","KEEP YOUR WORD"],
+  ["escape","面倒でも逃げなかった","DON'T RUN"],
+  ["lie","嘘をつかなかった","NO LIES"],
+  ["blame","人のせいにしなかった","NO BLAME"],
+  ["pause","感情的になる前に一度止まった","CONTROL"],
+  ["reply","大切な人への返信を後回しにしなかった","PROTECT LOVE"],
+  ["quality","誰も見ていないところでも手を抜かなかった","RESPECT"],
+  ["today","今日やるべきことを今日やった","DISCIPLINE"]
+];
+
+const HOUSEWORK = [
+  ["dishes","食器を洗って片付けた","DISHES"],
+  ["laundry","洗濯を回して干して片付けた","LAUNDRY"],
+  ["floor","床を掃除した","FLOOR"],
+  ["bathroom","トイレ・浴室など水回りを掃除した","BATHROOM"],
+  ["kitchen","キッチンをリセットした","KITCHEN"],
+  ["trash","ゴミをまとめて捨てた","TRASH"],
+  ["room","部屋を10分以上片付けた","ROOM"],
+  ["bed","ベッド・寝具を整えた","BED"],
+  ["desk","机・仕事スペースを整理した","DESK"],
+  ["bag","バッグの中を整理した","BAG"],
+  ["clothes","服を畳む・掛ける・整理した","CLOTHES"],
+  ["shopping","必要な買い物を済ませた","SHOPPING"]
+];
+
+const FALL_TYPES = [
+  "PROCRASTINATION",
+  "IMPULSE SPENDING",
+  "DOPAMINE",
+  "ANGER",
+  "ESCAPE",
+  "SLEEP",
+  "FOOD",
+  "ALCOHOL",
+  "OTHER"
+];
+
+const RANKS = [
+  [20,"RESURGIR"],
+  [15,"UNBREAKABLE"],
+  [11,"RESPECTED"],
+  [8,"FORGED"],
+  [5,"DISCIPLINED"],
+  [2,"BUILT"],
+  [1,"AWAKEN"]
+];
+
+/* -----------------------------
    STATE
-   ========================================================= */
+----------------------------- */
 
 function defaultState(){
- return {
-  version:12,
-  days:{},
-  missions:{},
-  rerolls:{},
-  routines:JSON.parse(JSON.stringify(DEFAULT_ROUTINES)),
-  trainingLogs:[],
-  falls:[],
-  food:[],
-  weightLogs:[],
-  sideIncome:[],
-  responsibility:{},
-  presence:{},
-  weeklyReviews:{},
-  journal:[]
- };
+  return {
+    days:{},
+    routines:JSON.parse(JSON.stringify(ROUTINES)),
+    trainingLogs:[],
+    foodLogs:[],
+    wealthLogs:[],
+    sideIncome:{},
+    falls:[],
+    reviews:{},
+    responsibility:{},
+    presence:{},
+    createdAt:todayKey()
+  };
 }
 
 function loadState(){
- const raw=localStorage.getItem(KEY)||localStorage.getItem(OLD_KEY);
+  try{
+    const raw =
+      localStorage.getItem(KEY) ||
+      localStorage.getItem(OLD_KEY) ||
+      localStorage.getItem(OLDER_KEY);
 
- if(!raw)return defaultState();
+    if(!raw) return defaultState();
 
- try{
-  const s=JSON.parse(raw);
-  const d=defaultState();
+    const parsed=JSON.parse(raw);
+    const base=defaultState();
 
-  return {
-   ...d,
-   ...s,
-   days:s.days||{},
-   missions:s.missions||s.missionHistory||{},
-   rerolls:s.rerolls||s.missionRerolls||{},
-   routines:Array.isArray(s.routines)&&s.routines.length?s.routines:d.routines,
-   trainingLogs:Array.isArray(s.trainingLogs)?s.trainingLogs:[],
-   falls:Array.isArray(s.falls)?s.falls:[],
-   food:Array.isArray(s.food)?s.food:[],
-   weightLogs:Array.isArray(s.weightLogs)?s.weightLogs:[],
-   sideIncome:Array.isArray(s.sideIncome)?s.sideIncome:[],
-   responsibility:s.responsibility||{},
-   presence:s.presence||{},
-   weeklyReviews:s.weeklyReviews||{},
-   journal:Array.isArray(s.journal)?s.journal:[],
-   version:12
-  };
- }catch(e){
-  return defaultState();
- }
+    const s={
+      ...base,
+      ...parsed
+    };
+
+    s.days=s.days||{};
+    s.routines=s.routines||base.routines;
+    s.trainingLogs=s.trainingLogs||[];
+    s.foodLogs=s.foodLogs||[];
+    s.wealthLogs=s.wealthLogs||[];
+    s.sideIncome=s.sideIncome||{};
+    s.falls=s.falls||[];
+    s.reviews=s.reviews||{};
+    s.responsibility=s.responsibility||{};
+    s.presence=s.presence||{};
+
+    return s;
+
+  }catch(e){
+    return defaultState();
+  }
 }
 
 let state=loadState();
-let currentScreen="HOME";
 
 function save(){
- localStorage.setItem(KEY,JSON.stringify(state));
+  localStorage.setItem(KEY,JSON.stringify(state));
 }
 
-/* =========================================================
+/* -----------------------------
    DATE
-   ========================================================= */
+----------------------------- */
 
-function dateKey(d=new Date()){
- const y=d.getFullYear();
- const m=String(d.getMonth()+1).padStart(2,"0");
- const day=String(d.getDate()).padStart(2,"0");
- return `${y}-${m}-${day}`;
+function pad(n){
+  return String(n).padStart(2,"0");
 }
 
-function todayKey(){
- return dateKey(new Date());
+function todayKey(date=new Date()){
+  return [
+    date.getFullYear(),
+    pad(date.getMonth()+1),
+    pad(date.getDate())
+  ].join("-");
 }
 
-function parseDate(key){
- const [y,m,d]=key.split("-").map(Number);
- return new Date(y,m-1,d);
+function dateObj(key){
+  const [y,m,d]=key.split("-").map(Number);
+  return new Date(y,m-1,d);
 }
 
-function addDays(d,n){
- const x=new Date(d);
- x.setDate(x.getDate()+n);
- return x;
+function dayIndex(key=todayKey()){
+  const d=dateObj(key);
+  const start=new Date(d.getFullYear(),0,0);
+  const diff=d-start;
+  return Math.floor(diff/86400000);
 }
 
-function weekKey(key=todayKey()){
- const d=parseDate(key);
- const dow=d.getDay();
- const diff=dow===0?-6:1-dow;
- d.setDate(d.getDate()+diff);
- return dateKey(d);
-}
+/* -----------------------------
+   RANDOM / SEEDED
+----------------------------- */
 
-function weekDays(wk=weekKey()){
- const monday=parseDate(wk);
- return Array.from({length:7},(_,i)=>dateKey(addDays(monday,i)));
-}
-
-function previousWeekKey(wk=weekKey()){
- return dateKey(addDays(parseDate(wk),-7));
-}
-
-function weekLabel(wk){
- const a=parseDate(wk);
- const b=addDays(a,6);
- return `${a.getMonth()+1}/${a.getDate()} — ${b.getMonth()+1}/${b.getDate()}`;
-}
-
-/* =========================================================
-   HASH / RANDOM
-   ========================================================= */
-
-function hash(str){
- let h=2166136261;
-
- for(let i=0;i<str.length;i++){
-  h^=str.charCodeAt(i);
-  h+=
-   (h<<1)+(h<<4)+(h<<7)+(h<<8)+(h<<24);
- }
-
- return Math.abs(h>>>0);
-}
-
-function randomFromSeed(seed,length){
- return hash(seed)%length;
-}
-
-/*
-  毎日違うMISSION。
-  同じ日ならアプリを何度開いても同じ。
-*/
-
-function getMission(key=todayKey()){
- if(!state.missions[key]){
-  let pool=MISSIONS;
-
-  const yesterday=dateKey(addDays(parseDate(key),-1));
-  const yesterdayId=state.missions[yesterday];
-
-  if(yesterdayId){
-   pool=pool.filter(m=>m.id!==yesterdayId);
+function hashString(str){
+  let h=2166136261;
+  for(let i=0;i<str.length;i++){
+    h^=str.charCodeAt(i);
+    h=Math.imul(h,16777619);
   }
-
-  const index=randomFromSeed(
-   key+"|MISSION",
-   pool.length
-  );
-
-  state.missions[key]=pool[index].id;
-  state.rerolls[key]=0;
-  save();
- }
-
- return MISSIONS.find(m=>m.id===state.missions[key])||MISSIONS[0];
+  return h>>>0;
 }
 
-function rerollMission(){
- const key=todayKey();
-
- if((state.rerolls[key]||0)>=1){
-  toast("REROLLは1日1回まで");
-  return;
- }
-
- const current=getMission(key);
-
- let pool=MISSIONS.filter(m=>m.id!==current.id);
-
- const yesterday=dateKey(addDays(parseDate(key),-1));
- const yesterdayId=state.missions[yesterday];
-
- if(yesterdayId){
-  pool=pool.filter(m=>m.id!==yesterdayId);
- }
-
- const index=randomFromSeed(
-  key+"|REROLL|"+Date.now(),
-  pool.length
- );
-
- state.missions[key]=pool[index].id;
- state.rerolls[key]=1;
-
- save();
- render();
- toast("MISSION REROLLED");
+function dailyMission(key=todayKey()){
+  const index=hashString("mission-"+key)%MISSIONS.length;
+  return MISSIONS[index];
 }
-
-/* =========================================================
-   DAY
-   ========================================================= */
-
-function today(){
- const key=todayKey();
-
- if(!state.days[key]){
-  state.days[key]={
-   date:key,
-   code:{},
-   workout:false,
-   body:false,
-   waste:false,
-   mission:false
-  };
- }
-
- /* v11 compatibility */
- const d=state.days[key];
-
- if(typeof d.waste!=="boolean"){
-  d.waste=false;
- }
-
- if(typeof d.mission!=="boolean"){
-  d.mission=false;
- }
-
- getMission(key);
-
- save();
-
- return d;
-}
-
-/* =========================================================
-   DAILY CODE
-   ========================================================= */
 
 function dailyCodes(key=todayKey()){
- return [...DAILY_CODES]
-  .sort((a,b)=>
-   hash(key+"|CODE|"+a.id)-
-   hash(key+"|CODE|"+b.id)
-  )
-  .slice(0,3);
+  const seed=hashString("code-"+key);
+  const arr=[...DAILY_CODES];
+
+  for(let i=arr.length-1;i>0;i--){
+    const j=(seed+i*31)% (i+1);
+    [arr[i],arr[j]]=[arr[j],arr[i]];
+  }
+
+  return arr.slice(0,3);
 }
 
-/* =========================================================
+/* -----------------------------
+   DAY
+----------------------------- */
+
+function ensureToday(){
+  const key=todayKey();
+
+  if(!state.days[key]){
+    state.days[key]={
+      date:key,
+      code:{},
+      mission:false,
+      workout:false,
+      body:false,
+      wealth:false,
+      housework:false,
+      responsibility:false,
+      presence:false
+    };
+  }
+
+  save();
+  return state.days[key];
+}
+
+function dayHasActivity(day){
+  if(!day) return false;
+
+  return !!(
+    day.mission ||
+    day.workout ||
+    day.body ||
+    day.wealth ||
+    day.housework ||
+    day.responsibility ||
+    day.presence ||
+    Object.values(day.code||{}).some(Boolean)
+  );
+}
+
+function hasFall(key){
+  return state.falls.some(f=>f.date===key);
+}
+
+/* -----------------------------
    SCORE
-   =========================================================
+----------------------------- */
 
-   CODE       30
-   WORKOUT    25
-   BODY       10
-   WEALTH     10  ← 無駄遣いなし
-   MISSION    15
+function dayScore(day){
+  if(!day) return 0;
 
-   MAX = 90
-   ※Weekly Bossは完全削除
-*/
+  const selected=dailyCodes(day.date);
 
-function scoreForDay(d){
- if(!d)return 0;
+  let score=0;
 
- const codes=dailyCodeCount(d.date)*10;
+  const completed=selected.filter(c=>day.code?.[c[0]]).length;
+  score+=completed*10;
 
- let score=codes;
+  if(day.mission) score+=15;
+  if(day.workout) score+=25;
+  if(day.body) score+=10;
+  if(day.housework) score+=10;
 
- if(d.workout)score+=25;
- if(d.body)score+=10;
+  /*
+    WEALTH is deliberately NOT a money-making score.
+    It rewards avoiding wasteful spending.
+  */
+  if(day.wealth) score+=10;
 
- /*
-   waste=false → 無駄遣いなし
-   waste=true  → 無駄遣いあり
-   未記録は0点。
- */
- if(d.waste===false && d.wealthChecked){
-  score+=10;
- }
-
- if(d.mission)score+=15;
-
- return Math.min(90,score);
-}
-
-function dailyCodeCount(key){
- const d=state.days[key];
- if(!d||!d.code)return 0;
-
- return dailyCodes(key)
-  .filter(c=>d.code[c.id])
-  .length;
+  return Math.min(score,100);
 }
 
 function todayScore(){
- return scoreForDay(today());
+  return dayScore(ensureToday());
 }
 
 function totalXP(){
- return Object.values(state.days)
-  .reduce((sum,d)=>sum+scoreForDay(d),0);
+  let xp=0;
+
+  Object.values(state.days).forEach(day=>{
+    xp+=dayScore(day);
+  });
+
+  return xp;
 }
 
-/* =========================================================
-   LEVEL
-   ========================================================= */
+function levelFromXP(xp){
+  return Math.max(1,Math.floor(xp/100)+1);
+}
 
-function levelInfo(){
- const xp=totalXP();
-
- const levels=[
-  [0,"AWAKEN"],
-  [250,"BUILT"],
-  [600,"DISCIPLINED"],
-  [1200,"FORGED"],
-  [2200,"RESPECTED"],
-  [4000,"UNBREAKABLE"],
-  [7000,"RESURGIR"]
- ];
-
- let level=1;
- let rank=levels[0][1];
- let base=0;
- let next=250;
-
- levels.forEach((x,i)=>{
-  if(xp>=x[0]){
-   level=i+1;
-   rank=x[1];
-   base=x[0];
-   next=levels[i+1]?levels[i+1][0]:x[0]+3000;
+function rankFromLevel(level){
+  for(const r of RANKS){
+    if(level>=r[0]) return r[1];
   }
- });
-
- return {
-  xp,
-  level,
-  rank,
-  progress:Math.max(
-   0,
-   Math.min(
-    100,
-    ((xp-base)/(next-base))*100
-   )
-  )
- };
-}
-
-/* =========================================================
-   STREAK
-   ========================================================= */
-
-function hasActivity(key){
- const d=state.days[key];
-
- if(!d)return false;
-
- return scoreForDay(d)>0 ||
-  state.falls.some(f=>f.date===key);
+  return "AWAKEN";
 }
 
 function streak(){
- let count=0;
- let d=new Date();
+  let count=0;
+  let d=new Date();
 
- while(true){
-  const key=dateKey(d);
+  while(true){
+    const key=todayKey(d);
+    const day=state.days[key];
 
-  if(!hasActivity(key))break;
+    if(!day || !dayHasActivity(day)) break;
 
-  count++;
-  d.setDate(d.getDate()-1);
+    count++;
+    d.setDate(d.getDate()-1);
+  }
 
-  if(count>1000)break;
- }
-
- return count;
+  return count;
 }
 
-/* =========================================================
-   SIDE INCOME
-   月が変わると「今月」表示は自動リセット。
-   過去データは履歴として残る。
-   ========================================================= */
+function cleanDays(){
+  let count=0;
+
+  Object.entries(state.days).forEach(([key,day])=>{
+    if(dayHasActivity(day) && !hasFall(key)){
+      count++;
+    }
+  });
+
+  return count;
+}
+
+/* -----------------------------
+   MONTHLY SIDE INCOME
+----------------------------- */
+
+function monthKey(date=new Date()){
+  return [
+    date.getFullYear(),
+    pad(date.getMonth()+1)
+  ].join("-");
+}
 
 function currentMonth(){
- const d=new Date();
-
- return `${d.getFullYear()}-${String(
-  d.getMonth()+1
- ).padStart(2,"0")}`;
+  return monthKey();
 }
 
-function monthIncome(month=currentMonth()){
- return state.sideIncome
-  .filter(x=>x.month===month)
-  .reduce((sum,x)=>sum+(Number(x.amount)||0),0);
+function sideIncomeTotal(month=currentMonth()){
+  return Number(state.sideIncome[month]||0);
 }
 
-function addIncome(amount,note){
- amount=Number(amount);
+function addSideIncome(){
+  openModal(`
+    <div class="modal-title">SIDE INCOME</div>
+    <div class="modal-sub">副業収入のみ / 月ごとに自動リセット</div>
 
- if(!amount||amount<=0)return;
+    <div class="field">
+      <div class="field-label">AMOUNT / 金額</div>
+      <input id="incomeAmount" type="number" inputmode="numeric" placeholder="5000">
+    </div>
 
- state.sideIncome.push({
-  id:Date.now(),
-  date:todayKey(),
-  month:currentMonth(),
-  amount,
-  note:note||""
- });
+    <div class="field">
+      <div class="field-label">NOTE / 内容</div>
+      <input id="incomeNote" type="text" placeholder="清掃 / オンライン作業など">
+    </div>
 
- save();
- render();
- closeModal();
- toast("SIDE INCOME ADDED");
+    <button class="btn btn-primary" onclick="saveSideIncome()">
+      ADD EARNING
+    </button>
+  `);
 }
 
-/* =========================================================
-   WEEKLY REVIEW
-   Weekly Bossは存在しない。
-   レビューだけ日曜夜に行う。
-   ========================================================= */
+function saveSideIncome(){
+  const amount=Number(document.getElementById("incomeAmount").value||0);
+  const note=document.getElementById("incomeNote").value.trim();
 
-function reviewTargetWeek(){
- const now=new Date();
- const dow=now.getDay();
- const hour=now.getHours();
-
- /*
-   日曜21時以降 → 今週
-   それ以外 → 先週
- */
- if(dow===0 && hour>=21){
-  return weekKey();
- }
-
- return previousWeekKey();
-}
-
-function reviewStatus(){
- const wk=reviewTargetWeek();
- const review=state.weeklyReviews[wk];
-
- if(review)return "DONE";
-
- const now=new Date();
-
- if(now.getDay()===0 && now.getHours()>=21){
-  return "OPEN";
- }
-
- return "SCHEDULED";
-}
-
-function weeklyStats(wk){
- const days=weekDays(wk);
-
- let score=0;
- let workouts=0;
- let missions=0;
- let clean=0;
- let falls=0;
-
- days.forEach(key=>{
-  const d=state.days[key];
-
-  if(d){
-   score+=scoreForDay(d);
-
-   if(d.workout)workouts++;
-   if(d.mission)missions++;
+  if(amount<=0){
+    toast("金額を入力してください");
+    return;
   }
 
-  const hasFall=state.falls.some(f=>f.date===key);
+  const month=currentMonth();
 
-  if(hasFall){
-   falls++;
-  }else if(d&&scoreForDay(d)>0){
-   clean++;
+  if(!Array.isArray(state.sideIncome[month])){
+    state.sideIncome[month]=[];
   }
- });
 
- return {
-  score,
-  average:Math.round(score/7),
-  workouts,
-  missions,
-  clean,
-  falls
- };
+  state.sideIncome[month].push({
+    amount,
+    note,
+    date:todayKey()
+  });
+
+  /*
+    Backward-compatible total handling.
+  */
+  state.sideIncome[month]=state.sideIncome[month];
+
+  save();
+  closeModal();
+  render();
+  toast("副業収入を記録");
 }
 
-function openWeeklyReview(){
- const wk=reviewTargetWeek();
- const existing=state.weeklyReviews[wk]||{};
- const s=weeklyStats(wk);
+function monthlyIncomeTotal(month=currentMonth()){
+  const value=state.sideIncome[month];
 
- openModal(`
-  <div class="modal-head">
-   <div>
-    <div class="modal-title">WEEKLY REVIEW</div>
-    <div class="tiny">週次レビュー · ${weekLabel(wk)}</div>
-   </div>
-   <button class="close" onclick="closeModal()">×</button>
-  </div>
+  if(Array.isArray(value)){
+    return value.reduce((sum,x)=>sum+Number(x.amount||0),0);
+  }
 
-  <div class="review-stats">
-   <div class="review-stat">
-    <strong>${s.score}</strong>
-    <span>SCORE</span>
-   </div>
-   <div class="review-stat">
-    <strong>${s.average}</strong>
-    <span>AVG</span>
-   </div>
-   <div class="review-stat">
-    <strong>${s.workouts}</strong>
-    <span>BUILD</span>
-   </div>
-   <div class="review-stat">
-    <strong>${s.missions}</strong>
-    <span>MISSION</span>
-   </div>
-  </div>
-
-  <div class="tiny" style="margin:14px 0">
-   REVIEW RULE / 毎週日曜21:00–23:59が基本。
-   未実施でも失格にはならず、後から記録できる。
-  </div>
-
-  <div class="field">
-   <label>WHAT WENT WELL / 今週できたこと</label>
-   <textarea id="reviewWin">${esc(existing.win||"")}</textarea>
-  </div>
-
-  <div class="field">
-   <label>WHAT FAILED / 今週うまくいかなかったこと</label>
-   <textarea id="reviewFail">${esc(existing.fail||"")}</textarea>
-  </div>
-
-  <div class="field">
-   <label>NEXT FOCUS / 来週意識すること</label>
-   <textarea id="reviewFocus">${esc(existing.focus||"")}</textarea>
-  </div>
-
-  <div class="field">
-   <label>ONE THING / 次の1週間で必ずやる1つ</label>
-   <textarea id="reviewOne">${esc(existing.one||"")}</textarea>
-  </div>
-
-  <button class="btn primary" onclick="saveWeeklyReview('${wk}')">
-   SAVE REVIEW
-  </button>
- `);
+  return Number(value||0);
 }
 
-function saveWeeklyReview(wk){
- state.weeklyReviews[wk]={
-  win:document.getElementById("reviewWin").value.trim(),
-  fail:document.getElementById("reviewFail").value.trim(),
-  focus:document.getElementById("reviewFocus").value.trim(),
-  one:document.getElementById("reviewOne").value.trim(),
-  date:todayKey()
- };
+function incomeHistory(){
+  const month=currentMonth();
+  const value=state.sideIncome[month];
 
- save();
- closeModal();
- render();
- toast("WEEKLY REVIEW SAVED");
+  if(!Array.isArray(value)) return [];
+
+  return [...value].reverse();
 }
 
-/* =========================================================
-   FALL
-   ========================================================= */
+/* -----------------------------
+   WEALTH
+----------------------------- */
 
-function addFall(){
- openModal(`
-  <div class="modal-head">
-   <div>
-    <div class="modal-title">FALL LOG</div>
-    <div class="tiny">失敗を隠さず記録する</div>
-   </div>
-   <button class="close" onclick="closeModal()">×</button>
-  </div>
+function logWaste(){
+  openModal(`
+    <div class="modal-title">WEALTH</div>
+    <div class="modal-sub">無駄遣いを管理する / 稼ぐこととは別の評価</div>
 
-  <div class="field">
-   <label>TYPE / 種類</label>
-   <select id="fallType">
-    <option>DISCIPLINE</option>
-    <option>BODY</option>
-    <option>WEALTH</option>
-    <option>WORK</option>
-    <option>LOVE</option>
-    <option>OTHER</option>
-   </select>
-  </div>
+    <div class="mission-box" style="margin-bottom:14px">
+      <div class="mission-tag">TODAY RULE</div>
+      <div class="mission-title">Spend with intention.</div>
+      <div class="mission-ja">
+        必要なものには使う。意味のない出費を止める。
+      </div>
+    </div>
 
-  <div class="field">
-   <label>WHAT HAPPENED / 何があったか</label>
-   <textarea id="fallNote" placeholder="事実だけを書く"></textarea>
-  </div>
+    <div class="field">
+      <div class="field-label">AMOUNT / 金額</div>
+      <input id="wasteAmount" type="number" inputmode="numeric" placeholder="3000">
+    </div>
 
-  <button class="btn primary" onclick="saveFall()">LOG FALL</button>
+    <div class="field">
+      <div class="field-label">WHAT / 何に使ったか</div>
+      <input id="wasteWhat" type="text" placeholder="衝動買いなど">
+    </div>
 
-  <div class="tiny" style="margin-top:12px">
-   FALLは減点ではない。隠さず記録し、RETURNする。
-  </div>
- `);
+    <div class="field">
+      <div class="field-label">WAS IT NECESSARY?</div>
+      <select id="wasteNecessary">
+        <option value="no">NO / 無駄だった</option>
+        <option value="yes">YES / 必要だった</option>
+      </select>
+    </div>
+
+    <button class="btn btn-primary" onclick="saveWealth()">
+      SAVE
+    </button>
+  `);
 }
 
-function saveFall(){
- const type=document.getElementById("fallType").value;
- const note=document.getElementById("fallNote").value.trim();
+function saveWealth(){
+  const amount=Number(document.getElementById("wasteAmount").value||0);
+  const what=document.getElementById("wasteWhat").value.trim();
+  const necessary=document.getElementById("wasteNecessary").value==="yes";
 
- state.falls.unshift({
-  date:todayKey(),
-  type,
-  note
- });
+  if(amount<=0){
+    toast("金額を入力してください");
+    return;
+  }
 
- save();
- closeModal();
- render();
- toast("FALL LOGGED");
+  state.wealthLogs.push({
+    date:todayKey(),
+    amount,
+    what,
+    necessary
+  });
+
+  const day=ensureToday();
+
+  /*
+    Wealth score means:
+    "I consciously managed my spending today."
+    Not "I spent zero yen".
+  */
+  if(!necessary){
+    day.wealth=false;
+  }else{
+    day.wealth=true;
+  }
+
+  save();
+  closeModal();
+  render();
+
+  toast(
+    necessary
+      ? "必要な支出として記録"
+      : "無駄遣いを記録。隠さない。"
+  );
 }
 
-/* =========================================================
-   WEALTH / 無駄遣い
-   ========================================================= */
+/* -----------------------------
+   MISSION
+----------------------------- */
 
-function openWealthCheck(){
- const d=today();
+function completeMission(){
+  const day=ensureToday();
 
- openModal(`
-  <div class="modal-head">
-   <div>
-    <div class="modal-title">WEALTH CONTROL</div>
-    <div class="tiny">金をコントロールする</div>
-   </div>
-   <button class="close" onclick="closeModal()">×</button>
-  </div>
+  if(day.mission){
+    toast("MISSION COMPLETE");
+    return;
+  }
 
-  <div class="quote">
-   WEALTH SCOREは「いくら稼いだか」ではなく、
-   <br>
-   <strong>今日、自分の金をコントロールできたか。</strong>
-  </div>
+  day.mission=true;
 
-  <div style="height:12px"></div>
+  save();
+  render();
 
-  <button
-   class="btn ${d.wealthChecked&&d.waste===false?"primary":"secondary"}"
-   onclick="setWealth(false)"
-  >
-   NO WASTE TODAY
-   <div style="font-size:8px;margin-top:3px;font-weight:500">
-    今日、無駄遣いなし · +10
-   </div>
-  </button>
-
-  <div style="height:8px"></div>
-
-  <button
-   class="btn ${d.wealthChecked&&d.waste===true?"danger":"secondary"}"
-   onclick="setWealth(true)"
-  >
-   WASTE HAPPENED
-   <div style="font-size:8px;margin-top:3px;font-weight:500">
-    無駄遣いあり · 今日は0点
-   </div>
-  </button>
-
-  <div class="tiny" style="margin-top:14px">
-   必要な生活費・交通費・予定していた支出は無駄遣いに含めない。
-   「必要ないのに買った」が基準。
-  </div>
- `);
+  toast("+15 XP  MISSION COMPLETE");
 }
 
-function setWealth(waste){
- const d=today();
+/* -----------------------------
+   CODE
+----------------------------- */
 
- d.waste=!!waste;
- d.wealthChecked=true;
+function toggleCode(id){
+  const day=ensureToday();
 
- save();
- closeModal();
- render();
+  day.code[id]=!day.code[id];
 
- toast(
-  waste
-   ? "WEALTH 0 — RETURN"
-   : "WEALTH +10 — CONTROL"
- );
+  save();
+  updateTodayUI();
 }
 
-/* =========================================================
-   FOOD
-   ========================================================= */
+function updateTodayUI(){
+  const score=todayScore();
 
-function openFood(){
- openModal(`
-  <div class="modal-head">
-   <div>
-    <div class="modal-title">FOOD LOG</div>
-    <div class="tiny">食事記録</div>
-   </div>
-   <button class="close" onclick="closeModal()">×</button>
-  </div>
+  const scoreEl=document.getElementById("todayScore");
+  const bar=document.getElementById("scoreBar");
 
-  <div class="form-grid">
-   <div class="field">
-    <label>KCAL</label>
-    <input id="foodKcal" type="number" placeholder="0">
-   </div>
-   <div class="field">
-    <label>PROTEIN</label>
-    <input id="foodProtein" type="number" placeholder="0">
-   </div>
-  </div>
+  if(scoreEl) scoreEl.textContent=score;
+  if(bar) bar.style.width=score+"%";
 
-  <div class="field">
-   <label>WATER / ML</label>
-   <input id="foodWater" type="number" placeholder="0">
-  </div>
+  const missionStatus=document.getElementById("missionStatus");
 
-  <button class="btn primary" onclick="saveFood()">SAVE FOOD</button>
- `);
+  if(missionStatus){
+    missionStatus.innerHTML=ensureToday().mission
+      ? `<span class="status-done">✓ COMPLETE / 完了</span>`
+      : `<span class="status-open">OPEN / 未完了</span>`;
+  }
+}
+
+/* -----------------------------
+   HOUSEWORK
+----------------------------- */
+
+function toggleHousework(id){
+  const day=ensureToday();
+
+  if(!day.houseworkItems){
+    day.houseworkItems={};
+  }
+
+  day.houseworkItems[id]=!day.houseworkItems[id];
+
+  day.housework=
+    Object.values(day.houseworkItems).some(Boolean);
+
+  save();
+  updateHouseworkUI();
+  updateTodayUI();
+}
+
+function updateHouseworkUI(){
+  HOUSEWORK.forEach(item=>{
+    const id=item[0];
+    const el=document.getElementById("house-"+id);
+
+    if(el){
+      el.checked=!!ensureToday().houseworkItems?.[id];
+    }
+  });
+
+  const day=ensureToday();
+  const status=document.getElementById("houseworkStatus");
+
+  if(status){
+    const count=Object.values(day.houseworkItems||{})
+      .filter(Boolean).length;
+
+    status.textContent=count
+      ? `${count} COMPLETE`
+      : "0 COMPLETE";
+  }
+}
+
+/* -----------------------------
+   BODY / FOOD
+----------------------------- */
+
+function logFood(){
+  openModal(`
+    <div class="modal-title">BODY / FOOD</div>
+    <div class="modal-sub">食事を記録する / 目標は目安として管理</div>
+
+    <div class="field">
+      <div class="field-label">CALORIES / KCAL</div>
+      <input id="foodKcal" type="number" inputmode="numeric" placeholder="1800">
+    </div>
+
+    <div class="field">
+      <div class="field-label">PROTEIN / G</div>
+      <input id="foodProtein" type="number" inputmode="numeric" placeholder="150">
+    </div>
+
+    <div class="field">
+      <div class="field-label">WATER / ML</div>
+      <input id="foodWater" type="number" inputmode="numeric" placeholder="2000">
+    </div>
+
+    <button class="btn btn-primary" onclick="saveFood()">
+      SAVE FOOD LOG
+    </button>
+  `);
 }
 
 function saveFood(){
- const kcal=Number(document.getElementById("foodKcal").value)||0;
- const protein=Number(document.getElementById("foodProtein").value)||0;
- const water=Number(document.getElementById("foodWater").value)||0;
+  const kcal=Number(document.getElementById("foodKcal").value||0);
+  const protein=Number(document.getElementById("foodProtein").value||0);
+  const water=Number(document.getElementById("foodWater").value||0);
 
- state.food.unshift({
-  date:todayKey(),
-  kcal,
-  protein,
-  water
- });
+  state.foodLogs.push({
+    date:todayKey(),
+    kcal,
+    protein,
+    water
+  });
 
- today().body=true;
+  ensureToday().body=true;
 
- save();
- closeModal();
- render();
- toast("FOOD LOGGED");
+  save();
+  closeModal();
+  render();
+  toast("BODY LOGGED");
 }
 
-/* =========================================================
-   WEIGHT
-   ========================================================= */
+function logWeight(){
+  openModal(`
+    <div class="modal-title">BODY CHECK</div>
+    <div class="modal-sub">体重を記録</div>
 
-function openWeight(){
- openModal(`
-  <div class="modal-head">
-   <div>
-    <div class="modal-title">BODY LOG</div>
-    <div class="tiny">身体を記録する</div>
-   </div>
-   <button class="close" onclick="closeModal()">×</button>
-  </div>
+    <div class="field">
+      <div class="field-label">WEIGHT / KG</div>
+      <input id="weightInput" type="number" step="0.1" inputmode="decimal" placeholder="84.2">
+    </div>
 
-  <div class="field">
-   <label>WEIGHT / KG</label>
-   <input id="weightInput" type="number" step="0.1" placeholder="84.0">
-  </div>
-
-  <button class="btn primary" onclick="saveWeight()">SAVE</button>
- `);
+    <button class="btn btn-primary" onclick="saveWeight()">
+      SAVE
+    </button>
+  `);
 }
 
 function saveWeight(){
- const weight=Number(document.getElementById("weightInput").value);
+  const weight=Number(document.getElementById("weightInput").value||0);
 
- if(!weight)return;
+  if(weight<=0){
+    toast("体重を入力してください");
+    return;
+  }
 
- state.weightLogs.unshift({
-  date:todayKey(),
-  weight
- });
+  state.weightLogs=state.weightLogs||[];
 
- today().body=true;
+  state.weightLogs.push({
+    date:todayKey(),
+    weight
+  });
 
- save();
- closeModal();
- render();
- toast("BODY LOGGED");
+  ensureToday().body=true;
+
+  save();
+  closeModal();
+  render();
+  toast("BODY CHECK SAVED");
 }
 
-/* =========================================================
-   SIDE INCOME
-   ========================================================= */
-
-function openIncome(){
- openModal(`
-  <div class="modal-head">
-   <div>
-    <div class="modal-title">SIDE INCOME</div>
-    <div class="tiny">副業収入 · 今月</div>
-   </div>
-   <button class="close" onclick="closeModal()">×</button>
-  </div>
-
-  <div class="stat" style="margin-bottom:12px">
-   <div class="stat-label">THIS MONTH / 今月</div>
-   <div class="stat-value">
-    ¥${monthIncome().toLocaleString()}
-   </div>
-  </div>
-
-  <div class="field">
-   <label>AMOUNT / 金額</label>
-   <input id="incomeAmount" type="number" placeholder="5000">
-  </div>
-
-  <div class="field">
-   <label>NOTE / 内容</label>
-   <input id="incomeNote" placeholder="清掃 / その他">
-  </div>
-
-  <button class="btn primary" onclick="saveIncome()">ADD INCOME</button>
-
-  <div class="tiny" style="margin-top:12px">
-   毎月1日に「今月」の金額は自動的に0円からスタート。
-   過去の記録は履歴に残る。
-  </div>
- `);
+function latestWeight(){
+  if(!state.weightLogs?.length) return null;
+  return state.weightLogs[state.weightLogs.length-1].weight;
 }
 
-function saveIncome(){
- const amount=Number(
-  document.getElementById("incomeAmount").value
- );
-
- const note=document.getElementById("incomeNote").value.trim();
-
- if(!amount||amount<=0){
-  toast("金額を入力");
-  return;
- }
-
- addIncome(amount,note);
-}
-
-/* =========================================================
+/* -----------------------------
    TRAINING
-   ========================================================= */
+----------------------------- */
 
-function currentRoutine(){
- const name=SCHEDULE[new Date().getDay()];
-
- return state.routines.find(r=>r.name===name)||null;
+function todayRoutine(){
+  return SCHEDULE[new Date().getDay()];
 }
 
-function openWorkout(name){
- const routine=state.routines.find(r=>r.name===name);
+function startWorkout(name){
+  const routine=state.routines[name];
 
- if(!routine)return;
+  if(!routine){
+    toast("Routine not found");
+    return;
+  }
 
- let html=`
-  <div class="modal-head">
-   <div>
-    <div class="modal-title">${esc(routine.name)} / BUILD</div>
-    <div class="tiny">実績値を記録</div>
-   </div>
-   <button class="close" onclick="closeModal()">×</button>
-  </div>
- `;
-
- routine.exercises.forEach((e,i)=>{
-  html+=`
-   <div class="exercise">
-    <div class="exercise-name">${esc(e.name)}</div>
-    <div class="exercise-target">
-     TARGET · ${e.weight}kg × ${e.reps} × ${e.sets}
-    </div>
-
-    <div class="exercise-grid">
-     <div>
-      <label>KG</label>
-      <input id="wk${i}kg" type="number" step="0.5" value="${e.weight}">
-     </div>
-     <div>
-      <label>REPS</label>
-      <input id="wk${i}reps" type="number" value="${e.reps}">
-     </div>
-     <div>
-      <label>SETS</label>
-      <input id="wk${i}sets" type="number" value="${e.sets}">
-     </div>
-    </div>
-   </div>
+  let html=`
+    <div class="modal-title">${escapeHTML(name)}</div>
+    <div class="modal-sub">TARGET / 今日の予定</div>
   `;
- });
 
- html+=`
-  <button class="btn primary" onclick="saveWorkout('${escAttr(name)}')">
-   COMPLETE WORKOUT
-  </button>
- `;
+  routine.forEach((ex,i)=>{
+    html+=`
+      <div class="exercise-row">
+        <div class="exercise-name">${escapeHTML(ex.name)}</div>
+        <div class="exercise-target">
+          TARGET ${ex.weight}kg × ${ex.reps} × ${ex.sets}
+        </div>
 
- openModal(html);
+        <div class="exercise-inputs">
+          <input
+            id="wk_${i}_kg"
+            type="number"
+            step="0.5"
+            inputmode="decimal"
+            placeholder="${ex.weight}"
+          >
+
+          <input
+            id="wk_${i}_reps"
+            type="number"
+            inputmode="numeric"
+            placeholder="${ex.reps}"
+          >
+
+          <input
+            id="wk_${i}_sets"
+            type="number"
+            inputmode="numeric"
+            placeholder="${ex.sets}"
+          >
+        </div>
+      </div>
+    `;
+  });
+
+  html+=`
+    <div style="margin-top:17px">
+      <button class="btn btn-primary"
+        onclick='saveWorkout(${JSON.stringify(name)})'>
+        COMPLETE WORKOUT
+      </button>
+    </div>
+
+    <div class="rule">
+      完了登録は1日1回。実績値を保存。未完でも記録してOK。
+    </div>
+  `;
+
+  openModal(html);
 }
 
 function saveWorkout(name){
- const routine=state.routines.find(r=>r.name===name);
+  const routine=state.routines[name];
 
- if(!routine)return;
+  const exercises=routine.map((ex,i)=>{
+    const kg=Number(document.getElementById(`wk_${i}_kg`).value||ex.weight);
+    const reps=Number(document.getElementById(`wk_${i}_reps`).value||ex.reps);
+    const sets=Number(document.getElementById(`wk_${i}_sets`).value||ex.sets);
 
- const exercises=routine.exercises.map((e,i)=>({
-  name:e.name,
-  targetWeight:e.weight,
-  targetReps:e.reps,
-  targetSets:e.sets,
-  weight:Number(document.getElementById(`wk${i}kg`).value)||e.weight,
-  reps:Number(document.getElementById(`wk${i}reps`).value)||e.reps,
-  sets:Number(document.getElementById(`wk${i}sets`).value)||e.sets
- }));
+    return {
+      name:ex.name,
+      targetWeight:ex.weight,
+      targetReps:ex.reps,
+      targetSets:ex.sets,
+      kg,
+      reps,
+      sets
+    };
+  });
 
- state.trainingLogs.unshift({
-  date:todayKey(),
-  routine:name,
-  exercises
- });
+  state.trainingLogs.push({
+    date:todayKey(),
+    routine:name,
+    exercises
+  });
 
- today().workout=true;
- today().body=true;
+  const day=ensureToday();
+  day.workout=true;
+  day.body=true;
 
- save();
- closeModal();
- render();
- toast("WORKOUT COMPLETE");
+  save();
+  closeModal();
+  render();
+
+  toast("+25 XP  WORKOUT COMPLETE");
 }
 
-/* =========================================================
-   ROUTINE EDITOR
-   ========================================================= */
-
-function openRoutineEditor(index){
- const r=state.routines[index];
-
- openModal(`
-  <div class="modal-head">
-   <div>
-    <div class="modal-title">EDIT ROUTINE</div>
-    <div class="tiny">${esc(r.name)}</div>
-   </div>
-   <button class="close" onclick="closeModal()">×</button>
-  </div>
-
-  <div class="field">
-   <label>ROUTINE NAME</label>
-   <input id="routineName" value="${esc(r.name)}">
-  </div>
-
-  ${r.exercises.map((e,i)=>`
-   <div class="exercise">
-    <div class="field">
-     <label>EXERCISE ${i+1}</label>
-     <input id="ex${i}name" value="${esc(e.name)}">
-    </div>
-
-    <div class="exercise-grid">
-     <div>
-      <label>KG</label>
-      <input id="ex${i}kg" type="number" value="${e.weight}">
-     </div>
-     <div>
-      <label>REPS</label>
-      <input id="ex${i}reps" type="number" value="${e.reps}">
-     </div>
-     <div>
-      <label>SETS</label>
-      <input id="ex${i}sets" type="number" value="${e.sets}">
-     </div>
-    </div>
-   </div>
-  `).join("")}
-
-  <button class="btn primary" onclick="saveRoutine(${index})">
-   SAVE ROUTINE
-  </button>
-
-  <div style="height:8px"></div>
-
-  <button class="btn danger" onclick="deleteRoutine(${index})">
-   DELETE ROUTINE
-  </button>
- `);
+function trainingHistory(){
+  return [...state.trainingLogs].reverse().slice(0,20);
 }
 
-function saveRoutine(index){
- const r=state.routines[index];
+function prForExercise(name){
+  const rows=[];
 
- r.name=document.getElementById("routineName").value.trim()||r.name;
+  state.trainingLogs.forEach(log=>{
+    log.exercises?.forEach(ex=>{
+      if(ex.name===name){
+        rows.push(ex);
+      }
+    });
+  });
 
- r.exercises=r.exercises.map((e,i)=>({
-  name:document.getElementById(`ex${i}name`).value.trim()||e.name,
-  weight:Number(document.getElementById(`ex${i}kg`).value)||0,
-  reps:Number(document.getElementById(`ex${i}reps`).value)||0,
-  sets:Number(document.getElementById(`ex${i}sets`).value)||0
- }));
+  if(!rows.length) return null;
 
- save();
- closeModal();
- render();
- toast("ROUTINE SAVED");
+  rows.sort((a,b)=>{
+    if(b.kg!==a.kg) return b.kg-a.kg;
+    return b.reps-a.reps;
+  });
+
+  return rows[0];
 }
 
-function addRoutine(){
- const name=prompt("Routine name?");
-
- if(!name)return;
-
- state.routines.push({
-  name:name.toUpperCase(),
-  exercises:[
-   {name:"Exercise 1",weight:0,reps:10,sets:3}
-  ]
- });
-
- save();
- render();
-}
-
-function deleteRoutine(index){
- if(!confirm("このルーティンを削除しますか？"))return;
-
- state.routines.splice(index,1);
-
- save();
- closeModal();
- render();
-}
-
-/* =========================================================
+/* -----------------------------
    RESPONSIBILITY / PRESENCE
-   ========================================================= */
+----------------------------- */
 
 const RESPONSIBILITY=[
- ["rent","自分の責任を人のせいにしなかった","OWN YOUR RESPONSIBILITY"],
- ["promise","約束を守った","KEEP YOUR PROMISE"],
- ["work","仕事を最後までやった","FINISH YOUR WORK"],
- ["mistake","ミスをごまかさなかった","OWN YOUR MISTAKE"]
+  ["time","時間を守った"],
+  ["work","やるべき仕事を放置しなかった"],
+  ["money","金の管理をした"],
+  ["promise","約束を守った"],
+  ["cleanup","自分の後始末をした"]
 ];
 
 const PRESENCE=[
- ["phone","人といる時にスマホを置いた","BE PRESENT"],
- ["listen","相手の話を最後まで聞いた","LISTEN"],
- ["calm","感情的な反応を一度止めた","STAY CALM"],
- ["respect","相手を尊重した","SHOW RESPECT"]
+  ["posture","姿勢を意識した"],
+  ["eye","相手の目を見て話した"],
+  ["voice","落ち着いて話した"],
+  ["phone","会話中にスマホを見なかった"],
+  ["respect","相手を雑に扱わなかった"]
 ];
 
-function toggleMeta(group,id){
- if(!state[group])state[group]={};
+function toggleTrait(type,id){
+  const store=type==="responsibility"
+    ? state.responsibility
+    : state.presence;
 
- const key=todayKey();
+  const key=todayKey();
 
- if(!state[group][key])state[group][key]={};
+  if(!store[key]) store[key]={};
 
- state[group][key][id]=!state[group][key][id];
+  store[key][id]=!store[key][id];
 
- save();
- render();
+  const day=ensureToday();
+
+  const values=Object.values(store[key]);
+  day[type]=values.some(Boolean);
+
+  save();
+  render();
 }
 
-/* =========================================================
-   JOURNAL
-   ========================================================= */
+/* -----------------------------
+   FALL LOG
+----------------------------- */
 
-function openJournal(){
- openModal(`
-  <div class="modal-head">
-   <div>
-    <div class="modal-title">WAR LOG</div>
-    <div class="tiny">今日の記録</div>
-   </div>
-   <button class="close" onclick="closeModal()">×</button>
-  </div>
+function addFall(){
+  openModal(`
+    <div class="modal-title">FALL LOG</div>
+    <div class="modal-sub">失敗は減点ではない。隠さず記録する。</div>
 
-  <div class="field">
-   <label>WHAT MATTERED TODAY?</label>
-   <textarea id="journalText" placeholder="今日、何があった？"></textarea>
-  </div>
-
-  <button class="btn primary" onclick="saveJournal()">SAVE LOG</button>
- `);
-}
-
-function saveJournal(){
- const text=document.getElementById("journalText").value.trim();
-
- if(!text)return;
-
- state.journal.unshift({
-  date:todayKey(),
-  text
- });
-
- save();
- closeModal();
- render();
- toast("WAR LOG SAVED");
-}
-
-/* =========================================================
-   MANHOOD SCORE
-   行動履歴から算出する「行動指数」。
-   ========================================================= */
-
-function manhoodScores(){
- const days=Object.values(state.days);
-
- const active=days.filter(d=>scoreForDay(d)>0).length;
- const workouts=days.filter(d=>d.workout).length;
- const missions=days.filter(d=>d.mission).length;
-
- const incomeActions=state.sideIncome.length;
- const responsibilityCount=Object.values(state.responsibility)
-  .reduce((n,x)=>n+Object.values(x||{}).filter(Boolean).length,0);
-
- const presenceCount=Object.values(state.presence)
-  .reduce((n,x)=>n+Object.values(x||{}).filter(Boolean).length,0);
-
- const codeTotal=days.reduce(
-  (n,d)=>n+dailyCodeCount(d.date),0
- );
-
- return {
-  COURAGE:Math.min(100,35+missions*3),
-  DISCIPLINE:Math.min(100,35+active*2+codeTotal),
-  RESPONSIBILITY:Math.min(100,35+responsibilityCount*3),
-  RESPECT:Math.min(100,40+presenceCount*3),
-  PRESENCE:Math.min(100,35+presenceCount*3),
-  LOVE:Math.min(100,40+codeTotal),
-  WEALTH:Math.min(100,35+incomeActions*2),
-  BODY:Math.min(100,35+workouts*3)
- };
-}
-
-/* =========================================================
-   RENDER
-   ========================================================= */
-
-function render(){
- today();
- const level=levelInfo();
-
- document.getElementById("app").innerHTML=`
-  <header class="header">
-   <div class="logo">RESURGIR</div>
-   <div class="rank">
-    <strong>LV.${level.level} · ${level.rank}</strong>
-    <span>${level.xp.toLocaleString()} XP</span>
-   </div>
-  </header>
-
-  <main class="screen">
-   ${renderScreen()}
-  </main>
- `;
-
- document.querySelectorAll(".nav-btn").forEach(btn=>{
-  btn.classList.toggle(
-   "active",
-   btn.dataset.screen===currentScreen
-  );
-
-  btn.onclick=()=>{
-   currentScreen=btn.dataset.screen;
-   render();
-   window.scrollTo({top:0,behavior:"smooth"});
-  };
- });
-}
-
-function renderScreen(){
- switch(currentScreen){
-  case"BUILD":return renderBuild();
-  case"CODE":return renderCode();
-  case"LOG":return renderLog();
-  case"MORE":return renderMore();
-  default:return renderHome();
- }
-}
-
-/* =========================================================
-   HOME
-   ========================================================= */
-
-function renderHome(){
- const d=today();
- const m=getMission();
- const codes=dailyCodes();
- const level=levelInfo();
- const review=reviewStatus();
- const wk=reviewTargetWeek();
- const side=monthIncome();
- const incomeGoal=50000;
-
- return `
-  <div class="hero">
-   <div class="eyebrow">SELF-MASTERY OPERATING SYSTEM</div>
-   <h1>THE MAN YOU SAID<br>YOU'D BECOME.</h1>
-   <div class="hero-jp">
-    自分との約束を守れる男へ。
-   </div>
-  </div>
-
-  <div class="card">
-   <div class="score-wrap">
-    <div>
-     <div class="score">${todayScore()}</div>
-     <div class="score-label">TODAY SCORE / 今日の行動点</div>
+    <div class="field">
+      <div class="field-label">TYPE</div>
+      <select id="fallType">
+        ${FALL_TYPES.map(x=>`
+          <option value="${x}">${x}</option>
+        `).join("")}
+      </select>
     </div>
 
-    <div style="text-align:right">
-     <div class="score-label">STREAK</div>
-     <div style="font-size:24px;font-weight:850">${streak()}D</div>
-    </div>
-   </div>
-
-   <div class="progress">
-    <div style="width:${(todayScore()/90)*100}%"></div>
-   </div>
-
-   <div class="tiny" style="margin-top:8px">
-    DAILY MAX 90 · CODE 30 / BUILD 35 / WEALTH 10 / MISSION 15
-   </div>
-  </div>
-
-  <div class="stat-grid">
-   <div class="stat">
-    <div class="stat-label">SIDE INCOME</div>
-    <div class="stat-value">¥${side.toLocaleString()}</div>
-    <div class="stat-jp">今月の副業収入</div>
-   </div>
-
-   <div class="stat">
-    <div class="stat-label">LEVEL</div>
-    <div class="stat-value">${level.level}</div>
-    <div class="stat-jp">${level.rank}</div>
-   </div>
-  </div>
-
-  <div class="section-title">
-   DAILY MISSION <span>今日の使命</span>
-  </div>
-
-  <div class="card mission">
-   <div class="mission-cat">${m.cat}</div>
-   <h2>${esc(m.jp)}</h2>
-   <div class="mission-en">${esc(m.en)}</div>
-
-   <div class="mission-meta">
-    <span class="xp">+15 XP</span>
-    <span class="tiny">
-     ${d.mission?"COMPLETED":"TODAY ONLY"}
-    </span>
-   </div>
-
-   ${
-    d.mission
-    ?`
-      <button class="btn primary" disabled>
-       MISSION COMPLETE
-      </button>
-     `
-    :`
-      <button class="btn primary" onclick="completeMission()">
-       COMPLETE MISSION
-      </button>
-     `
-   }
-
-   <div style="height:8px"></div>
-
-   <button
-    class="btn secondary small-btn"
-    onclick="rerollMission()"
-    ${state.rerolls[todayKey()]>=1?"disabled":""}
-   >
-    ${
-     state.rerolls[todayKey()]>=1
-     ?"REROLL USED / 再抽選済み"
-     :"REROLL ONCE / 1日1回再抽選"
-    }
-   </button>
-
-   <div class="tiny" style="margin-top:10px">
-    毎日0:00に自動更新。大量のMISSIONからランダム抽選。
-    同じMISSIONの連続出現は防止。
-   </div>
-  </div>
-
-  <div class="section-title">
-   DAILY CODE <span>今日の戒律</span>
-  </div>
-
-  <div class="card">
-   <div class="check-list">
-    ${codes.map(c=>`
-     <div class="check-item ${d.code[c.id]?"done":""}">
-      <button
-       class="check-toggle ${d.code[c.id]?"active":""}"
-       onclick="toggleCode('${c.id}')"
-      ></button>
-      <div class="check-content">
-       <div class="check-main">${esc(c.jp)}</div>
-       <div class="check-sub">${esc(c.en)}</div>
-      </div>
-     </div>
-    `).join("")}
-   </div>
-
-   <div class="tiny" style="margin-top:11px">
-    毎日3項目を抽選。1項目10XP。0:00に更新。
-   </div>
-  </div>
-
-  <div class="section-title">
-   WEALTH <span>金をコントロールする</span>
-  </div>
-
-  <div class="card">
-   <div class="card-head">
-    <div>
-     <div class="card-title">WEALTH CONTROL</div>
-     <div class="card-sub">NO WASTE / 無駄遣いなし</div>
+    <div class="field">
+      <div class="field-label">WHAT HAPPENED?</div>
+      <textarea id="fallNote"
+        placeholder="何が起きたかを短く書く"></textarea>
     </div>
 
-    ${
-     d.wealthChecked
-     ?`<span class="status ${d.waste?"":"done"}">
-       ${d.waste?"WASTE":"CONTROLLED"}
-      </span>`
-     :""
-    }
-   </div>
-
-   <div class="tiny" style="margin-bottom:12px">
-    今日、必要のない出費をしなかったら +10。
-   </div>
-
-   <button class="btn secondary" onclick="openWealthCheck()">
-    ${d.wealthChecked?"CHANGE TODAY'S STATUS":"CHECK WEALTH"}
-   </button>
-  </div>
-
-  <div class="section-title">
-   WEEKLY REVIEW <span>週次レビュー</span>
-  </div>
-
-  <div class="card">
-   <div class="card-head">
-    <div>
-     <div class="card-title">REVIEW · ${weekLabel(wk)}</div>
-     <div class="card-sub">振り返りだけ。WEEKLY BOSSは存在しない。</div>
+    <div class="field">
+      <div class="field-label">NEXT MOVE</div>
+      <textarea id="fallNext"
+        placeholder="次に何をするか"></textarea>
     </div>
 
-    <span class="status ${review==="OPEN"?"open":review==="DONE"?"done":""}">
-     ${review}
-    </span>
-   </div>
+    <button class="btn btn-primary" onclick="saveFall()">
+      LOG THE FALL
+    </button>
+  `);
+}
 
-   <button class="btn secondary" onclick="openWeeklyReview()">
-    OPEN WEEKLY REVIEW
-   </button>
+function saveFall(){
+  const type=document.getElementById("fallType").value;
+  const note=document.getElementById("fallNote").value.trim();
+  const next=document.getElementById("fallNext").value.trim();
 
-   <div class="tiny" style="margin-top:10px">
-    原則：毎週日曜21:00–23:59。
-    未実施でも後から記録可能。
-   </div>
-  </div>
+  state.falls.push({
+    date:todayKey(),
+    type,
+    note,
+    next
+  });
 
-  ${
-   state.falls.some(f=>f.date===todayKey())
-   ?`
-    <div class="card">
-     <div class="card-title">RETURN</div>
-     <div class="tiny" style="margin:7px 0 13px">
-      FALLを記録した。終わりではない。次の正しい行動へ戻る。
-     </div>
-     <button class="btn primary" onclick="goCode()">
-      RETURN TO CODE
-     </button>
-    </div>
-   `
-   :""
+  save();
+  closeModal();
+  render();
+
+  toast("FALL LOGGED — RETURN");
+}
+
+/* -----------------------------
+   REVIEW
+----------------------------- */
+
+function weekStart(date=new Date()){
+  const d=new Date(date);
+  const day=d.getDay();
+  const diff=day===0 ? -6 : 1-day;
+  d.setDate(d.getDate()+diff);
+
+  return todayKey(d);
+}
+
+function weekKey(date=new Date()){
+  return weekStart(date);
+}
+
+function previousWeekKey(){
+  const d=dateObj(weekKey());
+  d.setDate(d.getDate()-7);
+  return todayKey(d);
+}
+
+function weekDays(startKey){
+  const start=dateObj(startKey);
+  const arr=[];
+
+  for(let i=0;i<7;i++){
+    const d=new Date(start);
+    d.setDate(d.getDate()+i);
+    arr.push(todayKey(d));
   }
 
-  <div class="card">
-   <div class="card-title">3 MIN FLOW</div>
-   <div class="tiny" style="margin-top:8px">
-    ① CODEを確認 → ② MISSIONを完了 → ③ 今日の行動を記録。
-    <br>
-    小さくても、毎日戻る。
-   </div>
-  </div>
- `;
+  return arr;
 }
 
-function completeMission(){
- const d=today();
+function weekStats(startKey){
+  const days=weekDays(startKey);
 
- if(d.mission){
-  toast("MISSION ALREADY COMPLETE");
-  return;
- }
+  const records=days.map(k=>state.days[k]).filter(Boolean);
 
- d.mission=true;
+  const scores=records.map(dayScore);
 
- save();
- render();
- toast("MISSION COMPLETE +15 XP");
+  const total=scores.reduce((a,b)=>a+b,0);
+
+  return {
+    active:records.filter(dayHasActivity).length,
+    workouts:records.filter(x=>x.workout).length,
+    housework:records.filter(x=>x.housework).length,
+    falls:days.filter(hasFall).length,
+    avg:records.length ? Math.round(total/records.length) : 0,
+    score:total,
+    clean:days.filter(k=>{
+      const d=state.days[k];
+      return d && dayHasActivity(d) && !hasFall(k);
+    }).length
+  };
 }
 
-function toggleCode(id){
- const d=today();
+function reviewTarget(){
+  const now=new Date();
 
- d.code[id]=!d.code[id];
+  /*
+    Sunday 21:00+ reviews the current week.
+    Otherwise show the previous completed week.
+  */
+  if(now.getDay()===0 && now.getHours()>=21){
+    return weekKey(now);
+  }
 
- save();
- render();
+  return previousWeekKey();
 }
 
-function goCode(){
- currentScreen="CODE";
- render();
- window.scrollTo({top:0,behavior:"smooth"});
-}
+function openReview(){
+  const target=reviewTarget();
+  const stats=weekStats(target);
+  const existing=state.reviews[target]||{};
 
-/* =========================================================
-   BUILD
-   ========================================================= */
-
-function renderBuild(){
- const routine=currentRoutine();
- const dayName=[
-  "SUNDAY",
-  "MONDAY",
-  "TUESDAY",
-  "WEDNESDAY",
-  "THURSDAY",
-  "FRIDAY",
-  "SATURDAY"
- ][new Date().getDay()];
-
- return `
-  <div class="hero">
-   <div class="eyebrow">BUILD</div>
-   <h1>BUILD THE BODY.<br>BUILD THE LIFE.</h1>
-   <div class="hero-jp">身体・食事・仕事を積み上げる。</div>
-  </div>
-
-  <div class="card">
-   <div class="card-head">
-    <div>
-     <div class="card-title">TODAY'S TRAINING</div>
-     <div class="card-sub">${dayName} · 今日の予定</div>
-    </div>
-   </div>
-
-   ${
-    routine
-    ?`
-     <div style="font-size:25px;font-weight:900;margin-bottom:5px">
-      ${esc(routine.name)}
-     </div>
-
-     <div class="tiny">
-      ${routine.exercises.length} exercises · 実績値を記録
-     </div>
-
-     <div style="height:12px"></div>
-
-     <button class="btn primary" onclick="openWorkout('${escAttr(routine.name)}')">
-      START WORKOUT
-     </button>
-    `
-    :`
-     <div class="empty">今日のルーティンなし。</div>
-    `
-   }
-
-   <div class="tiny" style="margin-top:10px">
-    完了登録は1日1回。実績値をトレーニング履歴に保存。
-   </div>
-  </div>
-
-  <div class="section-title">
-   BODY <span>身体</span>
-  </div>
-
-  <div class="card">
-   <div class="stat-grid">
-    <div class="stat">
-     <div class="stat-label">LATEST WEIGHT</div>
-     <div class="stat-value">
-      ${
-       state.weightLogs.length
-       ?state.weightLogs[0].weight+"kg"
-       :"—"
-      }
-     </div>
-     <div class="stat-jp">最新体重</div>
+  openModal(`
+    <div class="modal-title">WEEKLY REVIEW</div>
+    <div class="modal-sub">
+      週次レビュー / 毎週日曜 21:00–23:59 が基本
     </div>
 
-    <div class="stat">
-     <div class="stat-label">TODAY BODY</div>
-     <div class="stat-value">${today().body?"+10":"0"}</div>
-     <div class="stat-jp">身体記録</div>
-    </div>
-   </div>
-
-   <div style="height:10px"></div>
-
-   <div class="btn-row">
-    <button class="btn secondary" onclick="openWeight()">BODY LOG</button>
-    <button class="btn secondary" onclick="openFood()">FOOD LOG</button>
-   </div>
-  </div>
-
-  <div class="section-title">
-   SIDE INCOME <span>副業収入</span>
-  </div>
-
-  <div class="card">
-   <div class="card-head">
-    <div>
-     <div class="card-title">THIS MONTH</div>
-     <div class="card-sub">今月の副業収入のみ</div>
-    </div>
-   </div>
-
-   <div style="font-size:38px;font-weight:900">
-    ¥${monthIncome().toLocaleString()}
-   </div>
-
-   <div class="tiny" style="margin-top:4px">
-    MONTHLY TARGET · ¥50,000
-   </div>
-
-   <div class="progress">
-    <div style="width:${Math.min(100,monthIncome()/50000*100)}%"></div>
-   </div>
-
-   <div style="height:12px"></div>
-
-   <button class="btn primary" onclick="openIncome()">
-    ADD SIDE INCOME
-   </button>
-
-   <div class="tiny" style="margin-top:10px">
-    月が変わると「今月」は自動リセット。過去の収入はLOGに残る。
-   </div>
-  </div>
-
-  <div class="section-title">
-   ROUTINES <span>トレーニング設定</span>
-  </div>
-
-  <div class="list">
-   ${
-    state.routines.map((r,i)=>`
-     <div class="list-row">
-      <div class="list-main">
-       <div class="list-title">${esc(r.name)}</div>
-       <div class="list-sub">
-        ${r.exercises.length} exercises
-       </div>
+    <div class="grid-2">
+      <div class="stat">
+        <div class="stat-value">${stats.avg}</div>
+        <div class="stat-label">AVG SCORE</div>
       </div>
 
-      <div style="display:flex;gap:6px">
-       <button
-        class="btn secondary small-btn"
-        onclick="openWorkout('${escAttr(r.name)}')"
-       >
-        START
-       </button>
-       <button
-        class="btn secondary small-btn"
-        onclick="openRoutineEditor(${i})"
-       >
-        EDIT
-       </button>
+      <div class="stat">
+        <div class="stat-value">${stats.workouts}</div>
+        <div class="stat-label">WORKOUTS</div>
       </div>
-     </div>
-    `).join("")
-   }
-  </div>
 
-  <div style="height:8px"></div>
-
-  <button class="btn secondary" onclick="addRoutine()">
-   + ADD ROUTINE
-  </button>
-
-  <div class="section-title">
-   RESPONSIBILITY <span>責任</span>
-  </div>
-
-  <div class="card">
-   <div class="check-list">
-    ${RESPONSIBILITY.map(x=>{
-     const checked=state.responsibility[todayKey()]?.[x[0]];
-
-     return `
-      <div class="check-item ${checked?"done":""}">
-       <button
-        class="check-toggle ${checked?"active":""}"
-        onclick="toggleMeta('responsibility','${x[0]}')"
-       ></button>
-
-       <div class="check-content">
-        <div class="check-main">${x[1]}</div>
-        <div class="check-sub">${x[2]}</div>
-       </div>
+      <div class="stat">
+        <div class="stat-value">${stats.clean}</div>
+        <div class="stat-label">CLEAN DAYS</div>
       </div>
-     `;
-    }).join("")}
-   </div>
-  </div>
 
-  <div class="section-title">
-   PRESENCE <span>存在感</span>
-  </div>
-
-  <div class="card">
-   <div class="check-list">
-    ${PRESENCE.map(x=>{
-     const checked=state.presence[todayKey()]?.[x[0]];
-
-     return `
-      <div class="check-item ${checked?"done":""}">
-       <button
-        class="check-toggle ${checked?"active":""}"
-        onclick="toggleMeta('presence','${x[0]}')"
-       ></button>
-
-       <div class="check-content">
-        <div class="check-main">${x[1]}</div>
-        <div class="check-sub">${x[2]}</div>
-       </div>
+      <div class="stat">
+        <div class="stat-value">${stats.falls}</div>
+        <div class="stat-label">FALLS</div>
       </div>
-     `;
-    }).join("")}
-   </div>
-  </div>
- `;
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="field">
+      <div class="field-label">WHAT WENT WELL?</div>
+      <textarea id="reviewWin"
+        placeholder="何が良かった？">${escapeHTML(existing.win||"")}</textarea>
+    </div>
+
+    <div class="field">
+      <div class="field-label">WHAT FAILED?</div>
+      <textarea id="reviewFail"
+        placeholder="どこで崩れた？">${escapeHTML(existing.fail||"")}</textarea>
+    </div>
+
+    <div class="field">
+      <div class="field-label">NEXT FOCUS</div>
+      <textarea id="reviewFocus"
+        placeholder="来週、何を変える？">${escapeHTML(existing.focus||"")}</textarea>
+    </div>
+
+    <button class="btn btn-primary" onclick='saveReview(${JSON.stringify(target)})'>
+      COMPLETE REVIEW
+    </button>
+
+    <div class="rule">
+      週の区切りは月曜〜日曜。レビューは日曜夜が基本。
+      未実施でも失格にはならない。記録を残すことを優先する。
+    </div>
+  `);
 }
 
-/* =========================================================
-   CODE
-   ========================================================= */
+function saveReview(target){
+  const win=document.getElementById("reviewWin").value.trim();
+  const fail=document.getElementById("reviewFail").value.trim();
+  const focus=document.getElementById("reviewFocus").value.trim();
 
-function renderCode(){
- const scores=manhoodScores();
- const d=today();
+  state.reviews[target]={
+    date:todayKey(),
+    win,
+    fail,
+    focus
+  };
 
- return `
-  <div class="hero">
-   <div class="eyebrow">THE CODE</div>
-   <h1>CONTROL YOURSELF.<br>KEEP YOUR WORD.</h1>
-   <div class="hero-jp">行動が、その男を作る。</div>
-  </div>
+  save();
+  closeModal();
+  render();
 
-  <div class="section-title">
-   DAILY CODE <span>今日の戒律</span>
-  </div>
-
-  <div class="card">
-   <div class="check-list">
-    ${dailyCodes().map(c=>`
-     <div class="check-item ${d.code[c.id]?"done":""}">
-      <button
-       class="check-toggle ${d.code[c.id]?"active":""}"
-       onclick="toggleCode('${c.id}')"
-      ></button>
-
-      <div class="check-content">
-       <div class="check-main">${esc(c.jp)}</div>
-       <div class="check-sub">${esc(c.en)}</div>
-      </div>
-     </div>
-    `).join("")}
-   </div>
-
-   <div class="tiny" style="margin-top:11px">
-    毎日3項目。1項目10XP。0:00に更新。
-   </div>
-  </div>
-
-  <div class="section-title">
-   MANHOOD SCORE <span>行動指数</span>
-  </div>
-
-  <div class="card">
-   <div class="tiny" style="margin-bottom:15px">
-    記録した行動から算出される参考指数。人格そのものを数値化するものではない。
-   </div>
-
-   ${Object.entries(scores).map(([name,value])=>`
-    <div class="bar-row">
-     <div class="bar-label">
-      <span>${name}</span>
-      <span>${value}</span>
-     </div>
-     <div class="bar">
-      <div style="width:${value}%"></div>
-     </div>
-    </div>
-   `).join("")}
-  </div>
-
-  <div class="section-title">
-   CONSTITUTION <span>憲章</span>
-  </div>
-
-  <div class="card">
-   <div class="quote">
-    BUILD LOVE.<br>
-    BUILD BODY.<br>
-    BUILD WEALTH.<br>
-    BUILD CHARACTER.<br><br>
-
-    KEEP YOUR WORD.<br>
-    DO WHAT YOU SAID YOU WOULD DO.<br><br>
-
-    FALL → RETURN → BUILD → RISE.<br><br>
-
-    <strong>RESURGIR.</strong>
-   </div>
-  </div>
- `;
+  toast("WEEKLY REVIEW COMPLETE");
 }
 
-/* =========================================================
-   LOG
-   ========================================================= */
+/* -----------------------------
+   MANHOOD SCORE
+----------------------------- */
 
-function renderLog(){
- const stats=weeklyStats(weekKey());
- const previous=weeklyStats(previousWeekKey());
+function manhoodScores(){
+  const days=Object.values(state.days);
+  const active=days.filter(dayHasActivity).length;
+  const workouts=state.trainingLogs.length;
+  const income=monthlyIncomeTotal();
 
- return `
-  <div class="hero">
-   <div class="eyebrow">WAR LOG</div>
-   <h1>RECORD IT.<br>LEARN FROM IT.</h1>
-   <div class="hero-jp">勝ちも失敗も、全部残す。</div>
-  </div>
+  const quests=days.filter(d=>d.mission).length;
+  const house=days.filter(d=>d.housework).length;
 
-  <div class="section-title">
-   THIS WEEK <span>今週</span>
-  </div>
+  const courage=Math.min(100,35+quests*4);
+  const discipline=Math.min(100,35+active*2);
+  const responsibility=Math.min(
+    100,
+    35+Object.values(state.responsibility)
+      .reduce((sum,x)=>sum+Object.values(x||{}).filter(Boolean).length*2,0)
+  );
 
-  <div class="card">
-   <div class="review-stats">
-    <div class="review-stat">
-     <strong>${stats.score}</strong>
-     <span>SCORE</span>
-    </div>
-    <div class="review-stat">
-     <strong>${stats.workouts}</strong>
-     <span>BUILD</span>
-    </div>
-    <div class="review-stat">
-     <strong>${stats.missions}</strong>
-     <span>MISSION</span>
-    </div>
-    <div class="review-stat">
-     <strong>${stats.clean}</strong>
-     <span>CLEAN</span>
-    </div>
-   </div>
-  </div>
+  const presence=Math.min(
+    100,
+    35+Object.values(state.presence)
+      .reduce((sum,x)=>sum+Object.values(x||{}).filter(Boolean).length*2,0)
+  );
 
-  <div class="section-title">
-   WEEKLY REVIEW <span>週次レビュー</span>
-  </div>
+  const body=Math.min(100,35+workouts*3);
+  const wealth=Math.min(
+    100,
+    45+
+    state.wealthLogs.filter(x=>x.necessary).length*2
+  );
 
-  <div class="card">
-   <div class="tiny" style="margin-bottom:12px">
-    ${weekLabel(reviewTargetWeek())}
-   </div>
+  const love=Math.min(
+    100,
+    45+
+    days.filter(d=>d.code?.reply).length*3
+  );
 
-   <button class="btn primary" onclick="openWeeklyReview()">
-    OPEN REVIEW
-   </button>
+  const respect=Math.min(
+    100,
+    45+
+    days.filter(d=>d.code?.lie===true).length*2+
+    house
+  );
 
-   <div class="tiny" style="margin-top:10px">
-    原則：毎週日曜21:00–23:59。
-    一週間のミッションは存在しない。レビューだけ行う。
-   </div>
-  </div>
+  return {
+    COURAGE:courage,
+    DISCIPLINE:discipline,
+    RESPONSIBILITY:responsibility,
+    RESPECT:respect,
+    PRESENCE:presence,
+    LOVE:love,
+    WEALTH:wealth,
+    BODY:body
+  };
+}
 
-  <div class="section-title">
-   SIDE INCOME HISTORY <span>副業収入履歴</span>
-  </div>
+/* -----------------------------
+   ROUTINE EDITOR
+----------------------------- */
 
-  <div class="list">
-   ${
-    state.sideIncome.length
-    ?state.sideIncome.slice(0,20).map(x=>`
-      <div class="list-row">
-       <div class="list-main">
-        <div class="list-title">
-         ¥${Number(x.amount).toLocaleString()}
+function editRoutine(name){
+  const routine=state.routines[name];
+
+  let html=`
+    <div class="modal-title">${escapeHTML(name)}</div>
+    <div class="modal-sub">ROUTINE EDITOR / メニュー編集</div>
+  `;
+
+  routine.forEach((ex,i)=>{
+    html+=`
+      <div class="field">
+        <div class="field-label">EXERCISE ${i+1}</div>
+        <input id="re_${i}_name"
+          value="${escapeAttr(ex.name)}"
+          placeholder="Exercise name">
+
+        <div style="height:7px"></div>
+
+        <div class="exercise-inputs">
+          <input id="re_${i}_kg"
+            type="number"
+            step="0.5"
+            value="${ex.weight}"
+            placeholder="kg">
+
+          <input id="re_${i}_reps"
+            type="number"
+            value="${ex.reps}"
+            placeholder="reps">
+
+          <input id="re_${i}_sets"
+            type="number"
+            value="${ex.sets}"
+            placeholder="sets">
         </div>
-        <div class="list-sub">
-         ${x.date} · ${esc(x.note||"SIDE INCOME")}
-        </div>
-       </div>
-       <span class="tag">${x.month}</span>
       </div>
-     `).join("")
-    :`<div class="empty">まだ副業収入の記録なし。</div>`
-   }
-  </div>
+    `;
+  });
 
-  <div class="section-title">
-   TRAINING HISTORY <span>トレーニング履歴</span>
-  </div>
+  html+=`
+    <button class="btn btn-primary"
+      onclick='saveRoutine(${JSON.stringify(name)})'>
+      SAVE ROUTINE
+    </button>
+  `;
 
-  <div class="list">
-   ${
-    state.trainingLogs.length
-    ?state.trainingLogs.slice(0,20).map(x=>`
-      <div class="list-row">
-       <div class="list-main">
-        <div class="list-title">${esc(x.routine)}</div>
-        <div class="list-sub">${x.date}</div>
-       </div>
-       <span class="tag">
-        ${x.exercises.length} EX
-       </span>
-      </div>
-     `).join("")
-    :`<div class="empty">まだトレーニング記録なし。</div>`
-   }
-  </div>
-
-  <div class="section-title">
-   FALL LOG <span>失敗</span>
-  </div>
-
-  <div class="btn-row" style="margin-bottom:10px">
-   <button class="btn danger" onclick="addFall()">LOG FALL</button>
-   <button class="btn secondary" onclick="openJournal()">WAR LOG</button>
-  </div>
-
-  <div class="list">
-   ${
-    state.falls.length
-    ?state.falls.slice(0,20).map(f=>`
-      <div class="list-row">
-       <div class="list-main">
-        <div class="list-title">${esc(f.type)}</div>
-        <div class="list-sub">
-         ${f.date} · ${esc(f.note||"記録のみ")}
-        </div>
-       </div>
-       <span class="tag">FALL</span>
-      </div>
-     `).join("")
-    :`<div class="empty">FALLはまだない。</div>`
-   }
-  </div>
-
-  <div class="section-title">
-   JOURNAL <span>記録</span>
-  </div>
-
-  <div class="list">
-   ${
-    state.journal.length
-    ?state.journal.slice(0,15).map(j=>`
-      <div class="list-row">
-       <div class="list-main">
-        <div class="list-title">${esc(j.text)}</div>
-        <div class="list-sub">${j.date}</div>
-       </div>
-      </div>
-     `).join("")
-    :`<div class="empty">まだWAR LOGなし。</div>`
-   }
-  </div>
-
-  <div class="section-title">
-   PREVIOUS WEEK <span>先週</span>
-  </div>
-
-  <div class="card">
-   <div class="tiny">${weekLabel(previousWeekKey())}</div>
-   <div style="margin-top:8px;font-size:25px;font-weight:900">
-    ${previous.score} SCORE
-   </div>
-   <div class="tiny" style="margin-top:4px">
-    AVG ${previous.average} · BUILD ${previous.workouts} · FALL ${previous.falls}
-   </div>
-  </div>
- `;
+  openModal(html);
 }
 
-/* =========================================================
-   MORE
-   ========================================================= */
+function saveRoutine(name){
+  const routine=state.routines[name];
 
-function renderMore(){
- return `
-  <div class="hero">
-   <div class="eyebrow">RESURGIR</div>
-   <h1>THE SYSTEM<br>BEHIND THE MAN.</h1>
-   <div class="hero-jp">細かいルールを、シンプルに。</div>
-  </div>
+  routine.forEach((ex,i)=>{
+    ex.name=document.getElementById(`re_${i}_name`).value.trim()||ex.name;
+    ex.weight=Number(document.getElementById(`re_${i}_kg`).value||ex.weight);
+    ex.reps=Number(document.getElementById(`re_${i}_reps`).value||ex.reps);
+    ex.sets=Number(document.getElementById(`re_${i}_sets`).value||ex.sets);
+  });
 
-  <div class="section-title">
-   RULES <span>ルール</span>
-  </div>
+  save();
+  closeModal();
+  render();
 
-  <div class="card">
-   <div class="rule-box">
-
-    <div class="rule-row">
-     <div class="rule-en">DAILY MISSION</div>
-     <div class="rule-jp">
-      毎日0:00にランダム更新。MISSIONは1日1つ。
-      1日1回だけ再抽選できる。完了で+15XP。
-     </div>
-    </div>
-
-    <div class="rule-row">
-     <div class="rule-en">DAILY CODE</div>
-     <div class="rule-jp">
-      毎日3項目を抽選。1項目10XP。0:00に更新。
-     </div>
-    </div>
-
-    <div class="rule-row">
-     <div class="rule-en">WEALTH</div>
-     <div class="rule-jp">
-      無駄遣いをしなかった日は+10。
-      必要な支出は対象外。「必要ないのに買った」が無駄遣い。
-     </div>
-    </div>
-
-    <div class="rule-row">
-     <div class="rule-en">SIDE INCOME</div>
-     <div class="rule-jp">
-      副業収入だけを記録。「今月」の金額は月初に自動リセット。
-      過去データは履歴に残る。
-     </div>
-    </div>
-
-    <div class="rule-row">
-     <div class="rule-en">WEEKLY REVIEW</div>
-     <div class="rule-jp">
-      毎週日曜21:00–23:59が基本。
-      一週間のミッションは存在しない。1週間を振り返るだけ。
-     </div>
-    </div>
-
-    <div class="rule-row">
-     <div class="rule-en">SCORE</div>
-     <div class="rule-jp">
-      1日の最大90XP。
-      CODE 30 / BUILD 35 / WEALTH 10 / MISSION 15。
-     </div>
-    </div>
-
-    <div class="rule-row">
-     <div class="rule-en">STREAK</div>
-     <div class="rule-jp">
-      行動した日だけ連続日数に加算。完璧主義ではなくRETURNを重視。
-     </div>
-    </div>
-
-    <div class="rule-row">
-     <div class="rule-en">FALL</div>
-     <div class="rule-jp">
-      失敗は減点しない。隠さず記録してRETURNする。
-     </div>
-    </div>
-
-   </div>
-  </div>
-
-  <div class="section-title">
-   PHILOSOPHY <span>思想</span>
-  </div>
-
-  <div class="card">
-   <div class="quote">
-    You don't become the man you want to be
-    by thinking about him.
-    <br><br>
-    You become him by keeping your word
-    when nobody is watching.
-    <br><br>
-    <strong>FALL → RETURN → BUILD → RISE.</strong>
-   </div>
-  </div>
-
-  <div class="section-title">
-   RESET <span>データ</span>
-  </div>
-
-  <div class="card">
-   <div class="tiny" style="margin-bottom:12px">
-    全データをこの端末から削除する。
-    元には戻せない。
-   </div>
-
-   <button class="btn danger" onclick="resetApp()">
-    RESET ALL DATA
-   </button>
-  </div>
-
-  <div class="tiny" style="text-align:center;margin-top:25px">
-   RESURGIR v12.1 · MANHOOD OS
-  </div>
- `;
+  toast("ROUTINE SAVED");
 }
 
-/* =========================================================
+/* -----------------------------
    MODAL
-   ========================================================= */
+----------------------------- */
 
 function openModal(html){
- const backdrop=document.getElementById("modalBackdrop");
- const modal=document.getElementById("modal");
-
- modal.innerHTML=html;
- backdrop.classList.add("open");
+  document.getElementById("modal").innerHTML=html;
+  document.getElementById("modalBackdrop").classList.add("show");
 }
 
 function closeModal(){
- document.getElementById("modalBackdrop")
-  .classList.remove("open");
+  document.getElementById("modalBackdrop").classList.remove("show");
+  document.getElementById("modal").innerHTML="";
 }
 
 document.getElementById("modalBackdrop").addEventListener("click",e=>{
- if(e.target.id==="modalBackdrop"){
-  closeModal();
- }
+  if(e.target.id==="modalBackdrop"){
+    closeModal();
+  }
 });
 
-/* =========================================================
+/* -----------------------------
    TOAST
-   ========================================================= */
+----------------------------- */
 
 let toastTimer;
 
 function toast(message){
- const el=document.getElementById("toast");
+  const el=document.getElementById("toast");
 
- el.textContent=message;
- el.classList.add("show");
+  el.textContent=message;
+  el.classList.add("show");
 
- clearTimeout(toastTimer);
+  clearTimeout(toastTimer);
 
- toastTimer=setTimeout(()=>{
-  el.classList.remove("show");
- },1800);
+  toastTimer=setTimeout(()=>{
+    el.classList.remove("show");
+  },1800);
 }
 
-/* =========================================================
+/* -----------------------------
+   ESCAPE
+----------------------------- */
+
+function escapeHTML(value){
+  return String(value??"")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+function escapeAttr(value){
+  return escapeHTML(value);
+}
+
+/* -----------------------------
+   NAVIGATION
+----------------------------- */
+
+let currentTab="HOME";
+
+function go(tab){
+  currentTab=tab;
+
+  document.querySelectorAll(".nav-btn").forEach(btn=>{
+    btn.classList.toggle(
+      "active",
+      btn.dataset.tab===tab
+    );
+  });
+
+  render();
+}
+
+document.querySelectorAll(".nav-btn").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    go(btn.dataset.tab);
+    window.scrollTo({
+      top:0,
+      behavior:"smooth"
+    });
+  });
+});
+
+/* -----------------------------
+   HOME
+----------------------------- */
+
+function renderHome(){
+
+  const day=ensureToday();
+  const score=todayScore();
+  const xp=totalXP();
+  const level=levelFromXP(xp);
+  const rank=rankFromLevel(level);
+
+  const mission=dailyMission();
+  const codes=dailyCodes();
+
+  const income=monthlyIncomeTotal();
+  const weight=latestWeight();
+
+  const houseCount=Object.values(day.houseworkItems||{})
+    .filter(Boolean).length;
+
+  return `
+    <section class="screen">
+
+      <div class="hero">
+        <div class="eyebrow">SELF-MASTERY OPERATING SYSTEM</div>
+
+        <div class="hero-title">
+          THE MAN YOU SAID<br>
+          YOU'D BECOME.
+        </div>
+
+        <div class="hero-sub">
+          自分との約束を守れる男になる。<br>
+          FALL → RETURN → BUILD → RISE.
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="score-wrap">
+          <div class="score" id="todayScore">${score}</div>
+          <div class="score-label">TODAY SCORE / 今日の行動</div>
+
+          <div class="progress">
+            <div
+              id="scoreBar"
+              class="progress-bar"
+              style="width:${score}%">
+            </div>
+          </div>
+        </div>
+
+        <div class="rule">
+          1日の最大100点。CODE 30 / MISSION 15 /
+          BUILD 25 / BODY 10 / WEALTH 10 / HOUSEWORK 10。
+        </div>
+      </div>
+
+      <div class="grid-2">
+
+        <div class="stat">
+          <div class="stat-value">${streak()}</div>
+          <div class="stat-label">STREAK / 継続</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-value">LV.${level}</div>
+          <div class="stat-label">${rank}</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-value">
+            ${weight ? weight : "—"}
+          </div>
+          <div class="stat-label">BODY / KG</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-value">¥${income.toLocaleString()}</div>
+          <div class="stat-label">SIDE INCOME / 今月</div>
+        </div>
+
+      </div>
+
+      <div class="section-heading">
+        MISSION
+      </div>
+
+      <div class="card">
+
+        <div class="mission-box">
+
+          <div class="mission-tag">
+            RANDOM DAILY MISSION
+          </div>
+
+          <div class="mission-title">
+            ${escapeHTML(mission[0])}
+          </div>
+
+          <div class="mission-ja">
+            ${escapeHTML(mission[1])}
+          </div>
+
+          <div id="missionStatus" class="mission-status">
+            ${
+              day.mission
+                ? `<span class="status-done">✓ COMPLETE / 完了</span>`
+                : `<span class="status-open">OPEN / 未完了</span>`
+            }
+          </div>
+
+        </div>
+
+        ${
+          !day.mission
+          ? `
+            <button
+              class="btn btn-primary"
+              style="margin-top:12px"
+              onclick="completeMission()">
+              COMPLETE MISSION +15
+            </button>
+          `
+          :
+          `
+            <button
+              class="btn btn-secondary"
+              style="margin-top:12px"
+              disabled>
+              MISSION COMPLETE
+            </button>
+          `
+        }
+
+        <div class="rule">
+          ミッションは毎日0:00に自動更新。
+          日付ごとにランダム決定され、同じ日に再読み込みしても変わらない。
+        </div>
+
+      </div>
+
+      <div class="section-heading">
+        DAILY CODE
+      </div>
+
+      <div class="card">
+
+        <div class="check-list">
+
+          ${codes.map(code=>`
+            <label class="check-item
+              ${day.code?.[code[0]] ? "done":""}">
+
+              <input
+                class="check-toggle"
+                type="checkbox"
+                ${day.code?.[code[0]] ? "checked":""}
+                onchange="toggleCode('${code[0]}')">
+
+              <div class="check-content">
+                <div class="check-main">
+                  ${escapeHTML(code[2])}
+                </div>
+                <div class="check-sub">
+                  ${escapeHTML(code[1])}
+                </div>
+              </div>
+
+            </label>
+          `).join("")}
+
+        </div>
+
+        <div class="rule">
+          毎日3項目を自動選出。1項目10XP。全部で最大30XP。
+        </div>
+
+      </div>
+
+      <div class="section-heading">
+        HOUSEWORK
+      </div>
+
+      <div class="card">
+
+        <div class="card-title-row">
+          <div>
+            <div class="card-title">HOUSEWORK</div>
+            <span class="card-ja">家事も男を作る</span>
+          </div>
+
+          <span class="badge" id="houseworkStatus">
+            ${houseCount} COMPLETE
+          </span>
+        </div>
+
+        <div class="check-list">
+
+          ${HOUSEWORK.map(item=>`
+            <label class="check-item">
+
+              <input
+                id="house-${item[0]}"
+                class="check-toggle"
+                type="checkbox"
+                ${day.houseworkItems?.[item[0]] ? "checked":""}
+                onchange="toggleHousework('${item[0]}')">
+
+              <div class="check-content">
+                <div class="check-main">
+                  ${escapeHTML(item[2])}
+                </div>
+                <div class="check-sub">
+                  ${escapeHTML(item[1])}
+                </div>
+              </div>
+
+            </label>
+          `).join("")}
+
+        </div>
+
+        <div class="rule">
+          家事は誰かに言われてからではなく、自分で見つけて動く。
+          1日1つ以上でHOUSEWORK +10。
+        </div>
+
+      </div>
+
+      ${
+        hasFall(todayKey())
+        ? `
+          <div class="card">
+
+            <div class="card-title-row">
+              <div>
+                <div class="card-title">RETURN</div>
+                <span class="card-ja">
+                  崩れた後の次の一手
+                </span>
+              </div>
+
+              <span class="badge">FALL DETECTED</span>
+            </div>
+
+            <div class="mission-box">
+              <div class="mission-title">
+                You fell. Now return.
+              </div>
+
+              <div class="mission-ja">
+                失敗をゼロにする必要はない。
+                戻る速度を上げる。
+              </div>
+            </div>
+
+            <button
+              class="btn btn-primary"
+              style="margin-top:12px"
+              onclick="go('CODE')">
+              TAKE THE NEXT STEP
+            </button>
+
+          </div>
+          `
+          : ""
+      }
+
+      <div class="card">
+
+        <div class="card-title-row">
+          <div>
+            <div class="card-title">3 MIN FLOW</div>
+            <span class="card-ja">今日の最小ルーティン</span>
+          </div>
+        </div>
+
+        <div class="tiny">
+          01 — CODEを確認<br>
+          02 — MISSIONを終わらせる<br>
+          03 — BUILD / HOUSEWORKを1つやる
+        </div>
+
+        <div class="rule">
+          完璧にやるためではない。毎日、自分に戻るための流れ。
+        </div>
+
+      </div>
+
+    </section>
+  `;
+}
+
+/* -----------------------------
+   BUILD
+----------------------------- */
+
+function renderBuild(){
+
+  const routine=todayRoutine();
+  const today=ensureToday();
+
+  return `
+    <section class="screen">
+
+      <div class="hero">
+        <div class="eyebrow">BUILD</div>
+        <div class="hero-title">BUILD THE MAN.</div>
+        <div class="hero-sub">
+          身体・金・生活を積み上げる。
+        </div>
+      </div>
+
+      <div class="card">
+
+        <div class="card-title-row">
+          <div>
+            <div class="card-title">TRAINING</div>
+            <span class="card-ja">身体を作る</span>
+          </div>
+
+          <span class="badge">
+            ${routine}
+          </span>
+        </div>
+
+        ${
+          routine==="REST"
+          ? `
+            <div class="mission-box">
+              <div class="mission-tag">TODAY</div>
+              <div class="mission-title">REST / RECOVER</div>
+              <div class="mission-ja">
+                回復もBUILDの一部。
+              </div>
+            </div>
+          `
+          :
+          `
+            <div class="tiny">
+              今日の予定：${routine}
+            </div>
+
+            <button
+              class="btn btn-primary"
+              style="margin-top:12px"
+              onclick='startWorkout(${JSON.stringify(routine)})'>
+              START ${routine}
+            </button>
+
+            <button
+              class="btn btn-secondary"
+              style="margin-top:8px"
+              onclick='editRoutine(${JSON.stringify(routine)})'>
+              EDIT ROUTINE / 編集
+            </button>
+          `
+        }
+
+        <div class="rule">
+          トレーニング完了で25XP。実績値を保存し、後からPRを確認できる。
+        </div>
+
+      </div>
+
+      <div class="card">
+
+        <div class="card-title-row">
+          <div>
+            <div class="card-title">BODY</div>
+            <span class="card-ja">身体の記録</span>
+          </div>
+        </div>
+
+        <div class="grid-2">
+
+          <button class="btn btn-secondary"
+            onclick="logWeight()">
+            WEIGHT
+            <span class="nav-ja">体重</span>
+          </button>
+
+          <button class="btn btn-secondary"
+            onclick="logFood()">
+            FOOD
+            <span class="nav-ja">食事</span>
+          </button>
+
+        </div>
+
+        <div class="rule">
+          BODYは記録した日だけ+10XP。
+          体重・食事を記録するだけでも行動として残る。
+        </div>
+
+      </div>
+
+      <div class="card">
+
+        <div class="card-title-row">
+          <div>
+            <div class="card-title">WEALTH</div>
+            <span class="card-ja">無駄遣いを制御する</span>
+          </div>
+        </div>
+
+        <div class="mission-box">
+          <div class="mission-tag">RULE</div>
+          <div class="mission-title">
+            Money discipline > money flex.
+          </div>
+          <div class="mission-ja">
+            稼ぐ力と使わない力は別物。
+          </div>
+        </div>
+
+        <button
+          class="btn btn-secondary"
+          style="margin-top:12px"
+          onclick="logWaste()">
+          LOG SPENDING
+        </button>
+
+        <div class="rule">
+          WEALTHの得点は「無駄遣いをしなかった／支出を意識して管理した」行動。
+          収入額では評価しない。
+        </div>
+
+      </div>
+
+      <div class="card">
+
+        <div class="card-title-row">
+          <div>
+            <div class="card-title">EARNING</div>
+            <span class="card-ja">副業で稼ぐ力</span>
+          </div>
+
+          <span class="badge">
+            ${monthKey()}
+          </span>
+        </div>
+
+        <div class="stat-value">
+          ¥${monthlyIncomeTotal().toLocaleString()}
+        </div>
+
+        <div class="stat-label">
+          SIDE INCOME THIS MONTH / 今月の副業収入
+        </div>
+
+        <button
+          class="btn btn-primary"
+          style="margin-top:13px"
+          onclick="addSideIncome()">
+          + ADD EARNING
+        </button>
+
+        <div class="rule">
+          ここに表示するのは副業収入のみ。
+          毎月1日に新しい月として自動集計される。
+          過去月の記録はLOGに残る。
+        </div>
+
+      </div>
+
+      <div class="card">
+
+        <div class="card-title-row">
+          <div>
+            <div class="card-title">RESPONSIBILITY</div>
+            <span class="card-ja">責任を持つ</span>
+          </div>
+        </div>
+
+        <div class="check-list">
+          ${RESPONSIBILITY.map(item=>`
+            <label class="check-item">
+
+              <input
+                class="check-toggle"
+                type="checkbox"
+                ${state.responsibility[todayKey()]?.[item[0]] ? "checked":""}
+                onchange="toggleTrait('responsibility','${item[0]}')">
+
+              <div class="check-content">
+                <div class="check-main">
+                  ${escapeHTML(item[0].toUpperCase())}
+                </div>
+                <div class="check-sub">
+                  ${escapeHTML(item[1])}
+                </div>
+              </div>
+
+            </label>
+          `).join("")}
+        </div>
+
+      </div>
+
+      <div class="card">
+
+        <div class="card-title-row">
+          <div>
+            <div class="card-title">PRESENCE</div>
+            <span class="card-ja">その場にいる</span>
+          </div>
+        </div>
+
+        <div class="check-list">
+          ${PRESENCE.map(item=>`
+            <label class="check-item">
+
+              <input
+                class="check-toggle"
+                type="checkbox"
+                ${state.presence[todayKey()]?.[item[0]] ? "checked":""}
+                onchange="toggleTrait('presence','${item[0]}')">
+
+              <div class="check-content">
+                <div class="check-main">
+                  ${escapeHTML(item[0].toUpperCase())}
+                </div>
+                <div class="check-sub">
+                  ${escapeHTML(item[1])}
+                </div>
+              </div>
+
+            </label>
+          `).join("")}
+        </div>
+
+      </div>
+
+    </section>
+  `;
+}
+
+/* -----------------------------
+   CODE
+----------------------------- */
+
+function renderCode(){
+
+  const day=ensureToday();
+  const codes=dailyCodes();
+
+  return `
+    <section class="screen">
+
+      <div class="hero">
+        <div class="eyebrow">THE CODE</div>
+        <div class="hero-title">CONTROL<br>YOURSELF.</div>
+        <div class="hero-sub">
+          自分を律するためのコード。
+        </div>
+      </div>
+
+      <div class="card">
+
+        <div class="card-title-row">
+          <div>
+            <div class="card-title">DAILY CODE</div>
+            <span class="card-ja">毎日の戒律</span>
+          </div>
+
+          <span class="badge">30 XP MAX</span>
+        </div>
+
+        <div class="check-list">
+
+          ${codes.map(code=>`
+            <label class="check-item
+              ${day.code?.[code[0]] ? "done":""}">
+
+              <input
+                class="check-toggle"
+                type="checkbox"
+                ${day.code?.[code[0]] ? "checked":""}
+                onchange="toggleCode('${code[0]}')">
+
+              <div class="check-content">
+                <div class="check-main">
+                  ${escapeHTML(code[2])}
+                </div>
+
+                <div class="check-sub">
+                  ${escapeHTML(code[1])}
+                </div>
+              </div>
+
+            </label>
+          `).join("")}
+
+        </div>
+
+        <div class="rule">
+          毎日0:00に3項目をランダム選出。
+          1項目10XP。翌日に自動更新。
+        </div>
+
+      </div>
+
+      <div class="card">
+
+        <div class="card-title-row">
+          <div>
+            <div class="card-title">MISSION</div>
+            <span class="card-ja">今日の一任務</span>
+          </div>
+        </div>
+
+        <div class="mission-box">
+
+          <div class="mission-tag">
+            ${escapeHTML(dailyMission()[0])}
+          </div>
+
+          <div class="mission-title">
+            ${escapeHTML(dailyMission()[1])}
+          </div>
+
+          <div class="mission-status">
+            ${
+              day.mission
+              ? "✓ COMPLETE"
+              : "OPEN"
+            }
+          </div>
+
+        </div>
+
+        ${
+          !day.mission
+          ? `
+            <button
+              class="btn btn-primary"
+              style="margin-top:12px"
+              onclick="completeMission()">
+              COMPLETE +15
+            </button>
+          `
+          : ""
+        }
+
+        <div class="rule">
+          MISSIONは1日1つ。
+          毎日自動で新しい内容になる。
+          「何をするか」より「やるか」を重視する。
+        </div>
+
+      </div>
+
+      <div class="card">
+
+        <div class="card-title-row">
+          <div>
+            <div class="card-title">THE CODE</div>
+            <span class="card-ja">憲章</span>
+          </div>
+        </div>
+
+        <div class="stack">
+          ${PRINCIPLES.map((p,i)=>`
+            <div class="row">
+              <div>
+                <div style="
+                  font-size:11px;
+                  font-weight:850;
+                  letter-spacing:.05em">
+                  ${i+1}. ${escapeHTML(p[0])}
+                </div>
+
+                <div class="tiny">
+                  ${escapeHTML(p[1])}
+                </div>
+              </div>
+            </div>
+          `).join("")}
+        </div>
+
+      </div>
+
+      <div class="card">
+
+        <div class="card-title-row">
+          <div>
+            <div class="card-title">MANHOOD SCORE</div>
+            <span class="card-ja">行動から見る現在地</span>
+          </div>
+        </div>
+
+        <div class="tiny" style="margin-bottom:12px">
+          これは人格を測る絶対値ではなく、
+          アプリ内の行動記録から算出する参考指数。
+        </div>
+
+        ${renderManhood()}
+
+      </div>
+
+    </section>
+  `;
+}
+
+function renderManhood(){
+
+  const scores=manhoodScores();
+
+  return Object.entries(scores).map(([name,value])=>`
+    <div style="margin-bottom:12px">
+
+      <div class="row">
+        <div style="
+          font-size:9px;
+          font-weight:850;
+          letter-spacing:.12em">
+          ${name}
+        </div>
+
+        <div style="
+          font-size:9px;
+          color:#777">
+          ${value}
+        </div>
+      </div>
+
+      <div class="level-bar">
+        <div
+          class="level-fill"
+          style="width:${value}%">
+        </div>
+      </div>
+
+    </div>
+  `).join("");
+}
+
+/* -----------------------------
+   LOG
+----------------------------- */
+
+function renderLog(){
+
+  const logs=trainingHistory();
+  const falls=[...state.falls].reverse().slice(0,20);
+  const incomes=incomeHistory();
+
+  return `
+    <section class="screen">
+
+      <div class="hero">
+        <div class="eyebrow">WAR LOG</div>
+        <div class="hero-title">RECORD<br>THE RETURN.</div>
+        <div class="hero-sub">
+          成功だけではなく、失敗も記録する。
+        </div>
+      </div>
+
+      <div class="card">
+
+        <div class="card-title-row">
+          <div>
+            <div class="card-title">WEEKLY REVIEW</div>
+            <span class="card-ja">週次レビュー</span>
+          </div>
+        </div>
+
+        <div class="mission-box">
+          <div class="mission-tag">
+            EVERY SUNDAY
+          </div>
+
+          <div class="mission-title">
+            Review. Reset. Return.
+          </div>
+
+          <div class="mission-ja">
+            毎週日曜 21:00–23:59 が基本。
+          </div>
+        </div>
+
+        <button
+          class="btn btn-primary"
+          style="margin-top:12px"
+          onclick="openReview()">
+          OPEN REVIEW
+        </button>
+
+        <div class="rule">
+          1週間は月曜〜日曜。
+          日曜夜に振り返り、次週へつなげる。
+          週次ミッションは廃止。レビューだけ残す。
+        </div>
+
+      </div>
+
+      <div class="card">
+
+        <div class="card-title-row">
+          <div>
+            <div class="card-title">FALL LOG</div>
+            <span class="card-ja">失敗記録</span>
+          </div>
+
+          <span class="badge">
+            ${state.falls.length}
+          </span>
+        </div>
+
+        <button
+          class="btn btn-danger"
+          onclick="addFall()">
+          + LOG A FALL
+        </button>
+
+        ${
+          falls.length
+          ? `
+            <div style="margin-top:14px">
+              ${falls.map(f=>`
+                <div class="log-item">
+
+                  <div class="row">
+                    <div class="log-title">
+                      ${escapeHTML(f.type)}
+                    </div>
+
+                    <div class="score-points">
+                      ${escapeHTML(f.date)}
+                    </div>
+                  </div>
+
+                  <div class="log-meta">
+                    ${escapeHTML(f.note||"記録なし")}
+                    ${
+                      f.next
+                      ? `<br>NEXT: ${escapeHTML(f.next)}`
+                      : ""
+                    }
+                  </div>
+
+                </div>
+              `).join("")}
+            </div>
+          `
+          :
+          `<div class="empty">No falls logged.</div>`
+        }
+
+        <div class="rule">
+          FALLは減点しない。失敗を隠さず、
+          次の行動まで書く。
+        </div>
+
+      </div>
+
+      <div class="card">
+
+        <div class="card-title-row">
+          <div>
+            <div class="card-title">TRAINING HISTORY</div>
+            <span class="card-ja">トレーニング履歴</span>
+          </div>
+        </div>
+
+        ${
+          logs.length
+          ?
+          logs.map(log=>`
+            <div class="log-item">
+
+              <div class="row">
+                <div class="log-title">
+                  ${escapeHTML(log.routine)}
+                </div>
+
+                <div class="score-points">
+                  ${escapeHTML(log.date)}
+                </div>
+              </div>
+
+              <div class="log-meta">
+                ${log.exercises.map(ex=>`
+                  ${escapeHTML(ex.name)}
+                  ${ex.kg}kg × ${ex.reps} × ${ex.sets}
+                `).join("<br>")}
+              </div>
+
+            </div>
+          `).join("")
+          :
+          `<div class="empty">No training logs yet.</div>`
+        }
+
+      </div>
+
+      <div class="card">
+
+        <div class="card-title-row">
+          <div>
+            <div class="card-title">SIDE INCOME LOG</div>
+            <span class="card-ja">副業収入</span>
+          </div>
+
+          <span class="badge">
+            ${monthKey()}
+          </span>
+        </div>
+
+        ${
+          incomes.length
+          ?
+          incomes.map(x=>`
+            <div class="log-item">
+
+              <div class="row">
+                <div class="log-title">
+                  ¥${Number(x.amount).toLocaleString()}
+                </div>
+
+                <div class="score-points">
+                  ${escapeHTML(x.date)}
+                </div>
+              </div>
+
+              <div class="log-meta">
+                ${escapeHTML(x.note||"副業")}
+              </div>
+
+            </div>
+          `).join("")
+          :
+          `<div class="empty">
+            This month: ¥0
+          </div>`
+        }
+
+        <div class="rule">
+          EARNINGは副業だけを対象。
+          月が変われば表示額は自動的に0からスタート。
+          過去の月の記録自体は保持。
+        </div>
+
+      </div>
+
+    </section>
+  `;
+}
+
+/* -----------------------------
+   MORE
+----------------------------- */
+
+function renderMore(){
+
+  const xp=totalXP();
+  const level=levelFromXP(xp);
+  const rank=rankFromLevel(level);
+
+  return `
+    <section class="screen">
+
+      <div class="hero">
+        <div class="eyebrow">MORE</div>
+        <div class="hero-title">THE SYSTEM.</div>
+        <div class="hero-sub">
+          RESURGIRのルールと現在地。
+        </div>
+      </div>
+
+      <div class="card">
+
+        <div class="card-title-row">
+          <div>
+            <div class="card-title">MANHOOD</div>
+            <span class="card-ja">現在地</span>
+          </div>
+
+          <span class="badge">${rank}</span>
+        </div>
+
+        <div class="grid-2">
+
+          <div class="stat">
+            <div class="stat-value">LV.${level}</div>
+            <div class="stat-label">LEVEL</div>
+          </div>
+
+          <div class="stat">
+            <div class="stat-value">${xp}</div>
+            <div class="stat-label">TOTAL XP</div>
+          </div>
+
+          <div class="stat">
+            <div class="stat-value">${cleanDays()}</div>
+            <div class="stat-label">CLEAN DAYS</div>
+          </div>
+
+          <div class="stat">
+            <div class="stat-value">${streak()}</div>
+            <div class="stat-label">STREAK</div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="card">
+
+        <div class="card-title-row">
+          <div>
+            <div class="card-title">RULES</div>
+            <span class="card-ja">細かなルール</span>
+          </div>
+        </div>
+
+        <div class="stack">
+
+          <div class="tiny">
+            <b>DAILY CODE</b><br>
+            毎日0:00更新。3項目。1項目10XP、最大30XP。
+          </div>
+
+          <div class="tiny">
+            <b>MISSION</b><br>
+            毎日0:00更新。1日1件。完了で15XP。
+            日付ごとにランダム決定。
+          </div>
+
+          <div class="tiny">
+            <b>WORKOUT</b><br>
+            完了登録は1日1回。実績値を保存。+25XP。
+          </div>
+
+          <div class="tiny">
+            <b>BODY</b><br>
+            体重・食事など身体の記録で+10XP。
+          </div>
+
+          <div class="tiny">
+            <b>HOUSEWORK</b><br>
+            1日1つ以上の家事を完了すると+10XP。
+          </div>
+
+          <div class="tiny">
+            <b>WEALTH</b><br>
+            収入額ではなく、無駄遣いを制御する行動を評価。
+            +10XP。
+          </div>
+
+          <div class="tiny">
+            <b>EARNING</b><br>
+            副業収入のみ表示。月が変わると月間表示は自動リセット。
+          </div>
+
+          <div class="tiny">
+            <b>FALL</b><br>
+            減点なし。隠さず記録し、NEXT MOVEを書く。
+          </div>
+
+          <div class="tiny">
+            <b>STREAK</b><br>
+            実際に何か行動した日だけ連続日数に加算。
+          </div>
+
+          <div class="tiny">
+            <b>WEEKLY REVIEW</b><br>
+            毎週日曜21:00–23:59が基本。
+            週次ミッションは存在しない。
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="card">
+
+        <div class="card-title-row">
+          <div>
+            <div class="card-title">CONSTITUTION</div>
+            <span class="card-ja">RESURGIR憲章</span>
+          </div>
+        </div>
+
+        <div class="stack">
+
+          <div class="mission-box">
+            <div class="mission-title">
+              BUILD LOVE.<br>
+              BUILD BODY.<br>
+              BUILD WEALTH.<br>
+              BUILD CHARACTER.
+            </div>
+          </div>
+
+          <div class="tiny">
+            KEEP YOUR WORD.<br>
+            DO WHAT YOU SAID YOU WOULD DO.<br>
+            DON'T RUN.<br>
+            RESURGIR.
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="card">
+
+        <div class="card-title-row">
+          <div>
+            <div class="card-title">DANGER ZONE</div>
+            <span class="card-ja">データ管理</span>
+          </div>
+        </div>
+
+        <button
+          class="btn btn-danger"
+          onclick="resetApp()">
+          RESET ALL DATA
+        </button>
+
+        <div class="rule">
+          この操作は元に戻せない。必要なら事前にデータをバックアップ。
+        </div>
+
+      </div>
+
+    </section>
+  `;
+}
+
+/* -----------------------------
    RESET
-   ========================================================= */
+----------------------------- */
 
 function resetApp(){
- if(!confirm(
-  "RESURGIRの全データを削除します。\n本当に実行しますか？"
- ))return;
 
- localStorage.removeItem(KEY);
- localStorage.removeItem(OLD_KEY);
+  const ok=confirm(
+    "RESURGIRの全データを削除します。\\n本当にリセットしますか？"
+  );
 
- state=defaultState();
- currentScreen="HOME";
+  if(!ok) return;
 
- render();
- toast("SYSTEM RESET");
+  localStorage.removeItem(KEY);
+  localStorage.removeItem(OLD_KEY);
+  localStorage.removeItem(OLDER_KEY);
+
+  state=defaultState();
+
+  save();
+  render();
+
+  toast("SYSTEM RESET");
 }
 
-/* =========================================================
-   ESCAPE
-   ========================================================= */
+/* -----------------------------
+   HEADER
+----------------------------- */
 
-function esc(value){
- return String(value??"")
-  .replace(/&/g,"&amp;")
-  .replace(/</g,"&lt;")
-  .replace(/>/g,"&gt;")
-  .replace(/"/g,"&quot;")
-  .replace(/'/g,"&#039;");
+function updateHeader(){
+
+  const xp=totalXP();
+  const level=levelFromXP(xp);
+  const rank=rankFromLevel(level);
+
+  document.getElementById("headerRank").textContent=rank;
+  document.getElementById("headerLevel").textContent=`LV.${level}`;
 }
 
-function escAttr(value){
- return esc(value);
+/* -----------------------------
+   RENDER
+----------------------------- */
+
+function render(){
+
+  ensureToday();
+
+  const screen=document.getElementById("screen");
+
+  switch(currentTab){
+
+    case "BUILD":
+      screen.innerHTML=renderBuild();
+      break;
+
+    case "CODE":
+      screen.innerHTML=renderCode();
+      break;
+
+    case "LOG":
+      screen.innerHTML=renderLog();
+      break;
+
+    case "MORE":
+      screen.innerHTML=renderMore();
+      break;
+
+    default:
+      screen.innerHTML=renderHome();
+  }
+
+  updateHeader();
+
+  updateTodayUI();
+  updateHouseworkUI();
 }
 
-/* =========================================================
-   START
-   ========================================================= */
+/* -----------------------------
+   INIT
+----------------------------- */
 
 render();
 
+/*
+  Keep monthly income UI correct when
+  the app remains open across midnight/month change.
+*/
+setInterval(()=>{
+  if(currentTab==="BUILD" || currentTab==="HOME"){
+    render();
+  }
+},60000);
+
 </script>
+
 </body>
 </html>
