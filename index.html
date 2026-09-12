@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#050505">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>RESURGIR — MANHOOD OS</title>
+<style>
+:root{--bg:#050505;--panel:#0d0d0d;--panel2:#141414;--line:#292929;--text:#f2f0eb;--muted:#96928b;--red:#7d171c;--red2:#a5252b;--good:#b8c6b2;--max:760px}
+*{box-sizing:border-box}html{background:var(--bg);color-scheme:dark}body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Noto Sans JP",sans-serif;letter-spacing:.01em}button,input,select,textarea{font:inherit}button{cursor:pointer}.app{max-width:var(--max);margin:auto;padding-bottom:100px}.top{padding:28px 18px 16px;position:sticky;top:0;background:linear-gradient(var(--bg) 82%,transparent);z-index:5}.eyebrow{font-size:11px;letter-spacing:.22em;color:var(--muted)}h1{font-size:29px;letter-spacing:.12em;margin:7px 0 3px}.sub{color:var(--muted);font-size:12px}.date{margin-top:12px;font-size:12px;color:#c8c4bc}.screen{display:none;padding:0 18px}.screen.active{display:block}.hero{padding:16px 0 20px}.hero h2{font-size:28px;line-height:1.08;margin:4px 0 8px;letter-spacing:.08em}.hero p{color:var(--muted);font-size:13px;line-height:1.7;margin:0}.score{border:1px solid var(--line);background:linear-gradient(135deg,#111,#080808);padding:18px;margin:10px 0 18px}.scoreRow{display:flex;justify-content:space-between;align-items:end}.scoreNum{font-size:48px;line-height:1;font-weight:700}.scoreLabel{font-size:11px;color:var(--muted);letter-spacing:.18em}.bar{height:4px;background:#222;margin-top:14px}.bar i{display:block;height:100%;background:var(--red2);width:0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.card{border:1px solid var(--line);background:var(--panel);padding:15px}.card h3{margin:0 0 8px;font-size:12px;letter-spacing:.16em}.card p{margin:0;color:var(--muted);font-size:12px;line-height:1.6}.card .big{font-size:24px;color:var(--text);font-weight:700}.sectionTitle{display:flex;justify-content:space-between;align-items:center;margin:24px 0 10px}.sectionTitle h2{font-size:14px;letter-spacing:.16em;margin:0}.link{background:none;border:0;color:#c7c2ba;font-size:11px}.btn{border:1px solid #3a3a3a;background:#151515;color:var(--text);padding:11px 13px;border-radius:2px}.btn.primary{background:var(--red);border-color:var(--red)}.btn.ghost{background:transparent}.btn.small{padding:8px 10px;font-size:11px}.stack{display:flex;gap:8px;flex-wrap:wrap}.list{display:grid;gap:8px}.item{border:1px solid var(--line);background:var(--panel);padding:13px}.itemRow{display:flex;justify-content:space-between;gap:12px;align-items:center}.tag{font-size:10px;letter-spacing:.12em;color:#c8c3ba;border:1px solid #353535;padding:4px 6px}.muted{color:var(--muted);font-size:11px}.check{width:34px;height:34px;border:1px solid #444;background:#111;color:white}.check.on{background:var(--red);border-color:var(--red)}.split{font-size:12px;letter-spacing:.15em}.exercise{padding:12px 0;border-top:1px solid #222}.exercise:first-child{border-top:0}.exerciseHead{display:flex;justify-content:space-between;align-items:center}.exerciseName{font-size:12px;letter-spacing:.08em}.setrow{display:flex;gap:6px;margin-top:8px}.setrow input{width:0;flex:1}.input,.select,.textarea{width:100%;background:#090909;border:1px solid #333;color:var(--text);padding:10px 11px;border-radius:2px;outline:none}.textarea{min-height:90px;resize:vertical}.field{margin:11px 0}.field label{display:block;font-size:10px;letter-spacing:.13em;color:var(--muted);margin-bottom:6px}.modal{position:fixed;inset:0;background:rgba(0,0,0,.78);display:none;align-items:flex-end;z-index:20}.modal.open{display:flex}.modalBox{width:100%;max-width:760px;margin:auto;background:#0b0b0b;border:1px solid #333;max-height:92vh;overflow:auto;padding:18px}.modalTop{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.modalTop h2{font-size:15px;letter-spacing:.13em;margin:0}.x{background:none;border:0;color:#aaa;font-size:22px}.nav{position:fixed;bottom:0;left:0;right:0;background:rgba(5,5,5,.96);border-top:1px solid #252525;z-index:10}.navInner{max-width:760px;margin:auto;display:grid;grid-template-columns:repeat(5,1fr)}.nav button{background:none;border:0;color:#777;padding:10px 3px calc(10px + env(safe-area-inset-bottom));font-size:9px;letter-spacing:.12em}.nav button.active{color:#eee}.nav button b{display:block;font-size:16px;margin-bottom:3px;font-weight:400}.pill{display:inline-block;padding:4px 7px;border:1px solid #343434;font-size:10px;color:#aaa}.danger{color:#c87373}.success{color:#b8c6b2}.empty{border:1px dashed #333;padding:20px;text-align:center;color:#777;font-size:12px}.statGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.stat{background:#101010;border:1px solid #282828;padding:14px}.stat b{font-size:25px;display:block}.stat span{font-size:10px;color:#888;letter-spacing:.12em}.table{width:100%;border-collapse:collapse;font-size:11px}.table td,.table th{padding:9px 5px;border-bottom:1px solid #222;text-align:left}.table th{color:#888;font-weight:400}.toast{position:fixed;left:50%;bottom:82px;transform:translateX(-50%);background:#eee;color:#111;padding:9px 14px;font-size:11px;display:none;z-index:50}.toast.show{display:block}
+@media(min-width:650px){.modal{align-items:center}.modalBox{border-radius:3px;max-height:85vh}.screen{padding:0 28px}.top{padding-left:28px;padding-right:28px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top">
+  <div class="eyebrow">RESURGIR / MANHOOD OS</div>
+  <h1>RISE AGAIN.</h1>
+  <div class="sub">自分との約束を守れる男になるためのOS</div>
+  <div class="date" id="today"></div>
+</header>
+
+<main>
+<section id="home" class="screen active">
+  <div class="hero"><div class="eyebrow">THE MAN YOU SAID YOU'D BECOME.</div><h2>TODAY'S WAR.</h2><p>小さな約束を積み上げる。RESTも敗北ではない。戻ることが勝ち。</p></div>
+  <div class="score"><div class="scoreRow"><div><div class="scoreLabel">TODAY SCORE</div><div class="scoreNum" id="score">0</div></div><div class="pill" id="splitPill">—</div></div><div class="bar"><i id="scoreBar"></i></div></div>
+  <div class="grid">
+    <div class="card"><h3>CODE</h3><div class="big" id="homeCode">0/3</div><p>今日の原則</p></div>
+    <div class="card"><h3>QUEST</h3><div class="big" id="homeQuest">—</div><p id="questText">今日のミッション</p></div>
+    <div class="card"><h3>BUILD</h3><div class="big" id="homeBuild">—</div><p>身体を作る</p></div>
+    <div class="card"><h3>BODY</h3><div class="big" id="homeWeight">—</div><p>体重 / 体脂肪</p></div>
+  </div>
+  <div class="sectionTitle"><h2>QUICK ACTION</h2></div>
+  <div class="stack">
+    <button class="btn primary" onclick="openWorkout()">BUILD</button>
+    <button class="btn" onclick="openCode()">CODE</button>
+    <button class="btn" onclick="openQuest()">QUEST</button>
+    <button class="btn" onclick="openBody()">BODY</button>
+    <button class="btn" onclick="openHouse()">HOUSE</button>
+    <button class="btn" onclick="openWealth()">WEALTH</button>
+  </div>
+  <div class="sectionTitle"><h2>WAR LOG</h2><button class="link" onclick="openFall()">+ FALL</button></div>
+  <div id="homeFall"></div>
+</section>
+
+<section id="build" class="screen">
+  <div class="hero"><div class="eyebrow">BUILD</div><h2>FORGED, NOT GIVEN.</h2><p>種目・重量・回数・セットを残す。前回を超える。</p></div>
+  <div class="card"><h3>TODAY'S SPLIT</h3><div class="split" id="buildSplit"></div><p id="buildRest"></p></div>
+  <div class="sectionTitle"><h2>TRAINING</h2><button class="btn small primary" onclick="openWorkout()">+ LOG</button></div>
+  <div id="buildHistory"></div>
+  <div class="sectionTitle"><h2>BODY</h2><button class="btn small" onclick="openBody()">UPDATE</button></div>
+  <div id="bodySummary"></div>
+</section>
+
+<section id="code" class="screen">
+  <div class="hero"><div class="eyebrow">THE CODE</div><h2>KEEP YOUR WORD.</h2><p>今日の3つを選び、行動で証明する。</p></div>
+  <div id="codeList" class="list"></div>
+  <div class="sectionTitle"><h2>CODE STATS</h2></div>
+  <div class="statGrid" id="codeStats"></div>
+</section>
+
+<section id="log" class="screen">
+  <div class="hero"><div class="eyebrow">WAR LOG</div><h2>FALL. RETURN. RISE.</h2><p>失敗を隠さない。原因を切り分け、次の一手を決める。</p></div>
+  <div class="stack"><button class="btn primary" onclick="openFall()">+ FALL</button><button class="btn" onclick="openReview()">WEEKLY REVIEW</button></div>
+  <div class="sectionTitle"><h2>FALLS</h2></div><div id="fallList"></div>
+  <div class="sectionTitle"><h2>REVIEWS</h2></div><div id="reviewList"></div>
+</section>
+
+<section id="manhood" class="screen">
+  <div class="hero"><div class="eyebrow">MANHOOD</div><h2>BUILD YOURSELF.</h2><p>記録を一つの流れにする。BUILD / CODE / QUEST / RETURN。</p></div>
+  <div class="score"><div class="scoreLabel">MANHOOD LEVEL</div><div class="scoreNum" id="level">1</div><div class="muted" id="xpText">0 XP</div><div class="bar"><i id="xpBar"></i></div></div>
+  <div class="statGrid" id="manStats"></div>
+  <div class="sectionTitle"><h2>BODY TRACKING</h2><button class="btn small" onclick="openBody()">+ RECORD</button></div>
+  <div id="bodyHistory"></div>
+  <div class="sectionTitle"><h2>WEALTH</h2><button class="btn small" onclick="openWealth()">+ RECORD</button></div>
+  <div id="wealthSummary"></div>
+  <div class="sectionTitle"><h2>QUESTS</h2><button class="btn small" onclick="openCustomQuest()">+ CUSTOM</button></div>
+  <div id="questHistory"></div>
+  <div class="sectionTitle"><h2>DATA</h2></div>
+  <div class="stack">
+    <button class="btn" onclick="exportData()">EXPORT JSON</button>
+    <button class="btn" onclick="document.getElementById('importFile').click()">IMPORT JSON</button>
+    <button class="btn" onclick="resetToday()">RESET TODAY</button>
+  </div>
+  <input id="importFile" type="file" accept="application/json" hidden onchange="importData(event)">
+</section>
+</main>
+</div>
+
+<nav class="nav"><div class="navInner">
+<button class="active" data-tab="home"><b>⌂</b>HOME</button>
+<button data-tab="build"><b>◇</b>BUILD</button>
+<button data-tab="code"><b>◎</b>CODE</button>
+<button data-tab="log"><b>✦</b>LOG</button>
+<button data-tab="manhood"><b>◆</b>MANHOOD</button>
+</div></nav>
+
+<div id="modal" class="modal"><div class="modalBox">
+  <div class="modalTop"><h2 id="modalTitle"></h2><button class="x" onclick="closeModal()">×</button></div>
+  <div id="modalBody"></div>
+</div></div>
+<div id="toast" class="toast"></div>
+
+<script>
+const KEY="resurgir_os_v1", OLDKEY="resurgir_minimal_v3";
+const CODES=[
+["promise","KEEP YOUR WORD","約束を守った"],["run","DON'T RUN","面倒でも逃げなかった"],
+["lie","NO LIES","嘘をつかなかった"],["blame","NO BLAME","人のせいにしなかった"],
+["control","CONTROL YOURSELF","感情的になる前に止まった"],["love","PROTECT WHAT YOU LOVE","大切なものを守った"],
+["respect","RESPECT","誰も見ていない場所でも手を抜かなかった"],["discipline","DISCIPLINE","今日やるべきことを今日やった"]
+];
+const MISSIONS=[
+"最重要タスクを1つ終わらせる","スマホを30分手放す","15分歩く","10分だけ片付ける","洗い物を全部終わらせる",
+"机を完全にリセットする","ベッドを整える","バッグを整理する","今日の支出を確認する","SNSを1時間見ない",
+"不要な買い物を24時間保留する","先延ばししていることを5分だけ始める","明日の予定を3つ決める",
+"今日の失敗を言語化する","誘惑を1つ断る","10分ストレッチする","水をしっかり飲む","誰かに感謝を伝える",
+"帰宅後すぐに着替える","今日の勝ちを3つ書く","財布を整理する","通知を3つ切る","靴を整える",
+"服を畳む","部屋をリセットする","冷蔵庫を整理する","仕事の面倒な1件を先に処理する","PCを整理する",
+"不要な写真を20枚削除する","5分だけ読書する"
+];
+const PARTS=["CHEST","BACK","SHOULDERS","ARMS","LEGS","ABS","FULL BODY"];
+const SPLIT=["LEGS","PUSH","PULL","PUSH","PULL","PUSH","REST"];
+const EX={
+PUSH:["BENCH PRESS","INCLINE PRESS","SHOULDER PRESS","SIDE RAISE","TRICEPS"],
+PULL:["LAT PULLDOWN","ROW","REAR DELT","BICEPS CURL","HAMMER CURL"],
+LEGS:["SQUAT","RDL","LEG EXTENSION","LEG CURL","CALF RAISE"],
+"FULL BODY":["SQUAT","BENCH PRESS","LAT PULLDOWN","RDL","SHOULDER PRESS"]
+};
+const FALLS=["PROCRASTINATION","IMPULSE SPENDING","DOPAMINE","ANGER","ESCAPE","SLEEP","FOOD","ALCOHOL","OTHER"];
+
+function dateKey(d=new Date()){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
+function prettyDate(k){let [y,m,d]=k.split("-");return `${y}.${m}.${d}`}
+function emptyDay(){return{code:{},quest:false,questCustom:null,workout:{done:false,part:"",exercises:[],note:""},meals:{breakfast:null,lunch:null,dinner:null},house:false,wealth:false,wealthData:{income:0,expense:0,waste:0,note:""}}}
+function defaultState(){return{days:{},weightLogs:[],falls:[],reviews:[],customQuests:[]}}
+function load(){
+ let raw=localStorage.getItem(KEY);
+ if(!raw){
+   let old=localStorage.getItem(OLDKEY);
+   if(old){try{let o=JSON.parse(old),n=defaultState();n.days=o.days||{};n.weightLogs=o.weightLogs||[];n.falls=o.falls||[];n.reviews=o.reviews||[];raw=JSON.stringify(n)}catch(e){}}
+ }
+ let s=raw?JSON.parse(raw):defaultState();
+ s.days=s.days||{};s.weightLogs=s.weightLogs||[];s.falls=s.falls||[];s.reviews=s.reviews||[];s.customQuests=s.customQuests||[];
+ return s
+}
+let state=load();
+function save(){localStorage.setItem(KEY,JSON.stringify(state))}
+function day(){let k=dateKey();if(!state.days[k])state.days[k]=emptyDay();return state.days[k]}
+function splitFor(k=dateKey()){let d=new Date(k+"T12:00:00");return SPLIT[d.getDay()]}
+function seed(k){let n=0;for(let c of k)n=(n*31+c.charCodeAt(0))>>>0;return n}
+function todaysCodes(){let a=[],n=seed(dateKey());for(let i=0;i<3;i++){n=(n*1664525+1013904223)>>>0;a.push(CODES[n%CODES.length])}return a}
+function questText(){let k=dateKey(),custom=state.customQuests.find(q=>q.date===k&&!q.done);if(custom)return custom.text;return MISSIONS[seed(k)%MISSIONS.length]}
+function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
+function toast(t){let x=document.getElementById("toast");x.textContent=t;x.classList.add("show");setTimeout(()=>x.classList.remove("show"),1600)}
+function openModal(title,html){document.getElementById("modalTitle").textContent=title;document.getElementById("modalBody").innerHTML=html;document.getElementById("modal").classList.add("open")}
+function closeModal(){document.getElementById("modal").classList.remove("open")}
+function setTab(id){document.querySelectorAll(".screen").forEach(x=>x.classList.toggle("active",x.id===id));document.querySelectorAll(".nav button").forEach(x=>x.classList.toggle("active",x.dataset.tab===id));render()}
+document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>setTab(b.dataset.tab));
+
+function score(){
+ let d=day(),code=Object.values(d.code).filter(Boolean).length*10,quest=d.quest?15:0;
+ let build=d.workout.done?25:25; // REST is a complete recovery day; no penalty.
+ let food=Object.values(d.meals).filter(v=>v==="eat"||v==="skip").length===3?10:0;
+ let house=d.house?10:0,wealth=d.wealth?10:0;
+ return Math.min(100,code+quest+build+food+house+wealth)
+}
+function render(){
+ const k=dateKey(),d=day(),sp=splitFor(k);
+ document.getElementById("today").textContent=prettyDate(k);
+ document.getElementById("score").textContent=score();
+ document.getElementById("scoreBar").style.width=score()+"%";
+ document.getElementById("splitPill").textContent=sp;
+ document.getElementById("homeCode").textContent=Object.values(d.code).filter(Boolean).length+"/3";
+ document.getElementById("homeQuest").textContent=d.quest?"DONE":"OPEN";
+ document.getElementById("questText").textContent=questText();
+ document.getElementById("homeBuild").textContent=d.workout.done?"LOGGED":sp==="REST"?"REST":"OPEN";
+ let latest=state.weightLogs[state.weightLogs.length-1];document.getElementById("homeWeight").textContent=latest?latest.weight+" kg":"—";
+ document.getElementById("homeFall").innerHTML=state.falls.length?`<div class="item"><div class="itemRow"><span>${esc(state.falls[state.falls.length-1].type)}</span><span class="tag">${prettyDate(state.falls[state.falls.length-1].date)}</span></div><div class="muted" style="margin-top:7px">${esc(state.falls[state.falls.length-1].next||"")}</div></div>`:`<div class="empty">No recent fall. Keep moving.</div>`;
+ renderBuild();renderCode();renderLog();renderManhood()
+}
+function renderBuild(){
+ let sp=splitFor(),d=day();document.getElementById("buildSplit").textContent=sp;
+ document.getElementById("buildRest").textContent=sp==="REST"?"RECOVERY IS PART OF THE CODE. 今日は休養日。":"トレーニング日はBUILDを記録すると25点。";
+ let hist=state.days[dateKey()]?.workout;
+ let html=hist&&hist.done?`<div class="item"><div class="itemRow"><b>${esc(hist.part||sp)}</b><span class="success">LOGGED</span></div>${(hist.exercises||[]).map(e=>`<div class="exercise"><div class="exerciseHead"><span class="exerciseName">${esc(e.name)}</span><span class="muted">${e.sets} SETS</span></div><div class="muted">${esc(e.setsData||"")}</div></div>`).join("")}<div class="muted">${esc(hist.note||"")}</div></div>`:`<div class="empty">${sp==="REST"?"REST DAY — RECOVER WITH INTENT.":"まだBUILDが記録されていない。"}</div>`;
+ document.getElementById("buildHistory").innerHTML=html;
+ let latest=state.weightLogs[state.weightLogs.length-1];
+ document.getElementById("bodySummary").innerHTML=latest?`<div class="item"><b>${latest.weight} kg</b> <span class="muted">${latest.bf?latest.bf+"% BF ":""}${latest.waist?latest.waist+" cm":""}</span><div class="muted">${prettyDate(latest.date)}</div></div>`:`<div class="empty">BODY DATAなし</div>`
+}
+function renderCode(){
+ let cs=todaysCodes(),d=day();
+ document.getElementById("codeList").innerHTML=cs.map(c=>`<div class="item"><div class="itemRow"><div><div class="tag">${c[1]}</div><div style="margin-top:8px">${c[2]}</div></div><button class="check ${d.code[c[0]]?"on":""}" onclick="toggleCode('${c[0]}')">${d.code[c[0]]?"✓":"○"}</button></div></div>`).join("");
+ let rates=codeRate(7),rate30=codeRate(30),streak=codeStreak();
+ document.getElementById("codeStats").innerHTML=`<div class="stat"><b>${rates}%</b><span>7 DAY RATE</span></div><div class="stat"><b>${rate30}%</b><span>30 DAY RATE</span></div><div class="stat"><b>${streak}</b><span>CODE STREAK</span></div><div class="stat"><b>${Object.keys(state.days).length}</b><span>DAYS LOGGED</span></div>`;
+}
+function toggleCode(id){let d=day();d.code[id]=!d.code[id];save();render()}
+function codeRate(days){let ok=0,total=0;for(let i=0;i<days;i++){let dt=new Date();dt.setDate(dt.getDate()-i);let k=dateKey(dt),d=state.days[k];if(d){total+=3;ok+=Object.values(d.code||{}).filter(Boolean).length}}return total?Math.round(ok/total*100):0}
+function codeStreak(){let n=0;for(let i=0;i<365;i++){let dt=new Date();dt.setDate(dt.getDate()-i);let d=state.days[dateKey(dt)];if(d&&Object.values(d.code||{}).filter(Boolean).length===3)n++;else break}return n}
+
+function openCode(){setTab("code")}
+function openQuest(){
+ let d=day(),t=questText();
+ openModal("QUEST",`<div class="card"><div class="eyebrow">TODAY'S MISSION</div><h3 style="font-size:18px;margin-top:10px">${esc(t)}</h3><p>${d.quest?"完了済み。":"終わったらCOMPLETE。"}</p></div><div class="stack" style="margin-top:12px"><button class="btn primary" onclick="completeQuest()">COMPLETE QUEST</button><button class="btn" onclick="openCustomQuest()">CUSTOM QUEST</button></div>`)
+}
+function completeQuest(){day().quest=true;let q=state.customQuests.find(q=>q.date===dateKey());if(q)q.done=true;save();closeModal();toast("QUEST COMPLETE.");render()}
+function openCustomQuest(){
+ openModal("CUSTOM QUEST",`<div class="field"><label>MISSION</label><input id="customQuestInput" class="input" placeholder="自分で決めた今日のミッション"></div><button class="btn primary" onclick="saveCustomQuest()">SAVE QUEST</button>`)
+}
+function saveCustomQuest(){let t=document.getElementById("customQuestInput").value.trim();if(!t)return;state.customQuests=state.customQuests.filter(q=>q.date!==dateKey());state.customQuests.push({date:dateKey(),text:t,done:false});save();closeModal();toast("CUSTOM QUEST SET.");render()}
+function renderQuestHistory(){
+ let arr=Object.entries(state.days).sort((a,b)=>b[0].localeCompare(a[0])).slice(0,14);
+ return arr.map(([k,d])=>`<div class="item"><div class="itemRow"><span>${prettyDate(k)}</span><span class="${d.quest?"success":"muted"}">${d.quest?"DONE":"—"}</span></div></div>`).join("")
+}
+
+function openWorkout(){
+ let d=day(),sp=splitFor(),part=d.workout.part||sp, names=EX[part]||EX["FULL BODY"];
+ openModal("BUILD",`<div class="field"><label>BODY PART / SPLIT</label><select id="workPart" class="select">${PARTS.map(p=>`<option ${p===part?"selected":""}>${p}</option>`).join("")}</select></div><div id="exerciseFields">${workoutFields(names,d.workout.exercises||[])}</div><div class="field"><label>NOTE</label><textarea id="workNote" class="textarea" placeholder="フォーム、感覚、次回の課題など">${esc(d.workout.note||"")}</textarea></div><div class="stack"><button class="btn primary" onclick="saveWorkout()">SAVE BUILD</button><button class="btn" onclick="closeModal()">CANCEL</button></div>`);
+ document.getElementById("workPart").onchange=e=>document.getElementById("exerciseFields").innerHTML=workoutFields(EX[e.target.value]||EX["FULL BODY"],[]);
+}
+function workoutFields(names,old){
+ return names.map((n,i)=>{let e=old[i]||{};return `<div class="exercise"><div class="exerciseHead"><span class="exerciseName">${n}</span><button class="link" onclick="addSet(${i})">+ SET</button></div><div id="sets${i}">${(e.rows||[0]).map((r,j)=>`<div class="setrow"><input class="input wt" data-i="${i}" data-s="${j}" type="number" step="0.5" placeholder="kg" value="${esc(r?.w??"")}"><input class="input rp" data-i="${i}" data-s="${j}" type="number" placeholder="reps" value="${esc(r?.r??"")}"></div>`).join("")}</div></div>`}).join("")
+}
+function addSet(i){let box=document.getElementById("sets"+i),n=box.children.length;box.insertAdjacentHTML("beforeend",`<div class="setrow"><input class="input wt" data-i="${i}" data-s="${n}" type="number" step="0.5" placeholder="kg"><input class="input rp" data-i="${i}" data-s="${n}" type="number" placeholder="reps"></div>`)}
+function saveWorkout(){
+ let part=document.getElementById("workPart").value,names=EX[part]||EX["FULL BODY"],ex=[];
+ names.forEach((n,i)=>{let rows=[...document.querySelectorAll("#sets"+i+" .setrow")].map(r=>({w:r.querySelector(".wt").value,r:r.querySelector(".rp").value})).filter(x=>x.w!==""||x.r!=="");if(rows.length)ex.push({name:n,rows,sets:rows.length,setsData:rows.map(x=>(x.w?x.w+"kg":"—")+" × "+(x.r||"—")).join(" / ")})});
+ let d=day();d.workout={done:true,part,exercises:ex,note:document.getElementById("workNote").value};save();closeModal();toast("BUILD LOGGED.");render()
+}
+function openBody(){
+ let l=state.weightLogs[state.weightLogs.length-1]||{};
+ openModal("BODY",`<div class="field"><label>WEIGHT / KG *</label><input id="bodyW" class="input" type="number" step="0.1" value="${esc(l.weight||"")}"></div><div class="field"><label>BODY FAT / %</label><input id="bodyBF" class="input" type="number" step="0.1" value="${esc(l.bf||"")}"></div><div class="field"><label>WAIST / CM</label><input id="bodyWaist" class="input" type="number" step="0.1" value="${esc(l.waist||"")}"></div><button class="btn primary" onclick="saveBody()">SAVE BODY</button>`)
+}
+function saveBody(){let w=parseFloat(document.getElementById("bodyW").value);if(!w)return;state.weightLogs.push({date:dateKey(),weight:w,bf:parseFloat(document.getElementById("bodyBF").value)||null,waist:parseFloat(document.getElementById("bodyWaist").value)||null});state.weightLogs.sort((a,b)=>(a.date+b.weight).localeCompare(b.date+a.weight));save();closeModal();toast("BODY UPDATED.");render()}
+function openHouse(){openModal("HOUSE",`<div class="card"><h3>RESET YOUR SPACE.</h3><p>部屋・洗い物・バッグなど、今日の環境を一つ整える。</p></div><button class="btn primary" style="margin-top:12px" onclick="day().house=true;save();closeModal();toast('HOUSE COMPLETE.');render()">COMPLETE HOUSE</button>`)}
+
+function openWealth(){
+ let w=day().wealthData||{};
+ openModal("WEALTH",`<div class="field"><label>INCOME / ¥</label><input id="inc" class="input" type="number" value="${w.income||0}"></div><div class="field"><label>EXPENSE / ¥</label><input id="exp" class="input" type="number" value="${w.expense||0}"></div><div class="field"><label>WASTE / ¥</label><input id="waste" class="input" type="number" value="${w.waste||0}"></div><div class="field"><label>NOTE</label><input id="wealthNote" class="input" value="${esc(w.note||"")}"></div><button class="btn primary" onclick="saveWealth()">SAVE WEALTH</button>`)
+}
+function saveWealth(){let d=day();d.wealthData={income:+document.getElementById("inc").value||0,expense:+document.getElementById("exp").value||0,waste:+document.getElementById("waste").value||0,note:document.getElementById("wealthNote").value};d.wealth=true;save();closeModal();toast("WEALTH LOGGED.");render()}
+
+function openFall(){
+ openModal("FALL",`<div class="field"><label>TYPE</label><select id="fallType" class="select">${FALLS.map(x=>`<option>${x}</option>`).join("")}</select></div><div class="field"><label>CAUSE</label><textarea id="fallCause" class="textarea" placeholder="何が起きた？"></textarea></div><div class="field"><label>NEXT MOVE</label><textarea id="fallNext" class="textarea" placeholder="次はどうする？"></textarea></div><button class="btn primary" onclick="saveFall()">LOG FALL & RETURN</button>`)
+}
+function saveFall(){state.falls.push({date:dateKey(),type:document.getElementById("fallType").value,cause:document.getElementById("fallCause").value,next:document.getElementById("fallNext").value,returned:false});save();closeModal();toast("FALL LOGGED. RETURN.");render()}
+function returnFromFall(i){state.falls[i].returned=true;state.falls[i].returnDate=dateKey();save();toast("RETURN CONFIRMED.");render()}
+function renderLog(){
+ let fs=state.falls.slice().reverse().map((f,ri)=>{let i=state.falls.length-1-ri;return `<div class="item"><div class="itemRow"><span class="tag">${esc(f.type)}</span><span class="muted">${prettyDate(f.date)}</span></div><p style="margin:10px 0 4px">${esc(f.cause)}</p><div class="muted">NEXT: ${esc(f.next)}</div><div class="stack" style="margin-top:10px">${f.returned?`<span class="success">RETURNED ${prettyDate(f.returnDate)}</span>`:`<button class="btn small primary" onclick="returnFromFall(${i})">RETURN</button>`}</div></div>`}).join("");
+ document.getElementById("fallList").innerHTML=fs||`<div class="empty">No falls logged.</div>`;
+ let rs=state.reviews.slice().reverse().map(r=>`<div class="item"><div class="muted">${prettyDate(r.date)}</div><p>WIN — ${esc(r.win)}</p><p>FAIL — ${esc(r.failure)}</p><p>NEXT — ${esc(r.next)}</p></div>`).join("");
+ document.getElementById("reviewList").innerHTML=rs||`<div class="empty">No reviews yet.</div>`;
+}
+function openReview(){openModal("WEEKLY REVIEW",`<div class="field"><label>WIN</label><textarea id="rvWin" class="textarea"></textarea></div><div class="field"><label>FAILURE</label><textarea id="rvFail" class="textarea"></textarea></div><div class="field"><label>NEXT MOVE</label><textarea id="rvNext" class="textarea"></textarea></div><button class="btn primary" onclick="saveReview()">SAVE REVIEW</button>`)}
+function saveReview(){state.reviews.push({date:dateKey(),win:document.getElementById("rvWin").value,failure:document.getElementById("rvFail").value,next:document.getElementById("rvNext").value});save();closeModal();toast("REVIEW SAVED.");render()}
+
+function calcXP(){
+ let xp=0;Object.values(state.days).forEach(d=>{xp+=Object.values(d.code||{}).filter(Boolean).length*10;if(d.quest)xp+=15;if(d.workout?.done)xp+=25;if(d.house)xp+=10;if(d.wealth)xp+=10;if(Object.values(d.meals||{}).filter(Boolean).length===3)xp+=10});xp+=state.falls.filter(f=>f.returned).length*20;return xp
+}
+function renderManhood(){
+ let xp=calcXP(),level=Math.floor(xp/100)+1,prog=xp%100;
+ document.getElementById("level").textContent=level;document.getElementById("xpText").textContent=xp+" XP";document.getElementById("xpBar").style.width=prog+"%";
+ let builds=Object.values(state.days).filter(d=>d.workout?.done).length,quests=Object.values(state.days).filter(d=>d.quest).length,codes=Object.values(state.days).reduce((n,d)=>n+Object.values(d.code||{}).filter(Boolean).length,0),returns=state.falls.filter(f=>f.returned).length;
+ document.getElementById("manStats").innerHTML=`<div class="stat"><b>${builds}</b><span>BUILDS</span></div><div class="stat"><b>${quests}</b><span>QUESTS</span></div><div class="stat"><b>${codes}</b><span>CODE WINS</span></div><div class="stat"><b>${state.falls.length}</b><span>FALLS</span></div><div class="stat"><b>${returns}</b><span>RETURNS</span></div><div class="stat"><b>${codeStreak()}</b><span>STREAK</span></div>`;
+ let bh=state.weightLogs.slice().reverse().slice(0,10).map(x=>`<tr><td>${prettyDate(x.date)}</td><td>${x.weight} kg</td><td>${x.bf?x.bf+"%":"—"}</td><td>${x.waist?x.waist+" cm":"—"}</td></tr>`).join("");
+ document.getElementById("bodyHistory").innerHTML=bh?`<table class="table"><tr><th>DATE</th><th>WEIGHT</th><th>BF</th><th>WAIST</th></tr>${bh}</table>`:`<div class="empty">No BODY data.</div>`;
+ let ws=Object.values(state.days).reduce((a,d)=>{let w=d.wealthData||{};a.i+=+w.income||0;a.e+=+w.expense||0;a.w+=+w.waste||0;return a},{i:0,e:0,w:0});
+ document.getElementById("wealthSummary").innerHTML=`<div class="statGrid"><div class="stat"><b>¥${ws.i.toLocaleString()}</b><span>INCOME</span></div><div class="stat"><b>¥${ws.e.toLocaleString()}</b><span>EXPENSE</span></div><div class="stat"><b>¥${ws.w.toLocaleString()}</b><span>WASTE</span></div><div class="stat"><b>¥${(ws.i-ws.e).toLocaleString()}</b><span>BALANCE</span></div></div>`;
+ document.getElementById("questHistory").innerHTML=renderQuestHistory()||`<div class="empty">No quest history.</div>`;
+}
+
+function exportData(){
+ let blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="resurgir-backup-"+dateKey()+".json";a.click();URL.revokeObjectURL(a.href);toast("BACKUP EXPORTED.")
+}
+function importData(ev){
+ let f=ev.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{let x=JSON.parse(r.result);if(!x.days)throw Error();state=x;save();toast("DATA IMPORTED.");render()}catch(e){alert("JSONの形式が正しくありません。")}};r.readAsText(f)
+}
+function resetToday(){
+ if(!confirm("今日の記録だけをリセットします。WAR LOG / REVIEW / 過去データは残ります。よろしいですか？"))return;
+ delete state.days[dateKey()];state.weightLogs=state.weightLogs.filter(x=>x.date!==dateKey());save();toast("TODAY RESET.");render()
+}
+
+document.getElementById("modal").addEventListener("click",e=>{if(e.target.id==="modal")closeModal()});
+render();
+</script>
+</body>
+</html>
